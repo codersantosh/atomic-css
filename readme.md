@@ -19,4 +19,4 @@ Add CSS to your HTML page: `at-grid.css` for development site or `at-grid.min.cs
 <link rel="stylesheet" href="css/at-grid.css" type="text/css">
 ```
 ## Demo
-See index.html
+[View Demo](https://codersantosh.github.io/at-grid/) or See index.html
