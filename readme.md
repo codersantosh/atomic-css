@@ -14,7 +14,7 @@ Customized `container: max-width` and `gutter` using CSS variable.
 --at-gutter:15px;
 }
 ```
-Add CSS to your HTML page: at-grid.css for development site or at-grid.min.css production site
+Add CSS to your HTML page: `at-grid.css` for development site or `at-grid.min.css` for production site
 ```html
 <link rel="stylesheet" href="css/at-grid.css" type="text/css">
 ```
