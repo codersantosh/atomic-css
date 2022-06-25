@@ -1,0 +1,30 @@
+/*custom 5th col */
+
+@mixin make-col-5($size, $columns: $grid-columns5) {
+    flex     : 0 0 percentage($size / $columns);
+    max-width: percentage($size / $columns);
+}
+
+.#{$grid-col-prefix}-2m3,
+.#{$grid-col-prefix}-xl-2m3,
+.#{$grid-col-prefix}-lg-2m3,
+.#{$grid-col-prefix}-md-2m3,
+.#{$grid-col-prefix}-sm-2m3,
+.#{$grid-col-prefix}-xs-2m3 {
+    position     : relative;
+    width        : 100%;
+    min-height   : 1px; // Prevent columns from collapsing when empty
+    padding-right: var(--at-gutter);
+    padding-left : var(--at-gutter);
+}
+
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .#{$grid-col-prefix}#{$infix}-2m3 {
+            @include make-col-5(1, 5);
+        }
+    }
+}

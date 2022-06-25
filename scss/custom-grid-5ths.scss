@@ -1,0 +1,100 @@
+/*custom 5th col */
+
+@mixin make-col-5($size, $columns: $grid-columns5) {
+    flex     : 0 0 percentage($size / $columns);
+    max-width: percentage($size / $columns);
+}
+
+@mixin make-col-offset5($size, $columns: $grid-columns5) {
+    $num       : $size / $columns;
+    margin-left: if($num==0, 0, percentage($num));
+}
+
+.#{$grid-col-prefix}-2m3,
+.#{$grid-col-prefix}-xl-2m3,
+.#{$grid-col-prefix}-lg-2m3,
+.#{$grid-col-prefix}-md-2m3,
+.#{$grid-col-prefix}-sm-2m3,
+.#{$grid-col-prefix}-xs-2m3 {
+    position     : relative;
+    width        : 100%;
+    min-height   : 1px; // Prevent columns from collapsing when empty
+    padding-right: var(--at-gutter);
+    padding-left : var(--at-gutter);
+}
+
+
+// $xs: 0;
+// $sm: 576px;
+// $md: 768px;
+// $lg: 992px;
+// $xl: 1200px;
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .#{$grid-col-prefix}#{$infix}-2m3 {
+            @include make-col-5(1, 5);
+        }
+        .#{$grid-prefix}-offset#{$infix}-2m3 {
+            @include make-col-offset5(1, 5);
+        }
+    }
+}
+
+// @each $breakpoint in map-keys($grid-breakpoints) {
+//     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+//     .#{$grid-col-prefix}#{$infix}-2m3 {
+//         @include make-col-5(1, 5);
+//     }
+// }
+// @media (min-width:$xs) {
+//     .#{$grid-col-prefix}-xs-2m3 {
+//         @include make-col-5(1, 5);
+//     }
+//     .offset-xs-2m3 {
+//         @include make-col-offset5(1, 5);
+//     }
+
+// }
+
+// @media (min-width:$sm) {
+//     .#{$grid-col-prefix}-sm-2m3 {
+//         @include make-col-5(1, 5);
+//     }
+//     .offset-sm-2m3 {
+//         @include make-col-offset5(1, 5);
+//     }
+
+// }
+
+// @media (min-width:$md) {
+//     .#{$grid-col-prefix}-md-2m3 {
+//         @include make-col-5(1, 5);
+//     }
+//     .offset-xl-2m3 {
+//         @include make-col-offset5(1, 5);
+//     }
+
+// }
+
+// @media (min-width:$lg) {
+//     .#{$grid-col-prefix}-lg-2m3 {
+//         @include make-col-5(1, 5);
+//     }
+//     .offset-lg-2m3 {
+//         @include make-col-offset5(1, 5);
+//     }
+
+// }
+
+// @media (min-width:$xl) {
+//     .#{$grid-col-prefix}-xl-2m3 {
+//         @include make-col-5(1, 5);
+//     }
+//     .offset-xl-2m3 {
+//         @include make-col-offset5(1, 5);
+//     }
+
+// }

@@ -1,0 +1,22 @@
+// stylelint-disable declaration-no-important
+
+//
+// Utilities for common `display` values
+//
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    
+    .#{$grid-prefix}#{$infix}-d-none        { display: none !important; }
+    .#{$grid-prefix}#{$infix}-inline       { display: inline !important; }
+    .#{$grid-prefix}#{$infix}-inline-block { display: inline-block !important; }
+    .#{$grid-prefix}#{$infix}-block        { display: block !important; }
+    .#{$grid-prefix}#{$infix}-table        { display: table !important; }
+    .#{$grid-prefix}#{$infix}-table-row    { display: table-row !important; }
+    .#{$grid-prefix}#{$infix}-table-cell   { display: table-cell !important; }
+    .#{$grid-prefix}#{$infix}-flex         { display: flex !important; }
+    .#{$grid-prefix}#{$infix}-inline-flex  { display: inline-flex !important; }
+
+  }
+}

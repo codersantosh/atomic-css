@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.sass-cache/
+.idea/
+TEST*.xml
+.DS_Store
+Thumbs.db

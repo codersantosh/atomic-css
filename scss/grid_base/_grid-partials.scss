@@ -1,0 +1,51 @@
+// Grid Container widths
+
+@if $enable-grid-classes {
+  .#{$grid-prefix}-container {
+    @include make-container();
+    @include make-container-max-widths();
+  }
+}
+
+// Grid Fluid container
+//
+// Utilizes the mixin meant for fixed width containers, but with 100% width for
+// fluid, full width layouts.
+
+@if $enable-grid-classes {
+  .#{$grid-prefix}-container-fluid {
+    @include make-container();
+  }
+}
+
+// Grid Row
+//
+// Grid Rows contain and clear the floats of your columns.
+
+@if $enable-grid-classes {
+  .#{$grid-prefix}-row {
+    @include make-row();
+  }
+
+  // Remove the negative margin from default .row, then the horizontal padding
+  // from all immediate children columns (to prevent runaway style inheritance).
+  .#{$grid-prefix }-no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .#{$grid-col-prefix},
+    > [class*="#{$grid-col-prefix}-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}
+
+// Grid
+//
+// Common styles for small and large grid columns
+
+@if $enable-grid-classes {
+  @include make-grid-columns();
+
+}
