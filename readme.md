@@ -11,6 +11,7 @@ Customized `container: max-width` and `gutter` using CSS variable.
 --at-container-md: 720px;
 --at-container-lg: 960px;
 --at-container-xl: 1140px;
+--at-container-xxl: 1400px;
 --at-gutter:15px;
 }
 ```
@@ -28,6 +29,7 @@ $at_grid_css_var = "
         --at-container-md: 720px;
         --at-container-lg: 960px;
         --at-container-xl: 1140px;
+        --at-container-xxl: 1400px;
         --at-gutter:15px;
     }
 ";
