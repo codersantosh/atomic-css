@@ -1619,6 +1619,12 @@
     justify-content: space-around !important;
 }
 
+.at-justify-content-evenly {
+    -webkit-box-pack: space-evenly !important;
+    -ms-flex-pack: space-evenly !important;
+    justify-content: space-evenly !important;
+}
+
 .at-align-items-start {
     -webkit-box-align: start !important;
     -ms-flex-align: start !important;
@@ -1808,6 +1814,12 @@
     .at-justify-content-sm-around {
         -ms-flex-pack: distribute !important;
         justify-content: space-around !important;
+    }
+
+    .at-justify-content-sm-evenly {
+        -webkit-box-pack: space-evenly !important;
+        -ms-flex-pack: space-evenly !important;
+        justify-content: space-evenly !important;
     }
 
     .at-align-items-sm-start {
@@ -2002,6 +2014,12 @@
         justify-content: space-around !important;
     }
 
+    .at-justify-content-md-evenly {
+        -webkit-box-pack: space-evenly !important;
+        -ms-flex-pack: space-evenly !important;
+        justify-content: space-evenly !important;
+    }
+
     .at-align-items-md-start {
         -webkit-box-align: start !important;
         -ms-flex-align: start !important;
@@ -2192,6 +2210,12 @@
     .at-justify-content-lg-around {
         -ms-flex-pack: distribute !important;
         justify-content: space-around !important;
+    }
+
+    .at-justify-content-lg-evenly {
+        -webkit-box-pack: space-evenly !important;
+        -ms-flex-pack: space-evenly !important;
+        justify-content: space-evenly !important;
     }
 
     .at-align-items-lg-start {
@@ -2386,6 +2410,12 @@
         justify-content: space-around !important;
     }
 
+    .at-justify-content-xl-evenly {
+        -webkit-box-pack: space-evenly !important;
+        -ms-flex-pack: space-evenly !important;
+        justify-content: space-evenly !important;
+    }
+
     .at-align-items-xl-start {
         -webkit-box-align: start !important;
         -ms-flex-align: start !important;
@@ -2576,6 +2606,12 @@
     .at-justify-content-xxl-around {
         -ms-flex-pack: distribute !important;
         justify-content: space-around !important;
+    }
+
+    .at-justify-content-xxl-evenly {
+        -webkit-box-pack: space-evenly !important;
+        -ms-flex-pack: space-evenly !important;
+        justify-content: space-evenly !important;
     }
 
     .at-align-items-xxl-start {

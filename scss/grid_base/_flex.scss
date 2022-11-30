@@ -27,6 +27,7 @@
     .#{$grid-prefix}-justify-content#{$infix}-center  { justify-content: center !important; }
     .#{$grid-prefix}-justify-content#{$infix}-between { justify-content: space-between !important; }
     .#{$grid-prefix}-justify-content#{$infix}-around  { justify-content: space-around !important; }
+    .#{$grid-prefix}-justify-content#{$infix}-evenly  { justify-content: space-evenly !important; }
 
     .#{$grid-prefix}-align-items#{$infix}-start    { align-items: flex-start !important; }
     .#{$grid-prefix}-align-items#{$infix}-end      { align-items: flex-end !important; }
