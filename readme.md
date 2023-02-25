@@ -13,9 +13,8 @@ To further simplify the development process, Atomic CSS includes CSS class names
 In summary, Atomic CSS is a revolutionary CSS framework that provides a new methodology for writing modern CSS. It includes CSS variables, Semantic HTML, Flexbox Grid System, and intuitive class names based on CSS properties. With Atomic CSS, developers can create maintainable, scalable, and responsive web designs with ease.
 
 ## Uses
-
-````
 Add CSS to your HTML page: `atomic.css` for development site or `atomic.min.css` for production site
+
 ```html
 <link rel="stylesheet" href="css/atomic.css" type="text/css">
 ````
@@ -26,7 +25,6 @@ Add CSS to your HTML page: `atomic.css` for development site or `atomic.min.css`
 wp_enqueue_style( 'atomic', 'url-path-to/atomic.min.css', array(), 1.0.0 );
 
 ```
-
 ## Demo
 
 [View Demo](https://codersantosh.github.io/atomic-css/) or See index.html
