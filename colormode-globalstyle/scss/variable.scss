@@ -1,0 +1,170 @@
+//ClassesPrefix
+$appPrefix: '.at';
+
+//Root variable Prefix
+$varPrefix: '--at';
+
+//global styles : with state and media queries
+//flex properties given from AT-Grid
+:root {
+	// Container max width and gutter, dont use #{$varPrefix}
+	#{$varPrefix}-ctnr: 1140px;
+	#{$varPrefix}-ctnr-min: 1100px;
+	#{$varPrefix}-gtr: 15px;
+
+	//Color value (dynamic value): hex,rgb,rgba,gradient,hsl. (Global)
+	#{$varPrefix}-cl: initial;
+
+	//Accent color
+	#{$varPrefix}-acl: var(#{$varPrefix}-cl);
+
+	// Background
+	#{$varPrefix}-bg-cl: initial;
+	#{$varPrefix}-bg-img: initial;
+	#{$varPrefix}-bg-pos: initial;
+	#{$varPrefix}-bg-sz: initial;
+	#{$varPrefix}-bg-rpt: initial;
+	#{$varPrefix}-bg-org: initial;
+	#{$varPrefix}-bg-atch: initial;
+	#{$varPrefix}-bg-blend-mode: initial;
+
+	// Border
+	#{$varPrefix}-bdr-w: initial;
+	#{$varPrefix}-bdr-sty: initial;
+	#{$varPrefix}-bdr-cl: initial;
+
+	// Border radius
+	#{$varPrefix}-bdr-rad: initial;
+
+	// Position group
+	#{$varPrefix}-b: initial;
+	#{$varPrefix}-pos: initial;
+	#{$varPrefix}-t: initial;
+	#{$varPrefix}-r: initial;
+	#{$varPrefix}-l: initial;
+
+	// box-reflect(Position)
+	#{$varPrefix}-box-refl: initial;
+
+	// Box shadow
+	#{$varPrefix}-box-sdw: initial;
+
+	// Box sizing
+	#{$varPrefix}-box-szg: initial;
+
+	// Table group
+	#{$varPrefix}-cpt-sd: initial;
+	#{$varPrefix}-tbl-lyt: initial;
+
+	//Caret color
+	#{$varPrefix}-ct-cl: var(#{$varPrefix}-cl);
+
+	// cursor
+	#{$varPrefix}-cur: initial;
+
+	// direction
+	#{$varPrefix}-dir: initial;
+
+	// filter
+	#{$varPrefix}-flt: initial;
+
+	// display handle by at - flex css
+	// flex related css handled by at - flex css
+
+	// Font/Typography group
+	#{$varPrefix}-fnt-sz: initial;
+	// #{$varPrefix}-fnt-wt : initial;
+	#{$varPrefix}-fnt-fam: initial;
+	#{$varPrefix}-fnt-sty: normal;
+	#{$varPrefix}-txt-tf: initial;
+	#{$varPrefix}-txt-dec: initial;
+	#{$varPrefix}-ln-h: normal;
+	#{$varPrefix}-ltr-sp: initial;
+
+	// Gap
+	#{$varPrefix}-gap: initial;
+
+	// Not using any grid properties, we use flex from by at - flex css
+
+	// List style
+	#{$varPrefix}-ls-sty: initial;
+
+	// Margin
+	#{$varPrefix}-m: initial;
+
+	// Mask
+	#{$varPrefix}-msk-img: initial;
+	#{$varPrefix}-msk-mode: initial;
+	#{$varPrefix}-msk-org: initial;
+	#{$varPrefix}-msk-pos: initial;
+	#{$varPrefix}-msk-rpt: initial;
+	#{$varPrefix}-msk-sz: initial;
+
+	// Max height
+	#{$varPrefix}-max-h: initial;
+
+	// Max width
+	#{$varPrefix}-max-w: initial;
+
+	// Min height
+	#{$varPrefix}-min-h: initial;
+
+	// Min width
+	#{$varPrefix}-min-w: initial;
+
+	// mix-blend-mode
+	// #{$varPrefix}-mix-blend-mode: initial;
+
+	// offser,offset-anchor and other offect  TODO?
+
+	// Opacity
+	#{$varPrefix}-opa: initial;
+
+	// Overflow
+	#{$varPrefix}-ovf: initial;
+
+	// Outline
+	#{$varPrefix}-outl: initial;
+
+	// Padding
+	#{$varPrefix}-p: initial;
+
+	// pointer-events
+	#{$varPrefix}-ptr-ev: initial;
+
+	// Transform group
+	#{$varPrefix}-ppv: initial;
+	#{$varPrefix}-ppv-org: initial;
+	#{$varPrefix}-tf: initial;
+	#{$varPrefix}-tf-org: initial;
+	#{$varPrefix}-tf-sty: initial;
+
+	// row-gap
+	#{$varPrefix}-row-gap: initial;
+
+	// scroll-behavior
+	#{$varPrefix}-scr-beh: initial;
+
+	// Text Align
+	#{$varPrefix}-txt-al: initial;
+
+	// Text shadow
+	#{$varPrefix}-txt-sdw: initial;
+
+	// Transition
+	#{$varPrefix}-trs: initial;
+
+	// Width
+	#{$varPrefix}-w: initial;
+
+	// Visibility
+	#{$varPrefix}-vis: initial;
+
+	// Word group
+	#{$varPrefix}-wrd-brk: initial;
+	#{$varPrefix}-wrd-spg: initial;
+	#{$varPrefix}-wrd-wrp: initial;
+
+	// Z-index
+	#{$varPrefix}-z-idx: initial;
+}

@@ -1,3 +1,4 @@
+git/
 node_modules/
 dist/
 .sass-cache/
@@ -5,3 +6,4 @@ dist/
 TEST*.xml
 .DS_Store
 Thumbs.db
+colormode-globalstyle-backup

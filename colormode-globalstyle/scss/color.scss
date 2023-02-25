@@ -1,0 +1,131 @@
+//elements : h1-h6,p,button,a
+/* 
+
+Here is a brief description and example of each of the CSS properties that take color values:
+
+color: Specifies the color of text content. Example: color: red;
+background-color: Specifies the background color of an element. Example: background-color: yellow;
+border-color: Specifies the color of an element's border. Example: border-color: blue;
+box-shadow-color: Specifies the color of an element's box shadow. Example: box-shadow-color: rgba(0,0,0,0.5);
+text-shadow-color: Specifies the color of an element's text shadow. Example: text-shadow-color: black;
+fill: Specifies the fill color for a vector graphic. Example: fill: green;
+stroke: Specifies the color of a vector graphic's outline. Example: stroke: red;
+border-top-color: Specifies the color of the top border of an element. Example: border-top-color: purple;
+border-right-color: Specifies the color of the right border of an element. Example: border-right-color: pink;
+border-bottom-color: Specifies the color of the bottom border of an element. Example: border-bottom-color: orange;
+border-left-color: Specifies the color of the left border of an element. Example: border-left-color: gray;
+outline-color: Specifies the color of an element's outline. Example: outline-color: brown;
+column-rule-color: Specifies the color of a column rule in multi-column layout. Example: column-rule-color: green;
+caret-color: Specifies the color of the text input caret. Example: caret-color: blue;
+*/
+h1 {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-cl: #6c757d;
+			#{$varPrefix}-fnt-sz: 50px;
+		}
+	}
+}
+
+h2 {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-cl: #6c757d;
+			#{$varPrefix}-fnt-sz: 43px;
+		}
+	}
+}
+
+h3 {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-cl: #6c757d;
+			#{$varPrefix}-fnt-sz: 36px;
+		}
+	}
+}
+
+h4 {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-cl: #6c757d;
+			#{$varPrefix}-fnt-sz: 29px;
+		}
+	}
+}
+
+h5 {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-cl: #6c757d;
+			#{$varPrefix}-fnt-sz: 22px;
+		}
+	}
+}
+
+h6 {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-cl: #6c757d;
+			#{$varPrefix}-fnt-sz: 14px;
+		}
+	}
+}
+
+p {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-cl: #6c757d;
+			#{$varPrefix}-fnt-sz: 16px;
+		}
+	}
+}
+
+a {
+	&#{$appPrefix} {
+		&-color {
+			#{$varPrefix}-fnt-sz: 14px;
+			#{$varPrefix}-cl: #ffc107;
+
+			&:hover {
+				#{$varPrefix}-cl: #cea323;
+			}
+		}
+	}
+}
+
+button {
+	&#{$appPrefix} {
+		&-color {
+			//#{$varPrefix}-p         : 10px 30px;
+			#{$varPrefix}-cl: #fff;
+			#{$varPrefix}-bg-cl: #dc3545;
+			#{$varPrefix}-bdr-cl: #9b1c29;
+
+			&:hover {
+				#{$varPrefix}-cl: #fff;
+				#{$varPrefix}-bg-cl: #7f101b;
+				#{$varPrefix}-bdr-cl: #7f101b;
+			}
+		}
+	}
+}
+
+[data-at-theme='dark'] {
+	p {
+		&#{$appPrefix} {
+			&-color {
+				#{$varPrefix}-cl: #bfbfbf;
+			}
+		}
+	}
+
+	button {
+		&#{$appPrefix} {
+			&-color {
+				#{$varPrefix}-cl: #fff;
+				#{$varPrefix}-bg-cl: #131313;
+			}
+		}
+	}
+}

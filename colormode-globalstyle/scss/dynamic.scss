@@ -1,0 +1,729 @@
+//ClassesPrefix
+$appPrefix: '.at';
+
+//Root variable Prefix
+$varPrefix: '--at';
+
+@import './color.scss';
+
+//Global CSS : Applied to all HTML including or excluding Atomic CSS
+* {
+    #{$varPrefix}-m      : 0;
+    #{$varPrefix}-p      : 0;
+    #{$varPrefix}-box-szg: border-box;
+}
+
+body {
+    #{$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+}
+
+//element styles
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    #{$varPrefix}-fnt-wt: bold;
+}
+
+h1 {
+    #{$varPrefix}-cl    : #060606;
+    #{$varPrefix}-fnt-sz: 50px;
+    #{$varPrefix}-m     : 0 0 30px 0;
+    margin              : var(#{$varPrefix}-m);
+}
+
+h2 {
+    #{$varPrefix}-cl    : #060606;
+    #{$varPrefix}-fnt-sz: 43px;
+    #{$varPrefix}-m     : 0 0 30px 0;
+    margin              : var(#{$varPrefix}-m);
+}
+
+h3 {
+    #{$varPrefix}-cl    : #060606;
+    #{$varPrefix}-fnt-sz: 36px;
+    #{$varPrefix}-m     : 0 0 25px 0;
+    margin              : var(#{$varPrefix}-m);
+}
+
+h4 {
+    #{$varPrefix}-cl    : #060606;
+    #{$varPrefix}-fnt-sz: 29px;
+    #{$varPrefix}-m     : 0 0 20px 0;
+    margin              : var(#{$varPrefix}-m);
+}
+
+h5 {
+    #{$varPrefix}-cl    : #060606;
+    #{$varPrefix}-fnt-sz: 22px;
+    #{$varPrefix}-m     : 0 0 15px 0;
+    margin              : var(#{$varPrefix}-m);
+}
+
+h6 {
+    #{$varPrefix}-cl    : #060606;
+    #{$varPrefix}-fnt-sz: 14px;
+    #{$varPrefix}-m     : 0 0 10px 0;
+    margin              : var(#{$varPrefix}-m);
+}
+
+p {
+    #{$varPrefix}-fnt-sz: 16px;
+    #{$varPrefix}-cl    : #3c3c3c;
+    #{$varPrefix}-m     : 0 0 15px 0;
+    margin              : var(#{$varPrefix}-m);
+}
+
+a {
+    #{$varPrefix}-fnt-sz: 14px;
+    #{$varPrefix}-cl    : #712cf9;
+
+    &:hover {
+        #{$varPrefix}-cl: #4718a4;
+    }
+}
+
+code {
+    #{$varPrefix}-cl: #d63384;
+}
+
+li {
+    #{$varPrefix}-cl: #3c3c3c;
+}
+
+img {
+    #{$varPrefix}-w: 100%;
+    max-width      : var(#{$varPrefix}-w);
+}
+
+article {
+    #{$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+    #{$varPrefix}-fnt-sz : 14px;
+    #{$varPrefix}-cl     : #000;
+
+    h4 {
+        #{$varPrefix}-m: 0 0 15px 0;
+        margin         : var(#{$varPrefix}-m);
+    }
+
+    figure {
+        #{$varPrefix}-m: 15px 0;
+        margin         : var(#{$varPrefix}-m);
+    }
+
+    header {
+        div {
+            gap: 5px;
+
+            span {
+                gap: 5px;
+            }
+        }
+    }
+}
+
+details {
+    transition: all 0.5s ease-in-out 0s;
+
+    &:not(:last-of-type) {
+        #{$varPrefix}-m: 0 0 15px 0;
+        margin         : var(#{$varPrefix}-m);
+    }
+
+    summary {
+        #{$varPrefix}-bdr-w  : 1px;
+        #{$varPrefix}-bdr-sty: solid;
+        #{$varPrefix}-bdr-cl : #ddd;
+        #{$varPrefix}-p      : 10px;
+        #{$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+        #{$varPrefix}-m      : 0 0 15px 0;
+        #{$varPrefix}-cl     : #000;
+        list-style           : none;
+        margin               : var(#{$varPrefix}-m);
+        color                : var(#{$varPrefix}-cl);
+        border-color         : var(#{$varPrefix}-bdr-cl);
+        border-width         : var(#{$varPrefix}-bdr-w);
+        border-style         : var(#{$varPrefix}-bdr-sty);
+        padding              : var(#{$varPrefix}-p);
+        font-family          : var(#{$varPrefix}-fnt-fam);
+        cursor               : pointer;
+
+        svg {
+            transition: all 0.5s ease-in-out 0s;
+        }
+    }
+
+    &[open] {
+        transition: all 0.5s ease-in-out 0s;
+
+        summary {
+            svg {
+                #{$varPrefix}-tf: rotate(180deg);
+                transform       : var(#{$varPrefix}-tf);
+            }
+        }
+    }
+}
+
+//For Global Button need button tag
+
+#{$appPrefix} {
+    &-btn {
+
+        #{$varPrefix}-cl     : #fff;
+        #{$varPrefix}-bg-cl  : #0d6efd;
+        #{$varPrefix}-bdr-cl : #0c5ed7;
+        #{$varPrefix}-bdr-w  : 1px;
+        #{$varPrefix}-bdr-sty: solid;
+        #{$varPrefix}-p      : 10px 25px;
+
+        &:hover {
+            #{$varPrefix}-cl    : #fff;
+            #{$varPrefix}-bg-cl : #0f4087;
+            #{$varPrefix}-bdr-cl: #0f4087;
+        }
+
+
+        &-outl {
+            #{$varPrefix}-bg-cl  : transparent;
+            #{$varPrefix}-cl     : #0c5ed7;
+            #{$varPrefix}-bdr-cl : #0c5ed7;
+            #{$varPrefix}-bdr-w  : 1px;
+            #{$varPrefix}-bdr-sty: solid;
+            #{$varPrefix}-p      : 10px 15px;
+
+            &:hover {
+                #{$varPrefix}-bg-cl : transparent;
+                #{$varPrefix}-cl    : #0c5ed7;
+                #{$varPrefix}-bdr-cl: #0f4087;
+            }
+        }
+
+        &-lnk {
+            #{$varPrefix}-cl   : #0c5ed7;
+            #{$varPrefix}-bg-cl: transparent;
+            #{$varPrefix}-bdr-w: 0;
+            #{$varPrefix}-p    : 0;
+
+            &:hover {
+                #{$varPrefix}-cl   : #0f4087;
+                #{$varPrefix}-bg-cl: transparent;
+            }
+        }
+    }
+}
+
+//Global CSS : Applied to only HTML of Atomic CSS excluding other global HTML
+//demo styles
+#{$appPrefix} {
+    &-btn {
+        &#{$appPrefix} {
+            &-p {
+                #{$varPrefix}-p: 10px 30px;
+            }
+        }
+    }
+
+    &-sec {
+        &-1 {
+            #{$varPrefix}-bg-cl: #ececec;
+
+            &#{$appPrefix} {
+                &-p {
+                    #{$varPrefix}-p: 40px 0;
+                }
+            }
+        }
+
+        &-2 {
+            #{$varPrefix}-bg-cl: #fff;
+
+            &#{$appPrefix} {
+                &-p {
+                    #{$varPrefix}-p: 80px 0;
+                }
+            }
+        }
+
+        &-3 {
+            #{$varPrefix}-bg-cl: #fbfbfb;
+
+            &#{$appPrefix} {
+                &-p {
+                    #{$varPrefix}-p: 80px 0;
+                }
+            }
+        }
+    }
+
+    &-tbl {
+        #{$varPrefix}-m: 0 0 30px 0;
+        margin         : var(#{$varPrefix}-m);
+
+        #{$appPrefix} {
+            &-bdr {
+                #{$varPrefix}-bdr-w  : 0 0 1px 0;
+                #{$varPrefix}-bdr-sty: solid;
+                #{$varPrefix}-bdr-cl : #ddd;
+            }
+        }
+
+        &-cel {
+            #{$varPrefix}-p      : 15px;
+            #{$varPrefix}-bdr-w  : 0 0 1px 0;
+            #{$varPrefix}-bdr-sty: solid;
+            #{$varPrefix}-bdr-cl : #ddd;
+            padding              : var(#{$varPrefix}-p);
+            border-style         : var(#{$varPrefix}-bdr-sty);
+            border-width         : var(#{$varPrefix}-bdr-w);
+            border-color         : var(#{$varPrefix}-bdr-cl);
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                #{$varPrefix}-m: 0;
+            }
+
+            &#{$appPrefix} {
+                &-cl {
+                    #{$varPrefix}-cl: #323537;
+                    color           : var(--at-color);
+                }
+            }
+        }
+    }
+
+    &-m {
+        &.mt-15 {
+            #{$varPrefix}-m: 15px 0 0 0;
+        }
+
+        &.mt-30 {
+            #{$varPrefix}-m: 30px 0 0 0;
+        }
+
+        &.mb-30 {
+            #{$varPrefix}-m: 0 0 30px 0;
+        }
+
+        &.mb-15 {
+            #{$varPrefix}-m: 0 0 15px 0;
+        }
+    }
+
+    &-img {
+        max-width: 100%;
+        height   : auto;
+    }
+
+    //gap
+    &-gap {
+        &-5 {
+            #{$varPrefix}-gap: 5px;
+        }
+
+        &-20 {
+            #{$varPrefix}-gap: 20px;
+        }
+    }
+
+    //post
+    &-post {
+        &#{$appPrefix} {
+            &-p {
+                #{$varPrefix}-p: 20px;
+            }
+
+            &-bdr {
+                #{$varPrefix}-bdr-w  : 1px;
+                #{$varPrefix}-bdr-cl : #ddd;
+                #{$varPrefix}-bdr-sty: solid;
+            }
+
+            &-rad {
+                #{$varPrefix}-bdr-rad: 5px;
+            }
+
+            &-bg-cl {
+                #{$varPrefix}-bg-cl: #fff;
+            }
+
+            &-box-sdw {
+                #{$varPrefix}-box-sdw: 0 0 10px 1px rgba(0, 0, 0, 0.03);
+            }
+        }
+
+        #{$appPrefix} {
+            &-m {
+                &.m-minus {
+                    #{$varPrefix}-m: 20px -20px;
+                }
+            }
+        }
+
+        &-ttl {
+            &#{$appPrefix} {
+                &-typo {
+                    #{$varPrefix}-fnt-sz: 28px;
+                    #{$varPrefix}-fnt-wt: 700;
+                }
+            }
+        }
+
+        &-mtdt {
+            #{$varPrefix}-gap: 20px;
+        }
+    }
+
+    // Accordion
+
+    &-acc {
+        &-ttl {
+            #{$varPrefix}-bg-cl: #f5f5f5;
+
+            &:hover {
+                #{$varPrefix}-bg-cl : #0d6efd;
+                #{$varPrefix}-bdr-cl: #0c5ed7;
+                #{$varPrefix}-cl    : #fff;
+            }
+        }
+
+        &[open] {
+            #{$appPrefix} {
+                &-acc {
+                    &-ttl {
+                        #{$varPrefix}-bg-cl : #0d6efd;
+                        #{$varPrefix}-bdr-cl: #0c5ed7;
+                        #{$varPrefix}-cl    : #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    //Nav Tabs
+    &-nav {
+        list-style: none;
+
+        &-lnk {
+            #{$varPrefix}-bg-cl  : transparent;
+            #{$varPrefix}-p      : 10px 15px;
+            #{$varPrefix}-bdr-cl : transparent;
+            #{$varPrefix}-bdr-w  : 1px;
+            #{$varPrefix}-bdr-sty: solid;
+            #{$varPrefix}-cl     : #000;
+
+            padding         : var(#{$varPrefix}-p);
+            background-color: var(#{$varPrefix}-bg-cl);
+            border-style    : var(#{$varPrefix}-bdr-sty);
+            border-width    : var(#{$varPrefix}-bdr-w);
+            border-color    : var(#{$varPrefix}-bdr-cl);
+            color           : var(#{$varPrefix}-cl);
+
+            &#{$appPrefix} {
+                &-active {
+                    #{$varPrefix}-bg-cl : #fbfbfb;
+                    #{$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
+                    border-color        : var(#{$varPrefix}-bdr-cl);
+                }
+            }
+        }
+
+        &-tabs {
+            #{$varPrefix}-bdr-cl : #ddd;
+            #{$varPrefix}-bdr-w  : 0 0 1px 0;
+            #{$varPrefix}-bdr-sty: solid;
+            border-style         : var(#{$varPrefix}-bdr-sty);
+            border-width         : var(#{$varPrefix}-bdr-w);
+            border-color         : var(#{$varPrefix}-bdr-cl);
+
+            #{$appPrefix} {
+                &-nav {
+                    &-lnk {
+                        #{$varPrefix}-m: calc(-1 * var(#{$varPrefix}-bdr-w));
+                        margin         : var(#{$varPrefix}-m);
+                    }
+                }
+            }
+
+            &-fill {
+                #{$varPrefix}-bdr-cl: #0d6efd;
+
+                #{$appPrefix} {
+                    &-nav {
+                        &-lnk {
+                            #{$varPrefix}-cl: #0d6efd;
+                            color           : var(#{$varPrefix}-cl);
+
+                            &#{$appPrefix} {
+                                &-active {
+                                    #{$varPrefix}-cl    : #fff;
+                                    #{$varPrefix}-bg-cl : #0d6efd;
+                                    #{$varPrefix}-bdr-cl: #0d6efd #0d6efd transparent #0d6efd;
+                                    border-color        : var(#{$varPrefix}-bdr-cl);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &-tab {
+        &-pane {
+            #{$varPrefix}-p: 15px;
+            padding        : var(#{$varPrefix}-p);
+        }
+    }
+
+    &-footer {
+        &#{$appPrefix} {
+            &-p {
+                #{$varPrefix}-p: 20px;
+            }
+
+            &-txt-al {
+                #{$varPrefix}-txt-al: center;
+            }
+
+            &-m {
+                #{$varPrefix}-m: 0;
+            }
+        }
+    }
+}
+
+[data-at-theme='dark'] {
+    #{$varPrefix}-cl           : #fff;
+    #{$varPrefix}-bg-cl        : #000;
+    #{$varPrefix}-bdr-cl       : #000;
+    #{$varPrefix}-box-sdw-color: #fff;
+    #{$varPrefix}-txt-sdw-color: #fff;
+
+    //elements : h1-h6,p,button,a
+    h1 {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    h2 {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    h3 {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    h4 {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    h5 {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    h6 {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    p {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    a {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    #{$appPrefix} {
+        &-btn {
+
+            #{$varPrefix}-cl    : #fff;
+            #{$varPrefix}-bg-cl : #000;
+            #{$varPrefix}-bdr-cl: #000;
+
+            &:hover {
+                #{$varPrefix}-cl    : #fff;
+                #{$varPrefix}-bg-cl : #2d2d2d;
+                #{$varPrefix}-bdr-cl: #2d2d2d;
+            }
+
+
+            &-outl {
+                #{$varPrefix}-bg-cl : transparent;
+                #{$varPrefix}-cl    : #2d2d2d;
+                #{$varPrefix}-bdr-cl: #2d2d2d;
+
+                &:hover {
+                    #{$varPrefix}-cl    : #666;
+                    #{$varPrefix}-bdr-cl: #666;
+                }
+            }
+
+            &-lnk {
+                #{$varPrefix}-cl   : #fff;
+                #{$varPrefix}-bg-cl: transparent;
+
+                &:hover {
+                    #{$varPrefix}-bg-cl: transparent;
+                    #{$varPrefix}-cl   : #2d2d2d;
+                }
+            }
+        }
+    }
+
+    article {
+        #{$varPrefix}-cl: #fff;
+    }
+
+    details {
+        summary {
+            #{$varPrefix}-bdr-cl: #444;
+            #{$varPrefix}-cl    : #fff;
+        }
+    }
+
+    //demo styles
+    #{$appPrefix} {
+        &-sec {
+            &-1 {
+                #{$varPrefix}-bg-cl: #0d0d0d;
+            }
+
+            &-2 {
+                #{$varPrefix}-bg-cl: #000;
+            }
+
+            &-3 {
+                #{$varPrefix}-bg-cl: #131313;
+            }
+        }
+
+        &-tbl {
+            &-cel {
+                #{$varPrefix}-cl: #fff;
+
+                &#{$appPrefix} {
+                    &-cl {
+                        #{$varPrefix}-cl: #828282;
+                    }
+                }
+            }
+        }
+
+        // Accordion
+
+        &-acc {
+            &-ttl {
+                #{$varPrefix}-bg-cl: #131313;
+
+                &:hover {
+                    #{$varPrefix}-bg-cl : #2d2d2d;
+                    #{$varPrefix}-bdr-cl: #333;
+                    #{$varPrefix}-cl    : #fff;
+                }
+            }
+
+            &[open] {
+                #{$appPrefix} {
+                    &-acc {
+                        &-ttl {
+                            #{$varPrefix}-bg-cl : #2d2d2d;
+                            #{$varPrefix}-bdr-cl: #333;
+                            #{$varPrefix}-cl    : #fff;
+                        }
+                    }
+                }
+            }
+        }
+
+        //post
+        &-post {
+            &#{$appPrefix} {
+                &-bdr {
+                    #{$varPrefix}-bdr-cl: #131313;
+                }
+
+                &-bg-cl {
+                    #{$varPrefix}-bg-cl: #2d2d2d;
+                }
+            }
+        }
+
+        //Nav Tabs
+        &-nav {
+            list-style: none;
+
+            &-lnk {
+                #{$varPrefix}-cl: #fff;
+
+                &#{$appPrefix} {
+                    &-active {
+                        #{$varPrefix}-bg-cl : #131313;
+                        #{$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
+                    }
+                }
+            }
+
+            &-tabs {
+                #{$varPrefix}-bdr-cl: #ddd;
+
+                &-fill {
+                    #{$varPrefix}-bdr-cl: #131313;
+
+                    #{$appPrefix} {
+                        &-nav {
+                            &-lnk {
+                                #{$varPrefix}-cl: #2d2d2d;
+
+                                &#{$appPrefix} {
+                                    &-active {
+                                        #{$varPrefix}-cl    : #fff;
+                                        #{$varPrefix}-bg-cl : #131313;
+                                        #{$varPrefix}-bdr-cl: #131313 #131313 transparent #131313;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Wrapper elements : header,footer,section,article,aside,div,main,nav
+}
+
+@media (min-width: 576px) {
+    .at-ctnr {
+        --at-ctnr: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .at-ctnr {
+        --at-ctnr: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .at-ctnr {
+        --at-ctnr: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .at-ctnr {
+        --at-ctnr: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .at-ctnr {
+        --at-ctnr: 1320px;
+    }
+}

@@ -1,34 +1,34 @@
 // Variables
-$enable-grid-classes:       true !default;
+$enable-grid-classes: true !default;
 
 // Grid breakpoints
 // Rename it for dynamic PHP
 // @media query doesn't work on var(CSS variables)
 $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1400px,
 ) !default;
 
-@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-ascending($grid-breakpoints, '$grid-breakpoints');
 @include _assert-starts-at-zero($grid-breakpoints);
 
 // Grid containers
 $container-max-widths: (
-  sm: var(--at-container-sm),
-  md: var(--at-container-md),
-  lg: var(--at-container-lg),
-  xl: var(--at-container-xl),
-  xxl: var(--at-container-xxl)
+	sm: var(--at-ctnr),
+	md: var(--at-ctnr),
+	lg: var(--at-ctnr),
+	xl: var(--at-ctnr),
+	xxl: var(--at-ctnr),
 ) !default;
 
-@include _assert-ascending($container-max-widths, "$container-max-widths");
+@include _assert-ascending($container-max-widths, '$container-max-widths');
 
 // Grid columns
-$grid-columns:                12 !default;
-$grid-gutter-width:           30px !default;
-$grid-prefix : at;
-$grid-col-prefix : at-col;
+$grid-columns: 12 !default;
+$grid-gutter-width: 30px !default;
+$grid-prefix: at;
+$grid-col-prefix: at-col;

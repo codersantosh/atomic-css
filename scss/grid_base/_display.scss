@@ -5,35 +5,85 @@
 //
 
 @each $breakpoint in map-keys($grid-breakpoints) {
-  @include media-breakpoint-up($breakpoint) {
-    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-    
-    .#{$grid-prefix}#{$infix}-d-none        { display: none !important; }
-    .#{$grid-prefix}#{$infix}-inline       { display: inline !important; }
-    .#{$grid-prefix}#{$infix}-inline-block { display: inline-block !important; }
-    .#{$grid-prefix}#{$infix}-block        { display: block !important; }
-    .#{$grid-prefix}#{$infix}-table        { display: table !important; }
-    .#{$grid-prefix}#{$infix}-table-row    { display: table-row !important; }
-    .#{$grid-prefix}#{$infix}-table-cell   { display: table-cell !important; }
-    .#{$grid-prefix}#{$infix}-flex         { display: flex !important; }
-    .#{$grid-prefix}#{$infix}-inline-flex  { display: inline-flex !important; }
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-  }
+        .#{$grid-prefix}#{$infix}-d-non {
+            display: none !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-inl {
+            display: inline !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-inl-blk {
+            display: inline-block !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-blk {
+            display: block !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-tbl {
+            display: table !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-tbl-row {
+            display: table-row !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-tbl-cel {
+            display: table-cell !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-flx {
+            display: flex !important;
+        }
+
+        .#{$grid-prefix}#{$infix}-inl-flx {
+            display: inline-flex !important;
+        }
+    }
 }
-
 
 //
 // Utilities for toggling `display` in print
 //
 
 @media print {
-  .#{$grid-prefix}-print-none         { display: none !important; }
-  .#{$grid-prefix}-print-inline       { display: inline !important; }
-  .#{$grid-prefix}-print-inline-block { display: inline-block !important; }
-  .#{$grid-prefix}-print-block        { display: block !important; }
-  .#{$grid-prefix}-print-table        { display: table !important; }
-  .#{$grid-prefix}-print-table-row    { display: table-row !important; }
-  .#{$grid-prefix}-print-table-cell   { display: table-cell !important; }
-  .#{$grid-prefix}-print-flex         { display: flex !important; }
-  .#{$grid-prefix}-print-inline-flex  { display: inline-flex !important; }
+    .#{$grid-prefix}-prt-non {
+        display: none !important;
+    }
+
+    .#{$grid-prefix}-prt-inl {
+        display: inline !important;
+    }
+
+    .#{$grid-prefix}-prt-inl-blk {
+        display: inline-block !important;
+    }
+
+    .#{$grid-prefix}-prt-blk {
+        display: block !important;
+    }
+
+    .#{$grid-prefix}-prt-tbl {
+        display: table !important;
+    }
+
+    .#{$grid-prefix}-prt-tbl-row {
+        display: table-row !important;
+    }
+
+    .#{$grid-prefix}-prt-tbl-cel {
+        display: table-cell !important;
+    }
+
+    .#{$grid-prefix}-prt-flx {
+        display: flex !important;
+    }
+
+    .#{$grid-prefix}-prt-inl-flx {
+        display: inline-flex !important;
+    }
 }

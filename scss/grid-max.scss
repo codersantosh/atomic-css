@@ -2,15 +2,13 @@
 @import "grid_base/variables";
 
 @import "grid_mixin/breakpoints";
-
-@import "grid_minimal/grid-framework";
+@import "grid_mixin/grid-framework";
 @import "grid_mixin/grid-mixin";
 
 @import "grid_base/grid-partials";
-@import "grid_minimal/custom-grid-5ths";
 
-/*Utilities*/ 
-@import "grid_minimal/flex";
-@import "grid_minimal/display";
+@import "grid_base/flex";
+@import "grid_base/display";
 
+@import "custom-grid-5ths";
 

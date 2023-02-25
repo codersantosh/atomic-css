@@ -1,0 +1,342 @@
+:root {
+    --at-ctnr: 1140px;
+    --at-ctnr-min: 1100px;
+    --at-gtr: 15px;
+    --at-cl: initial;
+    --at-acl: var(--at-cl);
+    --at-bg-cl: initial;
+    --at-bg-img: initial;
+    --at-bg-pos: initial;
+    --at-bg-sz: initial;
+    --at-bg-rpt: initial;
+    --at-bg-org: initial;
+    --at-bg-atch: initial;
+    --at-bg-blend-mode: initial;
+    --at-bdr-w: initial;
+    --at-bdr-sty: initial;
+    --at-bdr-cl: initial;
+    --at-bdr-rad: initial;
+    --at-b: initial;
+    --at-pos: initial;
+    --at-t: initial;
+    --at-r: initial;
+    --at-l: initial;
+    --at-box-refl: initial;
+    --at-box-sdw: initial;
+    --at-box-szg: initial;
+    --at-cpt-sd: initial;
+    --at-tbl-lyt: initial;
+    --at-ct-cl: var(--at-cl);
+    --at-cur: initial;
+    --at-dir: initial;
+    --at-flt: initial;
+    --at-fnt-sz: initial;
+    --at-fnt-fam: initial;
+    --at-fnt-sty: normal;
+    --at-txt-tf: initial;
+    --at-txt-dec: initial;
+    --at-ln-h: normal;
+    --at-ltr-sp: initial;
+    --at-gap: initial;
+    --at-ls-sty: initial;
+    --at-m: initial;
+    --at-msk-img: initial;
+    --at-msk-mode: initial;
+    --at-msk-org: initial;
+    --at-msk-pos: initial;
+    --at-msk-rpt: initial;
+    --at-msk-sz: initial;
+    --at-max-h: initial;
+    --at-max-w: initial;
+    --at-min-h: initial;
+    --at-min-w: initial;
+    --at-opa: initial;
+    --at-ovf: initial;
+    --at-outl: initial;
+    --at-p: initial;
+    --at-ptr-ev: initial;
+    --at-ppv: initial;
+    --at-ppv-org: initial;
+    --at-tf: initial;
+    --at-tf-org: initial;
+    --at-tf-sty: initial;
+    --at-row-gap: initial;
+    --at-scr-beh: initial;
+    --at-txt-al: initial;
+    --at-txt-sdw: initial;
+    --at-trs: initial;
+    --at-w: initial;
+    --at-vis: initial;
+    --at-wrd-brk: initial;
+    --at-wrd-spg: initial;
+    --at-wrd-wrp: initial;
+    --at-z-idx: initial;
+}
+
+/* HTML elements can be broadly categorized into several types including:
+
+Structural(Semantic) elements: define the structure of a web page and include elements such as <header>, <footer>, <nav>, <main>, <section>, <article>, and <aside>.
+
+Text-level elements: define text-level content and include elements such as <p>, <h1>, <h2>, <h3>, <h4>, <h5>, <h6>, <a>, <em>, <strong>, <small>, <mark>, <del>, and <ins>.
+
+Media elements: define media content such as images, videos, and audio, and include elements such as <img>, <video>, and <audio>.
+
+Form elements: define form controls for user input and include elements such as <form>, <input>, <select>, <textarea>, <button>, <datalist>, <output>, and <label>.
+
+List elements: define lists of content and include elements such as <ul>, <ol>, and <li>.
+
+Table elements: define tabular data and include elements such as <table>, <thead>, <tbody>, <tfoot>, <tr>, <th>, and <td>.
+
+Display type: elements that define the display type of content such as block-level elements and inline elements.
+Block-level elements: These elements create a new block formatting context and occupy the full width available, automatically creating a new line before and after the element. Examples include <div>, <h1>, <p>, <ul>, <ol>, <table>, <form>, <header>, <footer>, etc.
+
+Inline elements: These elements only take up as much width as necessary and do not create a new line before or after the element. Examples include <span>, <a>, <img>, <em>, <strong>, <small>, etc.
+
+
+Interactivity: elements that provide interactive features such as buttons, checkboxes, radio buttons, and forms.
+
+Phrasing content: elements that define phrasing content and the way it is rendered, such as <em>, <strong>, <small>, etc.
+
+Metadata: elements that provide metadata about the document, such as <meta>, <title>, <link>, etc.
+*/
+* {
+    margin: var(--at-m);
+    padding: var(--at-p);
+    box-sizing: var(--at-box-szg);
+}
+
+html {
+    scroll-behavior: var(--at-scr-beh);
+}
+
+/* Text elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+button,
+code,
+span,
+li,
+.at-btn {
+    font-size: var(--at-fnt-sz);
+    font-weight: var(--at-fnt-wt);
+    font-family: var(--at-fnt-fam);
+    font-style: var(--at-fnt-sty);
+    text-transform: var(--at-txt-tf);
+    text-decoration: var(--at-txt-dec);
+    line-height: var(--at-ln-h);
+    letter-spacing: var(--at-ltr-sp);
+    color: var(--at-cl);
+}
+
+/* Content grou */
+table {
+    caption-side: var(--at-cpt-sd);
+    table-layout: var(--at-tbl-lyt);
+}
+
+ul,
+ol,
+li {
+    list-style: var(--at-ls-sty);
+}
+
+.at {
+  	/* Border has four different properties to, right, bottom, and left
+      wich again have three properties color, style and width.
+      Since individual properties color, width and style again support 4 values,
+      We are managing all properties from these there values*/
+}
+
+.at-acl {
+    /* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
+    accent-color: var(--at-acl);
+}
+
+.at-bg-cl {
+    background-color: var(--at-bg-cl);
+}
+
+.at-bg-img {
+    background-image: var(--at-bg-img);
+    background-position: var(--at-bg-pos);
+    background-size: var(--at-bg-sz);
+    background-repeat: var(--at-bg-rpt);
+    background-origin: var(--at-bg-org);
+    background-attachment: var(--at-bg-atch);
+    background-blend-mode: var(--at-bg-blend-mode);
+}
+
+.at-bdr {
+    border-color: var(--at-bdr-cl);
+    border-width: var(--at-bdr-w);
+    border-style: var(--at-bdr-sty);
+}
+
+.at-bdr-rad {
+    border-radius: var(--at-bdr-rad);
+}
+
+.at-btn {
+    --at-cur: pointer;
+    cursor: var(--at-cur);
+    color: var(--at-cl);
+    background-color: var(--at-bg-cl);
+    font-size: var(--at-fnt-sz);
+    border-color: var(--at-bdr-cl);
+    border-width: var(--at-bdr-w);
+    border-style: var(--at-bdr-sty);
+    padding: var(--at-p);
+}
+
+.at-pos {
+    bottom: var(--at-b);
+    position: var(--at-pos);
+    top: var(--at-t);
+    right: var(--at-r);
+    left: var(--at-l);
+}
+
+.at-box-refl {
+    box-reflect: var(--at-box-refl);
+}
+
+.at-box-sdw {
+    box-shadow: var(--at-box-sdw);
+}
+
+.at-box-szg {
+    box-sizing: var(--at-box-szg);
+}
+
+.at-ct-cl {
+    /* Set the color of the cursor in input elements:*/
+    caret-color: --at-ct-cl;
+}
+
+.at-cl {
+    color: var(--at-cl);
+}
+
+.at-cur {
+    cursor: var(--at-cur);
+}
+
+.at-dir {
+    direction: var(--at-dir);
+}
+
+.at-flt {
+    filter: var(--at-flt);
+}
+
+.at-typ {
+    font-size: var(--at-fnt-sz);
+    font-weight: var(--at-fnt-wt);
+    font-family: var(--at-fnt-fam);
+    font-style: var(--at-fnt-sty);
+    text-transform: var(--at-txt-tf);
+    text-decoration: var(--at-txt-dec);
+    line-height: var(--at-ln-h);
+    letter-spacing: var(--at-ltr-sp);
+}
+
+.at-msk {
+    mask-image: var(--at-msk-img);
+    mask-mode: var(--at-msk-mode);
+    mask-origin: var(--at-msk-org);
+    mask-position: var(--at-msk-pos);
+    mask-repeat: var(--at-msk-rpt);
+    mask-size: var(--at-msk-sz);
+}
+
+.at-m {
+    margin: var(--at-m);
+}
+
+.at-max-h {
+    max-height: var(--at-max-h);
+}
+
+.at-max-w {
+    max-width: var(--at-max-w);
+}
+
+.at-min-h {
+    min-height: var(--at-min-h);
+}
+
+.at-min-w {
+    min-width: var(--at-min-w);
+}
+
+.at-h {
+    height: var(--at-h);
+}
+
+.at-w {
+    width: var(--at-w);
+}
+
+.at-opa {
+    opacity: var(--at-opa);
+}
+
+.at-ovf {
+    overflow: var(--at-ovf);
+}
+
+.at-p {
+    padding: var(--at-p);
+}
+
+.at-ptr-ev {
+    pointer-events: var(--at-ptr-ev);
+}
+
+.at-txt-al {
+    text-align: var(--at-txt-al);
+}
+
+.at-txt-sdw {
+    text-shadow: var(--at-txt-sdw);
+}
+
+.at-tf {
+    perspective: var(--at-ppv);
+    perspective-origin: var(--at-ppv-org);
+    transform: var(--at-tf);
+    transform-origin: var(--at-tf-org);
+    transform-style: var(--at-tf-sty);
+}
+
+.at-trs {
+    transition: var(--at-trs);
+}
+
+.at-vis {
+    visibility: var(--at-vis);
+}
+
+.at-wrd-brk {
+    word-break: var(--at-wrd-brk);
+}
+
+.at-wrd-spc {
+    word-spacing: var(--at-wrd-spg);
+}
+
+.at-wrd-wrp {
+    word-wrap: var(--at-wrd-wrp);
+}
+
+.at-z-idx {
+    z-index: var(--at-z-idx);
+}
+
+/*# sourceMappingURL=colormode-globalstyle.css.map */

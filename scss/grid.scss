@@ -1,14 +1,21 @@
-@import "grid_base/functions";
-@import "grid_base/variables";
+/* Variables */
+@import './css-variable.scss';
 
-@import "grid_mixin/breakpoints";
-@import "grid_mixin/grid-framework";
-@import "grid_mixin/grid-mixin";
+/* Grid */
+@import 'grid_base/functions';
+@import 'grid_base/variables';
 
-@import "grid_base/grid-partials";
+@import 'grid_mixin/breakpoints';
 
-@import "grid_base/flex";
-@import "grid_base/display";
+@import 'grid_minimal/grid-framework';
+@import 'grid_mixin/grid-mixin';
 
-@import "custom-grid-5ths";
+@import 'grid_base/grid-partials';
+@import 'grid_minimal/custom-grid-5ths';
 
+/*Utilities*/
+@import 'grid_base/flex';
+@import 'grid_minimal/display';
+
+/* Properties */
+@import './css-properties.scss';
