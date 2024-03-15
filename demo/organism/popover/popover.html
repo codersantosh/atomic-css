@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Popover</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        :root {
+            --at-m: 20px 0;
+
+        }
+
+        .at-ctnr {
+
+            --at-p: 100px;
+        }
+
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+
+
+        .at-popover {
+            display: none;
+            --at-pos: absolute;
+            --at-max-w: 276px;
+            --at-bdr-rad: 5px;
+            --at-z-idx: 9999;
+            --at-bdr-w: 1px;
+            --at-bdr-sty: solid;
+            --at-bdr-cl: #ccc;
+            background-clip: padding-box;
+
+        }
+
+        .at-popover[data-popover-direction="top"] {
+            /* bottom: 100%; */
+        }
+
+        .at-popover[data-popover-direction="bottom"] {
+            /* top: 100%; */
+        }
+
+        .at-popover[data-popover-direction="left"] {
+            /* right: 100%; */
+        }
+
+        .at-popover[data-popover-direction="right"] {
+            /* left: 100%; */
+        }
+
+        .at-popover-ttl {
+            --at-fnt-sz: 16px;
+            --at-m: 0;
+            --at-p: 10px;
+            --at-bdr-rad: 5px 5px 0 0;
+            --at-bdr-cl: #ccc;
+            --at-bdr-w: 0 0 1px 0;
+            --at-bdr-sty: solid;
+
+        }
+
+        .at-popover-body {
+            --at-p: 10px;
+        }
+
+        .at-popover-arrow {
+            --at-pos: absolute;
+            --at-w: 1rem;
+            --at-h: .5rem;
+            --at-m: 0 auto;
+        }
+
+
+        .at-popover-arrow:after,
+        .at-popover-arrow::before {
+            --at-pos: absolute;
+            --at-bdr-cl: transparent;
+            --at-bdr-sty: solid;
+            content: '';
+            position: var(--at-pos);
+            border-color: var(--at-bdr-cl) var(--at-bdr-cl) var(--at-bdr-cl) var(--at-bdr-cl);
+            border-style: var(--at-bdr-sty);
+
+        }
+
+        .at-popover[data-popover-direction="top"] {
+            --at-m: .5rem 0;
+        }
+
+        .at-popover[data-popover-direction="top"] .at-popover-arrow {
+            --at-l: 0;
+            --at-r: 0;
+            --at-b: calc((.5rem + 1px) * -1);
+        }
+
+        .at-popover[data-popover-direction="top"] .at-popover-arrow:after,
+        .at-popover[data-popover-direction="top"] .at-popover-arrow:before {
+            --at-bdr-w: .5rem .5rem 0;
+            border-width: var(--at-bdr-w);
+        }
+
+        .at-popover[data-popover-direction="top"] .at-popover-arrow:after {
+            --at-bdr-cl: #fff transparent transparent transparent;
+            --at-b: 1px;
+            border-color: var(--at-bdr-cl);
+            bottom: var(--at-b);
+        }
+
+        .at-popover[data-popover-direction="top"] .at-popover-arrow::before {
+            --at-b: 0;
+            --at-bdr-cl: #ccc transparent transparent transparent;
+            bottom: var(--at-b);
+            border-color: var(--at-bdr-cl);
+
+
+        }
+
+        .at-popover[data-popover-direction="right"] {
+            --at-m: .5rem .5rem 0 0;
+        }
+
+        .at-popover[data-popover-direction="right"] .at-popover-arrow {
+            --at-l: calc((.5rem + 1px) * -1);
+            --at-t: 50%;
+            --at-tf: translateY(-50%);
+            transform: var(--at-tf);
+
+        }
+
+        .at-popover[data-popover-direction="right"] .at-popover-arrow:after,
+        .at-popover[data-popover-direction="right"] .at-popover-arrow:before {
+            --at-bdr-w: .5rem .5rem .5rem 0;
+            border-width: var(--at-bdr-w);
+        }
+
+        .at-popover[data-popover-direction="right"] .at-popover-arrow:after {
+            --at-l: 1px;
+            --at-bdr-cl: transparent #fff transparent transparent;
+            left: var(--at-l);
+            border-color: var(--at-bdr-cl);
+
+        }
+
+        .at-popover[data-popover-direction="right"] .at-popover-arrow::before {
+            --at-l: 0;
+            --at-bdr-cl: transparent #ccc transparent transparent;
+            left: var(--at-l);
+            border-color: var(--at-bdr-cl);
+
+        }
+
+
+        .at-popover[data-popover-direction="bottom"] {
+            --at-m: .5rem 0 0 0;
+        }
+
+        .at-popover[data-popover-direction="bottom"] .at-popover-arrow {
+            --at-l: 0;
+            --at-r: 0;
+            --at-t: calc((.5rem + 1px) * -1);
+        }
+
+        .at-popover[data-popover-direction="bottom"] .at-popover-arrow:after,
+        .at-popover[data-popover-direction="bottom"] .at-popover-arrow:before {
+            --at-bdr-w: 0 .5rem .5rem .5rem;
+            border-width: var(--at-bdr-w);
+
+        }
+
+        .at-popover[data-popover-direction="bottom"] .at-popover-arrow:after {
+
+            --at-t: 1px;
+            --at-bdr-cl: transparent transparent #fff transparent;
+            top: var(--at-t);
+            border-color: var(--at-bdr-cl);
+        }
+
+        .at-popover[data-popover-direction="bottom"] .at-popover-arrow::before {
+
+            --at-t: 0;
+            --at-bdr-cl: transparent transparent #ccc transparent;
+            top: var(--at-t);
+            border-color: var(--at-bdr-cl);
+
+        }
+
+        .at-popover[data-popover-direction="left"] {
+            --at-m: .5rem .5rem 0 0;
+        }
+
+        .at-popover[data-popover-direction="left"] .at-popover-arrow {
+            --at-r: calc((.5rem + 1px) * -1);
+            --at-t: 50%;
+            --at-tf: translateY(-50%);
+            transform: var(--at-tf);
+        }
+
+        .at-popover[data-popover-direction="left"] .at-popover-arrow:after,
+        .at-popover[data-popover-direction="left"] .at-popover-arrow:before {
+            --at-bdr-w: .5rem 0 .5rem .5rem;
+            border-width: var(--at-bdr-w);
+        }
+
+        .at-popover[data-popover-direction="left"] .at-popover-arrow:after {
+
+            --at-r: 1px;
+            --at-bdr-cl: transparent transparent transparent #fff;
+            right: var(--at-r);
+            border-color: var(--at-bdr-cl);
+        }
+
+        .at-popover[data-popover-direction="left"] .at-popover-arrow::before {
+            --at-r: 0;
+            --at-bdr-cl: transparent transparent transparent #ccc;
+            right: var(--at-r);
+            border-color: var(--at-bdr-cl);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr at-p">
+        <h4 class="at-m">Tooltips</h4>
+
+        <button type="button" class="at-btn at-popover-trigger" data-popover-direction="bottom">Click to toggle
+            popover</button>
+
+        <div class="at-wrp at-popover at-m at-pos at-max-w at-bdr at-bdr-rad at-z-idx" data-popover-direction="bottom">
+            <div class="at-wrp at-pos at-m  at-w at-h at-popover-arrow"></div>
+            <h3 class="at-popover-ttl at-txt at-p at-m at-bdr at-bdr-rad">Popover title</h3>
+            <div class="at-wrp at-popover-body at-p">
+                <div class="at-wrp at-popover-cont">
+                    <p class="at-txt">And here's some amazing content. It's very engaging. Right?</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const popoverTriggers = document.querySelectorAll('.at-popover-trigger');
+            const customPopovers = document.querySelectorAll('.at-popover');
+
+            popoverTriggers.forEach(function (trigger) {
+                const popoverDirection = trigger.getAttribute('data-popover-direction');
+                const popover = document.querySelector(`.at-popover[data-popover-direction="${popoverDirection}"]`);
+
+                trigger.addEventListener('click', function () {
+                    if (popover.style.display === 'block') {
+                        popover.style.display = 'none';
+                    } else {
+                        customPopovers.forEach(function (pop) {
+                            pop.style.display = 'none';
+                        });
+                        popover.style.display = 'block';
+                    }
+                });
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!event.target.matches('.at-popover-trigger') && !event.target.matches('.at-popover-body *')) {
+                    customPopovers.forEach(function (pop) {
+                        pop.style.display = 'none';
+                    });
+                }
+            });
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>

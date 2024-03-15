@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Slider</title>
+
+    <link rel="stylesheet" type="text/css" href="library/slick/slick.css" />
+    <!-- Add the new slick-theme.css if you want the default styling -->
+    <link rel="stylesheet" type="text/css" href="library/slick/slick-theme.css" />
+
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --at-m: 20px 0;
+            --at-txt-al: center;
+        }
+
+        @media (min-width: 576px) {
+            --at-container: 540px;
+        }
+
+        @media (min-width: 768px) {
+            --at-container: 720px;
+        }
+
+        @media (min-width: 992px) {
+            --at-container: 960px;
+        }
+
+        @media (min-width: 1200px) {
+            --at-container: 1140px;
+        }
+
+        @media (min-width: 1400px) {
+            --at-container: 1320px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        @media (min-width: 1200px) {
+            .at-ctnr {
+                max-width: 1380px;
+            }
+        }
+
+        .at-row {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .slick-prev {
+            left: 0;
+        }
+
+        .slick-next {
+            right: 0;
+        }
+
+        .at-wrp {
+            --at-m: 0 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="at-ctnr">
+        <h4 class="at-m">Slider : Single Slider</h4>
+        <div class="at-wrp at-single-slide">
+            <div class="at-wrp at-slide-itm">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                        alt="slider 1">
+
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                        alt="slider 2">
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                        alt="slider 3">
+                </figure>
+            </div>
+
+        </div>
+    </div>
+    <div class="at-m"><br /></div>
+    <div class="at-ctnr">
+        <h4 class="at-m">Slider : Carousel Slider</h4>
+        <div class="at-wrp at-carousel">
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                        alt="carousel 1">
+
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                        alt="carousel 2">
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/13/2500/1667.jpg?hmac=SoX9UoHhN8HyklRA4A3vcCWJMVtiBXUg0W4ljWTor7s"
+                        alt="carousel 3">
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/21/3008/2008.jpg?hmac=T8DSVNvP-QldCew7WD4jj_S3mWwxZPqdF0CNPksSko4"
+                        alt="carousel 4">
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                        alt="carousel 5">
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/26/4209/2769.jpg?hmac=vcInmowFvPCyKGtV7Vfh7zWcA_Z0kStrPDW3ppP0iGI"
+                        alt="carousel 6">
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/27/3264/1836.jpg?hmac=p3BVIgKKQpHhfGRRCbsi2MCAzw8mWBCayBsKxxtWO8g"
+                        alt="carousel 7">
+                </figure>
+            </div>
+            <div class="at-wrp at-slide-itm at-m">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/55/4608/3072.jpg?hmac=ahGhylwdN52ULB37deeMZX6T_G7NiERtoPhwydMvUKQ"
+                        alt="carousel 8">
+                </figure>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="library/slick/slick.min.js"></script>
+
+    <script type="text/javascript">
+        (function ($) {
+            "use strict";
+            var at_window = $(window);
+
+            function atSingleSlider() {
+                $('.at-single-slide').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 500,
+                    slidesToShow: 1,
+                    adaptiveHeight: true,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    fade: true,
+                    cssEase: 'linear'
+                });
+            }
+            function atCarousel() {
+                $('.at-carousel').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 500,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    responsive: [
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3,
+                                infinite: true,
+                                dots: true
+                            }
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2
+                            }
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }
+                        // You can unslick at a given breakpoint now by adding:
+                        // settings: "unslick"
+                        // instead of a settings object
+                    ]
+                });
+            }
+
+            //init functions on load
+            at_window.on('load', function () {
+                atSingleSlider();
+                atCarousel();
+
+            });
+
+        })(jQuery);
+
+
+    </script>
+</body>
+
+</html>

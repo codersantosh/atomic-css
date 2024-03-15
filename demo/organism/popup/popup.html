@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Popup at-at-modal</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        :root {
+            --at-m: 20px 0;
+
+        }
+
+        .at-ctnr {
+
+            --at-p: 100px;
+        }
+
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        /**************************\
+        Basic at-modal Styles
+        \**************************/
+
+        .at-modal__overlay {
+            --at-pos: fixed;
+            --at-t: 0;
+            --at-l: 0;
+            --at-r: 0;
+            --at-b: 0;
+            --at-bg-cl: rgba(0, 0, 0, 0.6);
+        }
+
+        .at-modal__container {
+            --at-bg-cl: #fff;
+            --at-p: 30px;
+            --at-bdr-rad: 4px;
+            --at-max-w: 500px;
+            --at-max-h: 100vh;
+            --at-ovf: auto;
+            overflow-y: var(--at-ovf);
+        }
+
+
+
+        .at-modal__title {
+            --at-m: 0;
+        }
+
+        .at-modal__close {
+            --at-bg-cl: transparent;
+            --at-bdr-w: 0;
+            background: var(--at-bg-cl);
+            border: 0;
+            cursor: pointer;
+        }
+
+        .at-modal__header .at-modal__close:before {
+            content: "\2715";
+        }
+
+        .at-modal__cont {
+            --at-p: 15px 0 0 0;
+        }
+
+
+
+
+        /**************************\
+        Demo Animation Style
+        \**************************/
+        @keyframes mmfadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes mmfadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes mmslideIn {
+            from {
+                transform: translateY(15%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes mmslideOut {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-10%);
+            }
+        }
+
+        .at-modal-slide {
+            display: none;
+        }
+
+
+        .at-modal-slide[aria-hidden="false"] .at-modal__overlay {
+            animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+        }
+
+        .at-modal-slide[aria-hidden="true"] .at-modal__overlay {
+            animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+        }
+
+        .at-modal-slide[aria-hidden="false"] .at-modal__container {
+            animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
+        }
+
+        .at-modal-slide[aria-hidden="true"] .at-modal__container {
+            animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
+        }
+
+        .at-modal-slide .at-modal__container,
+        .at-modal-slide .at-modal__overlay {
+            will-change: transform;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr at-p">
+        <h4 class="at-m">Popup</h4>
+
+        <button data-at-modal-open="at-modal-1" class="at-btn">open</button>
+
+
+    </div>
+
+    <div class="at-modal at-modal-slide" id="at-modal-1" aria-hidden="true">
+        <div class="at-modal__overlay at-pos at-flx at-jfy-cont-ctr at-al-itm-ctr at-bg-cl" tabindex="-1"
+            data-at-modal-close>
+            <div class="at-modal__container at-p at-bdr-rad at-max-w at-max-h at-bg-cl" role="dialog"
+                aria-at-at-modal="true" aria-labelledby="at-modal-1-title">
+                <header class="at-modal__header at-flx at-jfy-cont-btw at-al-itm-ctr">
+                    <h5 class="at-txt at-m at-modal__title" id="at-at-modal-1-title">
+                        Modal title Goes Here
+                    </h5>
+                    <button class="at-modal__close" aria-label="Close Modal" data-at-modal-close></button>
+                </header>
+                <main class="at-modal__cont at-p" id="at-modal-1-cont">
+                    <p class="at-txt">
+                        Try hitting the <code>tab</code> key and notice how the focus stays within the at-at-modal
+                        itself.
+                        Also,
+                        <code>esc</code> to close at-at-modal.
+                    </p>
+                </main>
+                <footer class="at-modal__footer">
+                    <button class="at-btn">Continue</button>
+                    <button class="at-btn" data-at-modal-close aria-label="Close this dialog window">Close</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script src="library/micromodal/micromodal.min.js"></script>
+    <script>
+
+
+        MicroModal.init({
+
+            openTrigger: 'data-at-modal-open',
+            closeTrigger: 'data-at-modal-close',
+            openClass: 'at-blk',
+            disableScroll: true,
+            disableFocus: false,
+            awaitOpenAnimation: false,
+            awaitCloseAnimation: false,
+            debugMode: true
+        });
+
+
+    </script>
+
+</body>
+
+</html>

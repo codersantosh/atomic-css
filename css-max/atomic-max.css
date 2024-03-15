@@ -15,7 +15,7 @@
 }
 
 .at-ctnr-fld {
-    max-width: var(--at-ctnr);
+    max-width: 100%;
     padding-right: var(--at-gtr);
     padding-left: var(--at-gtr);
     margin-right: auto;
@@ -38,18 +38,18 @@
 }
 
 .at-no-gtr > .at-col,
-  .at-no-gtr > [class*="at-col-"] {
+.at-no-gtr > [class*=at-col-] {
     padding-right: 0;
     padding-left: 0;
 }
 
-.at-col-1, .at-col-2, .at-col-3, .at-col-4, .at-col-5, .at-col-6, .at-col-7, .at-col-8, .at-col-9, .at-col-10, .at-col-11, .at-col-12, .at-col,
-.at-col-auto, .at-col-sm-1, .at-col-sm-2, .at-col-sm-3, .at-col-sm-4, .at-col-sm-5, .at-col-sm-6, .at-col-sm-7, .at-col-sm-8, .at-col-sm-9, .at-col-sm-10, .at-col-sm-11, .at-col-sm-12, .at-col-sm,
-.at-col-sm-auto, .at-col-md-1, .at-col-md-2, .at-col-md-3, .at-col-md-4, .at-col-md-5, .at-col-md-6, .at-col-md-7, .at-col-md-8, .at-col-md-9, .at-col-md-10, .at-col-md-11, .at-col-md-12, .at-col-md,
-.at-col-md-auto, .at-col-lg-1, .at-col-lg-2, .at-col-lg-3, .at-col-lg-4, .at-col-lg-5, .at-col-lg-6, .at-col-lg-7, .at-col-lg-8, .at-col-lg-9, .at-col-lg-10, .at-col-lg-11, .at-col-lg-12, .at-col-lg,
-.at-col-lg-auto, .at-col-xl-1, .at-col-xl-2, .at-col-xl-3, .at-col-xl-4, .at-col-xl-5, .at-col-xl-6, .at-col-xl-7, .at-col-xl-8, .at-col-xl-9, .at-col-xl-10, .at-col-xl-11, .at-col-xl-12, .at-col-xl,
-.at-col-xl-auto, .at-col-xxl-1, .at-col-xxl-2, .at-col-xxl-3, .at-col-xxl-4, .at-col-xxl-5, .at-col-xxl-6, .at-col-xxl-7, .at-col-xxl-8, .at-col-xxl-9, .at-col-xxl-10, .at-col-xxl-11, .at-col-xxl-12, .at-col-xxl,
-.at-col-xxl-auto {
+.at-col-xxl,
+.at-col-xxl-auto, .at-col-xxl-12, .at-col-xxl-11, .at-col-xxl-10, .at-col-xxl-9, .at-col-xxl-8, .at-col-xxl-7, .at-col-xxl-6, .at-col-xxl-5, .at-col-xxl-4, .at-col-xxl-3, .at-col-xxl-2, .at-col-xxl-1, .at-col-xl,
+.at-col-xl-auto, .at-col-xl-12, .at-col-xl-11, .at-col-xl-10, .at-col-xl-9, .at-col-xl-8, .at-col-xl-7, .at-col-xl-6, .at-col-xl-5, .at-col-xl-4, .at-col-xl-3, .at-col-xl-2, .at-col-xl-1, .at-col-lg,
+.at-col-lg-auto, .at-col-lg-12, .at-col-lg-11, .at-col-lg-10, .at-col-lg-9, .at-col-lg-8, .at-col-lg-7, .at-col-lg-6, .at-col-lg-5, .at-col-lg-4, .at-col-lg-3, .at-col-lg-2, .at-col-lg-1, .at-col-md,
+.at-col-md-auto, .at-col-md-12, .at-col-md-11, .at-col-md-10, .at-col-md-9, .at-col-md-8, .at-col-md-7, .at-col-md-6, .at-col-md-5, .at-col-md-4, .at-col-md-3, .at-col-md-2, .at-col-md-1, .at-col-sm,
+.at-col-sm-auto, .at-col-sm-12, .at-col-sm-11, .at-col-sm-10, .at-col-sm-9, .at-col-sm-8, .at-col-sm-7, .at-col-sm-6, .at-col-sm-5, .at-col-sm-4, .at-col-sm-3, .at-col-sm-2, .at-col-sm-1, .at-col,
+.at-col-auto, .at-col-12, .at-col-11, .at-col-10, .at-col-9, .at-col-8, .at-col-7, .at-col-6, .at-col-5, .at-col-4, .at-col-3, .at-col-2, .at-col-1 {
     position: relative;
     width: 100%;
     min-height: 1px;

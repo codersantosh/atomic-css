@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Rating</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <!--fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --at-m: 20px 0;
+            --at-txt-al: center;
+        }
+
+        .at-ctnr {
+            --at-p: 100px 0;
+
+        }
+
+        .at-m {
+            --at-m: 40px 0;
+
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        .ab-8cw4c41 {
+            --at-p: 200px;
+            --at-bg-img: url("http://localhost/acme_blocks/wp-content/uploads/2023/06/man-table-person-people-plant-woman-1070851-pxhere.com_.jpg");
+            --at-bg-sz: cover;
+        }
+
+        .at-blk-shp {
+            --at-pos: relative;
+        }
+
+        .at-blk-shp>*:not(.at-shp) {
+            z-index: 2;
+        }
+
+        .at-z-top {
+            z-index: 99 !important;
+        }
+
+        .at-shp {
+            --at-pos: absolute;
+            --at-w: 100%;
+            --at-l: 0;
+            z-index: 1;
+        }
+
+        .at-shp-t {
+            --at-t: 0;
+        }
+
+        .at-shp-b {
+            --at-b: 0;
+        }
+
+        .at-shp-flip-vrt {
+            --at-tf: scaleX(-1);
+        }
+
+        .at-shp-flip-hor {
+            --at-tf: scaleY(-1);
+
+        }
+
+        .at-svg {
+            --at-cl: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr at-p">
+        <h4 class="at-m">Block Shape : Direction = Bottom (<code class="at-cl">.at-shp-b</code>), Type = Image</h4>
+
+        <div class="ab-m1 ab-8cw4c41 at-bg-img at-p at-flx at-gap at-blk-shp at-pos">
+
+            <h1 class="ab-a1 at-txt ab-4vbwvw7">this is text</h1>
+            <img decoding="async" class="at-img at-shp at-shp-b at-pos at-w at-h" src="./img/wave-1.png" width=""
+                height="">
+        </div>
+
+        <h4 class="at-m">Block Shape : Direction = Top (<code class="at-cl">.at-shp-t</code>), Type = Image</h4>
+
+        <div class="ab-m1 ab-8cw4c41 at-bg-img at-p at-flx at-gap at-blk-shp at-pos"><img decoding="async"
+                class="at-img at-shp at-shp-t at-pos at-w at-h" src="./img/wave-2.png" width="" height="">
+            <h1 class="ab-a1 at-txt ab-4vbwvw7">this is text</h1>
+        </div>
+
+        <h4 class="at-m">Block Shape : Direction = Top (<code class="at-cl">.at-shp-t</code>), Type = Image, Flip =
+            Vertically</h4>
+
+        <div class="ab-m1 ab-8cw4c41 at-bg-img at-p at-flx at-gap at-blk-shp at-pos"><img decoding="async"
+                class="at-img at-shp-flip-vrt at-tf at-shp at-shp-t at-pos at-w at-h" src="./img/wave-2.png" width=""
+                height="">
+            <h1 class="ab-a1 at-txt ab-4vbwvw7">this is text</h1>
+        </div>
+
+        <h4 class="at-m">Block Shape : Direction = Top (<code class="at-cl">.at-shp-t</code>), Type = Image, Flip =
+            Horizontal</h4>
+
+        <div class="ab-m1 ab-8cw4c41 at-bg-img at-p at-flx at-gap at-blk-shp at-pos"><img decoding="async"
+                class="at-img at-shp-flip-hor at-tf at-shp at-shp-t at-pos at-w at-h" src="./img/wave-2.png" width=""
+                height="">
+            <h1 class="ab-a1 at-txt ab-4vbwvw7">this is text</h1>
+        </div>
+
+        <h4 class="at-m">Block Shape : Direction = Bottom (<code class="at-cl">.at-shp-b</code>), Type = Image, Shape :
+            Bring Shape Layer Front (<code class="at-cl">.at-z-top</code>)</h4>
+
+        <div class="ab-m1 ab-8cw4c41 at-bg-img at-p at-flx at-gap at-blk-shp at-pos"><img decoding="async"
+                class="at-img at-shp at-z-top at-shp-b at-pos at-w at-h" src="./img/wave-1.png" width="" height="">
+            <h1 class="ab-a1 at-txt ab-4vbwvw7">this is text</h1>
+        </div>
+
+        <h4 class="at-m">Block Shape : Direction = Bottom (<code class="at-cl">.at-shp-b</code>), Type = SVG</h4>
+
+        <div class="ab-m1 ab-8cw4c41 at-bg-img at-p at-flx at-gap at-blk-shp at-pos">
+            <svg class="at-svg at-shp at-shp-b at-pos at-w at-h" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320">
+                <path fill="currentColor" fill-opacity="1"
+                    d="M0,224L60,202.7C120,181,240,139,360,106.7C480,75,600,53,720,69.3C840,85,960,139,1080,144C1200,149,1320,107,1380,85.3L1440,64L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z" />
+            </svg>
+            <h1 class="ab-a1 at-txt ab-4vbwvw7">this is text</h1>
+        </div>
+
+
+        <h4 class="at-m">Block Shape : Direction = top and Bottom (<code class="at-cl">.at-shp-b</code>), Type = SVG
+        </h4>
+
+        <div class="ab-m1 ab-8cw4c41 at-bg-img at-p at-flx at-gap at-blk-shp at-pos">
+            <img decoding="async" class="at-img at-shp at-shp-flip-hor at-shp-flip-vrt at-tf at-shp-t at-pos at-w at-h"
+                src="./img/wave-1.png" width="" height="">
+            <svg class="at-svg at-shp at-shp-b at-pos at-w at-h" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320">
+                <path fill="currentColor" fill-opacity="1"
+                    d="M0,224L60,202.7C120,181,240,139,360,106.7C480,75,600,53,720,69.3C840,85,960,139,1080,144C1200,149,1320,107,1380,85.3L1440,64L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z" />
+            </svg>
+            <h1 class="ab-a1 at-txt ab-4vbwvw7">this is text</h1>
+        </div>
+
+
+    </div>
+
+
+
+</body>
+
+</html>

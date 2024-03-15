@@ -1,79 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AT Grid - Flexbox Grid System on Grunt and SCSS</title>
+    <title>Atomic CSS - AT Grid - Flexbox Grid System on Grunt and SCSS</title>
     <link rel="stylesheet" href="css/atomic.css">
     <style>
-        *, ::after, ::before {
+        *,
+        ::after,
+        ::before {
             box-sizing: border-box;
         }
-        :root{  
-             --at-container: 100%;            
-            --at-gutter:15px;
-            --primary-color:#33b5e5;
+
+        :root {
+            --at-container: 100%;
+            --at-gutter: 15px;
+            --primary-color: #33b5e5;
         }
+
         @media (min-width: 576px) {
             --at-container: 540px;
         }
+
         @media (min-width: 768px) {
             --at-container: 720px;
         }
+
         @media (min-width: 992px) {
-             --at-container: 960px;
+            --at-container: 960px;
         }
+
         @media (min-width: 1200px) {
-             --at-container: 1140px;
+            --at-container: 1140px;
         }
+
         @media (min-width: 1400px) {
-             --at-container: 1320px;
+            --at-container: 1320px;
         }
-        body{
+
+        body {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
         }
-        @media (min-width: 1200px){
+
+        @media (min-width: 1200px) {
             .at-ctnr {
-            max-width: 1380px;
+                max-width: 1380px;
             }
         }
-        .at-row{
+
+        .at-row {
             margin-top: 15px;
             margin-bottom: 15px;
         }
-        .demo-col{
+
+        .demo-col {
             padding: .75rem;
-            background-color:var(--primary-color);
+            background-color: var(--primary-color);
             /* background-color: rgba(86,61,124,.15); */
-            border: 1px solid rgba(86,61,124,.2);
+            border: 1px solid rgba(86, 61, 124, .2);
             color: #fff;
             font-size: 14px;
         }
+
         .bg-light {
-            background-color: rgba(249,249,249,1);
+            background-color: rgba(249, 249, 249, 1);
         }
-        .mb-3{
+
+        .mb-3 {
             margin-bottom: 30px;
         }
+
         code {
             font-size: .875em;
             color: #d63384;
             word-wrap: break-word;
         }
-        hr{
+
+        hr {
             margin: 40px 0;
         }
+
         .bg-info {
-            background-color: rgba(57,192,237,1) !important;
+            background-color: rgba(57, 192, 237, 1) !important;
         }
     </style>
 </head>
+
 <body>
     <div class="at-ctnr" style="background: #ececec;padding-top: 40px">
         <div class="at-flx at-jfy-cont-ctr">
-            <h1>AT Grid</h1>
+            <h1>Atomic CSS - AT Grid</h1>
         </div>
         <div class="at-flx at-jfy-cont-ctr">
             <h2>Flexbox Grid System on Grunt and SCSS</h2>
@@ -94,7 +113,7 @@
             </div>
         </div>
 
-        <h4>Tow Column</h4>
+        <h4>Two Column</h4>
 
         <div class="at-row">
             <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
@@ -184,7 +203,7 @@
                 <div class="demo-col">at-col-1</div>
             </div>
         </div>
-       
+
         <h4>Three Column</h4>
 
         <div class="at-row">
@@ -264,9 +283,88 @@
                 <div class="demo-col">at-col-4</div>
             </div>
         </div>
+        <div class="at-row">
+            <div class="at-col-6 at-col-sm-6 at-col-md-6 at-col-lg-6 at-col-xl-6">
+                <div class="demo-col">at-col-6</div>
+            </div>
+            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
+                <div class="demo-col">at-col-3</div>
+            </div>
+            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
+                <div class="demo-col">at-col-3</div>
+            </div>
+        </div>
+        <div class="at-row">
+            <div class="at-col-8 at-col-sm-8 at-col-md-8 at-col-lg-8 at-col-xl-8">
+                <div class="demo-col">at-col-8</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+        </div>
+        <div class="at-row">
+            <div class="at-col-10 at-col-sm-10 at-col-md-10 at-col-lg-10 at-col-xl-10">
+                <div class="demo-col">at-col-10</div>
+            </div>
+            <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
+                <div class="demo-col">at-col-1</div>
+            </div>
+            <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
+                <div class="demo-col">at-col-1</div>
+            </div>
+        </div>
 
         <h4>Four Column</h4>
+        <div class="at-row">
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
 
+            <div class="at-col-6 at-col-sm-6 at-col-md-6 at-col-lg-6 at-col-xl-6">
+                <div class="demo-col">at-col-6</div>
+            </div>
+        </div>
+
+        <div class="at-row">
+            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
+                <div class="demo-col">at-col-3</div>
+            </div>
+            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
+                <div class="demo-col">at-col-3</div>
+            </div>
+            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
+                <div class="demo-col">at-col-3</div>
+            </div>
+            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
+                <div class="demo-col">at-col-3</div>
+            </div>
+        </div>
+        <div class="at-row">
+            <div class="at-col-6 at-col-sm-6 at-col-md-6 at-col-lg-6 at-col-xl-6">
+                <div class="demo-col">at-col-6</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+
+        </div>
+
+        <h4>Five Column</h4>
         <div class="at-row">
             <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
                 <div class="demo-col">at-col-1</div>
@@ -285,20 +383,6 @@
             </div>
         </div>
         <div class="at-row">
-            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
-                <div class="demo-col">at-col-3</div>
-            </div>
-            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
-                <div class="demo-col">at-col-3</div>
-            </div>
-            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
-                <div class="demo-col">at-col-3</div>
-            </div>
-            <div class="at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
-                <div class="demo-col">at-col-3</div>
-            </div>
-        </div>
-        <div class="at-row">
             <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
                 <div class="demo-col">at-col-2</div>
             </div>
@@ -308,13 +392,14 @@
             <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
                 <div class="demo-col">at-col-2</div>
             </div>
-           
-            <div class="at-col-6 at-col-sm-6 at-col-md-6 at-col-lg-6 at-col-xl-6">
-                <div class="demo-col">at-col-6</div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-4 at-col-sm-4 at-col-md-4 at-col-lg-4 at-col-xl-4">
+                <div class="demo-col">at-col-4</div>
             </div>
         </div>
 
-        <h4>Five Column</h4>
 
         <div class="at-row">
             <div class="at-col-2m3 at-col-sm-2m3 at-col-md-2m3 at-col-lg-2m3 at-col-xl-2m3">
@@ -332,7 +417,41 @@
             <div class="at-col-2m3 at-col-sm-2m3 at-col-md-2m3 at-col-lg-2m3 at-col-xl-2m3">
                 <div class="demo-col">at-col-2m3</div>
             </div>
-            
+
+        </div>
+        <div class="at-row">
+            <div class="at-col-4 at-col-sm-4 at-col-md-4 at-col-lg-4 at-col-xl-4">
+                <div class="demo-col">at-col-4</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+            <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+                <div class="demo-col">at-col-2</div>
+            </div>
+        </div>
+        <div class="at-row">
+            <div class="at-col-8 at-col-sm-8 at-col-md-8 at-col-lg-8 at-col-xl-8">
+                <div class="demo-col">at-col-8</div>
+            </div>
+            <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
+                <div class="demo-col">at-col-1</div>
+            </div>
+            <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
+                <div class="demo-col">at-col-1</div>
+            </div>
+            <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
+                <div class="demo-col">at-col-1</div>
+            </div>
+            <div class="at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
+                <div class="demo-col">at-col-1</div>
+            </div>
         </div>
 
         <h4>Six Column</h4>
@@ -355,8 +474,8 @@
             <div class="at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
                 <div class="demo-col">at-col-2</div>
             </div>
-           
-            
+
+
         </div>
         <h4>Twelve Column</h4>
         <div class="at-row">
@@ -410,16 +529,16 @@
         <section class="">
             <h4>First : <code>.at-ord-first </code></h4>
             <div class="at-flx at-jfy-cont-st bg-light mb-3">
-              <div class="demo-col">First flex item</div>
-              <div class="demo-col">Second flex item</div>
-              <div class="demo-col at-ord-first">Third flex item</div>
+                <div class="demo-col">First flex item</div>
+                <div class="demo-col">Second flex item</div>
+                <div class="demo-col at-ord-first">Third flex item</div>
             </div>
 
             <h4>Last : <code>at-ord-last</code></h4>
             <div class="at-flx at-jfy-cont-st bg-light mb-3">
-              <div class="demo-col at-ord-last">First flex item</div>
-              <div class="demo-col">Second flex item</div>
-              <div class="demo-col">Third flex item</div>
+                <div class="demo-col at-ord-last">First flex item</div>
+                <div class="demo-col">Second flex item</div>
+                <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Order 1 to 12: <code>.at-ord-* </code></h4>
@@ -437,65 +556,76 @@
                 <div class="demo-col at-ord-3">Flex item 11</div>
                 <div class="demo-col at-ord-1">Flex item 12</div>
                 <div class="demo-col at-ord-11">Flex item 13</div>
-              </div>
-           
+            </div>
+
         </section>
 
 
         <hr />
         <h4>Offset Column</h4>
         <div class="at-row">
-            <div class="at-ofst-11 at-ofst-sm-11 at-ofst-md-11 at-ofst-lg-11 at-ofst-xl-11 at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
+            <div
+                class="at-ofst-11 at-ofst-sm-11 at-ofst-md-11 at-ofst-lg-11 at-ofst-xl-11 at-col-1 at-col-sm-1 at-col-md-1 at-col-lg-1 at-col-xl-1">
                 <div class="demo-col">at-col-1</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-10 at-ofst-sm-10 at-ofst-md-10 at-ofst-lg-10 at-ofst-xl-10 at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
+            <div
+                class="at-ofst-10 at-ofst-sm-10 at-ofst-md-10 at-ofst-lg-10 at-ofst-xl-10 at-col-2 at-col-sm-2 at-col-md-2 at-col-lg-2 at-col-xl-2">
                 <div class="demo-col">at-col-2</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-9 at-ofst-sm-9 at-ofst-md-9 at-ofst-lg-9 at-ofst-xl-9 at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
+            <div
+                class="at-ofst-9 at-ofst-sm-9 at-ofst-md-9 at-ofst-lg-9 at-ofst-xl-9 at-col-3 at-col-sm-3 at-col-md-3 at-col-lg-3 at-col-xl-3">
                 <div class="demo-col">at-col-3</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-8 at-ofst-sm-8 at-ofst-md-8 at-ofst-lg-8 at-ofst-xl-8 at-col-4 at-col-sm-4 at-col-md-4 at-col-lg-4 at-col-xl-4">
+            <div
+                class="at-ofst-8 at-ofst-sm-8 at-ofst-md-8 at-ofst-lg-8 at-ofst-xl-8 at-col-4 at-col-sm-4 at-col-md-4 at-col-lg-4 at-col-xl-4">
                 <div class="demo-col">at-col-4</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-7 at-ofst-sm-7 at-ofst-md-7 at-ofst-lg-7 at-ofst-xl-7 at-col-5 at-col-sm-5 at-col-md-5 at-col-lg-5 at-col-xl-5">
+            <div
+                class="at-ofst-7 at-ofst-sm-7 at-ofst-md-7 at-ofst-lg-7 at-ofst-xl-7 at-col-5 at-col-sm-5 at-col-md-5 at-col-lg-5 at-col-xl-5">
                 <div class="demo-col">at-col-5</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-6 at-ofst-sm-6 at-ofst-md-6 at-ofst-lg-6 at-ofst-xl-6 at-col-6 at-col-sm-6 at-col-md-6 at-col-lg-6 at-col-xl-6">
+            <div
+                class="at-ofst-6 at-ofst-sm-6 at-ofst-md-6 at-ofst-lg-6 at-ofst-xl-6 at-col-6 at-col-sm-6 at-col-md-6 at-col-lg-6 at-col-xl-6">
                 <div class="demo-col">at-col-6</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-5 at-ofst-sm-5 at-ofst-md-5 at-ofst-lg-5 at-ofst-xl-5 at-col-7 at-col-sm-7 at-col-md-7 at-col-lg-7 at-col-xl-7">
+            <div
+                class="at-ofst-5 at-ofst-sm-5 at-ofst-md-5 at-ofst-lg-5 at-ofst-xl-5 at-col-7 at-col-sm-7 at-col-md-7 at-col-lg-7 at-col-xl-7">
                 <div class="demo-col">at-col-7</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-4 at-ofst-sm-4 at-ofst-md-4 at-ofst-lg-4 at-ofst-xl-4 at-col-8 at-col-sm-8 at-col-md-8 at-col-lg-8 at-col-xl-8">
+            <div
+                class="at-ofst-4 at-ofst-sm-4 at-ofst-md-4 at-ofst-lg-4 at-ofst-xl-4 at-col-8 at-col-sm-8 at-col-md-8 at-col-lg-8 at-col-xl-8">
                 <div class="demo-col">at-col-8</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-3 at-ofst-sm-3 at-ofst-md-3 at-ofst-lg-3 at-ofst-xl-3 at-col-9 at-col-sm-9 at-col-md-9 at-col-lg-9 at-col-xl-9">
+            <div
+                class="at-ofst-3 at-ofst-sm-3 at-ofst-md-3 at-ofst-lg-3 at-ofst-xl-3 at-col-9 at-col-sm-9 at-col-md-9 at-col-lg-9 at-col-xl-9">
                 <div class="demo-col">at-col-9</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-2 at-ofst-sm-2 at-ofst-md-2 at-ofst-lg-2 at-ofst-xl-2 at-col-10 at-col-sm-10 at-col-md-10 at-col-lg-10 at-col-xl-10">
+            <div
+                class="at-ofst-2 at-ofst-sm-2 at-ofst-md-2 at-ofst-lg-2 at-ofst-xl-2 at-col-10 at-col-sm-10 at-col-md-10 at-col-lg-10 at-col-xl-10">
                 <div class="demo-col">at-col-10</div>
             </div>
         </div>
         <div class="at-row">
-            <div class="at-ofst-1 at-ofst-sm-1 at-ofst-md-1 at-ofst-lg-1 at-ofst-xl-1 at-col-11 at-col-sm-11 at-col-md-11 at-col-lg-11 at-col-xl-11">
+            <div
+                class="at-ofst-1 at-ofst-sm-1 at-ofst-md-1 at-ofst-lg-1 at-ofst-xl-1 at-col-11 at-col-sm-11 at-col-md-11 at-col-lg-11 at-col-xl-11">
                 <div class="demo-col">at-col-11</div>
             </div>
         </div>
@@ -507,34 +637,34 @@
         <section class="">
             <h4>Flex Row : <code>.at-flx-row </code></h4>
             <div class="at-flx at-flx-row bg-light mb-3">
-              <div class="demo-col">First flex item</div>
-              <div class="demo-col">Second flex item</div>
-              <div class="demo-col">Third flex item</div>
+                <div class="demo-col">First flex item</div>
+                <div class="demo-col">Second flex item</div>
+                <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Flex Row Reverse : <code>.at-flx-row-rev </code></h4>
             <div class="at-flx at-flx-row-rev bg-light mb-3">
-              <div class="demo-col">First flex item</div>
-              <div class="demo-col">Second flex item</div>
-              <div class="demo-col">Third flex item</div>
+                <div class="demo-col">First flex item</div>
+                <div class="demo-col">Second flex item</div>
+                <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Flex Column : <code>.at-flx-column </code></h4>
             <div class="at-flx at-flx-col bg-light mb-3">
-              <div class="demo-col">First flex item</div>
-              <div class="demo-col">Second flex item</div>
-              <div class="demo-col">Third flex item</div>
+                <div class="demo-col">First flex item</div>
+                <div class="demo-col">Second flex item</div>
+                <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Flex Column Reverse : <code>.at-flx-col-rev </code></h4>
             <div class="at-flx at-flx-col-rev bg-light mb-3">
-              <div class="demo-col">First flex item</div>
-              <div class="demo-col">Second flex item</div>
-              <div class="demo-col">Third flex item</div>
+                <div class="demo-col">First flex item</div>
+                <div class="demo-col">Second flex item</div>
+                <div class="demo-col">Third flex item</div>
             </div>
 
-            
-           
+
+
         </section>
 
         <hr />
@@ -547,31 +677,32 @@
 
         <section class="">
             <h4>Start : <code>.at-flx-nowrp </code></h4>
-            <div class="at-flx at-flx-nowrp bg-light mb-3" style="width: 30rem; padding: 20px; background-color: #d63384;">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+            <div class="at-flx at-flx-nowrp bg-light mb-3"
+                style="width: 30rem; padding: 20px; background-color: #d63384;">
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-flx-wrp  </code></h4>
             <div class="at-flx bg-light mb-3 at-flx-wrp">
@@ -599,7 +730,7 @@
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
-              </div>
+            </div>
             <h4>Center : <code>.at-flx-wrp-rev </code></h4>
             <div class="at-flx at-flx-wrp-rev bg-light mb-3">
                 <div class="demo-col">Flex item</div>
@@ -626,7 +757,7 @@
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
-              </div>
+            </div>
         </section>
 
         <hr />
@@ -635,30 +766,30 @@
         <section class="">
             <h4>Fill : <code>.at-flx-fil </code></h4>
             <div class="at-flx at-flx-row bg-light mb-3">
-              <div class="demo-col at-flx-fill">Flex item</div>
-              <div class="demo-col at-flx-fill">Flex item</div>
-              <div class="demo-col at-flx-fill">Flex item</div>
-            </div>           
-           
+                <div class="demo-col at-flx-fill">Flex item</div>
+                <div class="demo-col at-flx-fill">Flex item</div>
+                <div class="demo-col at-flx-fill">Flex item</div>
+            </div>
+
         </section>
-        
+
         <hr />
         <h2 class="mb-4">Grow and srnk</h2>
 
         <section class="">
             <h4>Grow : <code>.at-flx-grw-1 </code></h4>
             <div class="at-flx bg-light mb-3">
-              <div class="demo-col at-flx-grw-1">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-            </div>           
-            
+                <div class="demo-col at-flx-grw-1">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+            </div>
+
             <h4>Shrink : <code>.at-flx-srnk-1 </code></h4>
             <div class="at-flx bg-light mb-3">
-              <div class="demo-col" style="width:100%;">Flex item</div>
-              <div class="demo-col at-flx-srnk-1">Flex item</div>
-            </div>           
-           
+                <div class="demo-col" style="width:100%;">Flex item</div>
+                <div class="demo-col at-flx-srnk-1">Flex item</div>
+            </div>
+
         </section>
 
         <hr />
@@ -669,45 +800,45 @@
             <code>flex-direction: column</code>). Choose from <code>start</code> (browser default),
             <code>end</code>, <code>center</code>, <code>between</code>, <code>around</code>, or
             <code>evenly</code>.
-          </p>
+        </p>
 
         <section class="">
             <h4>Start : <code>.at-jfy-cont-st </code></h4>
             <div class="at-flx at-jfy-cont-st bg-light mb-3">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-jfy-cont-end </code></h4>
             <div class="at-flx at-jfy-cont-end bg-light mb-3">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-jfy-cont-ctr </code></h4>
             <div class="at-flx at-jfy-cont-ctr bg-light mb-3">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>Between : <code>.at-jfy-cont-btw </code></h4>
             <div class="at-flx at-jfy-cont-btw bg-light mb-3">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
 
             <h4>Around : <code>.at-jfy-cont-ard </code></h4>
             <div class="at-flx at-jfy-cont-ard bg-light mb-3">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>Evenly : <code>.at-jfy-cont-evnly </code></h4>
             <div class="at-flx at-jfy-cont-evnly bg-light">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
         </section>
 
@@ -718,41 +849,41 @@
             items on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>).
             Choose from <code>start</code>, <code>end</code>, <code>center</code>, <code>baseline</code>,
             or <code>stretch</code> (browser default).
-          </p>
+        </p>
 
         <section class="">
             <h4>Start : <code>.at-al-itm-st </code></h4>
             <div class="at-flx at-al-itm-st bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-al-itm-end </code></h4>
             <div class="at-flx at-al-itm-end bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-al-itm-ctr </code></h4>
             <div class="at-flx at-al-itm-ctr bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>Baseline : <code>.at-al-itm-bsln </code></h4>
             <div class="at-flx at-al-itm-bsln bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
 
             <h4>Stretch : <code>.at-al-itm-strh </code></h4>
             <div class="at-flx at-al-itm-strh bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
-            
+
         </section>
 
         <hr />
@@ -763,35 +894,35 @@
             <code>end</code>, <code>center</code>, <code>between</code>, <code>around</code>, or
             <code>stretch</code>. To demonstrate these utilities, we’ve enforced
             <code>flex-wrap: wrap</code> and increased the number of flex items.
-          </p>
+        </p>
 
         <section class="">
             <h4>Start : <code>.at-al-cont-st </code></h4>
             <div class="at-flx at-al-cont-st bg-light mb-3 at-flx-wrp" style="height: 200px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-al-cont-end </code></h4>
             <div class="at-flx at-al-cont-end bg-light mb-3 at-flx-wrp" style="height: 200px">
@@ -819,7 +950,7 @@
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
-              </div>
+            </div>
             <h4>Center : <code>.at-al-cont-ctr </code></h4>
             <div class="at-flx at-al-cont-ctr bg-light mb-3 at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
@@ -846,7 +977,7 @@
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
-              </div>
+            </div>
             <h4>Between : <code>.at-al-cont-btw </code></h4>
             <div class="at-flx at-al-cont-btw  bg-light mb-3 at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
@@ -873,7 +1004,7 @@
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
-              </div>
+            </div>
 
             <h4>Around : <code>.at-al-cont-ard </code></h4>
             <div class="at-flx at-al-cont-ard bg-light mb-3 at-flx-wrp" style="height: 200px">
@@ -901,7 +1032,7 @@
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
-              </div>
+            </div>
 
             <h4>Stretch : <code>.at-al-cont-strh </code></h4>
             <div class="at-flx at-al-cont-strh bg-light mb-3 at-flx-wrp" style="height: 200px">
@@ -929,8 +1060,8 @@
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
-              </div>
-            
+            </div>
+
         </section>
 
         <hr />
@@ -940,41 +1071,41 @@
             items on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>).
             Choose from <code>start</code>, <code>end</code>, <code>center</code>, <code>baseline</code>,
             or <code>stretch</code> (browser default).
-          </p>
+        </p>
 
         <section class="mb-3">
             <h4>Start : <code>.at-al-slf-st </code></h4>
             <div class="at-flx bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col at-al-slf-st">Aligned Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col at-al-slf-st">Aligned Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-al-slf-end </code></h4>
             <div class="at-flx bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col at-al-slf-end">Aligned Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col at-al-slf-end">Aligned Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-al-slf-ctr </code></h4>
             <div class="at-flx bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col at-al-slf-ctr">Aligned Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col at-al-slf-ctr">Aligned Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
             <h4>Baseline : <code>.at-al-slf-bsln </code></h4>
             <div class="at-flx bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col at-al-slf-bsln">Aligned Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col at-al-slf-bsln">Aligned Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
 
             <h4>Stretch : <code>.at-al-slf-strh </code></h4>
             <div class="at-flx bg-light mb-3" style="height: 100px">
-              <div class="demo-col">Flex item</div>
-              <div class="demo-col at-al-slf-strh ">Aligned Flex item</div>
-              <div class="demo-col">Flex item</div>
+                <div class="demo-col">Flex item</div>
+                <div class="demo-col at-al-slf-strh ">Aligned Flex item</div>
+                <div class="demo-col">Flex item</div>
             </div>
-            
+
         </section>
 
         <hr />
@@ -988,12 +1119,16 @@
                     Lorem Ipsum is simply dummy text
                     <span class="at-inl bg-info">display: inline</span>
                     of the printing and typesetting industry.
-                  
-                    Lorem Ipsum has been the industry's standard dummy <span class="at-inl-blk bg-info">display: inline-block</span>
-                    text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                  
+
+                    Lorem Ipsum has been the industry's standard dummy <span class="at-inl-blk bg-info">display:
+                        inline-block</span>
+                    text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                    type specimen book.
+
                     It has survived not only five centuries, <span class="at-blk bg-info">display: block</span>
-                    but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                    but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised
+                    in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                    with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
                 </div>
 
             </div>
@@ -1025,4 +1160,5 @@
         </section>
     </div>
 </body>
+
 </html>

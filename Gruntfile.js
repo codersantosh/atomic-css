@@ -22,11 +22,11 @@ module.exports = function (grunt) {
 				},
 				files: {
 					'css-max/atomic-max.css': ['scss/grid-max.scss'],
-					'colormode-globalstyle/dynamic.css': [
-						'colormode-globalstyle/scss/dynamic.scss',
+					'demo/colormode-globalstyle/dynamic.css': [
+						'demo/colormode-globalstyle/scss/dynamic.scss',
 					],
-					'colormode-globalstyle/colormode-globalstyle.css': [
-						'colormode-globalstyle/colormode-globalstyle.scss',
+					'demo/colormode-globalstyle/colormode-globalstyle.css': [
+						'demo/colormode-globalstyle/colormode-globalstyle.scss',
 					],
 				},
 			},
@@ -97,7 +97,11 @@ module.exports = function (grunt) {
 		//grunt watch
 		watch: {
 			css: {
-				files: ['scss/**/*.scss', 'colormode-globalstyle/**/*.scss'],
+				files: [
+					'scss/**/*.scss',
+					'colormode-globalstyle/**/*.scss',
+					'theme/base/**/*.scss',
+				],
 				tasks: ['sass', 'cssmin', 'notify_hooks', 'postcss', 'cssbeautifier'],
 			},
 
@@ -124,8 +128,6 @@ module.exports = function (grunt) {
 					'!assets/scss/**',
 					'!assets/js/*.map',
 					'!assets/library/acme-grid/*.map',
-					'!<%= dirs.js %>src/**',
-					'!<%= dirs.js %>src',
 					'!src',
 					'!*.zip',
 					'!deploy',
@@ -155,9 +157,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-contrib-uglify-es');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-notify');
 	grunt.loadNpmTasks('grunt-flipcss');
 	grunt.loadNpmTasks('grunt-postcss');
@@ -172,13 +172,6 @@ module.exports = function (grunt) {
 		'cssmin',
 		'flipcss',
 	]);
-	grunt.registerTask('deploy', [
-		'sass',
-		'flipcss',
-		'concat',
-		'uglify',
-		'cssmin',
-		'copy:deploy',
-	]);
+	grunt.registerTask('deploy', ['sass', 'flipcss', 'cssmin', 'copy:deploy']);
 	grunt.task.run('notify_hooks');
 };

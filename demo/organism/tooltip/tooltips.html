@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Tooltips</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        :root {
+            --at-m: 20px 0;
+
+        }
+
+        .at-ctnr {
+
+            --at-p: 100px;
+        }
+
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+
+
+        .at-ttip {
+            --at-p: 8px;
+            --at-txt-al: center;
+            --at-bg-cl: rgba(0, 0, 0, 0.8);
+            --at-cl: #fff;
+            --at-bdr-rad: 5px;
+            --at-fnt-sz: 13px;
+            --at-vis: hidden;
+            --at-pos: absolute;
+            --at-z-idx: 1;
+            --at-opa: 0;
+            --at-bdr-w: 6px;
+            --at-bdr-sty: solid;
+
+            visibility: var(--at-vis);
+            position: var(--at-pos);
+            background-color: var(--at-bg-cl);
+            color: var(--at-cl);
+            text-align: var(--at-txt-al);
+            border-radius: var(--at-bdr-rad);
+            padding: var(--at-p);
+            z-index: var(--at-z-id);
+            opacity: var(--at-opa);
+            transition: opacity 0.3s, visibility 0.3s;
+            font-size: var(--at-fnt-sz);
+        }
+
+        .at-ttip:after {
+            --at-w: 0;
+            --at-h: 0;
+            width: var(--at-w);
+            height: var(--at-h);
+            position: var(--at-pos);
+            content: '';
+        }
+
+        .at-ttip.top:after {
+            --at-tf: translateX(-50%);
+            --at-l: 50%;
+
+            border-left: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-right: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-top: var(--at-bdr-w) var(--at-bdr-sty) var(--at-bg-cl);
+            left: var(--at-l);
+            bottom: calc(-1* var(--at-bdr-w));
+            transform: var(--at-tf);
+        }
+
+        .at-ttip.right:after {
+            --at-tf: translateY(-50%);
+            --at-l: 50%;
+
+            border-top: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-bottom: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-right: var(--at-bdr-w) var(--at-bdr-sty) var(--at-bg-cl);
+            top: var(--at-l);
+            left: calc(-1* var(--at-bdr-w));
+            transform: var(--at-tf);
+        }
+
+        .at-ttip.bottom:after {
+            --at-tf: translateX(-50%);
+            --at-l: 50%;
+
+            border-left: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-right: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-bottom: var(--at-bdr-w) var(--at-bdr-sty) var(--at-bg-cl);
+            left: var(--at-l);
+            top: calc(-1* var(--at-bdr-w));
+            transform: var(--at-tf);
+        }
+
+        .at-ttip.left:after {
+            --at-tf: translateY(-50%);
+            --at-t: 50%;
+            border-top: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-bottom: var(--at-bdr-w) var(--at-bdr-sty) transparent;
+            border-left: var(--at-bdr-w) var(--at-bdr-sty) var(--at-bg-cl);
+            right: calc(-1* var(--at-bdr-w));
+            top: var(--at-t);
+            transform: var(--at-tf);
+        }
+
+        .at-ttip.show {
+            --at-vis: visible;
+            --at-opa: 1;
+
+            visibility: var(--at-vis);
+            opacity: var(--at-opa);
+        }
+
+        .at-btn-grp {
+            --at-gap: 20px;
+        }
+
+        /* ------------------------------------------------
+        AT Tooltip Base Styles
+        -------------------------------------------------*/
+
+        [aria-label][role~="tooltip"] {
+            --at-cl: #fff;
+            --at-bdr-rad: 4px;
+            --at-fnt-sz: 14px;
+            --at-fnt-wt: 400;
+            --at-m: 0;
+
+            --at-box-szg: border-box;
+            --at-vis: hidden;
+            --at-h: 6px;
+            --at-w: 18px;
+            --at-pos: relative;
+            position: var(--at-pos);
+
+        }
+
+        [aria-label][role~="tooltip"]::before,
+        [aria-label][role~="tooltip"]::after {
+            --at-opa: 0;
+            --at-pos: absolute;
+            --at-z-idx: 10;
+            --at-tf-org: top;
+            --at-tf: translate3d(0, 0, 0);
+
+            transform: var(--at-tf);
+            -webkit-backface-visibility: var(--at-vis);
+            backface-visibility: var(--at-vis);
+            will-change: transform;
+            opacity: var(--at-opa);
+            pointer-events: none;
+            transition: all var(--at-trs-duration, .18s) var(--at-trs-easing, ease-in-out) var(--at-trs-delay, 0s);
+            position: var(--at-pos);
+            box-sizing: var(--at-box-szg);
+            z-index: var(--at-z-idx);
+            transform-origin: var(--at-tf-org);
+        }
+
+        [aria-label][role~="tooltip"]::before {
+            --at-bg-sz: 100% auto !important;
+            background-size: var(--at-bg-sz);
+            content: "";
+        }
+
+        [aria-label][role~="tooltip"]::after {
+            --at-p: .5em 1em;
+            --at-box-szg: content-box;
+            --at-bg-cl: rgba(17, 17, 17, .9);
+
+            background: var(--at-bg-cl);
+            border-radius: var(--at-bdr-rad);
+            color: var(--at-cl);
+            content: attr(aria-label);
+            font-size: var(--at-fnt-sz, 13px);
+            padding: var(--at-p);
+            white-space: nowrap;
+            box-sizing: var(--at-box-szg);
+        }
+
+        [aria-label][role~="tooltip"]:hover::before,
+        [aria-label][role~="tooltip"]:hover::after,
+        [aria-label][role~="tooltip"]:focus::before,
+        [aria-label][role~="tooltip"]:focus::after {
+            --at-opa: 1;
+            opacity: var(--at-opa);
+            pointer-events: auto;
+        }
+
+
+
+        /* ------------------------------------------------
+        AT Tooltip Position Modifiers
+        -------------------------------------------------*/
+
+        [role~="tooltip"][data-position|="top"]::before {
+
+            --at-m: 0 0 5px 0;
+            --at-bg-rpt: no-repeat;
+            --at-bg-img: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E");
+
+            background-image: var(--at-bg-img);
+            background-repeat: var(--at-bg-rpt);
+            height: var(--at-h);
+            width: var(--at-w);
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position|="top"]::after {
+            --at-m: 0 0 11px 0;
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position|="top"]::before {
+            --at-tf: translate3d(-50%, 0, 0);
+            --at-l: 50%;
+            --at-b: 100%;
+
+            transform: var(--at-tf);
+            bottom: var(--at-b);
+            left: var(--at-l);
+        }
+
+        [role~="tooltip"][data-position|="top"]:hover::before {
+            --at-tf: translate3d(-50%, -5px, 0);
+            transform: var(--at-tf);
+        }
+
+        [role~="tooltip"][data-position|="top"]::after {
+            --at-tf: translate3d(-50%, 0, 0);
+            --at-l: 50%;
+            --at-b: 100%;
+
+            transform: var(--at-tf);
+            bottom: var(--at-b);
+            left: var(--at-l);
+        }
+
+        [role~="tooltip"][data-position="top"]:hover::after {
+            --at-tf: translate3d(-50%, -5px, 0);
+            transform: var(--at-tf);
+        }
+
+        /* ------------------------------------------------
+        AT Tooltip - Top Left
+        -------------------------------------------------*/
+        [role~="tooltip"][data-position="top-left"]::after {
+            --at-tf: translate3d(calc(-100% + 16px), 0, 0);
+            --at-b: 100%;
+            transform: var(--at-tf);
+            bottom: var(--at-b);
+        }
+
+        [role~="tooltip"][data-position="top-left"]:hover::after {
+            --at-tf: translate3d(calc(-100% + 16px), -5px, 0);
+            transform: var(--at-tf);
+        }
+
+
+        /* ------------------------------------------------
+        AT Tooltip - Top Right
+        -------------------------------------------------*/
+        [role~="tooltip"][data-position="top-right"]::after {
+            --at-tf: translate3d(calc(0% + -16px), 0, 0);
+            --at-b: 100%;
+
+            transform: var(--at-tf);
+            bottom: var(--at-b);
+        }
+
+        [role~="tooltip"][data-position="top-right"]:hover::after {
+            --at-tf: translate3d(calc(0% + -16px), -5px, 0);
+            transform: var(--at-tf);
+        }
+
+
+        /* ------------------------------------------------
+        AT Tooltip - Bottom
+        -------------------------------------------------*/
+        [role~="tooltip"][data-position|="bottom"]::before {
+
+            --at-m: 5px 0 0 0;
+            --at-bg-rpt: no-repeat;
+            --at-bg-img: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28180%2018%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E");
+
+            background-image: var(--at-bg-img);
+            background-repeat: var(--at-bg-rpt);
+            height: var(--at-h);
+            width: var(--at-w);
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position|="bottom"]::after {
+            --at-m: 11px 0 0 0;
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position|="bottom"]::before {
+            --at-tf: translate3d(-50%, -10px, 0);
+            --at-l: 50%;
+            --at-t: 100%;
+            --at-b: auto;
+
+            transform: var(--at-tf);
+            bottom: var(--at-b);
+            top: var(--at-t);
+            left: var(--at-l);
+        }
+
+        [role~="tooltip"][data-position|="bottom"]:hover::before {
+            --at-tf: translate3d(-50%, 0, 0);
+            transform: var(--at-tf);
+
+        }
+
+        [role~="tooltip"][data-position|="bottom"]::after {
+
+            --at-tf: translate3d(-50%, -10px, 0);
+            --at-t: 100%;
+            --at-l: 50%;
+
+            transform: var(--at-tf);
+            top: var(--at-t);
+            left: var(--at-l);
+        }
+
+        [role~="tooltip"][data-position="bottom"]:hover::after {
+            --at-tf: translate3d(-50%, 0, 0);
+            transform: var(--at-tf);
+        }
+
+
+        /* ------------------------------------------------
+        AT Tooltip - Bottom Left
+        -------------------------------------------------*/
+        [role~="tooltip"][data-position="bottom-left"]::after {
+            --at-tf: translate3d(calc(-100% + 16px), -10px, 0);
+            --at-t: 100%;
+
+            transform: var(--at-tf);
+            top: var(--at-t);
+        }
+
+        [role~="tooltip"][data-position="bottom-left"]:hover::after {
+            --at-tf: translate3d(calc(-100% + 16px), 0, 0);
+            transform: var(--at-tf);
+        }
+
+
+        /* ------------------------------------------------
+        AT Tooltip - Bottom Right
+        -------------------------------------------------*/
+        [role~="tooltip"][data-position="bottom-right"]::after {
+            --at-tf: translate3d(calc(0% + -16px), -10px, 0);
+            --at-t: 100%;
+
+            transform: var(--at-tf);
+            top: var(--at-t);
+        }
+
+        [role~="tooltip"][data-position="bottom-right"]:hover::after {
+            --at-tf: translate3d(calc(0% + -16px), 0, 0);
+            transform: var(--at-tf);
+        }
+
+
+        /* ------------------------------------------------
+       AT Tooltip - Left
+        -------------------------------------------------*/
+        [role~="tooltip"][data-position="left"]::before,
+        [role~="tooltip"][data-position="left"]::after {
+            --at-b: auto;
+            --at-l: auto;
+            --at-r: 100%;
+            --at-t: 50%;
+            --at-tf: translate3d(10px, -50%, 0);
+
+
+            transform: var(--at-tf);
+            top: var(--at-t);
+            left: var(--at-l);
+            bottom: var(--at-b);
+            right: var(--at-r);
+        }
+
+        [role~="tooltip"][data-position="left"]::before {
+            --at-w: 6px;
+            --at-h: 18px;
+            --at-m: 0 5px 0 0;
+
+            --at-bg-img: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28-90%2018%2018%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E");
+            --at-bg-rpt: no-repeat;
+
+            background-image: var(--at-bg-img);
+            background-repeat: var(--at-bg-rpt);
+
+            height: var(--at-h);
+            width: var(--at-w);
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position="left"]::after {
+            --at-m: 0 11px 0 0;
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position="left"]:hover::before,
+        [role~="tooltip"][data-position="left"]:hover::after {
+            --at-tf: translate3d(0, -50%, 0);
+            transform: var(--at-tf);
+        }
+
+
+        /* ------------------------------------------------
+        AT Tooltip - Right
+        -------------------------------------------------*/
+        [role~="tooltip"][data-position="right"]::before,
+        [role~="tooltip"][data-position="right"]::after {
+            --at-b: auto;
+            --at-l: 100%;
+            --at-t: 50%;
+            --at-tf: translate3d(-10px, -50%, 0);
+
+            bottom: var(--at-b);
+            top: var(--at-t);
+            left: var(--at-l);
+            transform: var(--at-tf);
+        }
+
+        [role~="tooltip"][data-position="right"]::before {
+
+            --at-h: 18px;
+            --at-w: 6px;
+            --at-m: 0 0 0 5px;
+            --at-bg-img: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%2890%206%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E");
+            --at-bg-rpt: no-repeat;
+
+            background-image: var(--at-bg-img);
+            background-repeat: var(--at-bg-rpt);
+            height: var(--at-h);
+            width: var(--at-w);
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position="right"]::after {
+            --at-m: 0 0 0 11px;
+            margin: var(--at-m);
+        }
+
+        [role~="tooltip"][data-position="right"]:hover::before,
+        [role~="tooltip"][data-position="right"]:hover::after {
+            --at-tf: translate3d(0, -50%, 0);
+            transform: var(--at-tf);
+        }
+
+        /* ------------------------------------------------
+        AT Tooltip Size
+        -------------------------------------------------*/
+        [role~="tooltip"][data-tooltip-size="small"]::after {
+            --at-w: 80px;
+            width: var(--at-w);
+            white-space: initial;
+        }
+
+        [role~="tooltip"][data-tooltip-size="medium"]::after {
+            --at-w: 150px;
+            width: var(--at-w);
+            white-space: initial;
+        }
+
+        [role~="tooltip"][data-tooltip-size="large"]::after {
+            --at-w: 260px;
+            width: var(--at-w);
+            white-space: initial;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr at-p">
+        <h4 class="at-m">Tooltips With JS</h4>
+
+        <button type="button" class="at-btn" data-placement="top" data-tooltip="Tooltip on top">Tooltip on top</button>
+        <button type="button" class="at-btn" data-placement="right" data-tooltip="Tooltip on right">Tooltip on
+            right</button>
+        <button type="button" class="at-btn" data-placement="bottom" data-tooltip="Tooltip on bottom">Tooltip on
+            bottom</button>
+        <button type="button" class="at-btn" data-placement="left" data-tooltip="Tooltip on left">Tooltip on
+            left</button>
+
+
+    </div>
+
+    <div class="at-ctnr at-p">
+        <h4 class="at-m">Tooltips With CSS</h4>
+        <div class="at-btn-grp at-gap at-flx at-flx-wrp">
+
+            <button class="at-btn" aria-label="Hey tooltip!" data-position="top-left" role="tooltip">
+                Tooltip on top left
+            </button>
+
+            <button class="at-btn" aria-label="Hey tooltip!" data-position="top" role="tooltip">
+                Tooltip on top
+            </button>
+            <button class="at-btn" aria-label="This is a decently long text!" data-position="top-right"
+                data-tooltip-size="medium" role="tooltip">
+                Tooltip on top right
+            </button>
+
+            <button class="at-btn" aria-label="This is a decently long text!" data-position="left"
+                data-tooltip-size="medium" role="tooltip">
+                Tooltip on left
+            </button>
+
+            <button class="at-btn" aria-label="This is a decently long text!" data-position="right"
+                data-tooltip-size="medium" role="tooltip">
+                Tooltip on right
+            </button>
+
+            <button class="at-btn" aria-label="Hey tooltip!" data-position="bottom-left" role="tooltip">
+                Tooltip on bottom left
+            </button>
+
+            <button class="at-btn" aria-label="Hey tooltip!" data-position="bottom" role="tooltip">
+                Tooltip on
+                bottom</button>
+
+            <button class="at-btn" aria-label="This is a decently long text!" data-position="bottom-right"
+                data-tooltip-size="medium" role="tooltip">
+                Tooltip on bottom right
+            </button>
+
+            <a class="at-btn" aria-label="This is a decently long text!" data-position="bottom-right"
+                data-tooltip-size="medium" role="tooltip">
+                Tooltip on bottom right
+            </a>
+
+            <p class="at-btn at-m" aria-label="This is a decently long text!" data-position="bottom-right"
+                data-tooltip-size="medium" role="tooltip">
+                Tooltip on bottom right
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+        const buttons = document.querySelectorAll('[data-tooltip]');
+
+        buttons.forEach(button => {
+            const tooltip = document.createElement('div');
+            tooltip.classList.add('at-ttip');
+            tooltip.innerText = button.getAttribute('data-tooltip');
+
+            const positionTooltip = (x, y, placement) => {
+                tooltip.style.left = x + 'px';
+                tooltip.style.top = y + 'px';
+                tooltip.classList.add(placement);
+                tooltip.classList.add('show');
+                document.body.appendChild(tooltip);
+            };
+
+            const removeTooltip = () => {
+                tooltip.classList.remove('show');
+                tooltip.classList.remove('top', 'bottom', 'left', 'right');
+                document.body.removeChild(tooltip);
+            };
+
+            button.addEventListener('mouseenter', () => {
+                const rect = button.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const placement = button.getAttribute('data-placement');
+                const offsetX = button.getAttribute('data-offset-x') || 0;
+                const offsetY = button.getAttribute('data-offset-y') || 0;
+
+                let tooltipX, tooltipY;
+
+                switch (placement) {
+                    case 'top':
+                        tooltipX = centerX;
+                        tooltipY = rect.top + window.pageYOffset - tooltip.offsetHeight - offsetY;
+                        break;
+                    case 'bottom':
+                        tooltipX = centerX;
+                        tooltipY = rect.bottom + window.pageYOffset + offsetY;
+                        break;
+                    case 'left':
+                        tooltipX = rect.left + window.pageXOffset - tooltip.offsetWidth - offsetX;
+                        tooltipY = centerY;
+                        break;
+                    case 'right':
+                        tooltipX = rect.right + window.pageXOffset + offsetX;
+                        tooltipY = centerY;
+                        break;
+                    default:
+                        tooltipX = centerX;
+                        tooltipY = rect.top + window.pageYOffset - tooltip.offsetHeight - offsetY;
+                }
+
+                positionTooltip(tooltipX, tooltipY, placement);
+            });
+
+            button.addEventListener('mouseleave', removeTooltip);
+        });
+
+    </script>
+
+</body>
+
+</html>

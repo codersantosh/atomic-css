@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Gallery</title>
+
+
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --at-m: 20px 0;
+            --at-txt-al: center;
+        }
+
+        @media (min-width: 576px) {
+            --at-container: 540px;
+        }
+
+        @media (min-width: 768px) {
+            --at-container: 720px;
+        }
+
+        @media (min-width: 992px) {
+            --at-container: 960px;
+        }
+
+        @media (min-width: 1200px) {
+            --at-container: 1140px;
+        }
+
+        @media (min-width: 1400px) {
+            --at-container: 1320px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        @media (min-width: 1200px) {
+            .at-ctnr {
+                max-width: 1380px;
+            }
+        }
+
+
+        .at-gallery-itm {
+            --at-w: 25%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr">
+        <h4 class="at-m">Gallery</h4>
+        <div class="at-gallery">
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                        alt="gallery 1">
+
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                        alt="gallery 2">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/13/2500/1667.jpg?hmac=SoX9UoHhN8HyklRA4A3vcCWJMVtiBXUg0W4ljWTor7s"
+                        alt="gallery 3">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/21/3008/2008.jpg?hmac=T8DSVNvP-QldCew7WD4jj_S3mWwxZPqdF0CNPksSko4"
+                        alt="gallery 4">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                        alt="gallery 5">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/26/4209/2769.jpg?hmac=vcInmowFvPCyKGtV7Vfh7zWcA_Z0kStrPDW3ppP0iGI"
+                        alt="gallery 6">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/27/3264/1836.jpg?hmac=p3BVIgKKQpHhfGRRCbsi2MCAzw8mWBCayBsKxxtWO8g"
+                        alt="gallery 7">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/55/4608/3072.jpg?hmac=ahGhylwdN52ULB37deeMZX6T_G7NiERtoPhwydMvUKQ"
+                        alt="gallery 8">
+                </figure>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="library/isotope/isotope.pkgd.js"></script>
+
+
+    <script type="text/javascript">
+        var elem = document.querySelector('.at-gallery');
+        var iso = new Isotope(elem, {
+            // options
+            itemSelector: '.at-gallery-itm',
+            layoutMode: 'fitRows'
+        });
+
+        // element argument can be a selector string
+        //   for an individual element
+        var iso = new Isotope('.at-gallery', {
+            // options
+        });
+
+    </script>
+</body>
+
+</html>
