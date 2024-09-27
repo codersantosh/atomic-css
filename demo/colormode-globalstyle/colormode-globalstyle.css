@@ -70,7 +70,8 @@
   --at-wrd-brk: initial;
   --at-wrd-spg: initial;
   --at-wrd-wrp: initial;
-  --at-z-idx: initial; }
+  --at-z-idx: initial;
+}
 
 /* HTML elements can be broadly categorized into several types including:
 
@@ -101,10 +102,12 @@ Metadata: elements that provide metadata about the document, such as <meta>, <ti
 * {
   margin: var(--at-m);
   padding: var(--at-p);
-  box-sizing: var(--at-box-szg); }
+  box-sizing: var(--at-box-szg);
+}
 
 html {
-  scroll-behavior: var(--at-scr-beh); }
+  scroll-behavior: var(--at-scr-beh);
+}
 
 /* Text elements */
 h1,
@@ -128,134 +131,175 @@ li,
   text-decoration: var(--at-txt-dec);
   line-height: var(--at-ln-h);
   letter-spacing: var(--at-ltr-sp);
-  color: var(--at-cl); }
+  color: var(--at-cl);
+}
 
 /* Content grou */
 table {
   caption-side: var(--at-cpt-sd);
-  table-layout: var(--at-tbl-lyt); }
+  table-layout: var(--at-tbl-lyt);
+}
 
 ul,
 ol,
 li {
-  list-style: var(--at-ls-sty); }
+  list-style: var(--at-ls-sty);
+}
 
 .at {
-  	/* Border has four different properties to, right, bottom, and left
-      wich again have three properties color, style and width.
-      Since individual properties color, width and style again support 4 values,
-      We are managing all properties from these there values*/ }
-  .at-acl {
-    /* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
-    accent-color: var(--at-acl); }
-  .at-bg-cl {
-    background-color: var(--at-bg-cl); }
-  .at-bg-img {
-    background-image: var(--at-bg-img);
-    background-position: var(--at-bg-pos);
-    background-size: var(--at-bg-sz);
-    background-repeat: var(--at-bg-rpt);
-    background-origin: var(--at-bg-org);
-    background-attachment: var(--at-bg-atch);
-    background-blend-mode: var(--at-bg-blend-mode); }
-  .at-bdr {
-    border-color: var(--at-bdr-cl);
-    border-width: var(--at-bdr-w);
-    border-style: var(--at-bdr-sty); }
-    .at-bdr-rad {
-      border-radius: var(--at-bdr-rad); }
-  .at-btn {
-    --at-cur: pointer;
-    cursor: var(--at-cur);
-    color: var(--at-cl);
-    background-color: var(--at-bg-cl);
-    font-size: var(--at-fnt-sz);
-    border-color: var(--at-bdr-cl);
-    border-width: var(--at-bdr-w);
-    border-style: var(--at-bdr-sty);
-    padding: var(--at-p); }
-  .at-pos {
-    bottom: var(--at-b);
-    position: var(--at-pos);
-    top: var(--at-t);
-    right: var(--at-r);
-    left: var(--at-l); }
-  .at-box-refl {
-    box-reflect: var(--at-box-refl); }
-  .at-box-sdw {
-    box-shadow: var(--at-box-sdw); }
-  .at-box-szg {
-    box-sizing: var(--at-box-szg); }
-  .at-ct-cl {
-    /* Set the color of the cursor in input elements:*/
-    caret-color: --at-ct-cl; }
-  .at-cl {
-    color: var(--at-cl); }
-  .at-cur {
-    cursor: var(--at-cur); }
-  .at-dir {
-    direction: var(--at-dir); }
-  .at-flt {
-    filter: var(--at-flt); }
-  .at-typ {
-    font-size: var(--at-fnt-sz);
-    font-weight: var(--at-fnt-wt);
-    font-family: var(--at-fnt-fam);
-    font-style: var(--at-fnt-sty);
-    text-transform: var(--at-txt-tf);
-    text-decoration: var(--at-txt-dec);
-    line-height: var(--at-ln-h);
-    letter-spacing: var(--at-ltr-sp); }
-  .at-msk {
-    mask-image: var(--at-msk-img);
-    mask-mode: var(--at-msk-mode);
-    mask-origin: var(--at-msk-org);
-    mask-position: var(--at-msk-pos);
-    mask-repeat: var(--at-msk-rpt);
-    mask-size: var(--at-msk-sz); }
-  .at-m {
-    margin: var(--at-m); }
-  .at-max-h {
-    max-height: var(--at-max-h); }
-  .at-max-w {
-    max-width: var(--at-max-w); }
-  .at-min-h {
-    min-height: var(--at-min-h); }
-  .at-min-w {
-    min-width: var(--at-min-w); }
-  .at-h {
-    height: var(--at-h); }
-  .at-w {
-    width: var(--at-w); }
-  .at-opa {
-    opacity: var(--at-opa); }
-  .at-ovf {
-    overflow: var(--at-ovf); }
-  .at-p {
-    padding: var(--at-p); }
-  .at-ptr-ev {
-    pointer-events: var(--at-ptr-ev); }
-  .at-txt-al {
-    text-align: var(--at-txt-al); }
-  .at-txt-sdw {
-    text-shadow: var(--at-txt-sdw); }
-  .at-tf {
-    perspective: var(--at-ppv);
-    perspective-origin: var(--at-ppv-org);
-    transform: var(--at-tf);
-    transform-origin: var(--at-tf-org);
-    transform-style: var(--at-tf-sty); }
-  .at-trs {
-    transition: var(--at-trs); }
-  .at-vis {
-    visibility: var(--at-vis); }
-  .at-wrd-brk {
-    word-break: var(--at-wrd-brk); }
-  .at-wrd-spc {
-    word-spacing: var(--at-wrd-spg); }
-  .at-wrd-wrp {
-    word-wrap: var(--at-wrd-wrp); }
-  .at-z-idx {
-    z-index: var(--at-z-idx); }
+  /* Border has four different properties to, right, bottom, and left
+     wich again have three properties color, style and width.
+     Since individual properties color, width and style again support 4 values,
+     We are managing all properties from these there values*/
+}
+.at-acl {
+  /* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
+  accent-color: var(--at-acl);
+}
+.at-bg-cl {
+  background-color: var(--at-bg-cl);
+}
+.at-bg-img {
+  background-image: var(--at-bg-img);
+  background-position: var(--at-bg-pos);
+  background-size: var(--at-bg-sz);
+  background-repeat: var(--at-bg-rpt);
+  background-origin: var(--at-bg-org);
+  background-attachment: var(--at-bg-atch);
+  background-blend-mode: var(--at-bg-blend-mode);
+}
+.at-bdr {
+  border-color: var(--at-bdr-cl);
+  border-width: var(--at-bdr-w);
+  border-style: var(--at-bdr-sty);
+}
+.at-bdr-rad {
+  border-radius: var(--at-bdr-rad);
+}
+.at-btn {
+  --at-cur: pointer;
+  cursor: var(--at-cur);
+  color: var(--at-cl);
+  background-color: var(--at-bg-cl);
+  font-size: var(--at-fnt-sz);
+  border-color: var(--at-bdr-cl);
+  border-width: var(--at-bdr-w);
+  border-style: var(--at-bdr-sty);
+  padding: var(--at-p);
+}
+.at-pos {
+  bottom: var(--at-b);
+  position: var(--at-pos);
+  top: var(--at-t);
+  right: var(--at-r);
+  left: var(--at-l);
+}
+.at-box-refl {
+  box-reflect: var(--at-box-refl);
+}
+.at-box-sdw {
+  box-shadow: var(--at-box-sdw);
+}
+.at-box-szg {
+  box-sizing: var(--at-box-szg);
+}
+.at-ct-cl {
+  /* Set the color of the cursor in input elements:*/
+  caret-color: --at-ct-cl;
+}
+.at-cl {
+  color: var(--at-cl);
+}
+.at-cur {
+  cursor: var(--at-cur);
+}
+.at-dir {
+  direction: var(--at-dir);
+}
+.at-flt {
+  filter: var(--at-flt);
+}
+.at-typ {
+  font-size: var(--at-fnt-sz);
+  font-weight: var(--at-fnt-wt);
+  font-family: var(--at-fnt-fam);
+  font-style: var(--at-fnt-sty);
+  text-transform: var(--at-txt-tf);
+  text-decoration: var(--at-txt-dec);
+  line-height: var(--at-ln-h);
+  letter-spacing: var(--at-ltr-sp);
+}
+.at-msk {
+  mask-image: var(--at-msk-img);
+  mask-mode: var(--at-msk-mode);
+  mask-origin: var(--at-msk-org);
+  mask-position: var(--at-msk-pos);
+  mask-repeat: var(--at-msk-rpt);
+  mask-size: var(--at-msk-sz);
+}
+.at-m {
+  margin: var(--at-m);
+}
+.at-max-h {
+  max-height: var(--at-max-h);
+}
+.at-max-w {
+  max-width: var(--at-max-w);
+}
+.at-min-h {
+  min-height: var(--at-min-h);
+}
+.at-min-w {
+  min-width: var(--at-min-w);
+}
+.at-h {
+  height: var(--at-h);
+}
+.at-w {
+  width: var(--at-w);
+}
+.at-opa {
+  opacity: var(--at-opa);
+}
+.at-ovf {
+  overflow: var(--at-ovf);
+}
+.at-p {
+  padding: var(--at-p);
+}
+.at-ptr-ev {
+  pointer-events: var(--at-ptr-ev);
+}
+.at-txt-al {
+  text-align: var(--at-txt-al);
+}
+.at-txt-sdw {
+  text-shadow: var(--at-txt-sdw);
+}
+.at-tf {
+  perspective: var(--at-ppv);
+  perspective-origin: var(--at-ppv-org);
+  transform: var(--at-tf);
+  transform-origin: var(--at-tf-org);
+  transform-style: var(--at-tf-sty);
+}
+.at-trs {
+  transition: var(--at-trs);
+}
+.at-vis {
+  visibility: var(--at-vis);
+}
+.at-wrd-brk {
+  word-break: var(--at-wrd-brk);
+}
+.at-wrd-spc {
+  word-spacing: var(--at-wrd-spg);
+}
+.at-wrd-wrp {
+  word-wrap: var(--at-wrd-wrp);
+}
+.at-z-idx {
+  z-index: var(--at-z-idx);
+}
 
 /*# sourceMappingURL=colormode-globalstyle.css.map */
