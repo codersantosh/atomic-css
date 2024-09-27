@@ -1,4 +1,4 @@
-/* HTML elements can be broadly categorized into several types including:
+/* UI Elementscan be broadly categorized into several types including:
 
 Structural(Semantic) elements: define the structure of a web page and include elements such as <header>, <footer>, <nav>, <main>, <section>, <article>, and <aside>.
 
@@ -17,7 +17,6 @@ Block-level elements: These elements create a new block formatting context and o
 
 Inline elements: These elements only take up as much width as necessary and do not create a new line before or after the element. Examples include <span>, <a>, <img>, <em>, <strong>, <small>, etc.
 
-
 Interactivity: elements that provide interactive features such as buttons, checkboxes, radio buttons, and forms.
 
 Phrasing content: elements that define phrasing content and the way it is rendered, such as <em>, <strong>, <small>, etc.
@@ -30,444 +29,696 @@ $appPrefix: '.at';
 //Root variable Prefix
 $varPrefix: '--at';
 
-* {
-    margin    : var(#{$varPrefix}-m);
-    padding   : var(#{$varPrefix}-p);
-    box-sizing: var(#{$varPrefix}-box-szg);
-}
-
 html {
-    scroll-behavior: var(#{$varPrefix}-scr-beh);
+	scroll-behavior: var(#{$varPrefix}-scr-beh, initial);
 }
 
-/* Text elements */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-button,
-code,
-span,
-li,
-#{$appPrefix}-btn {
-    // Font/Typography group
-    // TODO? font has many other properties but I think we dont need them all;
-    font-size      : var(#{$varPrefix}-fnt-sz);
-    font-weight    : var(#{$varPrefix}-fnt-wt);
-    font-family    : var(#{$varPrefix}-fnt-fam);
-    font-style     : var(#{$varPrefix}-fnt-sty);
-    text-transform : var(#{$varPrefix}-txt-tf);
-    text-decoration: var(#{$varPrefix}-txt-dec);
-    line-height    : var(#{$varPrefix}-ln-h);
-    letter-spacing : var(#{$varPrefix}-ltr-sp);
-    // color: color|initial|inherit;
-    color          : var(#{$varPrefix}-cl);
-}
-
-/* Content grou */
-table {
-    // caption-side: top|bottom|initial|inherit;
-    caption-side   : var(#{$varPrefix}-cpt-sd);
-    // table-layout: auto|fixed|initial|inherit;
-    table-layout   : var(#{$varPrefix}-tbl-lyt);
-}
-
-ul,
-ol,
-li {
-    // list-style: list-style-type list-style-position list-style-image|initial|inherit;
-    list-style: var(#{$varPrefix}-ls-sty);
-}
-
+/* Content group */
 #{$appPrefix} {
-    &-acl {
-        /* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
-        // accent-color: auto|color|initial|inherit;
-        accent-color: var(#{$varPrefix}-acl);
-    }
+	&-row {
+		* {
+			box-sizing: var(#{$varPrefix}-box-szg, border-box);
+		}
+	}
 
-    //animation: name duration timing-function delay iteration-count direction fill-mode play-state;
-    // Animation is handled by transform, transition, default animation
-    // aspect-ratio TODO?
-    // backdrop-filter TODO?
-    // backface-visibility TODO?
+	/* Text  include typo and color* - HTML Elements*/
+	&-txt,
+	&-txt * {
+		// Font/Typography group
+		// TODO? font has many other properties but I think we dont need them all;
+		font-size: var(#{$varPrefix}-fnt-sz, initial);
+		font-weight: var(#{$varPrefix}-fnt-wt, initial);
+		font-family: var(#{$varPrefix}-fnt-fam, initial);
+		font-style: var(#{$varPrefix}-fnt-sty, initial);
+		text-transform: var(#{$varPrefix}-txt-tf, initial);
 
-    &-bg {
-        &-cl {
-            background-color: var(#{$varPrefix}-bg-cl);
-        }
+		//text-decoration: text-decoration-line text-decoration-color text-decoration-style text-decoration-thickness|initial|inherit; (value options)
+		text-decoration: var(#{$varPrefix}-txt-dec, initial);
 
-        &-img {
-            background-image     : var(#{$varPrefix}-bg-img);
-            background-position  : var(#{$varPrefix}-bg-pos);
-            background-size      : var(#{$varPrefix}-bg-sz);
-            background-repeat    : var(#{$varPrefix}-bg-rpt);
-            background-origin    : var(#{$varPrefix}-bg-org);
-            background-attachment: var(#{$varPrefix}-bg-atch);
-            background-blend-mode: var(#{$varPrefix}-bg-blend-mode);
-        }
-    }
+		line-height: var(#{$varPrefix}-ln-h, initial);
+		letter-spacing: var(#{$varPrefix}-ltr-sp, initial);
 
-    // block-size TODO?
+		// color: color|initial|inherit; (value options)
+		color: var(#{$varPrefix}-cl, initial);
+	}
+	&-txt {
+		&-al {
+			// text-align: left|right|center|justify|initial|inherit; (value options)
+			text-align: var(#{$varPrefix}-txt-al, initial);
+		}
 
-    /* Border has four different properties to, right, bottom, and left
+		// text-indent TODO?
+		// text-justify TODO?
+		//  text-orientation TODO?
+		//  text-overflow TODO?
+
+		&-sdw {
+			// text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit; (value options)
+			text-shadow: var(#{$varPrefix}-txt-sdw, initial);
+		}
+		&-ovf {
+			//text-overflow: clip|ellipsis|string|initial|inherit;(value options)
+			text-overflow: var(#{$varPrefix}-txt-ovf, initial);
+		}
+	}
+
+	&-dropcap::first-letter {
+		font-size: var(#{$varPrefix}-fnt-sz, initial);
+		font-weight: var(#{$varPrefix}-fnt-wt, initial);
+		font-family: var(#{$varPrefix}-fnt-fam, initial);
+		font-style: var(#{$varPrefix}-fnt-sty, initial);
+		text-transform: var(#{$varPrefix}-txt-tf, initial);
+		text-decoration: var(#{$varPrefix}-txt-dec, initial);
+		line-height: var(#{$varPrefix}-ln-h, initial);
+		letter-spacing: var(#{$varPrefix}-ltr-sp, initial);
+
+		// color: color|initial|inherit; (value options)
+		color: var(#{$varPrefix}-cl, initial);
+		background-color: var(#{$varPrefix}-bg-cl, initial);
+		margin: var(#{$varPrefix}-m, initial);
+		padding: var(#{$varPrefix}-p, initial);
+
+		// border-color: color|transparent|initial|inherit;(value options)
+		border-color: var(#{$varPrefix}-bdr-cl, initial);
+
+		// border-width: medium|thin|thick|length|initial|inherit; (4sides & value options)
+		border-width: var(#{$varPrefix}-bdr-w, initial);
+
+		// border-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit; (4sides & value options)
+		border-style: var(#{$varPrefix}-bdr-sty, initial);
+
+		// border-radius: 1-4 length|% / 1-4 length|%|initial|inherit; (4sides & value options)
+		border-radius: var(#{$varPrefix}-bdr-rad, initial);
+
+		// box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit; (value options)
+		box-shadow: var(#{$varPrefix}-box-sdw, initial);
+
+		//added float (must have float left)
+		float: left;
+	}
+
+	/* Table - UI Elements*/
+	&-tbl {
+		// caption-side: top|bottom|initial|inherit;
+		caption-side: var(#{$varPrefix}-cpt-sd, initial);
+
+		// table-layout: auto|fixed|initial|inherit;
+		table-layout: var(#{$varPrefix}-tbl-lyt, initial);
+	}
+
+	/* List - UI Elements*/
+	&-ls {
+		// list-style: list-style-type list-style-position list-style-image|initial|inherit; (value options)
+		list-style-position: var(#{$varPrefix}-ls-pos, outside);
+		list-style-image: var(#{$varPrefix}-ls-img, none);
+		list-style-type: var(#{$varPrefix}-ls-typ, none);
+
+		li {
+			&::marker {
+				font-size: var(#{$varPrefix}-mkr-sz, initial);
+				color: var(#{$varPrefix}-mkr-cl, initial);
+			}
+		}
+	}
+
+	/* Button - UI Elements*/
+	&-btn {
+		#{$varPrefix}-cur: pointer;
+		cursor: var(#{$varPrefix}-cur, initial);
+		color: var(#{$varPrefix}-cl, initial);
+		background-color: var(#{$varPrefix}-bg-cl, initial);
+		font-size: var(#{$varPrefix}-fnt-sz, initial);
+		border-color: var(#{$varPrefix}-bdr-cl, initial);
+		border-width: var(#{$varPrefix}-bdr-w, initial);
+		border-style: var(#{$varPrefix}-bdr-sty, initial);
+		padding: var(#{$varPrefix}-p, initial);
+		line-height: var(#{$varPrefix}-ln-h, initial);
+	}
+
+	/* SVG - UI Elements*/
+	&-svg {
+		fill: var(#{$varPrefix}-cl);
+
+		text,
+		polyline,
+		line,
+		ellipse,
+		circle,
+		rect,
+		path {
+			fill: inherit;
+		}
+
+		// svg wrap
+		&-wrp {
+			#{$varPrefix}-ln-h: 0;
+			line-height: var(#{$varPrefix}-ln-h);
+			svg {
+				width: var(#{$varPrefix}-w, inherit);
+				height: var(#{$varPrefix}-h, inherit);
+			}
+		}
+	}
+
+	/* Image - UI Elements*/
+	/* Always cover img tag with figure tag */
+	&-img {
+		#{$varPrefix}-max-w: 100%;
+		max-width: var(#{$varPrefix}-max-w);
+	}
+
+	/* Video - UI Elements*/
+	/* Always cover video tag with figure tag */
+	&-vid {
+		#{$varPrefix}-max-w: 100%;
+		#{$varPrefix}-w: 100%;
+		#{$varPrefix}-h: 100%;
+		max-width: var(#{$varPrefix}-max-w, initial);
+		width: var(#{$varPrefix}-w, initial);
+		height: var(#{$varPrefix}-h, initial);
+
+		&-bg {
+			#{$varPrefix}-pos: absolute;
+			#{$varPrefix}-z-idx: -1;
+			#{$varPrefix}-l: 0;
+			#{$varPrefix}-t: 0;
+			object-fit: cover;
+		}
+	}
+
+	/* Audio - UI Elements*/
+	/* Always cover audio tag with figure tag */
+	&-aud {
+		#{$varPrefix}-w: 100%;
+		#{$varPrefix}-min-w: 300px;
+		width: var(#{$varPrefix}-w, initial);
+		min-width: var(#{$varPrefix}-min-w, initial);
+	}
+
+	/* CSS properties based Class */
+	&-acl {
+		/* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
+		// accent-color: auto|color|initial|inherit; (value options)
+		accent-color: var(#{$varPrefix}-acl, initial);
+	}
+
+	//animation: name duration timing-function delay iteration-count direction fill-mode play-state;
+	// Animation is handled by transform, transition, default animation
+	// aspect-ratio TODO?
+	// backdrop-filter TODO?
+	// backface-visibility TODO?
+
+	&-bg {
+		&-cl {
+			background-color: var(#{$varPrefix}-bg-cl, initial);
+		}
+
+		&-img {
+			background-image: var(#{$varPrefix}-bg-img, initial);
+			background-position: var(#{$varPrefix}-bg-pos, initial);
+			background-size: var(#{$varPrefix}-bg-sz, initial);
+			background-repeat: var(#{$varPrefix}-bg-rpt, initial);
+			background-origin: var(#{$varPrefix}-bg-org, initial);
+			background-attachment: var(#{$varPrefix}-bg-atch, initial);
+			background-blend-mode: var(#{$varPrefix}-bg-blend-mode, initial);
+		}
+
+		// Video element wrapper
+		&-vid {
+			#{$varPrefix}-pos: relative;
+			#{$varPrefix}-z-idx: 1;
+		}
+	}
+
+	// block-size TODO?
+
+	/* Border has four different properties to, right, bottom, and left
     wich again have three properties color, style and width.
     Since individual properties color, width and style again support 4 values,
     We are managing all properties from these there values*/
-    // TODO? border has many other properties but I think we dont need them all;
-
-    &-bdr {
-        // border-color: color|transparent|initial|inherit;
-        border-color: var(#{$varPrefix}-bdr-cl);
-
-        // border-width: medium|thin|thick|length|initial|inherit; (4sides)
-        border-width: var(#{$varPrefix}-bdr-w);
-
-        // border-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit; (4sides)
-        border-style: var(#{$varPrefix}-bdr-sty);
-
-        &-rad {
-            // border-radius: 1-4 length|% / 1-4 length|%|initial|inherit; (4sides)
-            border-radius: var(#{$varPrefix}-bdr-rad);
-        }
-    }
-
-    &-btn {
-        #{$varPrefix}-cur: pointer;
-        cursor           : var(#{$varPrefix}-cur);
-        color            : var(#{$varPrefix}-cl);
-        background-color : var(#{$varPrefix}-bg-cl);
-        font-size        : var(#{$varPrefix}-fnt-sz);
-        border-color     : var(#{$varPrefix}-bdr-cl);
-        border-width     : var(#{$varPrefix}-bdr-w);
-        border-style     : var(#{$varPrefix}-bdr-sty);
-        padding          : var(#{$varPrefix}-p);
-    }
-
-    &-pos {
-        // bottom: auto|length|initial|inherit; (Position group)
-        bottom     : var(#{$varPrefix}-b);
-        // position: static|absolute|fixed|relative|sticky|initial|inherit;
-        position   : var(#{$varPrefix}-pos);
-        // top: auto|length|initial|inherit;
-        top        : var(#{$varPrefix}-t);
-        // right: auto|length|initial|inherit;
-        right      : var(#{$varPrefix}-r);
-        // left: auto|length|initial|inherit;
-        left       : var(#{$varPrefix}-l);
-    }
-
-    // box-decoration-break TODO?
+	// TODO? border has many other properties but I think we dont need them all;
+
+	&-bdr {
+		// border-color: color|transparent|initial|inherit;(value options)
+		border-color: var(#{$varPrefix}-bdr-cl, initial);
+
+		// border-width: medium|thin|thick|length|initial|inherit; (4sides & value options)
+		border-width: var(#{$varPrefix}-bdr-w, initial);
+
+		// border-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit; (4sides & value options)
+		border-style: var(#{$varPrefix}-bdr-sty, initial);
+
+		&-rad {
+			// border-radius: 1-4 length|% / 1-4 length|%|initial|inherit; (4sides & value options)
+			border-radius: var(#{$varPrefix}-bdr-rad, initial);
+		}
+	}
+
+	/* Always cover img tag with figure tag */
+	&-msk {
+		mask-image: var(#{$varPrefix}-msk-img, initial);
+		mask-mode: var(#{$varPrefix}-msk-mode, initial);
+		mask-origin: var(#{$varPrefix}-msk-org, initial);
+		mask-position: var(#{$varPrefix}-msk-pos, initial);
+		mask-repeat: var(#{$varPrefix}-msk-rpt, initial);
+		mask-size: var(#{$varPrefix}-msk-sz, initial);
+	}
+
+	/*Overlay styles*/
+
+	&-ovl {
+		#{$varPrefix}-pos: relative;
+		#{$varPrefix}-z-idx: 2;
+
+		&:after {
+			content: '';
+			#{$varPrefix}-pos: absolute;
+			#{$varPrefix}-l: 0;
+			#{$varPrefix}-t: 0;
+			#{$varPrefix}-w: 100%;
+			#{$varPrefix}-h: 100%;
+			#{$varPrefix}-z-idx: -1;
+			width: var(#{$varPrefix}-w, initial);
+			height: var(#{$varPrefix}-h, initial);
+			position: var(#{$varPrefix}-pos, initial);
+			left: var(#{$varPrefix}-l, initial);
+			top: var(#{$varPrefix}-t, initial);
+			z-index: var(#{$varPrefix}-z-idx, initial);
+			transition: var(#{$varPrefix}-trs, initial);
+		}
+
+		&-cl {
+			&:after {
+				background: var(#{$varPrefix}-ovl, initial);
+			}
+		}
+
+		&-grd {
+			&:after {
+				background: var(#{$varPrefix}-ovl), initial;
+			}
+		}
+	}
+
+	/*Position*/
+	&-pos {
+		// position: static|absolute|fixed|relative|sticky|initial|inherit; (value options)
+		position: var(#{$varPrefix}-pos, initial);
+
+		// top: auto|length|initial|inherit;(value options)
+		top: var(#{$varPrefix}-t, initial);
+
+		// right: auto|length|initial|inherit;(value options)
+		right: var(#{$varPrefix}-r, initial);
+
+		// bottom: auto|length|initial|inherit; (Position group)
+		bottom: var(#{$varPrefix}-b, initial);
+
+		// left: auto|length|initial|inherit;(value options)
+		left: var(#{$varPrefix}-l, initial);
+	}
+
+	// box-decoration-break TODO?
+	// box-reflect TODO?
+
+	/*Box related css*/
+	&-box {
+		&-sdw {
+			// box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;(value options)
+			box-shadow: var(#{$varPrefix}-box-sdw, initial);
+		}
+
+		&-szg {
+			// box-sizing: content-box|border-box|initial|inherit;(value options)
+			box-sizing: var(#{$varPrefix}-box-szg, initial);
+		}
+	}
+
+	// break-after,break-before,break-inside TODO?
+
+	/*Caret Color*/
+	&-ct {
+		&-cl {
+			/* Set the color of the cursor in input elements:*/
+			// caret-color: auto|color|initial|inherit;(value options)
+			caret-color: var(#{$varPrefix}-ct-cl, initial);
+		}
+	}
 
-    &-box {
-        &-refl {
-            // box-reflect
-            //Non-standard: This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user.
-            box-reflect: var(#{$varPrefix}-box-refl);
-        }
-
-        &-sdw {
-            // box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;
-            box-shadow: var(#{$varPrefix}-box-sdw);
-        }
-
-        &-szg {
-            // box-sizing: content-box|border-box|initial|inherit;
-            box-sizing: var(#{$varPrefix}-box-szg);
-        }
-    }
-
-    // break-after,break-before,break-inside TODO?
+	//clear,clip,clip-path TODO?
 
-    &-ct {
-        &-cl {
-            /* Set the color of the cursor in input elements:*/
-            // caret-color: auto|color|initial|inherit;
-            caret-color: #{$varPrefix}-ct-cl;
-        }
-    }
+	/*Color*/
+	&-cl {
+		// color: color|initial|inherit;(value options)
+		color: var(#{$varPrefix}-cl, initial);
+	}
 
-    //clear,clip,clip-path TODO?
-
-    &-cl {
-        // color: color|initial|inherit;
-        color: var(#{$varPrefix}-cl);
-    }
-
-    // column-count,column-fill,column-gap, column-rule, column-rule-color, column-rule-style, column-rule-width, column-span, column-width, columns TODO?
-    // content TODO?
-    // counter-increment, counter-reset TODO?
-    // content TODO?
-
-    &-cur {
-        // cursor: value;
-        cursor: var(#{$varPrefix}-cur);
-    }
-
-    &-dir {
-        // direction: ltr|rtl|initial|inherit;
-        direction: var(#{$varPrefix}-dir);
-    }
-
-    // display handle by at - flex css
-
-    // empty-cells TODO?
-
-    &-flt {
-        // filter: none | blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia() | url();
-        filter: var(#{$varPrefix}-flt);
-    }
+	/*Clip Path*/
+	&-clp-pth {
+		//clip: clip-source|basic-shape|margin-box|border-box|padding-box|content-box|fill-box|stroke-box|view-box|none|initial|inherit;(value options)
+		clip-path: var(#{$varPrefix}-clp-pth, initial);
+	}
 
-    // flex related css handled by at - flex css. flex, flex-basis, flex-direction, flex-flow, flex-grow, flex-shrink, flex-wrap
+	/*Clear*/
+	&-clr {
+		//clear: none|left|right|both|initial|inherit; (value options)
+		clear: var(#{$varPrefix}-clr, initial);
+	}
 
-    // float TODO?
+	// column-count,column-fill,column-gap, column-rule, column-rule-color, column-rule-style, column-rule-width, column-span, column-width, columns TODO?
+	// content TODO?
+	// counter-increment, counter-reset TODO?
+	// content TODO?
 
-    &-typ {
+	/*Cursor*/
+	&-cur {
+		// cursor: value;
+		cursor: var(#{$varPrefix}-cur, initial);
+	}
 
-        // Font/Typography group
-        // TODO? font has many other properties but I think we dont need them all;
-        font-size      : var(#{$varPrefix}-fnt-sz);
-        font-weight    : var(#{$varPrefix}-fnt-wt);
-        font-family    : var(#{$varPrefix}-fnt-fam);
-        font-style     : var(#{$varPrefix}-fnt-sty);
-        text-transform : var(#{$varPrefix}-txt-tf);
-        text-decoration: var(#{$varPrefix}-txt-dec);
-        line-height    : var(#{$varPrefix}-ln-h);
-        letter-spacing : var(#{$varPrefix}-ltr-sp);
-    }
+	/*Direction*/
+	&-dir {
+		// direction: ltr|rtl|initial|inherit; (value options)
+		direction: var(#{$varPrefix}-dir, initial);
+	}
 
-    // fap in flex
+	// display handle by at - flex css
 
-    // Not using any other grid properties, we use flex from by at-flex css
+	// empty-cells TODO?
 
-    // height: auto|length|initial|inherit; handle by min-height
+	/*Filter*/
+	/*Special use in Image*/
+	&-fl {
+		// filter: none | blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia() | url(); (value options)
+		filter: var(#{$varPrefix}-fl, initial);
+	}
 
-    // hyphens: none|manual|auto|initial|inherit; TODO?
+	// flex related css handled by at - flex css. flex, flex-basis, flex-direction, flex-flow, flex-grow, flex-shrink, flex-wrap
 
-    // image-rendering: auto|smooth|high-quality|crisp-edges|pixelated|initial|inherit; TODO?
+	// float TODO?
 
-    // inline-size: auto|value|initial|inherit; TODO?
+	// gap in flex
 
-    // inset,inset-block,inset-block-end, inset-block-start othere inset properties TODO?
+	// Not using any other grid properties, we use flex from by at-flex css
 
-    // isolation: auto|isolate|initial|inherit; TODO?
+	// height: auto|length|initial|inherit; handle by min-height
 
-    // justify-content,justify-items and justify-self used by at - flex css
+	// hyphens: none|manual|auto|initial|inherit; TODO?
 
-    // left already used on position group
+	// image-rendering: auto|smooth|high-quality|crisp-edges|pixelated|initial|inherit; TODO?
 
-    // letter-spacing/line-height already used on font/typography group
+	// inline-size: auto|value|initial|inherit; TODO?
 
-    // list-style used on ul, ol,li
+	// inset,inset-block,inset-block-end, inset-block-start othere inset properties TODO?
 
-    &-msk {
-        mask-image   : var(#{$varPrefix}-msk-img);
-        mask-mode    : var(#{$varPrefix}-msk-mode);
-        mask-origin  : var(#{$varPrefix}-msk-org);
-        mask-position: var(#{$varPrefix}-msk-pos);
-        mask-repeat  : var(#{$varPrefix}-msk-rpt);
-        mask-size    : var(#{$varPrefix}-msk-sz);
-    }
+	// isolation: auto|isolate|initial|inherit; TODO?
 
-    // max-block-size TODO?
+	// justify-content,justify-items and justify-self used by at - flex css
 
-    &-m {
-        // margin: length|auto|initial|inherit;
-        margin: var(#{$varPrefix}-m);
+	// left already used on position group
 
-        //  margin-block, margin-block-end, margin-block-start, margin-top all should be handled by margin.
+	// letter-spacing/line-height already used on font/typography group
+
+	// list-style used on ul, ol,li
+
+	// max-block-size TODO?
+
+	/*Margin*/
+	&-m {
+		// margin: length|auto|initial|inherit; (value options)
+		margin: var(#{$varPrefix}-m, initial);
 
-        // mask related on at-mask class
-    }
+		//  margin-block, margin-block-end, margin-block-start, margin-top all should be handled by margin.
 
-    &-max {
-        &-h {
-            // max-height: none|length|initial|inherit;
-            max-height: var(#{$varPrefix}-max-h);
-        }
+		// mask related on at-mask class
+	}
 
-        &-w {
-            // max-width: none|length|initial|inherit;
-            max-width: var(#{$varPrefix}-max-w);
-        }
-    }
+	/*Max Height & Width*/
+	&-max {
+		&-h {
+			// max-height: none|length|initial|inherit; (value options)
+			max-height: var(#{$varPrefix}-max-h, initial);
+		}
 
-    &-min {
-        &-h {
-            // min-height: length|initial|inherit;
-            min-height: var(#{$varPrefix}-min-h);
-        }
+		&-w {
+			// max-width: none|length|initial|inherit; (value options)
+			max-width: var(#{$varPrefix}-max-w, initial);
+		}
+	}
 
-        &-w {
-            // min-width: length|initial|inherit;
-            min-width: var(#{$varPrefix}-min-w);
-        }
-    }
+	/*Min Height & Width*/
+	&-min {
+		&-h {
+			// min-height: length|initial|inherit; (value options)
+			min-height: var(#{$varPrefix}-min-h, initial);
+		}
 
-    &-h {
-        // height: length|initial|inherit;
-        height: var(#{$varPrefix}-h);
-    }
+		&-w {
+			// min-width: length|initial|inherit; (value options)
+			min-width: var(#{$varPrefix}-min-w, initial);
+		}
+	}
 
-    &-w {
-        // width: length|initial|inherit;
-        width: var(#{$varPrefix}-w);
-    }
+	/*Map*/
+	&-map {
+		height: 100% !important;
+		width: 100% !important;
+	}
+	/*Progress Bar handle by custom html/css*/
 
-    //  max-inline-size: 60px; TODO?
+	/*Height*/
+	&-h {
+		// height: length|initial|inherit; (value options)
+		height: var(#{$varPrefix}-h, initial);
+	}
 
-    // min-block-size, min-inline-size TODO?
-    // mix-blend-mode: normal|multiply|screen|overlay|darken|lighten|color-dodge|color-burn|difference|exclusion|hue|saturation|color|luminosity;
-    // mix-blend-mode: var(#{$varPrefix}-mix-blend-mode);
+	/*Width*/
+	&-w {
+		// width: length|initial|inherit; (value options)
+		width: var(#{$varPrefix}-w, initial);
+	}
 
-    // object-fit,object-position  TODO?
+	//  max-inline-size: 60px; TODO?
 
-    // offser,offset-anchor and other offect  TODO?
+	// min-block-size, min-inline-size TODO?
 
-    &-opa {
-        // opacity: number|initial|inherit;
-        opacity: var(#{$varPrefix}-opa);
-    }
+	/*Mix Blens Mode*/
+	&-mix-blnd-mode {
+		// mix-blend-mode: normal|multiply|screen|overlay|darken|lighten|color-dodge|color-burn|difference|exclusion|hue|saturation|color|luminosity;(value options)
+		mix-blend-mode: var(#{$varPrefix}-mix-blend-mode, initial);
+	}
 
-    // order in at - flex css
+	/*Object Fit*/
+	&-obj-fit {
+		// object-fit : fill|container|cover|none|scale-down (value options)
+		mix-blend-mode: var(#{$varPrefix}-obj-fit, initial);
+	}
 
-    // orphans  TODO?
+	// offser,offset-anchor and other offect  TODO?
 
-    // outline  TODO? or handled by border
+	/*Opacity*/
+	&-opa {
+		// opacity: number|initial|inherit; (value options)
+		opacity: var(#{$varPrefix}-opa, initial);
+	}
 
-    &-ovf {
-        // overflow: visible|hidden|clip|scroll|auto|initial|inherit;
-        overflow: var(#{$varPrefix}-ovf);
-        // Othere overflow TODO?
-    }
+	// order in at - flex css
 
-    &-p {
-        // padding: length|initial|inherit;
-        padding: var(#{$varPrefix}-p);
-        // padding-block,  padding-block-end etc should be handled by padding
-    }
+	// orphans  TODO?
 
-    // page-break TODO?
+	// outline  TODO? or handled by border
 
-    // paint-order TODO?
+	/*OverFlow*/
+	&-ovf {
+		// overflow: visible|hidden|clip|scroll|auto|initial|inherit; (value options)
+		overflow: var(#{$varPrefix}-ovf, initial);
+		// Othere overflow TODO?
+	}
+	/*Padding*/
+	&-p {
+		// padding: length|initial|inherit;
+		padding: var(#{$varPrefix}-p, initial);
+		// padding-block,  padding-block-end etc should be handled by padding
+	}
 
-    // perspective on at-transform
+	// page-break TODO?
 
-    // place-content,place-items,place-self TODO? or should be handle on at - flex css
+	// paint-order TODO?
 
-    &-ptr-ev {
-        // pointer-events: auto|none;
-        pointer-events: var(#{$varPrefix}-ptr-ev);
-    }
+	// perspective on at-transform
 
-    // position on position group
+	// place-content,place-items,place-self TODO? or should be handle on at - flex css
 
-    // quotes TODO?
+	/*Pointer Event*/
+	&-ptr-ev {
+		// pointer-events: auto|none;
+		pointer-events: var(#{$varPrefix}-ptr-ev, initial);
+	}
 
-    // resize TODO?
+	// position on position group
 
-    // right on position group
+	// quotes TODO?
 
-    // rotate used in transform
+	/*Resize*/
+	&-resz {
+		//resize: none|both|horizontal|vertical|initial|inherit;
+		resize: var(#{$varPrefix}-resz, initial);
+	}
 
-    // row-gap on flex
+	// right on position group
 
-    // scale used in transform
+	// rotate used in transform
 
-    // scroll-behavior on html
-    // scroll other properties TODO?
+	// row-gap on flex
 
-    // tab-size TODO?
+	// scale used in transform
 
-    &-txt {
-        &-al {
-            // text-align: left|right|center|justify|initial|inherit;
-            text-align: var(#{$varPrefix}-txt-al);
-        }
+	// scroll-behavior on html
+	// scroll other properties TODO?
 
-        // text-align-last TODO?
+	/*Tab-size*/
+	&-tab-sz {
+		tab-size: var(#{$varPrefix}-tab-sz, initial);
+	}
 
-        // text-decoration on font/typography group
-        // text-decoration-color,text-decoration-line,text-decoration-style,text-decoration-thickness TODO?
+	// top in position group
 
-        // text-indent TODO?
-        // text-justify TODO?
-        //  text-orientation TODO?
-        //  text-overflow TODO?
+	/*Transform*/
+	&-tf {
+		// perspective: length|none;
+		perspective: var(#{$varPrefix}-ppv, initial);
 
-        &-sdw {
-            // text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit;
-            text-shadow: var(#{$varPrefix}-txt-sdw);
-        }
+		// perspective-origin: x-axis y-axis|initial|inherit;
+		perspective-origin: var(#{$varPrefix}-ppv-org, initial);
 
-        // text-transform in typography group
-    }
-
-    // top in position group
-
-    &-tf {
-        // perspective: length|none;
-        perspective: var(#{$varPrefix}-ppv);
-
-        // perspective-origin: x-axis y-axis|initial|inherit;
-        perspective-origin: var(#{$varPrefix}-ppv-org);
-
-        // transform: none|transform-functions|initial|inherit;
-        transform: var(#{$varPrefix}-tf);
-
-        // transform-origin: x-axis y-axis z-axis|initial|inherit;
-        transform-origin: var(#{$varPrefix}-tf-org);
-
-        // transform-style: flat|preserve-3d|initial|inherit;
-        transform-style: var(#{$varPrefix}-tf-sty);
-    }
-
-    // translate in transform
-
-    // user-select TODO?
-
-    // vertical-align TODO? or using flex
-
-    // table-layout on table
-    &-trs {
-        // transition: property duration timing-function delay|initial|inherit;
-        transition: var(#{$varPrefix}-trs);
-    }
-
-    &-vis {
-        // visibility: visible|hidden|collapse|initial|inherit;
-        visibility: var(#{$varPrefix}-vis);
-    }
-
-    // white-space TODO?
-
-    // width: auto|length|initial|inherit; handle by max-width
-
-    &-wrd {
-        &-brk {
-            // word-break: normal|break-all|keep-all|break-word|initial|inherit;
-            word-break: var(#{$varPrefix}-wrd-brk);
-        }
-
-        &-spc {
-            // word-spacing: normal|length|initial|inherit;
-            word-spacing: var(#{$varPrefix}-wrd-spg);
-        }
-
-        &-wrp {
-            // word-wrap: normal|break-word|initial|inherit;
-            word-wrap: var(#{$varPrefix}-wrd-wrp);
-        }
-    }
-
-    // writing-mode TODO?
-
-    &-z-idx {
-        // z-index: auto|number|initial|inherit;
-        z-index: var(#{$varPrefix}-z-idx);
-    }
+		// transform: none|transform-functions|initial|inherit;
+		transform: var(#{$varPrefix}-tf, initial);
+
+		// transform-origin: x-axis y-axis z-axis|initial|inherit;
+		transform-origin: var(#{$varPrefix}-tf-org, initial);
+
+		// transform-style: flat|preserve-3d|initial|inherit;
+		transform-style: var(#{$varPrefix}-tf-sty, initial);
+	}
+
+	// translate in transform
+
+	// user-select TODO?
+
+	// vertical-align TODO? or using flex
+
+	// table-layout on table
+
+	/*Transition*/
+	&-trs {
+		// transition: property duration timing-function delay|initial|inherit;
+		transition: var(#{$varPrefix}-trs, initial);
+	}
+	/*Visibility*/
+	&-vis {
+		// visibility: visible|hidden|collapse|initial|inherit;
+		visibility: var(#{$varPrefix}-vis, initial);
+	}
+
+	/*White Space*/
+	&-white-sp {
+		//white-space: normal|nowrap|pre|pre-line|pre-wrap|initial|inherit;
+		white-space: var(#{$varPrefix}-white-sp, initial);
+	}
+
+	// width: auto|length|initial|inherit; handle by max-width
+
+	/*Word*/
+	&-wrd {
+		&-brk {
+			// word-break: normal|break-all|keep-all|break-word|initial|inherit;
+			word-break: var(#{$varPrefix}-wrd-brk, initial);
+		}
+
+		&-spc {
+			// word-spacing: normal|length|initial|inherit;
+			word-spacing: var(#{$varPrefix}-wrd-spg, initial);
+		}
+
+		&-wrp {
+			// word-wrap: normal|break-word|initial|inherit;
+			word-wrap: var(#{$varPrefix}-wrd-wrp, initial);
+		}
+	}
+
+	// writing-mode TODO?
+
+	/*Z index*/
+	&-z-idx {
+		// z-index: auto|number|initial|inherit;
+		z-index: var(#{$varPrefix}-z-idx, initial);
+	}
+
+	/*Block shape (Html element section top bottom shape)*/
+	//wrapper
+	&-blk-shp {
+		#{$varPrefix}-pos: relative;
+
+		> :not(#{$appPrefix}-shp):not(#{$appPrefix}-z-idx) {
+			#{$varPrefix}-z-idx: 2;
+			#{$varPrefix}-pos: relative;
+			z-index: var(#{$varPrefix}-z-idx, initial);
+			position: var(#{$varPrefix}-pos, initial);
+		}
+	}
+
+	/*Block Shape Element*/
+	&-shp {
+		#{$varPrefix}-pos: absolute;
+		#{$varPrefix}-w: 100%;
+		#{$varPrefix}-l: 0;
+		#{$varPrefix}-z-idx: 1;
+
+		&-t {
+			#{$varPrefix}-t: 0;
+		}
+
+		&-b {
+			#{$varPrefix}-b: 0;
+		}
+	}
+
+	/* Sticky columns*/
+	&-stky {
+		position: sticky !important;
+		top: 0 !important;
+		align-self: flex-start !important;
+	}
+
+	/*  If we want to wrap whole div by anchor and make it clickable or 
+        If we want to wrap whole div by another element 
+    */
+	//wrapper of absolute div
+	&-has-abs-wrp {
+		position: relative;
+	}
+	/*Absolute Element*/
+	&-abs-el {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		bottom: 0;
+	}
+
+	/*Vertical Layout*/
+	&-vrt {
+		#{$varPrefix}-vrt-gap: var(#{$varPrefix}-gap, 15px);
+		gap: var(#{$varPrefix}-vrt-gap);
+
+		&-hdr {
+			width: var(#{$varPrefix}-vrt-w, 20%);
+		}
+
+		&-conts {
+			width: calc(
+				(100% - var(#{$varPrefix}-vrt-w, 20%) - var(#{$varPrefix}-vrt-gap))
+			);
+		}
+	}
 }

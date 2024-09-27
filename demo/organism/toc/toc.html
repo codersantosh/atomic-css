@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Table of Content</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --at-m: 20px 0;
+            --at-txt-al: center;
+        }
+
+        @media (min-width: 576px) {
+            --at-container: 540px;
+        }
+
+        @media (min-width: 768px) {
+            --at-container: 720px;
+        }
+
+        @media (min-width: 992px) {
+            --at-container: 960px;
+        }
+
+        @media (min-width: 1200px) {
+            --at-container: 1140px;
+        }
+
+        @media (min-width: 1400px) {
+            --at-container: 1320px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        @media (min-width: 1200px) {
+            .at-ctnr {
+                max-width: 1380px;
+            }
+        }
+
+        .at-row {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .at-toc {
+            padding: 20px;
+            /* background-color: #f2f2f2; */
+        }
+
+        .at-toc-heading {
+            --at-fnt-sz: 20px;
+            --at-m: 0 0 10px 0;
+        }
+
+        .at-toc-list {
+            --at-m: 0;
+
+        }
+
+        .at-toc-list .at-toc-list {
+            --at-m: 20px 0 0 20px;
+
+        }
+
+        .at-toc-list li {
+            --at-ls-sty: none;
+            list-style: var(--at-ls-sty);
+
+        }
+
+        .at-toc-list li:not(:last-of-type) {
+            --at-m: 0 0 10px 0;
+            --at-p: 0 0 10px 0;
+        }
+
+        .at-lnk {
+            --at-txt-dec: none;
+            --at-cl: #666666;
+            text-decoration: var(--at-txt-dec);
+            color: var(--at-cl);
+        }
+
+        .at-lnk:hover {
+            --at-cl: #ff9800;
+        }
+
+        .at-toc-content {
+            --at-h: 100vh;
+            --at-bg-cl: #f5f5f5;
+            --at-p: 40px;
+            --at-m: 40px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr">
+        <h4 class="at-m">Table of Content</h4>
+
+        <div class="at-toc">
+            <h2 class="at-txt at-m at-toc-heading">Table of Contents</h2>
+            <ul class="at-ul at-toc-list">
+                <li class="at-li at-p at-m"><a class="at-lnk" href="#section1">Section 1</a>
+                    <ul class="at-ul at-toc-list at-m">
+                        <li class="at-li at-p at-m"><a class="at-lnk" href="#section1.1">Section 1.1</a></li>
+                    </ul>
+                </li>
+                <li class="at-li at-p at-m"><a class="at-lnk" href="#section2">Section 2</a></li>
+                <li class="at-li at-p at-m"><a class="at-lnk" href="#section3">Section 3</a></li>
+            </ul>
+        </div>
+
+        <!-- Rest of your HTML content -->
+        <div class="at-toc-content at-h at-bg-cl at-p at-m" id="section1">
+            <!-- Content for Section 1 -->
+            <h1 class="at-txt">Section 1</h1>
+            <p class="at-txt">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ea quod amet quasi eos aliquam pariatur
+                iure
+                ex officia quam tempora ipsam, tempore, aliquid nam consequuntur dolor nobis? Omnis, tempora?
+            </p>
+        </div>
+        <div class="at-toc-content at-h at-bg-cl at-p at-m" id="section1.1">
+            <!-- Content for Section 1.1 -->
+            <h1 class="at-txt">Section 1.1</h1>
+            <p class="at-txt">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ea quod amet quasi eos aliquam pariatur
+                iure
+                ex officia quam tempora ipsam, tempore, aliquid nam consequuntur dolor nobis? Omnis, tempora?
+            </p>
+        </div>
+
+        <div class="at-toc-content at-h at-bg-cl at-p at-m" id="section2">
+            <!-- Content for Section 2 -->
+            <h1 class="at-txt">Section 2</h1>
+            <p class="at-txt">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique eligendi, quibusdam maxime
+                perferendis
+                voluptates, repellat fugiat ratione dolor commodi laboriosam pariatur ex ipsam consequatur quam ad
+                exercitationem quas impedit distinctio!
+            </p>
+
+            <p class="at-txt">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt alias accusantium dolore modi culpa?
+                Deleniti in quod dolorem quis! Voluptatum ad hic officiis saepe autem cupiditate itaque quibusdam.
+                Maxime,
+                voluptates.
+            </p>
+        </div>
+
+        <div class="at-toc-content at-h at-bg-cl at-p at-m" id="section3">
+            <!-- Content for Section 3 -->
+            <h1 class="at-txt">Section 3</h1>
+            <p class="at-txt">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam est sit voluptate, porro autem
+                tempora
+                labore similique soluta asperiores et maxime quis quas maiores, adipisci alias nihil culpa. Dolor, eos!
+            </p>
+        </div>
+
+
+    </div>
+
+
+
+</body>
+
+</html>

@@ -15,7 +15,7 @@
 }
 
 .at-ctnr-fld {
-    max-width: var(--at-ctnr);
+    max-width: 100%;
     padding-right: var(--at-gtr);
     padding-left: var(--at-gtr);
     margin-right: auto;
@@ -38,7 +38,7 @@
 }
 
 .at-no-gtr > .at-col,
-  .at-no-gtr > [class*="at-col-"] {
+  .at-no-gtr > [class*='at-col-'] {
     padding-right: 0;
     padding-left: 0;
 }
@@ -76,86 +76,86 @@
 
 .at-col-1 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 8.3333333333%;
-    flex: 0 0 8.3333333333%;
-    max-width: 8.3333333333%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-2 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 16.6666666667%;
-    flex: 0 0 16.6666666667%;
-    max-width: 16.6666666667%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-3 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-4 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 33.3333333333%;
-    flex: 0 0 33.3333333333%;
-    max-width: 33.3333333333%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-5 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 41.6666666667%;
-    flex: 0 0 41.6666666667%;
-    max-width: 41.6666666667%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-6 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-7 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 58.3333333333%;
-    flex: 0 0 58.3333333333%;
-    max-width: 58.3333333333%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-8 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 66.6666666667%;
-    flex: 0 0 66.6666666667%;
-    max-width: 66.6666666667%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-9 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 75%;
-    flex: 0 0 75%;
-    max-width: 75%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-10 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 83.3333333333%;
-    flex: 0 0 83.3333333333%;
-    max-width: 83.3333333333%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-11 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 91.6666666667%;
-    flex: 0 0 91.6666666667%;
-    max-width: 91.6666666667%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-col-12 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 100%;
-    flex: 0 0 100%;
-    max-width: 100%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-ord-first {
@@ -249,47 +249,47 @@
 }
 
 .at-ofst-1 {
-    margin-left: 8.3333333333%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-2 {
-    margin-left: 16.6666666667%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-3 {
-    margin-left: 25%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-4 {
-    margin-left: 33.3333333333%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-5 {
-    margin-left: 41.6666666667%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-6 {
-    margin-left: 50%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-7 {
-    margin-left: 58.3333333333%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-8 {
-    margin-left: 66.6666666667%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-9 {
-    margin-left: 75%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-10 {
-    margin-left: 83.3333333333%;
+    margin-left: calc($num * 100%);
 }
 
 .at-ofst-11 {
-    margin-left: 91.6666666667%;
+    margin-left: calc($num * 100%);
 }
 
 @media (min-width: 576px) {
@@ -312,86 +312,86 @@
 
     .at-col-sm-1 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 8.3333333333%;
-        flex: 0 0 8.3333333333%;
-        max-width: 8.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-2 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 16.6666666667%;
-        flex: 0 0 16.6666666667%;
-        max-width: 16.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-4 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 33.3333333333%;
-        flex: 0 0 33.3333333333%;
-        max-width: 33.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-5 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 41.6666666667%;
-        flex: 0 0 41.6666666667%;
-        max-width: 41.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-6 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-7 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 58.3333333333%;
-        flex: 0 0 58.3333333333%;
-        max-width: 58.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-8 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 66.6666666667%;
-        flex: 0 0 66.6666666667%;
-        max-width: 66.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-9 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-10 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 83.3333333333%;
-        flex: 0 0 83.3333333333%;
-        max-width: 83.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-11 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 91.6666666667%;
-        flex: 0 0 91.6666666667%;
-        max-width: 91.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-sm-12 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ord-sm-first {
@@ -485,51 +485,51 @@
     }
 
     .at-ofst-sm-0 {
-        margin-left: 0;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-1 {
-        margin-left: 8.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-2 {
-        margin-left: 16.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-3 {
-        margin-left: 25%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-4 {
-        margin-left: 33.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-5 {
-        margin-left: 41.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-6 {
-        margin-left: 50%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-7 {
-        margin-left: 58.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-8 {
-        margin-left: 66.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-9 {
-        margin-left: 75%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-10 {
-        margin-left: 83.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-sm-11 {
-        margin-left: 91.6666666667%;
+        margin-left: calc($num * 100%);
     }
 }
 
@@ -553,86 +553,86 @@
 
     .at-col-md-1 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 8.3333333333%;
-        flex: 0 0 8.3333333333%;
-        max-width: 8.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-2 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 16.6666666667%;
-        flex: 0 0 16.6666666667%;
-        max-width: 16.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-4 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 33.3333333333%;
-        flex: 0 0 33.3333333333%;
-        max-width: 33.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-5 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 41.6666666667%;
-        flex: 0 0 41.6666666667%;
-        max-width: 41.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-6 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-7 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 58.3333333333%;
-        flex: 0 0 58.3333333333%;
-        max-width: 58.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-8 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 66.6666666667%;
-        flex: 0 0 66.6666666667%;
-        max-width: 66.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-9 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-10 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 83.3333333333%;
-        flex: 0 0 83.3333333333%;
-        max-width: 83.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-11 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 91.6666666667%;
-        flex: 0 0 91.6666666667%;
-        max-width: 91.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-md-12 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ord-md-first {
@@ -726,51 +726,51 @@
     }
 
     .at-ofst-md-0 {
-        margin-left: 0;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-1 {
-        margin-left: 8.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-2 {
-        margin-left: 16.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-3 {
-        margin-left: 25%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-4 {
-        margin-left: 33.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-5 {
-        margin-left: 41.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-6 {
-        margin-left: 50%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-7 {
-        margin-left: 58.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-8 {
-        margin-left: 66.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-9 {
-        margin-left: 75%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-10 {
-        margin-left: 83.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-md-11 {
-        margin-left: 91.6666666667%;
+        margin-left: calc($num * 100%);
     }
 }
 
@@ -794,86 +794,86 @@
 
     .at-col-lg-1 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 8.3333333333%;
-        flex: 0 0 8.3333333333%;
-        max-width: 8.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-2 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 16.6666666667%;
-        flex: 0 0 16.6666666667%;
-        max-width: 16.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-4 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 33.3333333333%;
-        flex: 0 0 33.3333333333%;
-        max-width: 33.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-5 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 41.6666666667%;
-        flex: 0 0 41.6666666667%;
-        max-width: 41.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-6 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-7 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 58.3333333333%;
-        flex: 0 0 58.3333333333%;
-        max-width: 58.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-8 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 66.6666666667%;
-        flex: 0 0 66.6666666667%;
-        max-width: 66.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-9 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-10 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 83.3333333333%;
-        flex: 0 0 83.3333333333%;
-        max-width: 83.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-11 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 91.6666666667%;
-        flex: 0 0 91.6666666667%;
-        max-width: 91.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-lg-12 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ord-lg-first {
@@ -967,51 +967,51 @@
     }
 
     .at-ofst-lg-0 {
-        margin-left: 0;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-1 {
-        margin-left: 8.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-2 {
-        margin-left: 16.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-3 {
-        margin-left: 25%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-4 {
-        margin-left: 33.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-5 {
-        margin-left: 41.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-6 {
-        margin-left: 50%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-7 {
-        margin-left: 58.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-8 {
-        margin-left: 66.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-9 {
-        margin-left: 75%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-10 {
-        margin-left: 83.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-lg-11 {
-        margin-left: 91.6666666667%;
+        margin-left: calc($num * 100%);
     }
 }
 
@@ -1035,86 +1035,86 @@
 
     .at-col-xl-1 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 8.3333333333%;
-        flex: 0 0 8.3333333333%;
-        max-width: 8.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-2 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 16.6666666667%;
-        flex: 0 0 16.6666666667%;
-        max-width: 16.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-4 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 33.3333333333%;
-        flex: 0 0 33.3333333333%;
-        max-width: 33.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-5 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 41.6666666667%;
-        flex: 0 0 41.6666666667%;
-        max-width: 41.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-6 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-7 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 58.3333333333%;
-        flex: 0 0 58.3333333333%;
-        max-width: 58.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-8 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 66.6666666667%;
-        flex: 0 0 66.6666666667%;
-        max-width: 66.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-9 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-10 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 83.3333333333%;
-        flex: 0 0 83.3333333333%;
-        max-width: 83.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-11 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 91.6666666667%;
-        flex: 0 0 91.6666666667%;
-        max-width: 91.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xl-12 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ord-xl-first {
@@ -1208,51 +1208,51 @@
     }
 
     .at-ofst-xl-0 {
-        margin-left: 0;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-1 {
-        margin-left: 8.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-2 {
-        margin-left: 16.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-3 {
-        margin-left: 25%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-4 {
-        margin-left: 33.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-5 {
-        margin-left: 41.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-6 {
-        margin-left: 50%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-7 {
-        margin-left: 58.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-8 {
-        margin-left: 66.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-9 {
-        margin-left: 75%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-10 {
-        margin-left: 83.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xl-11 {
-        margin-left: 91.6666666667%;
+        margin-left: calc($num * 100%);
     }
 }
 
@@ -1276,86 +1276,86 @@
 
     .at-col-xxl-1 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 8.3333333333%;
-        flex: 0 0 8.3333333333%;
-        max-width: 8.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-2 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 16.6666666667%;
-        flex: 0 0 16.6666666667%;
-        max-width: 16.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-4 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 33.3333333333%;
-        flex: 0 0 33.3333333333%;
-        max-width: 33.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-5 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 41.6666666667%;
-        flex: 0 0 41.6666666667%;
-        max-width: 41.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-6 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-7 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 58.3333333333%;
-        flex: 0 0 58.3333333333%;
-        max-width: 58.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-8 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 66.6666666667%;
-        flex: 0 0 66.6666666667%;
-        max-width: 66.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-9 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-10 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 83.3333333333%;
-        flex: 0 0 83.3333333333%;
-        max-width: 83.3333333333%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-11 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 91.6666666667%;
-        flex: 0 0 91.6666666667%;
-        max-width: 91.6666666667%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-col-xxl-12 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ord-xxl-first {
@@ -1449,51 +1449,51 @@
     }
 
     .at-ofst-xxl-0 {
-        margin-left: 0;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-1 {
-        margin-left: 8.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-2 {
-        margin-left: 16.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-3 {
-        margin-left: 25%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-4 {
-        margin-left: 33.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-5 {
-        margin-left: 41.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-6 {
-        margin-left: 50%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-7 {
-        margin-left: 58.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-8 {
-        margin-left: 66.6666666667%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-9 {
-        margin-left: 75%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-10 {
-        margin-left: 83.3333333333%;
+        margin-left: calc($num * 100%);
     }
 
     .at-ofst-xxl-11 {
-        margin-left: 91.6666666667%;
+        margin-left: calc($num * 100%);
     }
 }
 
@@ -2998,77 +2998,77 @@
 
 .at-col-2m3 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 20%;
-    flex: 0 0 20%;
-    max-width: 20%;
+    -ms-flex: 0 0 calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
 .at-ofst-2m3 {
-    margin-left: 20%;
+    margin-left: calc($num * 100%);
 }
 
 @media (min-width: 576px) {
     .at-col-sm-2m3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ofst-sm-2m3 {
-        margin-left: 20%;
+        margin-left: calc($num * 100%);
     }
 }
 
 @media (min-width: 768px) {
     .at-col-md-2m3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ofst-md-2m3 {
-        margin-left: 20%;
+        margin-left: calc($num * 100%);
     }
 }
 
 @media (min-width: 992px) {
     .at-col-lg-2m3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ofst-lg-2m3 {
-        margin-left: 20%;
+        margin-left: calc($num * 100%);
     }
 }
 
 @media (min-width: 1200px) {
     .at-col-xl-2m3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ofst-xl-2m3 {
-        margin-left: 20%;
+        margin-left: calc($num * 100%);
     }
 }
 
 @media (min-width: 1400px) {
     .at-col-xxl-2m3 {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 calc(($size / $columns) * 100%);
+        flex: 0 0 calc(($size / $columns) * 100%);
+        max-width: calc(($size / $columns) * 100%);
     }
 
     .at-ofst-xxl-2m3 {
-        margin-left: 20%;
+        margin-left: calc($num * 100%);
     }
 }
 

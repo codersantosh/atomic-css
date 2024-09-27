@@ -1,8 +1,8 @@
 /*custom 5th col */
 
 @mixin make-col-5($size, $columns: $grid-columns5) {
-	flex: 0 0 percentage($size / $columns);
-	max-width: percentage($size / $columns);
+	flex: 0 0 calc(($size / $columns) * 100%);
+	max-width: calc(($size / $columns) * 100%);
 }
 
 .#{$grid-col-prefix}-2m3,

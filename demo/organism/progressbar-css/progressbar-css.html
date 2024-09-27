@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Progressbar CSS</title>
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --at-container: 100%;
+            --at-gutter: 15px;
+            --at-p: 100px 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        /* ProgressBar horizontal Styles */
+        .at-prog {
+            --at-bg-cl: #efefef;
+            --at-h: 16px;
+            --at-bdr-rad: 5px;
+            --at-ovf: hidden;
+            --at-m: 10px 0;
+        }
+
+        .at-prog-bar {
+            --at-bg-cl: #000;
+            --at-w: 0;
+            --at-trs: width 0.8s ease-in-out;
+        }
+
+        .at-prog-bar-striped {
+            --at-bg-img: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            --at-bg-sz: var(--at-h) var(--at-h);
+
+            background-image: var(--at-bg-img);
+            background-size: var(--at-bg-sz);
+
+        }
+
+        .at-prog-bar-animated {
+            animation: 1s linear infinite at-prog-bar-stripes;
+        }
+
+        @keyframes at-prog-bar-stripes {
+            0% {
+                background-position-x: var(--at-h);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .at-prog-bar-animated {
+                animation: none;
+            }
+        }
+
+        .at-prog_txt {
+            --at-m: 0 0 0 10px;
+        }
+
+        .at-wrp {
+            --at-m: 20px 0;
+        }
+
+        /* ProgressBar Circle Styles */
+
+        .at-prog-cir {
+            --at-pos: relative;
+            --prog-sz: 300px;
+        }
+
+        .at-prog-cir,
+        .at-svg {
+            --at-h: var(--prog-sz, 200px);
+            --at-w: var(--prog-sz, 200px);
+        }
+
+
+        .at-svg {
+            fill: none;
+            transform: rotate(-90deg);
+        }
+
+        .at-prog-cir {
+            fill: none;
+            stroke-width: 1.8;
+
+        }
+
+        .at-prog-cir__track {
+            --at-cl: #e2eff0;
+            stroke: var(--at-cl);
+        }
+
+        .at-prog-cir__bar {
+            --at-cl: #78bec7;
+            --at-line-cap: round;
+            --at-stroke-dashoffest: 90;
+            --at-trs: stroke-dashoffset 1s ease-in-out;
+
+            stroke: var(--at-cl);
+            stroke-dasharray: 100 100;
+            stroke-dashoffset: var(--at-stroke-dashoffest);
+            stroke-linecap: var(--at-line-cap);
+            transition: var(--at-trs);
+        }
+
+        .at-prog-cir-txt {
+            --at-pos: absolute;
+            --at-l: 50%;
+            --at-t: 50%;
+            --at-tf: translate(-50%, -50%);
+            transform: var(--at-tf);
+        }
+
+        .at-prog-cir-txt__inner {
+            --at-fnt-sz: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr at-p">
+
+        <div class="at-prog-cir at-w at-h at-pos" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+            aria-valuemax="100">
+
+
+            <svg class="at-svg at-w at-h" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 34 34">
+
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="rgb(6,147,227)" />
+                        <stop offset="66%" stop-color="rgb(176,49,49)" />
+                        <stop offset="100%" stop-color="rgb(155,81,224)" />
+                    </linearGradient>
+                </defs>
+
+                <circle cx="16" cy="16" r="15.9155" class="at-svg-cir at-prog-cir__track" />
+
+                <circle cx="16" cy="16" r="15.9155" class="at-svg-cir at-prog-cir__bar at-prog-cir__bar-animate"
+                    style="--at-cl:url(#gradient)" />
+            </svg>
+
+            <div class="at-prog-cir-txt at-pos">
+                <h6 class="at-prog-cir-txt__inner at-txt"></h6>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="at-ctnr at-p">
+
+
+        <div class="at-wrp at-prog-txt-top at-m">
+            <div class="at-wrp at-flx at-al-itm-ctr">
+                <h6 class="at-txt">title Goes here</h6>
+                <span class="at-prog_txt at-txt at-m">25%</span>
+            </div>
+            <div class="at-prog at-h at-bg-cl at-bdr-rad at-ovf at-m " role="progressbar" aria-label="Basic example"
+                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                <div class="at-prog-bar at-h at-w at-bg-cl at-trs"></div>
+            </div>
+        </div>
+
+        <div class="at-wrp at-prog-txt-top at-m">
+            <div class="at-prog at-h at-bg-cl at-bdr-rad at-ovf at-m " role="progressbar" data-color="#33b5e5"
+                aria-label="Basic example" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                <div class="at-prog-bar at-h at-w at-bg-cl at-trs"></div>
+            </div>
+            <div class="at-wrp at-flx at-al-itm-ctr">
+                <h6 class="at-txt">title Goes here</h6>
+                <span class="at-prog_txt at-txt at-m">25%</span>
+            </div>
+        </div>
+
+        <div class="at-wrp at-prog-txt-inside at-m">
+            <div class="at-prog at-h at-bg-cl at-bdr-rad at-ovf at-m " style="--at-h:25px;" role="progressbar"
+                data-color="#33b5e5" aria-label="Basic example" aria-valuenow="30" aria-valuemin="0"
+                aria-valuemax="100">
+                <div class="at-prog-bar at-h at-w at-bg-cl at-trs at-prog-bar-striped at-prog-bar-animated">
+
+                    <div class="at-wrp at-flx at-al-itm-ctr at-jfy-cont-btw at-h">
+                        <h6 class="at-txt">title Goes here</h6>
+                        <span class="at-prog_txt at-txt at-m">25%</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- reference : https://codepen.io/nkunic/pen/jXBZWV -->
+    <script>
+
+        //circle progress bar
+        var el = document.querySelector('.at-prog-cir');
+        var valueNow = el.getAttribute("aria-valuenow");
+        var percentageComplete = valueNow;
+        var strokeDashOffsetValue = 100 - percentageComplete;
+        var progressBar = document.querySelector(".at-prog-cir__bar-animate");
+        var progressText = document.querySelector(".at-prog-cir-txt__inner");
+
+        progressBar.style.setProperty('--at-stroke-dashoffest', strokeDashOffsetValue);
+        //progressBar.style.strokeDashoffset = strokeDashOffsetValue;
+        progressText.textContent = percentageComplete + "%";
+
+
+
+        //horizontal progress bar
+        var elements = document.querySelectorAll('.at-prog');
+        Array.from(elements).forEach(function (el) {
+            var valueNow = el.getAttribute("aria-valuenow");
+            var dataColor = el.getAttribute("data-color");
+            var progressText = el.querySelector(".at-prog_txt");
+            var progressBar = el.querySelector(".at-prog-bar");
+
+            progressBar.style.setProperty('--at-w', valueNow + '%');
+            progressBar.style.setProperty('--at-bg-cl', dataColor);
+            //progressBar.style.width = valueNow + '%';
+            //progressText.textContent = valueNow + "%";
+        });
+
+    </script>
+
+
+</body>
+
+</html>

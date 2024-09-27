@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Glide Slider</title>
+
+    <link rel="stylesheet" type="text/css" href="library/glide/css/glide.core.min.css" />
+    <link rel="stylesheet" type="text/css" href="library/glide/css/glide.theme.min.css" />
+
+    <link rel="stylesheet" href="css/atomic.css">
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --at-m: 20px 0;
+            --at-txt-al: center;
+        }
+
+        @media (min-width: 576px) {
+            --at-container: 540px;
+        }
+
+        @media (min-width: 768px) {
+            --at-container: 720px;
+        }
+
+        @media (min-width: 992px) {
+            --at-container: 960px;
+        }
+
+        @media (min-width: 1200px) {
+            --at-container: 1140px;
+        }
+
+        @media (min-width: 1400px) {
+            --at-container: 1320px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        @media (min-width: 1200px) {
+            .at-ctnr {
+                max-width: 1380px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="at-ctnr">
+        <h4 class="at-m">Slider : Single Slider</h4>
+
+    </div>
+    <div class="at-wrp glide at-slider">
+        <div class="at-wrp glide__track" data-glide-el="track">
+            <div class="at-ul glide__slides">
+
+                <div class="at-li glide__slide">
+                    <figure>
+                        <img class="at-img"
+                            src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                            alt="slider 1">
+
+                    </figure>
+                </div>
+                <div class="at-li glide__slide">
+                    <figure>
+                        <img class="at-img"
+                            src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                            alt="slider 2">
+                    </figure>
+                </div>
+                <div class="at-li glide__slide">
+                    <figure>
+                        <img class="at-img"
+                            src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                            alt="slider 3">
+                    </figure>
+                </div>
+
+            </div>
+            <div class="at-wrp glide__arrows" data-glide-el="controls">
+                <button class="at-btn glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                <button class="at-btn glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+            </div>
+            <div class="at-wrap glide__bullets" data-glide-el="controls[nav]">
+                <button class="glide__bullet" data-glide-dir="=0"></button>
+                <button class="glide__bullet" data-glide-dir="=1"></button>
+                <button class="glide__bullet" data-glide-dir="=2"></button>
+            </div>
+        </div>
+
+    </div>
+    <div class="at-ctnr">
+        <h4 class="at-m">Slider : Carousel</h4>
+        <div class="at-wrp glide at-carousel">
+            <div class="at-wrp glide__track" data-glide-el="track">
+                <ul class="at-ul glide__slides">
+
+                    <li class="at-li glide__slide">
+                        <figure>
+                            <img class="at-img"
+                                src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                                alt="slider 1">
+
+                        </figure>
+                    </li>
+                    <li class="at-li glide__slide">
+                        <figure>
+                            <img class="at-img"
+                                src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                                alt="slider 2">
+                        </figure>
+                    </li>
+                    <li class="at-li glide__slide">
+                        <figure>
+                            <img class="at-img"
+                                src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                                alt="slider 3">
+                        </figure>
+                    </li>
+
+                </ul>
+                <div class="at-wrp glide__arrows" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+                </div>
+                <div class="at-wrp glide__bullets" data-glide-el="controls[nav]">
+                    <button class="glide__bullet" data-glide-dir="=0"></button>
+                    <button class="glide__bullet" data-glide-dir="=1"></button>
+                    <button class="glide__bullet" data-glide-dir="=2"></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="at-ctnr">
+        <h4 class="at-m">Slider : Peek</h4>
+        <div class="at-wrp glide at-peek">
+            <div class="at-wrp glide__track" data-glide-el="track">
+                <ul class="at-ul glide__slides">
+
+                    <li class="at-li glide__slide">
+                        <figure>
+                            <img class="at-img"
+                                src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                                alt="slider 1">
+
+                        </figure>
+                    </li>
+                    <li class="at-li glide__slide">
+                        <figure>
+                            <img class="at-img"
+                                src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                                alt="slider 2">
+                        </figure>
+                    </li>
+                    <li class="at-li glide__slide">
+                        <figure>
+                            <img class="at-img"
+                                src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                                alt="slider 3">
+                        </figure>
+                    </li>
+
+                </ul>
+                <div class="at-wrp glide__arrows" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+                </div>
+                <div class="at-wrp glide__bullets" data-glide-el="controls[nav]">
+                    <button class="glide__bullet" data-glide-dir="=0"></button>
+                    <button class="glide__bullet" data-glide-dir="=1"></button>
+                    <button class="glide__bullet" data-glide-dir="=2"></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="library/glide/glide.min.js"></script>
+
+    <script type="text/javascript">
+        var glideSlider = new Glide('.at-slider', {
+            type: 'slider',
+            animationDuration: 2000,
+            autoplay: 4500,
+            perView: 1,
+            gap: 0,
+        });
+        var glideCarousel = new Glide('.at-carousel', {
+            type: 'carousel',
+            animationDuration: 2000,
+            autoplay: 4500,
+            perView: 4,
+            breakpoints: {
+                1024: {
+                    perView: 3
+                },
+                600: {
+                    perView: 2
+                }
+            }
+        });
+        var glidePeek = new Glide('.at-peek', {
+            type: 'carousel',
+            animationDuration: 1000,
+            autoplay: 3000,
+            focusAt: 'center',
+            startAt: 1,
+            perView: 3,
+            // set a value to show the previous and next slides peeking in
+            peek: {
+                before: 80,
+                after: 80
+            },
+            gap: 20
+        });
+        glideSlider.mount();
+        glideCarousel.mount();
+        glidePeek.mount();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - prog BAr</title>
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --at-container: 100%;
+            --at-gutter: 15px;
+
+            --at-txt-al: center;
+        }
+
+        @media (min-width: 576px) {
+            --at-container: 540px;
+        }
+
+        @media (min-width: 768px) {
+            --at-container: 720px;
+        }
+
+        @media (min-width: 992px) {
+            --at-container: 960px;
+        }
+
+        @media (min-width: 1200px) {
+            --at-container: 1140px;
+        }
+
+        @media (min-width: 1400px) {
+            --at-container: 1320px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        @media (min-width: 1200px) {
+            .at-ctnr {
+                max-width: 1380px;
+            }
+        }
+
+        .at-row {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+
+
+        .at-chart {
+            --at-pos: relative;
+            --at-w: 220px;
+            --at-h: 220px;
+
+        }
+
+        .at-canvas {
+            --at-pos: absolute;
+            --at-t: 0;
+            --at-l: 0;
+            position: var(--at-pos);
+            top: var(--at-t);
+            left: var(--at-l);
+        }
+
+        .at-chart .at-txt {
+            --at-cl: #555;
+            --at-fnt-fam: sans-serif;
+            --at-fnt-sz: 40px;
+            --at-fnt-wt: 500;
+        }
+
+        .at-m {
+            --at-m: 20px 0;
+        }
+
+        .at-prog {
+            --at-bg-cl: #efefef;
+            --at-h: 16px;
+            --at-bdr-rad: 5px;
+            --at-ovf: hidden;
+        }
+
+        .at-prog-bar {
+            --at-bg-cl: #555555;
+            --at-trs: width 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .at-prog-bar-striped {
+            --at-bg-img: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            --at-bg-sz: var(--at-h) var(--at-h);
+
+            background-image: var(#{$varPrefix}-bg-img);
+            background-size: var(#{$varPrefix}-bg-sz);
+
+        }
+
+        .at-prog-stacked .at-prog {
+            width: 100%;
+        }
+
+        .at-bg-primary {
+            --at-bg-cl: #33b5e5;
+        }
+
+        .at-bg-success {
+            --at-bg-cl: #79dfc1;
+        }
+
+        .at-bg-info {
+            --at-bg-cl: #6edff6;
+        }
+
+        .at-prog-bar-animated {
+            animation: 1s linear infinite at-prog-bar-stripes;
+        }
+
+        @keyframes at-prog-bar-stripes {
+            0% {
+                background-position-x: 16px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .at-prog-bar-animated {
+                animation: none;
+            }
+        }
+
+        hr {
+            --at-m: 40px 0;
+            --at-bdr-w: 0 0 2px 0;
+            --at-bdr-cl: #f8f8f8;
+            --at-bdr-sty: solid;
+            --at-w: 100%;
+        }
+
+        .at-prog-txt-top .at-txt.at-m {
+            --at-m: 0 0 0 10px;
+        }
+
+        .at-prog-txt-inside .at-prog {
+            --at-h: 50px;
+            --at-p: 0 15px;
+            --at-cl: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr at-flx at-al-itm-ctr at-jfy-cont-ctr at-flx-col" style="height:100vh;">
+        <div class="at-m at-txt-al">
+            <h4 class="at-m">Progress Bar Circle</h4>
+            <div class="at-w at-h at-chart at-pos at-flx at-al-itm-ctr at-jfy-cont-ctr" id="graph" data-percent="63"
+                data-line="15" data-cap="round"></div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <hr class="at-m at-bdr at-w" />
+        <div class="at-m" style="width: 100%">
+            <h4 class="at-m at-txt-al">Progress Bar</h4>
+            <hr class="at-m at-bdr at-w" />
+
+
+
+            <h4 class="at-m at-txt-al">Progress Bar Text Top</h4>
+            <div class="at-wrp at-prog-txt-top">
+                <div class="at-wrp at-flx at-al-itm-ctr">
+                    <h6 class="at-txt">title Goes here</h6>
+                    <span class="at-txt at-m">25%</span>
+                </div>
+                <div class="at-prog at-h at-bg-cl at-bdr-rad at-ovf at-m " role="progressbar" aria-label="Basic example"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    <div class="at-prog-bar at-bg-cl at-trs"></div>
+                </div>
+            </div>
+
+            <hr class="at-m at-bdr at-w" />
+
+            <h4 class="at-m at-txt-al">Progress Bar Text Bottom</h4>
+            <div class="at-wrp at-prog-txt-bottom">
+
+                <div class="at-prog at-h at-bg-cl at-bdr-rad at-ovf at-m " role="progressbar" aria-label="Basic example"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    <div class="at-prog-bar at-bg-cl at-trs"></div>
+                </div>
+
+                <div class="at-wrp at-flx at-al-itm-ctr at-jfy-cont-btw">
+                    <h6 class="at-txt">title Goes here</h6>
+                    <span class="at-txt">25%</span>
+                </div>
+            </div>
+
+            <hr class="at-m at-bdr at-w" />
+
+            <h4 class="at-m at-txt-al">Progress Bar Text Inside</h4>
+            <div class="at-wrp at-prog-txt-inside">
+
+                <div class="at-prog at-h at-bg-cl at-bdr-rad at-ovf at-m  " role="progressbar"
+                    aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    <div class="at-prog-bar at-bg-cl at-trs at-flx at-jfy-cont-ctr">
+                        <div class="at-wrp at-flx at-al-itm-ctr at-jfy-cont-btw at-flx-grw-1 at-p">
+                            <h6 class="at-txt">title Goes here</h6>
+                            <span class="at-txt">25%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="at-m at-bdr at-w" />
+            <div class="at-prog at-h at-bg-cl at-bdr-rad at-flx at-ovf at-m " role="progressbar"
+                aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <div class="at-prog-bar at-bg-img at-prog-bar-striped at-prog-bar-animated at-bg-cl at-trs"></div>
+            </div>
+
+            <div class="at-prog at-h at-bg-cl at-bdr-rad at-flx at-ovf at-m " role="progressbar"
+                aria-label="Basic example" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                <div class="at-prog-bar at-bg-img at-prog-bar-striped at-prog-bar-animated at-bg-cl at-trs at-bg-info">
+                </div>
+            </div>
+
+            <div class="at-prog at-prog-stacked at-bg-cl at-bdr-rad at-flx at-ovf">
+                <div class="at-prog at-h" role="progressbar" aria-label="Segment one" aria-valuenow="15"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="at-prog-bar at-bg-cl at-bg-primary"></div>
+                </div>
+                <div class="at-prog at-h" role="progressbar" aria-label="Segment two" aria-valuenow="30"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="at-prog-bar at-bg-cl at-bg-success at-bg-img at-prog-bar-striped at-prog-bar-animated">
+                    </div>
+                </div>
+                <div class="at-prog at-h" role="progressbar" aria-label="Segment three" aria-valuenow="20"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="at-prog-bar at-bg-cl at-bg-info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var el = document.getElementById('graph'); // get canvas
+
+        var options = {
+            percent: el.getAttribute('data-percent') || 25,
+            size: el.getAttribute('data-size') || 220,
+            lineWidth: el.getAttribute('data-line') || 15,
+            rotate: el.getAttribute('data-rotate') || 0
+        }
+
+        var canvas = document.createElement('canvas');
+        canvas.className = 'at-canvas';
+        var span = document.createElement('span');
+        span.className = 'at-txt';
+        span.textContent = options.percent + '%';
+
+        if (typeof (G_vmlCanvasManager) !== 'undefined') {
+            G_vmlCanvasManager.initElement(canvas);
+        }
+
+        var ctx = canvas.getContext('2d');
+        canvas.width = canvas.height = options.size;
+
+        el.appendChild(span);
+        el.appendChild(canvas);
+
+        ctx.translate(options.size / 2, options.size / 2); // change center
+        ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI); // rotate -90 deg
+
+        //imd = ctx.getImageData(0, 0, 240, 240);
+        var radius = (options.size - options.lineWidth) / 2;
+
+        var drawCircle = function (color, lineWidth, percent) {
+            percent = Math.min(Math.max(0, percent || 1), 1);
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
+            ctx.strokeStyle = color;
+            ctx.lineCap = 'round'; // butt, round or square
+            ctx.lineWidth = lineWidth
+            ctx.stroke();
+        };
+
+        drawCircle('#efefef', options.lineWidth, 100 / 100);
+        drawCircle('#555555', options.lineWidth, options.percent / 100);
+
+        //prog bar
+        window.addEventListener('DOMContentLoaded', function () {
+            var progressBars = document.querySelectorAll('.at-prog');
+
+            progressBars.forEach(function (progressBar) {
+                var progressContainer = progressBar;
+                var minValue = parseInt(progressContainer.getAttribute('aria-valuemin'));
+                var maxValue = parseInt(progressContainer.getAttribute('aria-valuemax'));
+                var valueNow = parseInt(progressContainer.getAttribute('aria-valuenow'));
+
+                var valueRange = maxValue - minValue;
+                var valuePercentage = ((valueNow - minValue) / valueRange) * 100;
+
+                var progressBarElement = progressBar.querySelector('.at-prog-bar');
+                progressBarElement.style.width = valuePercentage + '%';
+
+                /* if (progressBar.closest('.at-prog-bar-stacked')) {
+                    progressBarElement.style.width = valuePercentage + '%';
+                } else {
+                    progressBarElement.style.width = valuePercentage + '%';
+                } */
+            });
+        });
+    </script>
+
+</body>
+
+</html>

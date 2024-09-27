@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Filter</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        .at-gallery {
+            /* background: #333333; */
+            --at-m: 20px 0;
+
+        }
+
+        .at-gallery:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .at-gallery-sizer,
+        .at-gallery-itm {
+            --at-w: calc((100% / 3) - 15px);
+        }
+
+        .at-gallery-itm {
+
+            --at-m: 0 0 15px 0;
+        }
+
+
+        .at-gallery-itm.at-gallery-itm__expanded {
+            --at-w: 66.66%;
+            --at-z-idx: 2;
+            z-index: var(--at-z-idx);
+        }
+
+        .at-fl-nav {
+            --at-ls-sty: none;
+            --at-gap: 20px;
+            list-style: var(--at-ls-sty);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr">
+        <h4 class="at-m">Gallery</h4>
+
+        <ul id="buttonGroup" class="at-ul at-fl-nav at-flx at-m at-gap">
+            <li class="at-li is-active"><a class="at-btn" id="all">All Images</a></li>
+            <li class="at-li"><a class="at-btn" id="nature">nature</a></li>
+            <li class="at-li"><a class=" at-btn" id="flowers">Flowers</a></li>
+            <li class="at-li"><a class=" at-btn" id="others">Other</a></li>
+        </ul>
+
+        <div class="at-gallery at-m" id="container">
+            <div class="at-gallery-sizer at-w"></div>
+
+            <div class="at-gallery-itm at-w at-m flowers">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                        alt="filter item 1">
+
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w at-m flowers">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                        alt="filter item 2">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w at-m nature">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/13/2500/1667.jpg?hmac=SoX9UoHhN8HyklRA4A3vcCWJMVtiBXUg0W4ljWTor7s"
+                        alt="filter item 3">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w at-m flowers">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/21/3008/2008.jpg?hmac=T8DSVNvP-QldCew7WD4jj_S3mWwxZPqdF0CNPksSko4"
+                        alt="filter item 4">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w at-m other">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                        alt="filter item 5">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w at-m nature">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/26/4209/2769.jpg?hmac=vcInmowFvPCyKGtV7Vfh7zWcA_Z0kStrPDW3ppP0iGI"
+                        alt="filter item 6">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w at-m flowers other">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/27/3264/1836.jpg?hmac=p3BVIgKKQpHhfGRRCbsi2MCAzw8mWBCayBsKxxtWO8g"
+                        alt="filter item 7">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w at-m nature">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/55/4608/3072.jpg?hmac=ahGhylwdN52ULB37deeMZX6T_G7NiERtoPhwydMvUKQ"
+                        alt="filter item 8">
+                </figure>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript">
+        var grid = document.querySelector(".at-gallery");
+        var msnry;
+        // element selectors
+        var imgAll = document.querySelectorAll(".at-gallery-itm");
+        var imgNy = document.querySelectorAll(".nature");
+        var imgFlowers = document.querySelectorAll(".flowers");
+        var imgOthers = document.querySelectorAll(".others");
+        // buttons
+        const tabsUl = document.getElementById("buttonGroup");
+        const lis = tabsUl.children;
+        const gridItems = grid.children;
+
+        imagesLoaded(grid, function () {
+            msnry = new Masonry(grid, {
+                //options
+                itemSelector: ".at-gallery-itm",
+                columnWidth: ".at-gallery-sizer",
+                gutter: 15,
+                percentPosition: true
+            });
+        });
+
+        //element & class name
+        function toggleClass(parentElem, childElems, className) {
+            for (let i = 0; i < childElems.length; i++) {
+                if (childElems[i] == parentElem) {
+                    childElems[i].classList.add(className);
+                } else {
+                    childElems[i].classList.remove(className);
+                }
+            }
+        }
+
+        function showImages(showImg, hideImg1, hideImg2) {
+            for (let i = 0; i < showImg.length; i++) {
+                showImg[i].style.display = "block";
+            }
+            for (let i = 0; i < hideImg1.length; i++) {
+                hideImg1[i].style.display = "none";
+            }
+            for (let i = 0; i < hideImg2.length; i++) {
+                hideImg2[i].style.display = "none";
+            }
+        }
+
+        tabsUl.addEventListener("click", (event) => {
+            let tabLi = event.target.parentNode;
+
+            toggleClass(tabLi, lis, "is-active");
+
+            //show all images
+            if (event.target.id == "all") {
+                for (let i = 0; i < imgAll.length; i++) {
+                    imgAll[i].style.display = "block";
+                }
+            }
+
+            //show ny images
+            if (event.target.id == "nature") {
+                showImages(imgNy, imgFlowers, imgOthers);
+            }
+
+            // show flowers
+            if (event.target.id == "flowers") {
+                showImages(imgFlowers, imgNy, imgOthers);
+            }
+
+            // show other images
+            if (event.target.id == "others") {
+                showImages(imgOthers, imgFlowers, imgNy);
+            }
+
+            msnry.layout();
+        });
+
+        grid.addEventListener("click", function (event) {
+            let imgContainer = event.target.parentNode;
+            toggleClass(imgContainer, gridItems, 'at-gallery-itm__expanded');
+            msnry.layout();
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,13 +1,13 @@
 /*custom 5th col */
 
 @mixin make-col-5($size, $columns: $grid-columns5) {
-    flex     : 0 0 percentage($size / $columns);
-    max-width: percentage($size / $columns);
+	flex: 0 0 calc(($size / $columns) * 100%);
+	max-width: calc(($size / $columns) * 100%);
 }
 
 @mixin make-col-offset5($size, $columns: $grid-columns5) {
-    $num       : $size / $columns;
-    margin-left: if($num==0, 0, percentage($num));
+	$num: calc($size / $columns);
+	margin-left: if($num==0, 0, calc($num * 100%));
 }
 
 .#{$grid-col-prefix}-2m3,
@@ -16,25 +16,23 @@
 .#{$grid-col-prefix}-md-2m3,
 .#{$grid-col-prefix}-sm-2m3,
 .#{$grid-col-prefix}-xs-2m3 {
-    position     : relative;
-    width        : 100%;
-    min-height   : 1px; // Prevent columns from collapsing when empty
-    padding-right: var(--at-gtr);
-    padding-left : var(--at-gtr);
+	position: relative;
+	width: 100%;
+	min-height: 1px; // Prevent columns from collapsing when empty
+	padding-right: var(--at-gtr);
+	padding-left: var(--at-gtr);
 }
 
-
-
 @each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-up($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+	@include media-breakpoint-up($breakpoint) {
+		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        .#{$grid-col-prefix}#{$infix}-2m3 {
-            @include make-col-5(1, 5);
-        }
+		.#{$grid-col-prefix}#{$infix}-2m3 {
+			@include make-col-5(1, 5);
+		}
 
-        .#{$grid-prefix}-ofst#{$infix}-2m3 {
-            @include make-col-offset5(1, 5);
-        }
-    }
+		.#{$grid-prefix}-ofst#{$infix}-2m3 {
+			@include make-col-offset5(1, 5);
+		}
+	}
 }

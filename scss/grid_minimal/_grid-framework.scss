@@ -24,7 +24,8 @@
         }
 
         .#{$grid-col-prefix}#{$infix},
-        .#{$grid-col-prefix}#{$infix}-auto {
+        .#{$grid-col-prefix}#{$infix}-auto,
+        .#{$grid-col-prefix}#{$infix}-cust {
             @extend %grid-column;
         }
 
@@ -43,10 +44,17 @@
                 max-width: none; // Reset earlier grid tiers
             }
 
+
+
             @for $i from 1 through $columns {
                 .#{$grid-col-prefix}#{$infix}-#{$i} {
                     @include make-col($i, $columns);
                 }
+            }
+
+            .#{$grid-col-prefix}#{$infix}-cust {
+                flex     : 0 0 var(--at-cust-w);
+                max-width: var(--at-cust-w);
             }
 
         }

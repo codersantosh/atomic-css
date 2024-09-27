@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Rating</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        :root {
+            --at-m: 20px 0;
+            --at-txt-al: center;
+        }
+
+        .at-ctnr {
+            --at-p: 100px 0;
+
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        /* Rating Styles */
+        /* .at-rating>.at-lbl:before {
+            --at-m: 5px;
+            --at-fnt-sz: 1.25em;
+            --at-fnt-fam: FontAwesome;
+
+            margin: var(--at-m);
+            font-size: var(--at-fnt-sz);
+            font-family: var(--at-fnt-fam);
+            display: flex;
+            content: "\f005";
+        }
+
+        .at-rating>.at-half-star:before {
+            --at-pos: absolute;
+            content: "\f089";
+            position: var(--at-pos);
+        }
+
+        .at-rating>.at-lbl {
+            --at-bg-cl: #ddd;
+            color: var(--at-bg-cl);
+        }
+
+    
+
+        .at-rating>.at-input:checked~.at-lbl,   
+        .at-rating:not(:checked)>.at-lbl:hover,   
+        .at-rating:not(:checked)>.at-lbl:hover~.at-lbl {
+            --at-bg-cl: #FFD700;
+            color: var(--at-bg-cl);
+        }
+
+      
+
+        .at-rating>.at-input:checked+.at-lbl:hover,
+        .at-rating>.at-input:checked~.at-lbl:hover,
+        .at-rating>.at-lbl:hover~.at-input:checked~.at-lbl,
+        .at-rating>.at-input:checked~.at-lbl:hover~.at-lbl {
+            --at-bg-cl: #FFED85;
+            color: var(--at-bg-cl);
+        } */
+
+        /* rating new styles */
+        .at-rating {
+            --at-gap: 0 5px;
+            --at-m: 0 0 40px 0;
+        }
+
+        .at-svg {
+            --at-w: 20px;
+            --at-h: 20px;
+            --at-bg-cl: #ddd;
+        }
+
+
+        .at-svg:hover {
+            --at-bg-cl: #FFD700;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="at-ctnr at-p">
+        <h4>Rating new</h4>
+        <style>
+            .at-rating {
+                --at-cont: '★★★★★';
+                --at-rating: 2.5;
+
+                --at-fnt-sz: 60px;
+                --at-bg-cl: #ddd;
+                --at-cl: #fc0;
+                --at-gap: 3px;
+
+                --at-pct: calc(var(--at-rating) / 5 * 100%);
+                font-size: var(--at-fnt-sz);
+                display: inline-block;
+                font-family: Times; // make sure ★ appears correctly
+                line-height: 1;
+                position: relative;
+            }
+
+            .at-rating:after {
+                content: var(--at-cont);
+                position: absolute;
+                letter-spacing: var(--at-gap);
+                z-index: 0;
+            }
+
+            .at-rating:before {
+                content: var(--at-cont);
+                letter-spacing: var(--at-gap);
+                background: linear-gradient(90deg, var(--at-cl) var(--at-pct), var(--at-bg-cl) var(--at-pct));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                position: absolute;
+                z-index: 1;
+            }
+        </style>
+        <div class="at-rating" aria-label="The rating is 2.3 out of 5."></div>
+
+    </div>
+
+
+
+</body>
+
+</html>

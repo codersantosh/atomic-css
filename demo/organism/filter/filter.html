@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Filter</title>
+    <link rel="stylesheet" href="colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="css/atomic.css">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --at-m: 20px 0;
+            --at-txt-al: center;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        .at-gallery {
+            --at-m: 20px 0;
+        }
+
+        .at-gallery-itm {
+            --at-w: 25%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr">
+        <h4 class="at-m">Gallery</h4>
+
+        <div class="btn-grp fl-btn-grp">
+            <button class="at-btn" data-filter="*">show all</button>
+            <button class="at-btn" data-filter=".metal">metal</button>
+            <button class="at-btn" data-filter=".transition">transition</button>
+            <button class="at-btn" data-filter=".alkali, .alkaline-earth">alkali & alkaline-earth</button>
+            <button class="at-btn" data-filter=".lanthanoid, .inner-transition">lanthanoid & inner-transition</button>
+            <button class="at-btn" data-filter=":not(.transition)">not transition</button>
+            <button class="at-btn" data-filter=".metal:not(.transition)">metal but not transition</button>
+        </div>
+
+        <div class="at-gallery at-m">
+            <div class="at-gallery-itm at-w transition metal">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w"
+                        alt="carousel 1">
+
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w post-transition metal">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I"
+                        alt="carousel 2">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w alkali metal">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/13/2500/1667.jpg?hmac=SoX9UoHhN8HyklRA4A3vcCWJMVtiBXUg0W4ljWTor7s"
+                        alt="carousel 3">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w transition metal">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/21/3008/2008.jpg?hmac=T8DSVNvP-QldCew7WD4jj_S3mWwxZPqdF0CNPksSko4"
+                        alt="carousel 4">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w lanthanoid metal inner-transition">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                        alt="carousel 5">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w halogen nonmetal">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/26/4209/2769.jpg?hmac=vcInmowFvPCyKGtV7Vfh7zWcA_Z0kStrPDW3ppP0iGI"
+                        alt="carousel 6">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w alkaline-earth metal">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/27/3264/1836.jpg?hmac=p3BVIgKKQpHhfGRRCbsi2MCAzw8mWBCayBsKxxtWO8g"
+                        alt="carousel 7">
+                </figure>
+            </div>
+            <div class="at-gallery-itm at-w alkaline-earth halogen lanthanoid">
+                <figure>
+                    <img class="at-img"
+                        src="https://fastly.picsum.photos/id/55/4608/3072.jpg?hmac=ahGhylwdN52ULB37deeMZX6T_G7NiERtoPhwydMvUKQ"
+                        alt="carousel 8">
+                </figure>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="library/isotope/isotope.pkgd.js"></script>
+
+
+    <script type="text/javascript">
+        // init Isotope
+        var $grid = $('.at-gallery').isotope({
+            // options
+        });
+        // jQuery
+        // hash of functions that match data-filter values
+        var filterFns = {
+            // show if number is greater than 50
+            numberGreaterThan50: function () {
+                /* use $(this) to get item element */
+                var number = $(this).find('.number').text();
+                return parseInt(number, 10) > 50;
+            },
+            /* show if name ends with -ium */
+            ium: function () {
+                var name = $(this).find('.name').text();
+                return name.match(/ium$/);
+            }
+        };
+        // filter items on button click
+        $('.fl-btn-grp').on('click', 'button', function () {
+            var filterValue = $(this).attr('data-filter');
+            // use filter function if value matches
+            filterValue = filterFns[filterValue] || filterValue;
+            $grid.isotope({ filter: filterValue });
+        });
+
+    </script>
+</body>
+
+</html>
