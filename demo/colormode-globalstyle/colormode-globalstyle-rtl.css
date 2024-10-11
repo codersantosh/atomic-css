@@ -193,8 +193,8 @@ li {
   bottom: var(--at-b);
   position: var(--at-pos);
   top: var(--at-t);
-  right: var(--at-r);
-  left: var(--at-l);
+  left: var(--at-r);
+  right: var(--at-l);
 }
 .at-box-refl {
   box-reflect: var(--at-box-refl);
