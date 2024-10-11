@@ -189,6 +189,7 @@ article header div span {
 }
 
 details {
+  -webkit-transition: all 0.5s ease-in-out 0s;
   transition: all 0.5s ease-in-out 0s;
 }
 details:not(:last-of-type) {
@@ -214,14 +215,18 @@ details summary {
   cursor: pointer;
 }
 details summary svg {
+  -webkit-transition: all 0.5s ease-in-out 0s;
   transition: all 0.5s ease-in-out 0s;
 }
 details[open] {
+  -webkit-transition: all 0.5s ease-in-out 0s;
   transition: all 0.5s ease-in-out 0s;
 }
 details[open] summary svg {
   --at-tf: rotate(180deg);
-  transform: var(--at-tf);
+  -webkit-transform: var(--at-tf);
+      -ms-transform: var(--at-tf);
+          transform: var(--at-tf);
 }
 
 .at-btn {
@@ -585,5 +590,3 @@ details[open] summary svg {
     --at-ctnr: 1320px;
   }
 }
-
-/*# sourceMappingURL=dynamic.css.map */

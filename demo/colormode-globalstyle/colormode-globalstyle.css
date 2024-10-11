@@ -102,7 +102,8 @@ Metadata: elements that provide metadata about the document, such as <meta>, <ti
 * {
   margin: var(--at-m);
   padding: var(--at-p);
-  box-sizing: var(--at-box-szg);
+  -webkit-box-sizing: var(--at-box-szg);
+          box-sizing: var(--at-box-szg);
 }
 
 html {
@@ -128,7 +129,8 @@ li,
   font-family: var(--at-fnt-fam);
   font-style: var(--at-fnt-sty);
   text-transform: var(--at-txt-tf);
-  text-decoration: var(--at-txt-dec);
+  -webkit-text-decoration: var(--at-txt-dec);
+          text-decoration: var(--at-txt-dec);
   line-height: var(--at-ln-h);
   letter-spacing: var(--at-ltr-sp);
   color: var(--at-cl);
@@ -198,10 +200,12 @@ li {
   box-reflect: var(--at-box-refl);
 }
 .at-box-sdw {
-  box-shadow: var(--at-box-sdw);
+  -webkit-box-shadow: var(--at-box-sdw);
+          box-shadow: var(--at-box-sdw);
 }
 .at-box-szg {
-  box-sizing: var(--at-box-szg);
+  -webkit-box-sizing: var(--at-box-szg);
+          box-sizing: var(--at-box-szg);
 }
 .at-ct-cl {
   /* Set the color of the cursor in input elements:*/
@@ -217,7 +221,8 @@ li {
   direction: var(--at-dir);
 }
 .at-flt {
-  filter: var(--at-flt);
+  -webkit-filter: var(--at-flt);
+          filter: var(--at-flt);
 }
 .at-typ {
   font-size: var(--at-fnt-sz);
@@ -225,17 +230,23 @@ li {
   font-family: var(--at-fnt-fam);
   font-style: var(--at-fnt-sty);
   text-transform: var(--at-txt-tf);
-  text-decoration: var(--at-txt-dec);
+  -webkit-text-decoration: var(--at-txt-dec);
+          text-decoration: var(--at-txt-dec);
   line-height: var(--at-ln-h);
   letter-spacing: var(--at-ltr-sp);
 }
 .at-msk {
-  mask-image: var(--at-msk-img);
+  -webkit-mask-image: var(--at-msk-img);
+          mask-image: var(--at-msk-img);
   mask-mode: var(--at-msk-mode);
-  mask-origin: var(--at-msk-org);
-  mask-position: var(--at-msk-pos);
-  mask-repeat: var(--at-msk-rpt);
-  mask-size: var(--at-msk-sz);
+  -webkit-mask-origin: var(--at-msk-org);
+          mask-origin: var(--at-msk-org);
+  -webkit-mask-position: var(--at-msk-pos);
+          mask-position: var(--at-msk-pos);
+  -webkit-mask-repeat: var(--at-msk-rpt);
+          mask-repeat: var(--at-msk-rpt);
+  -webkit-mask-size: var(--at-msk-sz);
+          mask-size: var(--at-msk-sz);
 }
 .at-m {
   margin: var(--at-m);
@@ -277,13 +288,21 @@ li {
   text-shadow: var(--at-txt-sdw);
 }
 .at-tf {
-  perspective: var(--at-ppv);
-  perspective-origin: var(--at-ppv-org);
-  transform: var(--at-tf);
-  transform-origin: var(--at-tf-org);
-  transform-style: var(--at-tf-sty);
+  -webkit-perspective: var(--at-ppv);
+          perspective: var(--at-ppv);
+  -webkit-perspective-origin: var(--at-ppv-org);
+          perspective-origin: var(--at-ppv-org);
+  -webkit-transform: var(--at-tf);
+      -ms-transform: var(--at-tf);
+          transform: var(--at-tf);
+  -webkit-transform-origin: var(--at-tf-org);
+      -ms-transform-origin: var(--at-tf-org);
+          transform-origin: var(--at-tf-org);
+  -webkit-transform-style: var(--at-tf-sty);
+          transform-style: var(--at-tf-sty);
 }
 .at-trs {
+  -webkit-transition: var(--at-trs);
   transition: var(--at-trs);
 }
 .at-vis {
@@ -301,5 +320,3 @@ li {
 .at-z-idx {
   z-index: var(--at-z-idx);
 }
-
-/*# sourceMappingURL=colormode-globalstyle.css.map */
