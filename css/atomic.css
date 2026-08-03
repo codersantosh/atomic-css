@@ -1,11 +1,11 @@
-/* Variables */
 :root {
   --at-ctnr: 1140px;
   --at-ctnr-min: 1100px;
   --at-gtr: 15px;
 }
 
-/* Grid */
+/*Grid*/
+/*Grid Container widths*/
 .at-ctnr-min {
   max-width: var(--at-ctnr-min);
   padding-right: var(--at-gtr);
@@ -22,6 +22,7 @@
   margin-left: auto;
 }
 
+/*Grid Fluid container*/
 .at-ctnr-fld {
   max-width: 100%;
   padding-right: var(--at-gtr);
@@ -30,6 +31,7 @@
   margin-left: auto;
 }
 
+/*Grid Row*/
 .at-row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -50,19 +52,29 @@
   padding-left: 0;
 }
 
-.at-col-xxl,
+/*Gap*/
+.at-gap {
+  gap: var(--at-gap);
+}
+
+.at-row-gap {
+  row-gap: var(--at-row-gap);
+}
+
+/*Grid*/
+.at-col-xxl-12, .at-col-xxl-11, .at-col-xxl-10, .at-col-xxl-9, .at-col-xxl-8, .at-col-xxl-7, .at-col-xxl-6, .at-col-xxl-5, .at-col-xxl-4, .at-col-xxl-3, .at-col-xxl-2, .at-col-xxl-1, .at-col-xxl,
 .at-col-xxl-auto,
-.at-col-xxl-cust, .at-col-xxl-12, .at-col-xxl-11, .at-col-xxl-10, .at-col-xxl-9, .at-col-xxl-8, .at-col-xxl-7, .at-col-xxl-6, .at-col-xxl-5, .at-col-xxl-4, .at-col-xxl-3, .at-col-xxl-2, .at-col-xxl-1, .at-col-xl,
+.at-col-xxl-cust, .at-col-xl-12, .at-col-xl-11, .at-col-xl-10, .at-col-xl-9, .at-col-xl-8, .at-col-xl-7, .at-col-xl-6, .at-col-xl-5, .at-col-xl-4, .at-col-xl-3, .at-col-xl-2, .at-col-xl-1, .at-col-xl,
 .at-col-xl-auto,
-.at-col-xl-cust, .at-col-xl-12, .at-col-xl-11, .at-col-xl-10, .at-col-xl-9, .at-col-xl-8, .at-col-xl-7, .at-col-xl-6, .at-col-xl-5, .at-col-xl-4, .at-col-xl-3, .at-col-xl-2, .at-col-xl-1, .at-col-lg,
+.at-col-xl-cust, .at-col-lg-12, .at-col-lg-11, .at-col-lg-10, .at-col-lg-9, .at-col-lg-8, .at-col-lg-7, .at-col-lg-6, .at-col-lg-5, .at-col-lg-4, .at-col-lg-3, .at-col-lg-2, .at-col-lg-1, .at-col-lg,
 .at-col-lg-auto,
-.at-col-lg-cust, .at-col-lg-12, .at-col-lg-11, .at-col-lg-10, .at-col-lg-9, .at-col-lg-8, .at-col-lg-7, .at-col-lg-6, .at-col-lg-5, .at-col-lg-4, .at-col-lg-3, .at-col-lg-2, .at-col-lg-1, .at-col-md,
+.at-col-lg-cust, .at-col-md-12, .at-col-md-11, .at-col-md-10, .at-col-md-9, .at-col-md-8, .at-col-md-7, .at-col-md-6, .at-col-md-5, .at-col-md-4, .at-col-md-3, .at-col-md-2, .at-col-md-1, .at-col-md,
 .at-col-md-auto,
-.at-col-md-cust, .at-col-md-12, .at-col-md-11, .at-col-md-10, .at-col-md-9, .at-col-md-8, .at-col-md-7, .at-col-md-6, .at-col-md-5, .at-col-md-4, .at-col-md-3, .at-col-md-2, .at-col-md-1, .at-col-sm,
+.at-col-md-cust, .at-col-sm-12, .at-col-sm-11, .at-col-sm-10, .at-col-sm-9, .at-col-sm-8, .at-col-sm-7, .at-col-sm-6, .at-col-sm-5, .at-col-sm-4, .at-col-sm-3, .at-col-sm-2, .at-col-sm-1, .at-col-sm,
 .at-col-sm-auto,
-.at-col-sm-cust, .at-col-sm-12, .at-col-sm-11, .at-col-sm-10, .at-col-sm-9, .at-col-sm-8, .at-col-sm-7, .at-col-sm-6, .at-col-sm-5, .at-col-sm-4, .at-col-sm-3, .at-col-sm-2, .at-col-sm-1, .at-col,
+.at-col-sm-cust, .at-col-12, .at-col-11, .at-col-10, .at-col-9, .at-col-8, .at-col-7, .at-col-6, .at-col-5, .at-col-4, .at-col-3, .at-col-2, .at-col-1, .at-col,
 .at-col-auto,
-.at-col-cust, .at-col-12, .at-col-11, .at-col-10, .at-col-9, .at-col-8, .at-col-7, .at-col-6, .at-col-5, .at-col-4, .at-col-3, .at-col-2, .at-col-1 {
+.at-col-cust {
   position: relative;
   width: 100%;
   min-height: 1px;
@@ -85,6 +97,13 @@
           flex: 0 0 auto;
   width: auto;
   max-width: none;
+}
+
+.at-col-cust {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 var(--at-cust-w);
+          flex: 0 0 var(--at-cust-w);
+  max-width: var(--at-cust-w);
 }
 
 .at-col-1 {
@@ -171,13 +190,6 @@
   max-width: 100%;
 }
 
-.at-col-cust {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 var(--at-cust-w);
-          flex: 0 0 var(--at-cust-w);
-  max-width: var(--at-cust-w);
-}
-
 @media (min-width: 576px) {
   .at-col-sm {
     -ms-flex-preferred-size: 0;
@@ -193,6 +205,12 @@
             flex: 0 0 auto;
     width: auto;
     max-width: none;
+  }
+  .at-col-sm-cust {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 var(--at-cust-w);
+            flex: 0 0 var(--at-cust-w);
+    max-width: var(--at-cust-w);
   }
   .at-col-sm-1 {
     -webkit-box-flex: 0;
@@ -266,12 +284,6 @@
             flex: 0 0 100%;
     max-width: 100%;
   }
-  .at-col-sm-cust {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 var(--at-cust-w);
-            flex: 0 0 var(--at-cust-w);
-    max-width: var(--at-cust-w);
-  }
 }
 @media (min-width: 768px) {
   .at-col-md {
@@ -288,6 +300,12 @@
             flex: 0 0 auto;
     width: auto;
     max-width: none;
+  }
+  .at-col-md-cust {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 var(--at-cust-w);
+            flex: 0 0 var(--at-cust-w);
+    max-width: var(--at-cust-w);
   }
   .at-col-md-1 {
     -webkit-box-flex: 0;
@@ -361,12 +379,6 @@
             flex: 0 0 100%;
     max-width: 100%;
   }
-  .at-col-md-cust {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 var(--at-cust-w);
-            flex: 0 0 var(--at-cust-w);
-    max-width: var(--at-cust-w);
-  }
 }
 @media (min-width: 992px) {
   .at-col-lg {
@@ -383,6 +395,12 @@
             flex: 0 0 auto;
     width: auto;
     max-width: none;
+  }
+  .at-col-lg-cust {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 var(--at-cust-w);
+            flex: 0 0 var(--at-cust-w);
+    max-width: var(--at-cust-w);
   }
   .at-col-lg-1 {
     -webkit-box-flex: 0;
@@ -456,12 +474,6 @@
             flex: 0 0 100%;
     max-width: 100%;
   }
-  .at-col-lg-cust {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 var(--at-cust-w);
-            flex: 0 0 var(--at-cust-w);
-    max-width: var(--at-cust-w);
-  }
 }
 @media (min-width: 1200px) {
   .at-col-xl {
@@ -478,6 +490,12 @@
             flex: 0 0 auto;
     width: auto;
     max-width: none;
+  }
+  .at-col-xl-cust {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 var(--at-cust-w);
+            flex: 0 0 var(--at-cust-w);
+    max-width: var(--at-cust-w);
   }
   .at-col-xl-1 {
     -webkit-box-flex: 0;
@@ -551,12 +569,6 @@
             flex: 0 0 100%;
     max-width: 100%;
   }
-  .at-col-xl-cust {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 var(--at-cust-w);
-            flex: 0 0 var(--at-cust-w);
-    max-width: var(--at-cust-w);
-  }
 }
 @media (min-width: 1400px) {
   .at-col-xxl {
@@ -573,6 +585,12 @@
             flex: 0 0 auto;
     width: auto;
     max-width: none;
+  }
+  .at-col-xxl-cust {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 var(--at-cust-w);
+            flex: 0 0 var(--at-cust-w);
+    max-width: var(--at-cust-w);
   }
   .at-col-xxl-1 {
     -webkit-box-flex: 0;
@@ -646,21 +664,7 @@
             flex: 0 0 100%;
     max-width: 100%;
   }
-  .at-col-xxl-cust {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 var(--at-cust-w);
-            flex: 0 0 var(--at-cust-w);
-    max-width: var(--at-cust-w);
-  }
 }
-.at-gap {
-  gap: var(--at-gap);
-}
-
-.at-row-gap {
-  row-gap: var(--at-row-gap);
-}
-
 /*custom 5th col */
 .at-col-2m3,
 .at-col-xl-2m3,
@@ -1939,7 +1943,7 @@
     display: inline-flex !important;
   }
 }
-/* Properties */
+/*Properties*/
 /* UI Elementscan be broadly categorized into several types including:
 
 Structural(Semantic) elements: define the structure of a web page and include elements such as <header>, <footer>, <nav>, <main>, <section>, <article>, and <aside>.
@@ -1970,65 +1974,6 @@ html {
 }
 
 /* Content group */
-.at {
-  /* Text  include typo and color* - HTML Elements*/
-  /* Table - UI Elements*/
-  /* List - UI Elements*/
-  /* Button - UI Elements*/
-  /* SVG - UI Elements*/
-  /* Image - UI Elements*/
-  /* Always cover img tag with figure tag */
-  /* Video - UI Elements*/
-  /* Always cover video tag with figure tag */
-  /* Audio - UI Elements*/
-  /* Always cover audio tag with figure tag */
-  /* CSS properties based Class */
-  /* Border has four different properties to, right, bottom, and left
-     wich again have three properties color, style and width.
-     Since individual properties color, width and style again support 4 values,
-     We are managing all properties from these there values*/
-  /* Always cover img tag with figure tag */
-  /*Overlay styles*/
-  /*Position*/
-  /*Box related css*/
-  /*Caret Color*/
-  /*Color*/
-  /*Clip Path*/
-  /*Clear*/
-  /*Cursor*/
-  /*Direction*/
-  /*Filter*/
-  /*Special use in Image*/
-  /*Margin*/
-  /*Max Height & Width*/
-  /*Min Height & Width*/
-  /*Map*/
-  /*Progress Bar handle by custom html/css*/
-  /*Height*/
-  /*Width*/
-  /*Mix Blens Mode*/
-  /*Object Fit*/
-  /*Opacity*/
-  /*OverFlow*/
-  /*Padding*/
-  /*Pointer Event*/
-  /*Resize*/
-  /*Tab-size*/
-  /*Transform*/
-  /*Transition*/
-  /*Visibility*/
-  /*White Space*/
-  /*Word*/
-  /*Z index*/
-  /*Block shape (Html element section top bottom shape)*/
-  /*Block Shape Element*/
-  /* Sticky columns*/
-  /*  If we want to wrap whole div by anchor and make it clickable or 
-         If we want to wrap whole div by another element 
-     */
-  /*Absolute Element*/
-  /*Vertical Layout*/
-}
 .at-row * {
   -webkit-box-sizing: var(--at-box-szg, border-box);
           box-sizing: var(--at-box-szg, border-box);
@@ -2148,7 +2093,6 @@ html {
   min-width: var(--at-min-w, initial);
 }
 .at-acl {
-  /* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
   accent-color: var(--at-acl, initial);
 }
 .at-bg-cl {
@@ -2213,7 +2157,7 @@ html {
   background: var(--at-ovl, initial);
 }
 .at-ovl-grd:after {
-  background: var(--at-ovl), initial;
+  background: var(--at-ovl, initial);
 }
 .at-pos {
   position: var(--at-pos, initial);
@@ -2231,7 +2175,6 @@ html {
           box-sizing: var(--at-box-szg, initial);
 }
 .at-ct-cl {
-  /* Set the color of the cursor in input elements:*/
   caret-color: var(--at-ct-cl, initial);
 }
 .at-cl {
@@ -2279,16 +2222,26 @@ html {
   width: var(--at-w, initial);
 }
 .at-mix-blnd-mode {
-  mix-blend-mode: var(--at-mix-blend-mode, initial);
+  mix-blend-mode: var(--at-mix-blnd-mode, var(--at-mix-blend-mode, initial));
 }
 .at-obj-fit {
-  mix-blend-mode: var(--at-obj-fit, initial);
+  -o-object-fit: var(--at-obj-fit, initial);
+     object-fit: var(--at-obj-fit, initial);
 }
 .at-opa {
   opacity: var(--at-opa, initial);
 }
+.at-outl {
+  outline: var(--at-outl, initial);
+}
 .at-ovf {
   overflow: var(--at-ovf, initial);
+}
+.at-ovf-x {
+  overflow-x: var(--at-ovf-x, initial);
+}
+.at-ovf-y {
+  overflow-y: var(--at-ovf-y, initial);
 }
 .at-p {
   padding: var(--at-p, initial);
@@ -2332,7 +2285,7 @@ html {
   word-break: var(--at-wrd-brk, initial);
 }
 .at-wrd-spc {
-  word-spacing: var(--at-wrd-spg, initial);
+  word-spacing: var(--at-wrd-spc, var(--at-wrd-spg, initial));
 }
 .at-wrd-wrp {
   word-wrap: var(--at-wrd-wrp, initial);

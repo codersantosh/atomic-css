@@ -1,0 +1,26 @@
+{
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "block-no-empty": true,
+    "color-no-invalid-hex": true,
+    "declaration-block-no-duplicate-properties": true,
+    "no-duplicate-selectors": true,
+    "no-empty-source": true,
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": [
+          "-webkit-box-orient",
+          "-webkit-box-direction",
+          "-ms-flex-direction",
+          "-o-object-fit",
+          "box-reflect",
+          "zoom"
+        ]
+      }
+    ],
+    "declaration-property-value-no-unknown": null,
+    "selector-type-no-unknown": null
+  },
+  "defaultSeverity": "error"
+}

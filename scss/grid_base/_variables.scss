@@ -1,3 +1,5 @@
+@use "functions";
+
 // Variables
 $enable-grid-classes: true !default;
 
@@ -5,30 +7,34 @@ $enable-grid-classes: true !default;
 // Rename it for dynamic PHP
 // @media query doesn't work on var(CSS variables)
 $grid-breakpoints: (
-	xs: 0,
-	sm: 576px,
-	md: 768px,
-	lg: 992px,
-	xl: 1200px,
-	xxl: 1400px,
-) !default;
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+    ) !default;
 
-@include _assert-ascending($grid-breakpoints, '$grid-breakpoints');
-@include _assert-starts-at-zero($grid-breakpoints);
+@include functions.assert-ascending($grid-breakpoints, '$grid-breakpoints'
+);
+@include functions.assert-starts-at-zero($grid-breakpoints);
 
 // Grid containers
 $container-max-widths: (
-	sm: var(--at-ctnr),
-	md: var(--at-ctnr),
-	lg: var(--at-ctnr),
-	xl: var(--at-ctnr),
-	xxl: var(--at-ctnr),
-) !default;
-
-@include _assert-ascending($container-max-widths, '$container-max-widths');
+    sm: var(--at-ctnr),
+    md: var(--at-ctnr),
+    lg: var(--at-ctnr),
+    xl: var(--at-ctnr),
+    xxl: var(--at-ctnr),
+    ) !default;
+// NOTE: container-max-widths hold var() references, not numbers, so ascending
+// order cannot be asserted for them. Breakpoints below are the numeric map.
 
 // Grid columns
 $grid-columns: 12 !default;
+
+// Columns in the custom fifths grid (custom-grid-5ths)
+$grid-columns5: 5 !default;
 $grid-gutter-width: 30px !default;
 $grid-prefix: at;
 $grid-col-prefix: at-col;

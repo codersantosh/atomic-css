@@ -1,2 +1,4 @@
-@import 'scss/variable.scss';
-@import 'scss/css-properties.scss';
+@use 'scss/variable.scss';
+
+/*Properties*/
+@use 'scss/css-properties.scss';

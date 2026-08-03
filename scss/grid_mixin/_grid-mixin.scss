@@ -1,3 +1,6 @@
+@use "../grid_base/variables";
+@use "breakpoints";
+
 /// Grid system
 // var(--at-gtr)
 // calc(var(--at-gtr) / -2)
@@ -37,11 +40,11 @@
 
 // For each breakpoint, define the maximum width of the container in a media query
 @mixin make-container-max-widths(
-	$max-widths: $container-max-widths,
-	$breakpoints: $grid-breakpoints
+	$max-widths: variables.$container-max-widths,
+	$breakpoints: variables.$grid-breakpoints
 ) {
 	@each $breakpoint, $container-max-width in $max-widths {
-		@include media-breakpoint-up($breakpoint, $breakpoints) {
+		@include breakpoints.media-breakpoint-up($breakpoint, $breakpoints) {
 			max-width: $container-max-width;
 		}
 	}
@@ -65,7 +68,7 @@
 	padding-left: var(--at-gtr);
 }
 
-@mixin make-col($size, $columns: $grid-columns) {
+@mixin make-col($size, $columns: variables.$grid-columns) {
 	flex: 0 0 calc(($size / $columns) * 100%);
 	// Add a `max-width` to ensure content within each column does not blow out
 	// the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
@@ -73,7 +76,11 @@
 	max-width: calc(($size / $columns) * 100%);
 }
 
-@mixin make-col-offset($size, $columns: $grid-columns) {
+@mixin make-col-offset($size, $columns: variables.$grid-columns) {
 	$num: calc($size / $columns);
-	margin-left: if($num==0, 0, calc($num * 100%));
+	@if $num == 0 {
+		margin-left: 0;
+	} @else {
+		margin-left: calc($num * 100%);
+	}
 }

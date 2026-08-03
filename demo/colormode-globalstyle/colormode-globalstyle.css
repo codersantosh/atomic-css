@@ -29,8 +29,9 @@
   --at-ct-cl: var(--at-cl);
   --at-cur: initial;
   --at-dir: initial;
-  --at-flt: initial;
+  --at-fl: initial;
   --at-fnt-sz: initial;
+  --at-fnt-wt: initial;
   --at-fnt-fam: initial;
   --at-fnt-sty: normal;
   --at-txt-tf: initial;
@@ -39,6 +40,11 @@
   --at-ltr-sp: initial;
   --at-gap: initial;
   --at-ls-sty: initial;
+  --at-ls-pos: outside;
+  --at-ls-img: none;
+  --at-ls-typ: none;
+  --at-mkr-sz: initial;
+  --at-mkr-cl: initial;
   --at-m: initial;
   --at-msk-img: initial;
   --at-msk-mode: initial;
@@ -50,8 +56,11 @@
   --at-max-w: initial;
   --at-min-h: initial;
   --at-min-w: initial;
+  --at-mix-blnd-mode: initial;
   --at-opa: initial;
   --at-ovf: initial;
+  --at-ovf-x: initial;
+  --at-ovf-y: initial;
   --at-outl: initial;
   --at-p: initial;
   --at-ptr-ev: initial;
@@ -63,16 +72,30 @@
   --at-row-gap: initial;
   --at-scr-beh: initial;
   --at-txt-al: initial;
+  --at-txt-ovf: initial;
   --at-txt-sdw: initial;
   --at-trs: initial;
   --at-w: initial;
+  --at-h: initial;
+  --at-obj-fit: initial;
+  --at-ovl: initial;
+  --at-resz: initial;
+  --at-tab-sz: initial;
+  --at-clr: initial;
+  --at-clp-pth: initial;
+  --at-white-sp: initial;
+  --at-cust-w: initial;
+  --at-vrt-gap: initial;
+  --at-vrt-w: initial;
   --at-vis: initial;
   --at-wrd-brk: initial;
-  --at-wrd-spg: initial;
+  --at-wrd-spc: initial;
+  --at-wrd-spg: var(--at-wrd-spc);
   --at-wrd-wrp: initial;
   --at-z-idx: initial;
 }
 
+/*Properties*/
 /* HTML elements can be broadly categorized into several types including:
 
 Structural(Semantic) elements: define the structure of a web page and include elements such as <header>, <footer>, <nav>, <main>, <section>, <article>, and <aside>.
@@ -148,14 +171,7 @@ li {
   list-style: var(--at-ls-sty);
 }
 
-.at {
-  /* Border has four different properties to, right, bottom, and left
-     wich again have three properties color, style and width.
-     Since individual properties color, width and style again support 4 values,
-     We are managing all properties from these there values*/
-}
 .at-acl {
-  /* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
   accent-color: var(--at-acl);
 }
 .at-bg-cl {
@@ -208,8 +224,7 @@ li {
           box-sizing: var(--at-box-szg);
 }
 .at-ct-cl {
-  /* Set the color of the cursor in input elements:*/
-  caret-color: --at-ct-cl;
+  caret-color: var(--at-ct-cl, initial);
 }
 .at-cl {
   color: var(--at-cl);
@@ -219,10 +234,6 @@ li {
 }
 .at-dir {
   direction: var(--at-dir);
-}
-.at-flt {
-  -webkit-filter: var(--at-flt);
-          filter: var(--at-flt);
 }
 .at-typ {
   font-size: var(--at-fnt-sz);

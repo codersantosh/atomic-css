@@ -1,89 +1,51 @@
+@use "sass:map";
+@use "../grid_mixin/breakpoints";
+@use "variables";
+
 // stylelint-disable declaration-no-important
 
 //
 // Utilities for common `display` values
 //
 
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-up($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+@each $breakpoint in map.keys(variables.$grid-breakpoints) {
+    @include breakpoints.media-breakpoint-up($breakpoint) {
+        $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
-        .#{$grid-prefix}#{$infix}-d-non {
+        .#{variables.$grid-prefix}#{$infix}-d-non {
             display: none !important;
         }
 
-        .#{$grid-prefix}#{$infix}-inl {
+        .#{variables.$grid-prefix}#{$infix}-inl {
             display: inline !important;
         }
 
-        .#{$grid-prefix}#{$infix}-inl-blk {
+        .#{variables.$grid-prefix}#{$infix}-inl-blk {
             display: inline-block !important;
         }
 
-        .#{$grid-prefix}#{$infix}-blk {
+        .#{variables.$grid-prefix}#{$infix}-blk {
             display: block !important;
         }
 
-        .#{$grid-prefix}#{$infix}-tbl {
+        .#{variables.$grid-prefix}#{$infix}-tbl {
             display: table !important;
         }
 
-        .#{$grid-prefix}#{$infix}-tbl-row {
+        .#{variables.$grid-prefix}#{$infix}-tbl-row {
             display: table-row !important;
         }
 
-        .#{$grid-prefix}#{$infix}-tbl-cel {
+        .#{variables.$grid-prefix}#{$infix}-tbl-cel {
             display: table-cell !important;
         }
 
-        .#{$grid-prefix}#{$infix}-flx {
+        .#{variables.$grid-prefix}#{$infix}-flx {
             display: flex !important;
         }
 
-        .#{$grid-prefix}#{$infix}-inl-flx {
+        .#{variables.$grid-prefix}#{$infix}-inl-flx {
             display: inline-flex !important;
         }
-    }
-}
-
-//
-// Utilities for toggling `display` in print
-//
-
-@media print {
-    .#{$grid-prefix}-prt-non {
-        display: none !important;
-    }
-
-    .#{$grid-prefix}-prt-inl {
-        display: inline !important;
-    }
-
-    .#{$grid-prefix}-prt-inl-blk {
-        display: inline-block !important;
-    }
-
-    .#{$grid-prefix}-prt-blk {
-        display: block !important;
-    }
-
-    .#{$grid-prefix}-prt-tbl {
-        display: table !important;
-    }
-
-    .#{$grid-prefix}-prt-tbl-row {
-        display: table-row !important;
-    }
-
-    .#{$grid-prefix}-prt-tbl-cel {
-        display: table-cell !important;
-    }
-
-    .#{$grid-prefix}-prt-flx {
-        display: flex !important;
-    }
-
-    .#{$grid-prefix}-prt-inl-flx {
-        display: inline-flex !important;
     }
 }

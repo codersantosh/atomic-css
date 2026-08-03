@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atomic CSS - AT Grid: A Flexbox Grid System using Webpack and CSS variables</title>
-    <link rel="stylesheet" href="css/atomic.css">
+    <link rel="stylesheet" href="css-max/atomic-max.css">
     <style>
         *,
         ::after,
@@ -15,29 +15,39 @@
         }
 
         :root {
-            --at-container: 100%;
-            --at-gutter: 15px;
+            --at-ctnr: 100%;
+            --at-gtr: 15px;
             --primary-color: #33b5e5;
         }
 
         @media (min-width: 576px) {
-            --at-container: 540px;
+            :root {
+                --at-ctnr: 540px;
+            }
         }
 
         @media (min-width: 768px) {
-            --at-container: 720px;
+            :root {
+                --at-ctnr: 720px;
+            }
         }
 
         @media (min-width: 992px) {
-            --at-container: 960px;
+            :root {
+                --at-ctnr: 960px;
+            }
         }
 
         @media (min-width: 1200px) {
-            --at-container: 1140px;
+            :root {
+                --at-ctnr: 1140px;
+            }
         }
 
         @media (min-width: 1400px) {
-            --at-container: 1320px;
+            :root {
+                --at-ctnr: 1320px;
+            }
         }
 
         body {
@@ -71,6 +81,10 @@
 
         .mb-3 {
             margin-bottom: 30px;
+        }
+
+        .mb-4 {
+            margin-bottom: 45px;
         }
 
         code {
@@ -766,9 +780,9 @@
         <section class="">
             <h4>Fill : <code>.at-flx-fil </code></h4>
             <div class="at-flx at-flx-row bg-light mb-3">
-                <div class="demo-col at-flx-fill">Flex item</div>
-                <div class="demo-col at-flx-fill">Flex item</div>
-                <div class="demo-col at-flx-fill">Flex item</div>
+                <div class="demo-col at-flx-fil">Flex item</div>
+                <div class="demo-col at-flx-fil">Flex item</div>
+                <div class="demo-col at-flx-fil">Flex item</div>
             </div>
 
         </section>
@@ -1134,26 +1148,26 @@
             </div>
 
             <hr />
-            <h4>Display : <code>.at-tbl, .at-tbl-row, .at-tbl-cell </code></h4>
+            <h4>Display : <code>.at-tbl, .at-tbl-row, .at-tbl-cel </code></h4>
             <div class="bg-light" style="padding: 60px ;">
                 <div class="at-tbl" style="width: 100%;">
                     <div class="at-tbl-row bg-info">
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
                     </div>
                     <div class="at-tbl-row bg-light">
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
                     </div>
                     <div class="at-tbl-row bg-info">
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
-                        <span class="at-tbl-cell" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
+                        <span class="at-tbl-cel" style="padding:5px;">Example</span>
                     </div>
                 </div>
             </div>

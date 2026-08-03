@@ -1,20 +1,17 @@
-//ClassesPrefix
-$appPrefix: '.at';
+@use 'variable';
 
-//Root variable Prefix
-$varPrefix: '--at';
-
-@import './color.scss';
+/*Color*/
+@use 'color.scss';
 
 //Global CSS : Applied to all HTML including or excluding Atomic CSS
 * {
-    #{$varPrefix}-m      : 0;
-    #{$varPrefix}-p      : 0;
-    #{$varPrefix}-box-szg: border-box;
+    #{variable.$varPrefix}-m: 0;
+    #{variable.$varPrefix}-p: 0;
+    #{variable.$varPrefix}-box-szg: border-box;
 }
 
 body {
-    #{$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+    #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
 }
 
 //element styles
@@ -24,93 +21,93 @@ h3,
 h4,
 h5,
 h6 {
-    #{$varPrefix}-fnt-wt: bold;
+    #{variable.$varPrefix}-fnt-wt: bold;
 }
 
 h1 {
-    #{$varPrefix}-cl    : #060606;
-    #{$varPrefix}-fnt-sz: 50px;
-    #{$varPrefix}-m     : 0 0 30px 0;
-    margin              : var(#{$varPrefix}-m);
+    #{variable.$varPrefix}-cl: #060606;
+    #{variable.$varPrefix}-fnt-sz: 50px;
+    #{variable.$varPrefix}-m: 0 0 30px 0;
+    margin : var(#{variable.$varPrefix}-m);
 }
 
 h2 {
-    #{$varPrefix}-cl    : #060606;
-    #{$varPrefix}-fnt-sz: 43px;
-    #{$varPrefix}-m     : 0 0 30px 0;
-    margin              : var(#{$varPrefix}-m);
+    #{variable.$varPrefix}-cl: #060606;
+    #{variable.$varPrefix}-fnt-sz: 43px;
+    #{variable.$varPrefix}-m: 0 0 30px 0;
+    margin : var(#{variable.$varPrefix}-m);
 }
 
 h3 {
-    #{$varPrefix}-cl    : #060606;
-    #{$varPrefix}-fnt-sz: 36px;
-    #{$varPrefix}-m     : 0 0 25px 0;
-    margin              : var(#{$varPrefix}-m);
+    #{variable.$varPrefix}-cl: #060606;
+    #{variable.$varPrefix}-fnt-sz: 36px;
+    #{variable.$varPrefix}-m: 0 0 25px 0;
+    margin : var(#{variable.$varPrefix}-m);
 }
 
 h4 {
-    #{$varPrefix}-cl    : #060606;
-    #{$varPrefix}-fnt-sz: 29px;
-    #{$varPrefix}-m     : 0 0 20px 0;
-    margin              : var(#{$varPrefix}-m);
+    #{variable.$varPrefix}-cl: #060606;
+    #{variable.$varPrefix}-fnt-sz: 29px;
+    #{variable.$varPrefix}-m: 0 0 20px 0;
+    margin : var(#{variable.$varPrefix}-m);
 }
 
 h5 {
-    #{$varPrefix}-cl    : #060606;
-    #{$varPrefix}-fnt-sz: 22px;
-    #{$varPrefix}-m     : 0 0 15px 0;
-    margin              : var(#{$varPrefix}-m);
+    #{variable.$varPrefix}-cl: #060606;
+    #{variable.$varPrefix}-fnt-sz: 22px;
+    #{variable.$varPrefix}-m: 0 0 15px 0;
+    margin : var(#{variable.$varPrefix}-m);
 }
 
 h6 {
-    #{$varPrefix}-cl    : #060606;
-    #{$varPrefix}-fnt-sz: 14px;
-    #{$varPrefix}-m     : 0 0 10px 0;
-    margin              : var(#{$varPrefix}-m);
+    #{variable.$varPrefix}-cl: #060606;
+    #{variable.$varPrefix}-fnt-sz: 14px;
+    #{variable.$varPrefix}-m: 0 0 10px 0;
+    margin : var(#{variable.$varPrefix}-m);
 }
 
 p {
-    #{$varPrefix}-fnt-sz: 16px;
-    #{$varPrefix}-cl    : #3c3c3c;
-    #{$varPrefix}-m     : 0 0 15px 0;
-    margin              : var(#{$varPrefix}-m);
+    #{variable.$varPrefix}-fnt-sz: 16px;
+    #{variable.$varPrefix}-cl: #3c3c3c;
+    #{variable.$varPrefix}-m: 0 0 15px 0;
+    margin : var(#{variable.$varPrefix}-m);
 }
 
 a {
-    #{$varPrefix}-fnt-sz: 14px;
-    #{$varPrefix}-cl    : #712cf9;
+    #{variable.$varPrefix}-fnt-sz: 14px;
+    #{variable.$varPrefix}-cl: #712cf9;
 
     &:hover {
-        #{$varPrefix}-cl: #4718a4;
+        #{variable.$varPrefix}-cl: #4718a4;
     }
 }
 
 code {
-    #{$varPrefix}-cl: #d63384;
+    #{variable.$varPrefix}-cl: #d63384;
 }
 
 li {
-    #{$varPrefix}-cl: #3c3c3c;
+    #{variable.$varPrefix}-cl: #3c3c3c;
 }
 
 img {
-    #{$varPrefix}-w: 100%;
-    max-width      : var(#{$varPrefix}-w);
+    #{variable.$varPrefix}-w: 100%;
+    max-width : var(#{variable.$varPrefix}-w);
 }
 
 article {
-    #{$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
-    #{$varPrefix}-fnt-sz : 14px;
-    #{$varPrefix}-cl     : #000;
+    #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+    #{variable.$varPrefix}-fnt-sz: 14px;
+    #{variable.$varPrefix}-cl: #000;
 
     h4 {
-        #{$varPrefix}-m: 0 0 15px 0;
-        margin         : var(#{$varPrefix}-m);
+        #{variable.$varPrefix}-m: 0 0 15px 0;
+        margin : var(#{variable.$varPrefix}-m);
     }
 
     figure {
-        #{$varPrefix}-m: 15px 0;
-        margin         : var(#{$varPrefix}-m);
+        #{variable.$varPrefix}-m: 15px 0;
+        margin : var(#{variable.$varPrefix}-m);
     }
 
     header {
@@ -128,27 +125,27 @@ details {
     transition: all 0.5s ease-in-out 0s;
 
     &:not(:last-of-type) {
-        #{$varPrefix}-m: 0 0 15px 0;
-        margin         : var(#{$varPrefix}-m);
+        #{variable.$varPrefix}-m: 0 0 15px 0;
+        margin : var(#{variable.$varPrefix}-m);
     }
 
     summary {
-        #{$varPrefix}-bdr-w  : 1px;
-        #{$varPrefix}-bdr-sty: solid;
-        #{$varPrefix}-bdr-cl : #ddd;
-        #{$varPrefix}-p      : 10px;
-        #{$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
-        #{$varPrefix}-m      : 0 0 15px 0;
-        #{$varPrefix}-cl     : #000;
-        list-style           : none;
-        margin               : var(#{$varPrefix}-m);
-        color                : var(#{$varPrefix}-cl);
-        border-color         : var(#{$varPrefix}-bdr-cl);
-        border-width         : var(#{$varPrefix}-bdr-w);
-        border-style         : var(#{$varPrefix}-bdr-sty);
-        padding              : var(#{$varPrefix}-p);
-        font-family          : var(#{$varPrefix}-fnt-fam);
-        cursor               : pointer;
+        #{variable.$varPrefix}-bdr-w: 1px;
+        #{variable.$varPrefix}-bdr-sty: solid;
+        #{variable.$varPrefix}-bdr-cl: #ddd;
+        #{variable.$varPrefix}-p: 10px;
+        #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+        #{variable.$varPrefix}-m: 0 0 15px 0;
+        #{variable.$varPrefix}-cl: #000;
+        list-style: none;
+        margin : var(#{variable.$varPrefix}-m);
+        color : var(#{variable.$varPrefix}-cl);
+        border-color : var(#{variable.$varPrefix}-bdr-cl);
+        border-width : var(#{variable.$varPrefix}-bdr-w);
+        border-style : var(#{variable.$varPrefix}-bdr-sty);
+        padding : var(#{variable.$varPrefix}-p);
+        font-family : var(#{variable.$varPrefix}-fnt-fam);
+        cursor: pointer;
 
         svg {
             transition: all 0.5s ease-in-out 0s;
@@ -160,8 +157,8 @@ details {
 
         summary {
             svg {
-                #{$varPrefix}-tf: rotate(180deg);
-                transform       : var(#{$varPrefix}-tf);
+                #{variable.$varPrefix}-tf: rotate(180deg);
+                transform : var(#{variable.$varPrefix}-tf);
             }
         }
     }
@@ -169,47 +166,47 @@ details {
 
 //For Global Button need button tag
 
-#{$appPrefix} {
+#{variable.$appPrefix} {
     &-btn {
 
-        #{$varPrefix}-cl     : #fff;
-        #{$varPrefix}-bg-cl  : #0d6efd;
-        #{$varPrefix}-bdr-cl : #0c5ed7;
-        #{$varPrefix}-bdr-w  : 1px;
-        #{$varPrefix}-bdr-sty: solid;
-        #{$varPrefix}-p      : 10px 25px;
+        #{variable.$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-bg-cl: #0d6efd;
+        #{variable.$varPrefix}-bdr-cl: #0c5ed7;
+        #{variable.$varPrefix}-bdr-w: 1px;
+        #{variable.$varPrefix}-bdr-sty: solid;
+        #{variable.$varPrefix}-p: 10px 25px;
 
         &:hover {
-            #{$varPrefix}-cl    : #fff;
-            #{$varPrefix}-bg-cl : #0f4087;
-            #{$varPrefix}-bdr-cl: #0f4087;
+            #{variable.$varPrefix}-cl: #fff;
+            #{variable.$varPrefix}-bg-cl: #0f4087;
+            #{variable.$varPrefix}-bdr-cl: #0f4087;
         }
 
 
         &-outl {
-            #{$varPrefix}-bg-cl  : transparent;
-            #{$varPrefix}-cl     : #0c5ed7;
-            #{$varPrefix}-bdr-cl : #0c5ed7;
-            #{$varPrefix}-bdr-w  : 1px;
-            #{$varPrefix}-bdr-sty: solid;
-            #{$varPrefix}-p      : 10px 15px;
+            #{variable.$varPrefix}-bg-cl: transparent;
+            #{variable.$varPrefix}-cl: #0c5ed7;
+            #{variable.$varPrefix}-bdr-cl: #0c5ed7;
+            #{variable.$varPrefix}-bdr-w: 1px;
+            #{variable.$varPrefix}-bdr-sty: solid;
+            #{variable.$varPrefix}-p: 10px 15px;
 
             &:hover {
-                #{$varPrefix}-bg-cl : transparent;
-                #{$varPrefix}-cl    : #0c5ed7;
-                #{$varPrefix}-bdr-cl: #0f4087;
+                #{variable.$varPrefix}-bg-cl: transparent;
+                #{variable.$varPrefix}-cl: #0c5ed7;
+                #{variable.$varPrefix}-bdr-cl: #0f4087;
             }
         }
 
         &-lnk {
-            #{$varPrefix}-cl   : #0c5ed7;
-            #{$varPrefix}-bg-cl: transparent;
-            #{$varPrefix}-bdr-w: 0;
-            #{$varPrefix}-p    : 0;
+            #{variable.$varPrefix}-cl: #0c5ed7;
+            #{variable.$varPrefix}-bg-cl: transparent;
+            #{variable.$varPrefix}-bdr-w: 0;
+            #{variable.$varPrefix}-p: 0;
 
             &:hover {
-                #{$varPrefix}-cl   : #0f4087;
-                #{$varPrefix}-bg-cl: transparent;
+                #{variable.$varPrefix}-cl: #0f4087;
+                #{variable.$varPrefix}-bg-cl: transparent;
             }
         }
     }
@@ -217,68 +214,68 @@ details {
 
 //Global CSS : Applied to only HTML of Atomic CSS excluding other global HTML
 //demo styles
-#{$appPrefix} {
+#{variable.$appPrefix} {
     &-btn {
-        &#{$appPrefix} {
+        &#{variable.$appPrefix} {
             &-p {
-                #{$varPrefix}-p: 10px 30px;
+                #{variable.$varPrefix}-p: 10px 30px;
             }
         }
     }
 
     &-sec {
         &-1 {
-            #{$varPrefix}-bg-cl: #ececec;
+            #{variable.$varPrefix}-bg-cl: #ececec;
 
-            &#{$appPrefix} {
+            &#{variable.$appPrefix} {
                 &-p {
-                    #{$varPrefix}-p: 40px 0;
+                    #{variable.$varPrefix}-p: 40px 0;
                 }
             }
         }
 
         &-2 {
-            #{$varPrefix}-bg-cl: #fff;
+            #{variable.$varPrefix}-bg-cl: #fff;
 
-            &#{$appPrefix} {
+            &#{variable.$appPrefix} {
                 &-p {
-                    #{$varPrefix}-p: 80px 0;
+                    #{variable.$varPrefix}-p: 80px 0;
                 }
             }
         }
 
         &-3 {
-            #{$varPrefix}-bg-cl: #fbfbfb;
+            #{variable.$varPrefix}-bg-cl: #fbfbfb;
 
-            &#{$appPrefix} {
+            &#{variable.$appPrefix} {
                 &-p {
-                    #{$varPrefix}-p: 80px 0;
+                    #{variable.$varPrefix}-p: 80px 0;
                 }
             }
         }
     }
 
     &-tbl {
-        #{$varPrefix}-m: 0 0 30px 0;
-        margin         : var(#{$varPrefix}-m);
+        #{variable.$varPrefix}-m: 0 0 30px 0;
+        margin : var(#{variable.$varPrefix}-m);
 
-        #{$appPrefix} {
+        #{variable.$appPrefix} {
             &-bdr {
-                #{$varPrefix}-bdr-w  : 0 0 1px 0;
-                #{$varPrefix}-bdr-sty: solid;
-                #{$varPrefix}-bdr-cl : #ddd;
+                #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
+                #{variable.$varPrefix}-bdr-sty: solid;
+                #{variable.$varPrefix}-bdr-cl: #ddd;
             }
         }
 
         &-cel {
-            #{$varPrefix}-p      : 15px;
-            #{$varPrefix}-bdr-w  : 0 0 1px 0;
-            #{$varPrefix}-bdr-sty: solid;
-            #{$varPrefix}-bdr-cl : #ddd;
-            padding              : var(#{$varPrefix}-p);
-            border-style         : var(#{$varPrefix}-bdr-sty);
-            border-width         : var(#{$varPrefix}-bdr-w);
-            border-color         : var(#{$varPrefix}-bdr-cl);
+            #{variable.$varPrefix}-p: 15px;
+            #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
+            #{variable.$varPrefix}-bdr-sty: solid;
+            #{variable.$varPrefix}-bdr-cl: #ddd;
+            padding : var(#{variable.$varPrefix}-p);
+            border-style : var(#{variable.$varPrefix}-bdr-sty);
+            border-width : var(#{variable.$varPrefix}-bdr-w);
+            border-color : var(#{variable.$varPrefix}-bdr-cl);
 
             h1,
             h2,
@@ -286,13 +283,13 @@ details {
             h4,
             h5,
             h6 {
-                #{$varPrefix}-m: 0;
+                #{variable.$varPrefix}-m: 0;
             }
 
-            &#{$appPrefix} {
+            &#{variable.$appPrefix} {
                 &-cl {
-                    #{$varPrefix}-cl: #323537;
-                    color           : var(--at-color);
+                    #{variable.$varPrefix}-cl: #323537;
+                    color: var(#{variable.$varPrefix}-cl);
                 }
             }
         }
@@ -300,83 +297,83 @@ details {
 
     &-m {
         &.mt-15 {
-            #{$varPrefix}-m: 15px 0 0 0;
+            #{variable.$varPrefix}-m: 15px 0 0 0;
         }
 
         &.mt-30 {
-            #{$varPrefix}-m: 30px 0 0 0;
+            #{variable.$varPrefix}-m: 30px 0 0 0;
         }
 
         &.mb-30 {
-            #{$varPrefix}-m: 0 0 30px 0;
+            #{variable.$varPrefix}-m: 0 0 30px 0;
         }
 
         &.mb-15 {
-            #{$varPrefix}-m: 0 0 15px 0;
+            #{variable.$varPrefix}-m: 0 0 15px 0;
         }
     }
 
     &-img {
         max-width: 100%;
-        height   : auto;
+        height: auto;
     }
 
     //gap
     &-gap {
         &-5 {
-            #{$varPrefix}-gap: 5px;
+            #{variable.$varPrefix}-gap: 5px;
         }
 
         &-20 {
-            #{$varPrefix}-gap: 20px;
+            #{variable.$varPrefix}-gap: 20px;
         }
     }
 
     //post
     &-post {
-        &#{$appPrefix} {
+        &#{variable.$appPrefix} {
             &-p {
-                #{$varPrefix}-p: 20px;
+                #{variable.$varPrefix}-p: 20px;
             }
 
             &-bdr {
-                #{$varPrefix}-bdr-w  : 1px;
-                #{$varPrefix}-bdr-cl : #ddd;
-                #{$varPrefix}-bdr-sty: solid;
+                #{variable.$varPrefix}-bdr-w: 1px;
+                #{variable.$varPrefix}-bdr-cl: #ddd;
+                #{variable.$varPrefix}-bdr-sty: solid;
             }
 
             &-rad {
-                #{$varPrefix}-bdr-rad: 5px;
+                #{variable.$varPrefix}-bdr-rad: 5px;
             }
 
             &-bg-cl {
-                #{$varPrefix}-bg-cl: #fff;
+                #{variable.$varPrefix}-bg-cl: #fff;
             }
 
             &-box-sdw {
-                #{$varPrefix}-box-sdw: 0 0 10px 1px rgba(0, 0, 0, 0.03);
+                #{variable.$varPrefix}-box-sdw: 0 0 10px 1px rgba(0, 0, 0, 0.03);
             }
         }
 
-        #{$appPrefix} {
+        #{variable.$appPrefix} {
             &-m {
                 &.m-minus {
-                    #{$varPrefix}-m: 20px -20px;
+                    #{variable.$varPrefix}-m: 20px -20px;
                 }
             }
         }
 
         &-ttl {
-            &#{$appPrefix} {
+            &#{variable.$appPrefix} {
                 &-typo {
-                    #{$varPrefix}-fnt-sz: 28px;
-                    #{$varPrefix}-fnt-wt: 700;
+                    #{variable.$varPrefix}-fnt-sz: 28px;
+                    #{variable.$varPrefix}-fnt-wt: 700;
                 }
             }
         }
 
         &-mtdt {
-            #{$varPrefix}-gap: 20px;
+            #{variable.$varPrefix}-gap: 20px;
         }
     }
 
@@ -384,22 +381,22 @@ details {
 
     &-acc {
         &-ttl {
-            #{$varPrefix}-bg-cl: #f5f5f5;
+            #{variable.$varPrefix}-bg-cl: #f5f5f5;
 
             &:hover {
-                #{$varPrefix}-bg-cl : #0d6efd;
-                #{$varPrefix}-bdr-cl: #0c5ed7;
-                #{$varPrefix}-cl    : #fff;
+                #{variable.$varPrefix}-bg-cl: #0d6efd;
+                #{variable.$varPrefix}-bdr-cl: #0c5ed7;
+                #{variable.$varPrefix}-cl: #fff;
             }
         }
 
         &[open] {
-            #{$appPrefix} {
+            #{variable.$appPrefix} {
                 &-acc {
                     &-ttl {
-                        #{$varPrefix}-bg-cl : #0d6efd;
-                        #{$varPrefix}-bdr-cl: #0c5ed7;
-                        #{$varPrefix}-cl    : #fff;
+                        #{variable.$varPrefix}-bg-cl: #0d6efd;
+                        #{variable.$varPrefix}-bdr-cl: #0c5ed7;
+                        #{variable.$varPrefix}-cl: #fff;
                     }
                 }
             }
@@ -411,61 +408,61 @@ details {
         list-style: none;
 
         &-lnk {
-            #{$varPrefix}-bg-cl  : transparent;
-            #{$varPrefix}-p      : 10px 15px;
-            #{$varPrefix}-bdr-cl : transparent;
-            #{$varPrefix}-bdr-w  : 1px;
-            #{$varPrefix}-bdr-sty: solid;
-            #{$varPrefix}-cl     : #000;
+            #{variable.$varPrefix}-bg-cl: transparent;
+            #{variable.$varPrefix}-p: 10px 15px;
+            #{variable.$varPrefix}-bdr-cl: transparent;
+            #{variable.$varPrefix}-bdr-w: 1px;
+            #{variable.$varPrefix}-bdr-sty: solid;
+            #{variable.$varPrefix}-cl: #000;
 
-            padding         : var(#{$varPrefix}-p);
-            background-color: var(#{$varPrefix}-bg-cl);
-            border-style    : var(#{$varPrefix}-bdr-sty);
-            border-width    : var(#{$varPrefix}-bdr-w);
-            border-color    : var(#{$varPrefix}-bdr-cl);
-            color           : var(#{$varPrefix}-cl);
+            padding : var(#{variable.$varPrefix}-p);
+            background-color: var(#{variable.$varPrefix}-bg-cl);
+            border-style : var(#{variable.$varPrefix}-bdr-sty);
+            border-width : var(#{variable.$varPrefix}-bdr-w);
+            border-color : var(#{variable.$varPrefix}-bdr-cl);
+            color : var(#{variable.$varPrefix}-cl);
 
-            &#{$appPrefix} {
+            &#{variable.$appPrefix} {
                 &-active {
-                    #{$varPrefix}-bg-cl : #fbfbfb;
-                    #{$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
-                    border-color        : var(#{$varPrefix}-bdr-cl);
+                    #{variable.$varPrefix}-bg-cl: #fbfbfb;
+                    #{variable.$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
+                    border-color : var(#{variable.$varPrefix}-bdr-cl);
                 }
             }
         }
 
         &-tabs {
-            #{$varPrefix}-bdr-cl : #ddd;
-            #{$varPrefix}-bdr-w  : 0 0 1px 0;
-            #{$varPrefix}-bdr-sty: solid;
-            border-style         : var(#{$varPrefix}-bdr-sty);
-            border-width         : var(#{$varPrefix}-bdr-w);
-            border-color         : var(#{$varPrefix}-bdr-cl);
+            #{variable.$varPrefix}-bdr-cl: #ddd;
+            #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
+            #{variable.$varPrefix}-bdr-sty: solid;
+            border-style : var(#{variable.$varPrefix}-bdr-sty);
+            border-width : var(#{variable.$varPrefix}-bdr-w);
+            border-color : var(#{variable.$varPrefix}-bdr-cl);
 
-            #{$appPrefix} {
+            #{variable.$appPrefix} {
                 &-nav {
                     &-lnk {
-                        #{$varPrefix}-m: calc(-1 * var(#{$varPrefix}-bdr-w));
-                        margin         : var(#{$varPrefix}-m);
+                        #{variable.$varPrefix}-m: calc(-1 * var(#{variable.$varPrefix}-bdr-w));
+                        margin : var(#{variable.$varPrefix}-m);
                     }
                 }
             }
 
             &-fill {
-                #{$varPrefix}-bdr-cl: #0d6efd;
+                #{variable.$varPrefix}-bdr-cl: #0d6efd;
 
-                #{$appPrefix} {
+                #{variable.$appPrefix} {
                     &-nav {
                         &-lnk {
-                            #{$varPrefix}-cl: #0d6efd;
-                            color           : var(#{$varPrefix}-cl);
+                            #{variable.$varPrefix}-cl: #0d6efd;
+                            color : var(#{variable.$varPrefix}-cl);
 
-                            &#{$appPrefix} {
+                            &#{variable.$appPrefix} {
                                 &-active {
-                                    #{$varPrefix}-cl    : #fff;
-                                    #{$varPrefix}-bg-cl : #0d6efd;
-                                    #{$varPrefix}-bdr-cl: #0d6efd #0d6efd transparent #0d6efd;
-                                    border-color        : var(#{$varPrefix}-bdr-cl);
+                                    #{variable.$varPrefix}-cl: #fff;
+                                    #{variable.$varPrefix}-bg-cl: #0d6efd;
+                                    #{variable.$varPrefix}-bdr-cl: #0d6efd #0d6efd transparent #0d6efd;
+                                    border-color : var(#{variable.$varPrefix}-bdr-cl);
                                 }
                             }
                         }
@@ -477,139 +474,137 @@ details {
 
     &-tab {
         &-pane {
-            #{$varPrefix}-p: 15px;
-            padding        : var(#{$varPrefix}-p);
+            #{variable.$varPrefix}-p: 15px;
+            padding : var(#{variable.$varPrefix}-p);
         }
     }
 
     &-footer {
-        &#{$appPrefix} {
+        &#{variable.$appPrefix} {
             &-p {
-                #{$varPrefix}-p: 20px;
+                #{variable.$varPrefix}-p: 20px;
             }
 
             &-txt-al {
-                #{$varPrefix}-txt-al: center;
+                #{variable.$varPrefix}-txt-al: center;
             }
 
             &-m {
-                #{$varPrefix}-m: 0;
+                #{variable.$varPrefix}-m: 0;
             }
         }
     }
 }
 
 [data-at-theme='dark'] {
-    #{$varPrefix}-cl           : #fff;
-    #{$varPrefix}-bg-cl        : #000;
-    #{$varPrefix}-bdr-cl       : #000;
-    #{$varPrefix}-box-sdw-color: #fff;
-    #{$varPrefix}-txt-sdw-color: #fff;
+    #{variable.$varPrefix}-cl: #fff;
+    #{variable.$varPrefix}-bg-cl: #000;
+    #{variable.$varPrefix}-bdr-cl: #000;
 
     //elements : h1-h6,p,button,a
     h1 {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     h2 {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     h3 {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     h4 {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     h5 {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     h6 {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     p {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     a {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
-    #{$appPrefix} {
+    #{variable.$appPrefix} {
         &-btn {
 
-            #{$varPrefix}-cl    : #fff;
-            #{$varPrefix}-bg-cl : #000;
-            #{$varPrefix}-bdr-cl: #000;
+            #{variable.$varPrefix}-cl: #fff;
+            #{variable.$varPrefix}-bg-cl: #000;
+            #{variable.$varPrefix}-bdr-cl: #000;
 
             &:hover {
-                #{$varPrefix}-cl    : #fff;
-                #{$varPrefix}-bg-cl : #2d2d2d;
-                #{$varPrefix}-bdr-cl: #2d2d2d;
+                #{variable.$varPrefix}-cl: #fff;
+                #{variable.$varPrefix}-bg-cl: #2d2d2d;
+                #{variable.$varPrefix}-bdr-cl: #2d2d2d;
             }
 
 
             &-outl {
-                #{$varPrefix}-bg-cl : transparent;
-                #{$varPrefix}-cl    : #2d2d2d;
-                #{$varPrefix}-bdr-cl: #2d2d2d;
+                #{variable.$varPrefix}-bg-cl: transparent;
+                #{variable.$varPrefix}-cl: #2d2d2d;
+                #{variable.$varPrefix}-bdr-cl: #2d2d2d;
 
                 &:hover {
-                    #{$varPrefix}-cl    : #666;
-                    #{$varPrefix}-bdr-cl: #666;
+                    #{variable.$varPrefix}-cl: #666;
+                    #{variable.$varPrefix}-bdr-cl: #666;
                 }
             }
 
             &-lnk {
-                #{$varPrefix}-cl   : #fff;
-                #{$varPrefix}-bg-cl: transparent;
+                #{variable.$varPrefix}-cl: #fff;
+                #{variable.$varPrefix}-bg-cl: transparent;
 
                 &:hover {
-                    #{$varPrefix}-bg-cl: transparent;
-                    #{$varPrefix}-cl   : #2d2d2d;
+                    #{variable.$varPrefix}-bg-cl: transparent;
+                    #{variable.$varPrefix}-cl: #2d2d2d;
                 }
             }
         }
     }
 
     article {
-        #{$varPrefix}-cl: #fff;
+        #{variable.$varPrefix}-cl: #fff;
     }
 
     details {
         summary {
-            #{$varPrefix}-bdr-cl: #444;
-            #{$varPrefix}-cl    : #fff;
+            #{variable.$varPrefix}-bdr-cl: #444;
+            #{variable.$varPrefix}-cl: #fff;
         }
     }
 
     //demo styles
-    #{$appPrefix} {
+    #{variable.$appPrefix} {
         &-sec {
             &-1 {
-                #{$varPrefix}-bg-cl: #0d0d0d;
+                #{variable.$varPrefix}-bg-cl: #0d0d0d;
             }
 
             &-2 {
-                #{$varPrefix}-bg-cl: #000;
+                #{variable.$varPrefix}-bg-cl: #000;
             }
 
             &-3 {
-                #{$varPrefix}-bg-cl: #131313;
+                #{variable.$varPrefix}-bg-cl: #131313;
             }
         }
 
         &-tbl {
             &-cel {
-                #{$varPrefix}-cl: #fff;
+                #{variable.$varPrefix}-cl: #fff;
 
-                &#{$appPrefix} {
+                &#{variable.$appPrefix} {
                     &-cl {
-                        #{$varPrefix}-cl: #828282;
+                        #{variable.$varPrefix}-cl: #828282;
                     }
                 }
             }
@@ -619,22 +614,22 @@ details {
 
         &-acc {
             &-ttl {
-                #{$varPrefix}-bg-cl: #131313;
+                #{variable.$varPrefix}-bg-cl: #131313;
 
                 &:hover {
-                    #{$varPrefix}-bg-cl : #2d2d2d;
-                    #{$varPrefix}-bdr-cl: #333;
-                    #{$varPrefix}-cl    : #fff;
+                    #{variable.$varPrefix}-bg-cl: #2d2d2d;
+                    #{variable.$varPrefix}-bdr-cl: #333;
+                    #{variable.$varPrefix}-cl: #fff;
                 }
             }
 
             &[open] {
-                #{$appPrefix} {
+                #{variable.$appPrefix} {
                     &-acc {
                         &-ttl {
-                            #{$varPrefix}-bg-cl : #2d2d2d;
-                            #{$varPrefix}-bdr-cl: #333;
-                            #{$varPrefix}-cl    : #fff;
+                            #{variable.$varPrefix}-bg-cl: #2d2d2d;
+                            #{variable.$varPrefix}-bdr-cl: #333;
+                            #{variable.$varPrefix}-cl: #fff;
                         }
                     }
                 }
@@ -643,13 +638,13 @@ details {
 
         //post
         &-post {
-            &#{$appPrefix} {
+            &#{variable.$appPrefix} {
                 &-bdr {
-                    #{$varPrefix}-bdr-cl: #131313;
+                    #{variable.$varPrefix}-bdr-cl: #131313;
                 }
 
                 &-bg-cl {
-                    #{$varPrefix}-bg-cl: #2d2d2d;
+                    #{variable.$varPrefix}-bg-cl: #2d2d2d;
                 }
             }
         }
@@ -659,32 +654,32 @@ details {
             list-style: none;
 
             &-lnk {
-                #{$varPrefix}-cl: #fff;
+                #{variable.$varPrefix}-cl: #fff;
 
-                &#{$appPrefix} {
+                &#{variable.$appPrefix} {
                     &-active {
-                        #{$varPrefix}-bg-cl : #131313;
-                        #{$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
+                        #{variable.$varPrefix}-bg-cl: #131313;
+                        #{variable.$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
                     }
                 }
             }
 
             &-tabs {
-                #{$varPrefix}-bdr-cl: #ddd;
+                #{variable.$varPrefix}-bdr-cl: #ddd;
 
                 &-fill {
-                    #{$varPrefix}-bdr-cl: #131313;
+                    #{variable.$varPrefix}-bdr-cl: #131313;
 
-                    #{$appPrefix} {
+                    #{variable.$appPrefix} {
                         &-nav {
                             &-lnk {
-                                #{$varPrefix}-cl: #2d2d2d;
+                                #{variable.$varPrefix}-cl: #2d2d2d;
 
-                                &#{$appPrefix} {
+                                &#{variable.$appPrefix} {
                                     &-active {
-                                        #{$varPrefix}-cl    : #fff;
-                                        #{$varPrefix}-bg-cl : #131313;
-                                        #{$varPrefix}-bdr-cl: #131313 #131313 transparent #131313;
+                                        #{variable.$varPrefix}-cl: #fff;
+                                        #{variable.$varPrefix}-bg-cl: #131313;
+                                        #{variable.$varPrefix}-bdr-cl: #131313 #131313 transparent #131313;
                                     }
                                 }
                             }

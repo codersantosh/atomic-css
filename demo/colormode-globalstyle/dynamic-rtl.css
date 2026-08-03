@@ -1,3 +1,101 @@
+:root {
+  --at-ctnr: 1140px;
+  --at-ctnr-min: 1100px;
+  --at-gtr: 15px;
+  --at-cl: initial;
+  --at-acl: var(--at-cl);
+  --at-bg-cl: initial;
+  --at-bg-img: initial;
+  --at-bg-pos: initial;
+  --at-bg-sz: initial;
+  --at-bg-rpt: initial;
+  --at-bg-org: initial;
+  --at-bg-atch: initial;
+  --at-bg-blend-mode: initial;
+  --at-bdr-w: initial;
+  --at-bdr-sty: initial;
+  --at-bdr-cl: initial;
+  --at-bdr-rad: initial;
+  --at-b: initial;
+  --at-pos: initial;
+  --at-t: initial;
+  --at-r: initial;
+  --at-l: initial;
+  --at-box-refl: initial;
+  --at-box-sdw: initial;
+  --at-box-szg: initial;
+  --at-cpt-sd: initial;
+  --at-tbl-lyt: initial;
+  --at-ct-cl: var(--at-cl);
+  --at-cur: initial;
+  --at-dir: initial;
+  --at-fl: initial;
+  --at-fnt-sz: initial;
+  --at-fnt-wt: initial;
+  --at-fnt-fam: initial;
+  --at-fnt-sty: normal;
+  --at-txt-tf: initial;
+  --at-txt-dec: initial;
+  --at-ln-h: normal;
+  --at-ltr-sp: initial;
+  --at-gap: initial;
+  --at-ls-sty: initial;
+  --at-ls-pos: outside;
+  --at-ls-img: none;
+  --at-ls-typ: none;
+  --at-mkr-sz: initial;
+  --at-mkr-cl: initial;
+  --at-m: initial;
+  --at-msk-img: initial;
+  --at-msk-mode: initial;
+  --at-msk-org: initial;
+  --at-msk-pos: initial;
+  --at-msk-rpt: initial;
+  --at-msk-sz: initial;
+  --at-max-h: initial;
+  --at-max-w: initial;
+  --at-min-h: initial;
+  --at-min-w: initial;
+  --at-mix-blnd-mode: initial;
+  --at-opa: initial;
+  --at-ovf: initial;
+  --at-ovf-x: initial;
+  --at-ovf-y: initial;
+  --at-outl: initial;
+  --at-p: initial;
+  --at-ptr-ev: initial;
+  --at-ppv: initial;
+  --at-ppv-org: initial;
+  --at-tf: initial;
+  --at-tf-org: initial;
+  --at-tf-sty: initial;
+  --at-row-gap: initial;
+  --at-scr-beh: initial;
+  --at-txt-al: initial;
+  --at-txt-ovf: initial;
+  --at-txt-sdw: initial;
+  --at-trs: initial;
+  --at-w: initial;
+  --at-h: initial;
+  --at-obj-fit: initial;
+  --at-ovl: initial;
+  --at-resz: initial;
+  --at-tab-sz: initial;
+  --at-clr: initial;
+  --at-clp-pth: initial;
+  --at-white-sp: initial;
+  --at-cust-w: initial;
+  --at-vrt-gap: initial;
+  --at-vrt-w: initial;
+  --at-vis: initial;
+  --at-wrd-brk: initial;
+  --at-wrd-spc: initial;
+  --at-wrd-spg: var(--at-wrd-spc);
+  --at-wrd-wrp: initial;
+  --at-z-idx: initial;
+}
+
+/*Color*/
 /* 
 
 Here is a brief description and example of each of the CSS properties that take color values:
@@ -316,7 +414,7 @@ details[open] summary svg {
 }
 .at-tbl-cel.at-cl {
   --at-cl: #323537;
-  color: var(--at-color);
+  color: var(--at-cl);
 }
 .at-m.mt-15 {
   --at-m: 15px 0 0 0;
@@ -445,8 +543,6 @@ details[open] summary svg {
   --at-cl: #fff;
   --at-bg-cl: #000;
   --at-bdr-cl: #000;
-  --at-box-sdw-color: #fff;
-  --at-txt-sdw-color: #fff;
 }
 [data-at-theme=dark] h1 {
   --at-cl: #fff;

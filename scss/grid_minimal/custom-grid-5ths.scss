@@ -1,29 +1,33 @@
+@use "sass:map";
+@use "../grid_base/variables";
+@use "../grid_mixin/breakpoints";
+
 /*custom 5th col */
 
 @mixin make-col-5($size, $columns: $grid-columns5) {
-	flex: 0 0 calc(($size / $columns) * 100%);
-	max-width: calc(($size / $columns) * 100%);
+    flex: 0 0 calc(($size / $columns) * 100%);
+    max-width: calc(($size / $columns) * 100%);
 }
 
-.#{$grid-col-prefix}-2m3,
-.#{$grid-col-prefix}-xl-2m3,
-.#{$grid-col-prefix}-lg-2m3,
-.#{$grid-col-prefix}-md-2m3,
-.#{$grid-col-prefix}-sm-2m3,
-.#{$grid-col-prefix}-xs-2m3 {
-	position: relative;
-	width: 100%;
-	min-height: 1px; // Prevent columns from collapsing when empty
-	padding-right: var(--at-gtr);
-	padding-left: var(--at-gtr);
+.#{variables.$grid-col-prefix}-2m3,
+.#{variables.$grid-col-prefix}-xl-2m3,
+.#{variables.$grid-col-prefix}-lg-2m3,
+.#{variables.$grid-col-prefix}-md-2m3,
+.#{variables.$grid-col-prefix}-sm-2m3,
+.#{variables.$grid-col-prefix}-xs-2m3 {
+    position: relative;
+    width: 100%;
+    min-height: 1px; // Prevent columns from collapsing when empty
+    padding-right: var(--at-gtr);
+    padding-left: var(--at-gtr);
 }
 
-@each $breakpoint in map-keys($grid-breakpoints) {
-	@include media-breakpoint-up($breakpoint) {
-		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+@each $breakpoint in map.keys(variables.$grid-breakpoints) {
+    @include breakpoints.media-breakpoint-up($breakpoint) {
+        $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
-		.#{$grid-col-prefix}#{$infix}-2m3 {
-			@include make-col-5(1, 5);
-		}
-	}
+        .#{variables.$grid-col-prefix}#{$infix}-2m3 {
+            @include make-col-5(1, 5);
+        }
+    }
 }

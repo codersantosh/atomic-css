@@ -1,0 +1,44 @@
+@use "../grid_base/variables";
+
+//
+// Utilities for toggling `display` in print
+//
+// Included only by the atomic-max bundle (grid-max.scss).
+
+@media print {
+    .#{variables.$grid-prefix}-prt-non {
+        display: none !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-inl {
+        display: inline !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-inl-blk {
+        display: inline-block !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-blk {
+        display: block !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-tbl {
+        display: table !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-tbl-row {
+        display: table-row !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-tbl-cel {
+        display: table-cell !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-flx {
+        display: flex !important;
+    }
+
+    .#{variables.$grid-prefix}-prt-inl-flx {
+        display: inline-flex !important;
+    }
+}

@@ -1,14 +1,14 @@
-@import "grid_base/functions";
-@import "grid_base/variables";
+@use "css-variable";
 
-@import "grid_mixin/breakpoints";
-@import "grid_mixin/grid-framework";
-@import "grid_mixin/grid-mixin";
+/*Grid*/
+@use "grid_base/grid-partials";
+@use "grid_max/grid-framework";
+@use "custom-grid-5ths";
 
-@import "grid_base/grid-partials";
+/*Utilities*/
+@use "grid_base/flex";
+@use "grid_base/display";
+@use "grid_base/print-display";
 
-@import "grid_base/flex";
-@import "grid_base/display";
-
-@import "custom-grid-5ths";
-
+/*Properties*/
+@use "css-properties.scss";

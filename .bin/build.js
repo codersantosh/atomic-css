@@ -5,7 +5,6 @@ const path = require('path');
 const folders = [
     'css-max',
     'css',
-    'demo/colormode-globalstyle',
     'demo/colormode-globalstyle'
 ];
 

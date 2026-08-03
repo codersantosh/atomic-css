@@ -1,30 +1,127 @@
-# Atomic CSS: Modern Web Development with the Power of CSS Variables and Flexbox Grid System. (BETA version)
+# Atomic CSS
 
-Atomic CSS is a cutting-edge CSS framework that goes beyond being just a framework, but instead offers a new way of writing modern CSS. It provides a methodology that enables developers to write clean, efficient, and maintainable code.
+An atomic/utility CSS framework built on **CSS custom properties** and a **Flexbox grid system**. Every utility class (`.at-*`) reads its value from a matching CSS variable (`--at-*`), so theming is done entirely in variables — no class overrides, no JavaScript runtime.
 
-One of the essential features of Atomic CSS is the use of CSS variables that are based on CSS properties. This technique allows developers to reuse values across different components and pages, making customization and theming more manageable. This modern CSS approach with variables makes it easier to create consistent styles and maintain them across the entire application.
-
-Atomic CSS also emphasizes the importance of CSS based on Semantic HTML. Semantic HTML refers to writing HTML with meaningful tags that describe the content they contain. By focusing on Semantic HTML, Atomic CSS creates CSS that is more readable and accessible, making it easier to maintain and scale.
-
-Additionally, Atomic CSS provides a Flexbox Grid System that simplifies layout design and responsiveness. With this grid system, developers can quickly create responsive web designs that adapt seamlessly to different screen sizes and devices.
-
-To further simplify the development process, Atomic CSS includes CSS class names based on CSS properties. This naming convention allows developers to write code that is more intuitive and easier to maintain.
-
-In summary, Atomic CSS is a revolutionary CSS framework that provides a new methodology for writing modern CSS. It includes CSS variables, Semantic HTML, Flexbox Grid System, and intuitive class names based on CSS properties. With Atomic CSS, developers can create maintainable, scalable, and responsive web designs with ease.
-
-## Uses
-Add CSS to your HTML page: `atomic.css` for development site or `atomic.min.css` for production site
+## Quick start
 
 ```html
-<link rel="stylesheet" href="css/atomic.css" type="text/css">
-````
+<link rel="stylesheet" href="css/atomic.min.css">
+<link rel="stylesheet" href="css-max/atomic-max.min.css"><!-- optional: superset bundle -->
 
-## WordPress Uses
+<div class="at-ctnr">
+  <div class="at-row">
+    <div class="at-col-6">Half</div>
+    <div class="at-col-3">Quarter</div>
+    <div class="at-col-3">Quarter</div>
+  </div>
+</div>
+```
+
+## Bundles
+
+| File | Contents | Use when |
+| --- | --- | --- |
+| `css/atomic.css` | Atomic utilities + flex/display utilities + minimal grid (containers, rows, 12-col columns, fifths, custom-width columns) | Default |
+| `css-max/atomic-max.css` | **Superset** — everything in `atomic.css` plus per-breakpoint order (`.at-ord-*`), offset (`.at-ofst-*`), print display (`.at-prt-*`), fifths offsets (`.at-ofst-*-2m3`) | You need order/offset/print utilities |
+
+Minified (`.min.css`) and RTL (`-rtl.css`, `.min-rtl.css`) variants exist for both bundles. A parity check in CI guarantees `atomic.css` stays a strict subset of `atomic-max.css`.
+
+## Grid
+
+### Containers
+
+| Class | Behavior |
+| --- | --- |
+| `.at-ctnr` | Centered container — `max-width: var(--at-ctnr)`, gutters `var(--at-gtr)` |
+| `.at-ctnr-min` | Centered container using `--at-ctnr-min` |
+| `.at-ctnr-fld` | Fluid (full-width) container |
+
+### Row & columns
+
+Wrap columns in `.at-row` (flex row with negative gutters). Columns are 12 per row:
+
+```html
+<div class="at-row">
+  <div class="at-col-6">Half</div>
+  <div class="at-col-md-4">Third on md+</div>
+  <div class="at-col-lg-2">Sixth on lg+</div>
+</div>
+```
+
+- `.at-col-1` … `.at-col-12` — fixed fractions; responsive via breakpoint infixes: `xs`, `sm`, `md`, `lg`, `xl`, `xxl` (e.g. `.at-col-md-6`)
+- `.at-col-auto` — width from content
+- `.at-col-cust` — width from `--at-cust-w`
+- `.at-col-*-2m3` — fifths (1 of 5): `.at-col-2m3`, `.at-col-md-2m3`, …
+- `.at-no-gtr` — removes gutters from row and child columns
+- `atomic-max.css` only: `.at-ord-*` (reorder), `.at-ofst-*` (offset), `.at-prt-*` (print display)
+
+## Atomic utilities
+
+Every class is a thin alias for a CSS property reading a matching variable, e.g.:
+
+```css
+.at-bg-cl    { background-color: var(--at-bg-cl, initial); }
+.at-p        { padding: var(--at-p, initial); }
+.at-tf       { transform: var(--at-tf, initial); }
+.at-bdr      { border: ... var(--at-bdr-*, initial); }
+```
+
+Abbreviations follow a documented legend (`bg-cl` = background-color, `bdr` = border, `tf` = transform, `msk` = mask, …) kept in [`short-names.json`](short-names.json).
+
+## Theming
+
+Set variables on `:root`, on a theme container, or inline:
+
+```css
+:root {
+  --at-bg-cl: #0d6efd;
+  --at-p: 10px 25px;
+  --at-bdr-cl: #0c5ed7;
+}
+
+[data-at-theme="dark"] {
+  --at-bg-cl: #212529;
+  --at-cl: #fff;
+}
+```
+
+The full reference variable set (with defaults) lives in [`demo/colormode-globalstyle/scss/variable.scss`](demo/colormode-globalstyle/scss/variable.scss); the core build itself declares only `--at-ctnr`, `--at-ctnr-min`, `--at-gtr`.
+
+### WordPress
 
 ```php
-wp_enqueue_style( 'atomic', 'url-path-to/atomic.min.css', array(), 1.0.0 );
-
+wp_enqueue_style( 'atomic', 'url-path-to/css/atomic.min.css', array(), '1.0.1' );
 ```
+
+## RTL
+
+`*-rtl.css` files are auto-generated with [rtlcss](https://rtlcss.com/). rtlcss flips physical declarations (`left`/`right`, margins, padding), but **values inside `var()` are not mirrored** — e.g. a margin shorthand in `--at-m` stays LTR-oriented, so use logical/physical-aware values for RTL layouts.
+
+## npm
+
+```bash
+npm install atomic-css
+```
+
+```html
+<link rel="stylesheet" href="node_modules/atomic-css/css/atomic.min.css">
+```
+
 ## Demo
 
-[View Demo](https://codersantosh.github.io/atomic-css/) or See index.html
+- [`index.html`](index.html) — main showcase (superset bundle)
+- [`demo/organism/`](demo/organism/) — component examples (slider, gallery, tooltip, progressbar, …)
+- [`demo/colormode-globalstyle/color-mode.html`](demo/colormode-globalstyle/color-mode.html) — theming
+- [`demo/template/landing/template-1.html`](demo/template/landing/template-1.html) — landing page
+
+## Building from source
+
+```bash
+npm install
+npm run build   # build + cleanup + parity/naming verification
+npm run lint    # stylelint
+```
+
+## License
+
+[GPL-2.0-or-later](LICENSE)

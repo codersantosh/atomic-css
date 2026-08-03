@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const RtlCssPlugin = require('rtlcss-webpack-plugin');
+const RtlCssPlugin = require('./rtl-css-plugin');
 
 module.exports = (env, argv) => {
     const isDevelopment = argv.mode === 'development';
@@ -49,13 +49,6 @@ module.exports = (env, argv) => {
                     return `${name}.css`; // Non-minified CSS
                 },
             }),
-            // Output for RTL non-minified CSS
-            new RtlCssPlugin({
-                filename: (pathData) => {
-                    const name = pathData.chunk.name; // Get the entry name
-                    return `${name}-rtl.css`; // Non-minified RTL CSS
-                },
-            }),
             // Output for minified CSS
             new MiniCssExtractPlugin({
                 filename: (pathData) => {
@@ -63,13 +56,8 @@ module.exports = (env, argv) => {
                     return `${name}.min.css`; // Minified CSS
                 },
             }),
-            // Output for minified RTL CSS
-            new RtlCssPlugin({
-                filename: (pathData) => {
-                    const name = pathData.chunk.name; // Get the entry name
-                    return `${name}.min-rtl.css`; // Minified RTL CSS
-                },
-            }),
+            // Output for RTL CSS (both non-minified and minified variants)
+            new RtlCssPlugin(),
         ],
         optimization: {
             minimize: true, // Enable minimization

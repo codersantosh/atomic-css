@@ -1,21 +1,13 @@
-/* Variables */
-@import './css-variable.scss';
+@use 'css-variable';
 
-/* Grid */
-@import 'grid_base/functions';
-@import 'grid_base/variables';
-
-@import 'grid_mixin/breakpoints';
-
-@import 'grid_minimal/grid-framework';
-@import 'grid_mixin/grid-mixin';
-
-@import 'grid_base/grid-partials';
-@import 'grid_minimal/custom-grid-5ths';
+/*Grid*/
+@use 'grid_base/grid-partials';
+@use 'grid_minimal/grid-framework';
+@use 'grid_minimal/custom-grid-5ths';
 
 /*Utilities*/
-@import 'grid_base/flex';
-@import 'grid_minimal/display';
+@use 'grid_base/flex';
+@use 'grid_base/display';
 
-/* Properties */
-@import './css-properties.scss';
+/*Properties*/
+@use 'css-properties.scss';

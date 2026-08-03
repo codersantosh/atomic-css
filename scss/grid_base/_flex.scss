@@ -1,150 +1,154 @@
+@use "sass:map";
+@use "../grid_mixin/breakpoints";
+@use "variables";
+
 // stylelint-disable declaration-no-important
 
 // Flex variation
 //
 // Custom styles for additional flex alignment options.
 
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-up($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+@each $breakpoint in map.keys(variables.$grid-breakpoints) {
+    @include breakpoints.media-breakpoint-up($breakpoint) {
+        $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
-        .#{$grid-prefix}-flx#{$infix}-row {
+        .#{variables.$grid-prefix}-flx#{$infix}-row {
             flex-direction: row !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-col {
+        .#{variables.$grid-prefix}-flx#{$infix}-col {
             flex-direction: column !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-row-rev {
+        .#{variables.$grid-prefix}-flx#{$infix}-row-rev {
             flex-direction: row-reverse !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-col-rev {
+        .#{variables.$grid-prefix}-flx#{$infix}-col-rev {
             flex-direction: column-reverse !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-wrp {
+        .#{variables.$grid-prefix}-flx#{$infix}-wrp {
             flex-wrap: wrap !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-nowrp {
+        .#{variables.$grid-prefix}-flx#{$infix}-nowrp {
             flex-wrap: nowrap !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-wrp-rev {
+        .#{variables.$grid-prefix}-flx#{$infix}-wrp-rev {
             flex-wrap: wrap-reverse !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-fil {
+        .#{variables.$grid-prefix}-flx#{$infix}-fil {
             flex: 1 1 auto !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-grw-0 {
+        .#{variables.$grid-prefix}-flx#{$infix}-grw-0 {
             flex-grow: 0 !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-grw-1 {
+        .#{variables.$grid-prefix}-flx#{$infix}-grw-1 {
             flex-grow: 1 !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-srnk-0 {
+        .#{variables.$grid-prefix}-flx#{$infix}-srnk-0 {
             flex-shrink: 0 !important;
         }
 
-        .#{$grid-prefix}-flx#{$infix}-srnk-1 {
+        .#{variables.$grid-prefix}-flx#{$infix}-srnk-1 {
             flex-shrink: 1 !important;
         }
 
-        .#{$grid-prefix}-jfy-cont#{$infix}-st {
+        .#{variables.$grid-prefix}-jfy-cont#{$infix}-st {
             justify-content: flex-start !important;
         }
 
-        .#{$grid-prefix}-jfy-cont#{$infix}-end {
+        .#{variables.$grid-prefix}-jfy-cont#{$infix}-end {
             justify-content: flex-end !important;
         }
 
-        .#{$grid-prefix}-jfy-cont#{$infix}-ctr {
+        .#{variables.$grid-prefix}-jfy-cont#{$infix}-ctr {
             justify-content: center !important;
         }
 
-        .#{$grid-prefix}-jfy-cont#{$infix}-btw {
+        .#{variables.$grid-prefix}-jfy-cont#{$infix}-btw {
             justify-content: space-between !important;
         }
 
-        .#{$grid-prefix}-jfy-cont#{$infix}-ard {
+        .#{variables.$grid-prefix}-jfy-cont#{$infix}-ard {
             justify-content: space-around !important;
         }
 
-        .#{$grid-prefix}-jfy-cont#{$infix}-evnly {
+        .#{variables.$grid-prefix}-jfy-cont#{$infix}-evnly {
             justify-content: space-evenly !important;
         }
 
-        .#{$grid-prefix}-al-itm#{$infix}-st {
+        .#{variables.$grid-prefix}-al-itm#{$infix}-st {
             align-items: flex-start !important;
         }
 
-        .#{$grid-prefix}-al-itm#{$infix}-end {
+        .#{variables.$grid-prefix}-al-itm#{$infix}-end {
             align-items: flex-end !important;
         }
 
-        .#{$grid-prefix}-al-itm#{$infix}-ctr {
+        .#{variables.$grid-prefix}-al-itm#{$infix}-ctr {
             align-items: center !important;
         }
 
-        .#{$grid-prefix}-al-itm#{$infix}-bsln {
+        .#{variables.$grid-prefix}-al-itm#{$infix}-bsln {
             align-items: baseline !important;
         }
 
-        .#{$grid-prefix}-al-itm#{$infix}-strh {
+        .#{variables.$grid-prefix}-al-itm#{$infix}-strh {
             align-items: stretch !important;
         }
 
-        .#{$grid-prefix}-al-cont#{$infix}-st {
+        .#{variables.$grid-prefix}-al-cont#{$infix}-st {
             align-content: flex-start !important;
         }
 
-        .#{$grid-prefix}-al-cont#{$infix}-end {
+        .#{variables.$grid-prefix}-al-cont#{$infix}-end {
             align-content: flex-end !important;
         }
 
-        .#{$grid-prefix}-al-cont#{$infix}-ctr {
+        .#{variables.$grid-prefix}-al-cont#{$infix}-ctr {
             align-content: center !important;
         }
 
-        .#{$grid-prefix}-al-cont#{$infix}-btw {
+        .#{variables.$grid-prefix}-al-cont#{$infix}-btw {
             align-content: space-between !important;
         }
 
-        .#{$grid-prefix}-al-cont#{$infix}-ard {
+        .#{variables.$grid-prefix}-al-cont#{$infix}-ard {
             align-content: space-around !important;
         }
 
-        .#{$grid-prefix}-al-cont#{$infix}-strh {
+        .#{variables.$grid-prefix}-al-cont#{$infix}-strh {
             align-content: stretch !important;
         }
 
-        .#{$grid-prefix}-al-slf#{$infix}-auto {
+        .#{variables.$grid-prefix}-al-slf#{$infix}-auto {
             align-self: auto !important;
         }
 
-        .#{$grid-prefix}-al-slf#{$infix}-st {
+        .#{variables.$grid-prefix}-al-slf#{$infix}-st {
             align-self: flex-start !important;
         }
 
-        .#{$grid-prefix}-al-slf#{$infix}-end {
+        .#{variables.$grid-prefix}-al-slf#{$infix}-end {
             align-self: flex-end !important;
         }
 
-        .#{$grid-prefix}-al-slf#{$infix}-ctr {
+        .#{variables.$grid-prefix}-al-slf#{$infix}-ctr {
             align-self: center !important;
         }
 
-        .#{$grid-prefix}-al-slf#{$infix}-bsln {
+        .#{variables.$grid-prefix}-al-slf#{$infix}-bsln {
             align-self: baseline !important;
         }
 
-        .#{$grid-prefix}-al-slf#{$infix}-strh {
+        .#{variables.$grid-prefix}-al-slf#{$infix}-strh {
             align-self: stretch !important;
         }
     }

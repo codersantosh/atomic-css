@@ -1,3 +1,6 @@
+// @use "dynamic";
+@use 'variable';
+
 //elements : h1-h6,p,button,a
 /* 
 
@@ -19,113 +22,113 @@ column-rule-color: Specifies the color of a column rule in multi-column layout. 
 caret-color: Specifies the color of the text input caret. Example: caret-color: blue;
 */
 h1 {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-cl: #6c757d;
-			#{$varPrefix}-fnt-sz: 50px;
-		}
-	}
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-cl: #6c757d;
+            #{variable.$varPrefix}-fnt-sz: 50px;
+        }
+    }
 }
 
 h2 {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-cl: #6c757d;
-			#{$varPrefix}-fnt-sz: 43px;
-		}
-	}
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-cl: #6c757d;
+            #{variable.$varPrefix}-fnt-sz: 43px;
+        }
+    }
 }
 
 h3 {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-cl: #6c757d;
-			#{$varPrefix}-fnt-sz: 36px;
-		}
-	}
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-cl: #6c757d;
+            #{variable.$varPrefix}-fnt-sz: 36px;
+        }
+    }
 }
 
 h4 {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-cl: #6c757d;
-			#{$varPrefix}-fnt-sz: 29px;
-		}
-	}
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-cl: #6c757d;
+            #{variable.$varPrefix}-fnt-sz: 29px;
+        }
+    }
 }
 
 h5 {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-cl: #6c757d;
-			#{$varPrefix}-fnt-sz: 22px;
-		}
-	}
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-cl: #6c757d;
+            #{variable.$varPrefix}-fnt-sz: 22px;
+        }
+    }
 }
 
 h6 {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-cl: #6c757d;
-			#{$varPrefix}-fnt-sz: 14px;
-		}
-	}
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-cl: #6c757d;
+            #{variable.$varPrefix}-fnt-sz: 14px;
+        }
+    }
 }
 
 p {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-cl: #6c757d;
-			#{$varPrefix}-fnt-sz: 16px;
-		}
-	}
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-cl: #6c757d;
+            #{variable.$varPrefix}-fnt-sz: 16px;
+        }
+    }
 }
 
 a {
-	&#{$appPrefix} {
-		&-color {
-			#{$varPrefix}-fnt-sz: 14px;
-			#{$varPrefix}-cl: #ffc107;
+    &#{variable.$appPrefix} {
+        &-color {
+            #{variable.$varPrefix}-fnt-sz: 14px;
+            #{variable.$varPrefix}-cl: #ffc107;
 
-			&:hover {
-				#{$varPrefix}-cl: #cea323;
-			}
-		}
-	}
+            &:hover {
+                #{variable.$varPrefix}-cl: #cea323;
+            }
+        }
+    }
 }
 
 button {
-	&#{$appPrefix} {
-		&-color {
-			//#{$varPrefix}-p         : 10px 30px;
-			#{$varPrefix}-cl: #fff;
-			#{$varPrefix}-bg-cl: #dc3545;
-			#{$varPrefix}-bdr-cl: #9b1c29;
+    &#{variable.$appPrefix} {
+        &-color {
+            //#{$varPrefix}-p         : 10px 30px;
+            #{variable.$varPrefix}-cl: #fff;
+            #{variable.$varPrefix}-bg-cl: #dc3545;
+            #{variable.$varPrefix}-bdr-cl: #9b1c29;
 
-			&:hover {
-				#{$varPrefix}-cl: #fff;
-				#{$varPrefix}-bg-cl: #7f101b;
-				#{$varPrefix}-bdr-cl: #7f101b;
-			}
-		}
-	}
+            &:hover {
+                #{variable.$varPrefix}-cl: #fff;
+                #{variable.$varPrefix}-bg-cl: #7f101b;
+                #{variable.$varPrefix}-bdr-cl: #7f101b;
+            }
+        }
+    }
 }
 
 [data-at-theme='dark'] {
-	p {
-		&#{$appPrefix} {
-			&-color {
-				#{$varPrefix}-cl: #bfbfbf;
-			}
-		}
-	}
+    p {
+        &#{variable.$appPrefix} {
+            &-color {
+                #{variable.$varPrefix}-cl: #bfbfbf;
+            }
+        }
+    }
 
-	button {
-		&#{$appPrefix} {
-			&-color {
-				#{$varPrefix}-cl: #fff;
-				#{$varPrefix}-bg-cl: #131313;
-			}
-		}
-	}
+    button {
+        &#{variable.$appPrefix} {
+            &-color {
+                #{variable.$varPrefix}-cl: #fff;
+                #{variable.$varPrefix}-bg-cl: #131313;
+            }
+        }
+    }
 }
