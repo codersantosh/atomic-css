@@ -2,6 +2,27 @@
   --at-ctnr: 1140px;
   --at-ctnr-min: 1100px;
   --at-gtr: 15px;
+  --at-white: #fff;
+  --at-black: #000;
+  --at-base-color: #2e312f;
+  --at-body-color: #9da29f;
+  --at-primary: #48b44f;
+  --at-primary--hover: #3ea245;
+  --at-secondary: #d4e6d9;
+  --at-secondary--hover: #b1cfb8;
+  --at-success: #46b450;
+  --at-success--hover: #1e7e34;
+  --at-danger: #dc3232;
+  --at-danger--hover: #c82333;
+  --at-warning: #ffb900;
+  --at-warning--hover: #e0a800;
+  --at-info: #00a0d2;
+  --at-info--hover: #17a2b8;
+  --at-light: #d3d9de;
+  --at-light--hover: #eee;
+  --at-dark: #000;
+  --at-dark--hover: #121212;
+  --at-quaternary: #585a59;
   --at-cl: initial;
   --at-acl: var(--at-cl);
   --at-bg-cl: initial;
@@ -340,7 +361,7 @@ details[open] summary svg {
   --at-bg-cl: #0f4087;
   --at-bdr-cl: #0f4087;
 }
-.at-btn-outl {
+.at-btn-outln {
   --at-bg-cl: transparent;
   --at-cl: #0c5ed7;
   --at-bdr-cl: #0c5ed7;
@@ -348,7 +369,7 @@ details[open] summary svg {
   --at-bdr-sty: solid;
   --at-p: 10px 15px;
 }
-.at-btn-outl:hover {
+.at-btn-outln:hover {
   --at-bg-cl: transparent;
   --at-cl: #0c5ed7;
   --at-bdr-cl: #0f4087;
@@ -578,12 +599,12 @@ details[open] summary svg {
   --at-bg-cl: #2d2d2d;
   --at-bdr-cl: #2d2d2d;
 }
-[data-at-theme=dark] .at-btn-outl {
+[data-at-theme=dark] .at-btn-outln {
   --at-bg-cl: transparent;
   --at-cl: #2d2d2d;
   --at-bdr-cl: #2d2d2d;
 }
-[data-at-theme=dark] .at-btn-outl:hover {
+[data-at-theme=dark] .at-btn-outln:hover {
   --at-cl: #666;
   --at-bdr-cl: #666;
 }

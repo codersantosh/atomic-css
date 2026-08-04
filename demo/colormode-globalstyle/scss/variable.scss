@@ -12,6 +12,40 @@ $varPrefix: '--at';
     #{$varPrefix}-ctnr-min: 1100px;
     #{$varPrefix}-gtr: 15px;
 
+    //Button palette (consumed by .at-btn and .at-btn-* variants)
+    #{$varPrefix}-white: #fff;
+    #{$varPrefix}-black: #000;
+
+    #{$varPrefix}-base-color: #2e312f;
+    #{$varPrefix}-body-color: #9da29f;
+
+    #{$varPrefix}-primary: #48b44f;
+    #{$varPrefix}-primary--hover: #3ea245;
+
+    #{$varPrefix}-secondary: #d4e6d9;
+    #{$varPrefix}-secondary--hover: #b1cfb8;
+
+    #{$varPrefix}-success: #46b450;
+    #{$varPrefix}-success--hover: #1e7e34;
+
+    #{$varPrefix}-danger: #dc3232;
+    #{$varPrefix}-danger--hover: #c82333;
+
+    #{$varPrefix}-warning: #ffb900;
+    #{$varPrefix}-warning--hover: #e0a800;
+
+    #{$varPrefix}-info: #00a0d2;
+    #{$varPrefix}-info--hover: #17a2b8;
+
+    #{$varPrefix}-light: #d3d9de;
+    #{$varPrefix}-light--hover: #eee;
+
+    #{$varPrefix}-dark: #000;
+    #{$varPrefix}-dark--hover: #121212;
+
+    #{$varPrefix}-quaternary: #585a59;
+
+
     //Color value (dynamic value): hex,rgb,rgba,gradient,hsl. (Global)
     #{$varPrefix}-cl: initial;
 

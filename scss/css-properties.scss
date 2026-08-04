@@ -142,9 +142,13 @@ html {
     }
 
     //Button - UI Elements
+    //Solid/outline variants, icon layout and disabled state
+    //Consumes the --at-<color>[--hover] palette variables (see demo variable.scss)
+    //The default look (font-size, padding, line-height, border) is provided by
+    //the consumer's global/theme CSS layer — this base is pure var-driven.
     &-btn {
-        #{css-variable.$varPrefix}-cur: pointer;
-        cursor: var(#{css-variable.$varPrefix}-cur, initial);
+        cursor: var(#{css-variable.$varPrefix}-cur, pointer);
+
         color: var(#{css-variable.$varPrefix}-cl, initial);
         background-color: var(#{css-variable.$varPrefix}-bg-cl, initial);
         font-size: var(#{css-variable.$varPrefix}-fnt-sz, initial);
@@ -153,6 +157,243 @@ html {
         border-style: var(#{css-variable.$varPrefix}-bdr-sty, initial);
         padding: var(#{css-variable.$varPrefix}-p, initial);
         line-height: var(#{css-variable.$varPrefix}-ln-h, initial);
+
+        &[disabled] {
+            opacity: var(#{css-variable.$varPrefix}-opa, 0.5);
+            cursor: var(#{css-variable.$varPrefix}-cur, not-allowed);
+        }
+
+        //Solid variants
+        &-primary {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-primary);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-primary);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-primary--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-primary--hover);
+            }
+        }
+
+        &-secondary {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-black);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-secondary);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-secondary);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-black);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-secondary--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-secondary--hover);
+            }
+        }
+
+        &-success {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-success);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-success);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-success--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-success--hover);
+            }
+        }
+
+        &-danger {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-danger);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-danger);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-danger--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-danger--hover);
+            }
+        }
+
+        &-warning {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-warning);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-warning);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-warning--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-warning--hover);
+            }
+        }
+
+        &-info {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-info);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-info);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-info--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-info--hover);
+            }
+        }
+
+        &-light {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-base-color);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-light);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-light);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-base-color);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-light--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-light--hover);
+            }
+        }
+
+        &-dark {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-dark);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-dark);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-dark--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-dark--hover);
+            }
+        }
+
+        &-lnk {
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-black);
+
+            &:hover {
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-black);
+            }
+        }
+
+        //Outline base
+        &-outln {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-body-color);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-quaternary);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+        }
+
+        //Outline variants
+        &-outln-primary {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-primary);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-primary);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-primary);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-primary);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            }
+        }
+
+        &-outln-secondary {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-secondary);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-secondary);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-secondary--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-secondary--hover);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-black);
+            }
+        }
+
+        &-outln-success {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-success);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-success);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-success);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-success);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            }
+        }
+
+        &-outln-danger {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-danger);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-danger);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-danger);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-danger);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            }
+        }
+
+        &-outln-warning {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-warning);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-warning);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-warning);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-warning);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            }
+        }
+
+        &-outln-info {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-info);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-info);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-info);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-info);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            }
+        }
+
+        &-outln-light {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-body-color);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-light);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-light--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-light);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-body-color);
+            }
+        }
+
+        &-outln-dark {
+            #{css-variable.$varPrefix}-bg-cl: transparent;
+            #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-dark);
+            #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-dark);
+            #{css-variable.$varPrefix}-bdr-w: 1px;
+            #{css-variable.$varPrefix}-bdr-sty: solid;
+
+            &:hover {
+                #{css-variable.$varPrefix}-bg-cl: var(#{css-variable.$varPrefix}-dark--hover);
+                #{css-variable.$varPrefix}-bdr-cl: var(#{css-variable.$varPrefix}-dark--hover);
+                #{css-variable.$varPrefix}-cl: var(#{css-variable.$varPrefix}-white);
+            }
+        }
+
+        //Button with icon (paired with at-inl-flx/at-gap utilities)
+        &-icon {
+            #{css-variable.$varPrefix}-gap: 0 5px;
+        }
     }
 
     //SVG - UI Elements

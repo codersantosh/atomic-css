@@ -87,6 +87,44 @@ Set variables on `:root`, on a theme container, or inline:
 
 The full reference variable set (with defaults) lives in [`demo/colormode-globalstyle/scss/variable.scss`](demo/colormode-globalstyle/scss/variable.scss); the core build itself declares only `--at-ctnr`, `--at-ctnr-min`, `--at-gtr`.
 
+### Buttons
+
+`.at-btn` is the base button element class — a pure variable-driven reset
+(cursor, color, background, typography, border, padding, line-height) with a
+`[disabled]` state. The default look (font-size 14px, padding 6px 12px, no
+border) is **not** part of the framework: consumers provide it via the
+global/theme CSS layer, e.g.:
+
+```css
+.at-btn {
+  --at-fnt-sz: 14px;
+  --at-ln-h: normal;
+  --at-p: 6px 12px;
+}
+```
+
+Variant classes set the same `--at-*` variables the base class reads, so
+consumer overrides still win:
+
+```html
+<button type="button" class="at-btn at-btn-primary">Primary</button>
+<button type="button" class="at-btn at-btn-outln-primary">Outline</button>
+<button type="button" class="at-btn at-btn-outln">Plain outline</button>
+<button type="button" class="at-btn at-btn-lnk">Link</button>
+<button type="button" class="at-btn at-btn-icon at-inl-flx at-gap">Icon btn</button>
+```
+
+Solid variants: `at-btn-primary`, `-secondary`, `-success`, `-danger`,
+`-warning`, `-info`, `-light`, `-dark`, `-lnk` (with `:hover` states).
+Outline variants: `at-btn-outln` plus `at-btn-outln-<color>` for the same
+8 colors. Icon layout: `at-btn-icon` (+ `-l`/`-r` for icon/text order, paired
+with the `at-inl-flx`/`at-gap` utilities).
+
+Variants consume the palette variables `--at-<color>` and `--at-<color>--hover`
+(`--at-primary`, `--at-primary--hover`, …), plus `--at-white`, `--at-black`,
+`--at-base-color`, `--at-body-color`, `--at-quaternary` — declare them at
+`:root` or on a theme container (reference set in the demo `variable.scss`).
+
 ### WordPress
 
 ```php
