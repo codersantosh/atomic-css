@@ -211,7 +211,7 @@ html {
     //Always cover audio tag with figure tag 
     &-aud {
         #{css-variable.$varPrefix}-w: 100%;
-        #{css-variable.$varPrefix}-min-w: 117px;
+        #{css-variable.$varPrefix}-min-w: 217px;
         width: var(#{css-variable.$varPrefix}-w, initial);
         min-width: var(#{css-variable.$varPrefix}-min-w, initial);
     }

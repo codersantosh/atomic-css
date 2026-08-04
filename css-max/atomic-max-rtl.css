@@ -2828,7 +2828,7 @@ html {
 }
 .at-aud {
   --at-w: 100%;
-  --at-min-w: 117px;
+  --at-min-w: 217px;
   width: var(--at-w, initial);
   min-width: var(--at-min-w, initial);
 }
