@@ -89,22 +89,41 @@ The full reference variable set (with defaults) lives in [`demo/colormode-global
 
 ### Buttons
 
-`.at-btn` is the base button element class — a pure variable-driven reset
-(cursor, color, background, typography, border, padding, line-height) with a
-`[disabled]` state. The default look (font-size 14px, padding 6px 12px, no
-border) is **not** part of the framework: consumers provide it via the
-global/theme CSS layer, e.g.:
+`.at-btn` classes are **consumer-owned**: the framework ships no button CSS.
+Consumers implement the var-driven base shell (cursor, color, background,
+typography, border, padding, line-height, `[disabled]` state), the default
+look (font-size 14px, padding 6px 12px, no border) and the variant palette
+classes. The [atrc](https://www.npmjs.com/package/atrc) button atom
+(`packages/atoms/button/style.scss`) is the reference implementation; the
+demo `scss/css-properties.scss` shows the consumer pattern:
 
 ```css
 .at-btn {
+  --at-cur: pointer;
   --at-fnt-sz: 14px;
   --at-ln-h: normal;
+  --at-bdr-w: initial;
+  --at-bdr-sty: initial;
   --at-p: 6px 12px;
+
+  cursor: var(--at-cur);
+  color: var(--at-cl);
+  background-color: var(--at-bg-cl);
+  font-size: var(--at-fnt-sz);
+  border-color: var(--at-bdr-cl);
+  border-width: var(--at-bdr-w);
+  border-style: var(--at-bdr-sty);
+  padding: var(--at-p);
+}
+
+.at-btn-primary {
+  --at-cl: var(--at-white);
+  --at-bg-cl: var(--at-primary);
+  --at-bdr-cl: var(--at-primary);
 }
 ```
 
-Variant classes set the same `--at-*` variables the base class reads, so
-consumer overrides still win:
+Usage (identical in the framework and in consumer implementations):
 
 ```html
 <button type="button" class="at-btn at-btn-primary">Primary</button>
@@ -117,8 +136,8 @@ consumer overrides still win:
 Solid variants: `at-btn-primary`, `-secondary`, `-success`, `-danger`,
 `-warning`, `-info`, `-light`, `-dark`, `-lnk` (with `:hover` states).
 Outline variants: `at-btn-outln` plus `at-btn-outln-<color>` for the same
-8 colors. Icon layout: `at-btn-icon` (+ `-l`/`-r` for icon/text order, paired
-with the `at-inl-flx`/`at-gap` utilities).
+8 colors. Icon layout: `at-btn-icon`, paired with the `at-inl-flx`/`at-gap`
+utilities.
 
 Variants consume the palette variables `--at-<color>` and `--at-<color>--hover`
 (`--at-primary`, `--at-primary--hover`, …), plus `--at-white`, `--at-black`,

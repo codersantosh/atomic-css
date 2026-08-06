@@ -140,6 +140,12 @@ li {
 
 	&-btn {
 		#{variable.$varPrefix}-cur: pointer;
+		#{variable.$varPrefix}-fnt-sz: 14px;
+		#{variable.$varPrefix}-ln-h: normal;
+		#{variable.$varPrefix}-bdr-w: initial;
+		#{variable.$varPrefix}-bdr-sty: initial;
+		#{variable.$varPrefix}-p: 6px 12px;
+
 		cursor: var(#{variable.$varPrefix}-cur);
 		color: var(#{variable.$varPrefix}-cl);
 		background-color: var(#{variable.$varPrefix}-bg-cl);
@@ -148,6 +154,244 @@ li {
 		border-width: var(#{variable.$varPrefix}-bdr-w);
 		border-style: var(#{variable.$varPrefix}-bdr-sty);
 		padding: var(#{variable.$varPrefix}-p);
+
+		&[disabled] {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+
+		//Solid variants (consumer-side implementation; atrc owns the same
+		//rules in packages/atoms/button/style.scss)
+		&-primary {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-primary);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-primary--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
+			}
+		}
+
+		&-secondary {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-secondary);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-secondary--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary--hover);
+			}
+		}
+
+		&-success {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-success);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-success--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success--hover);
+			}
+		}
+
+		&-danger {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-danger);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-danger--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger--hover);
+			}
+		}
+
+		&-warning {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-warning);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-warning--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning--hover);
+			}
+		}
+
+		&-info {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-info);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-info--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info--hover);
+			}
+		}
+
+		&-light {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-base-color);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-light);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-base-color);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-light--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light--hover);
+			}
+		}
+
+		&-dark {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-dark);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-dark--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark--hover);
+			}
+		}
+
+		&-lnk {
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
+
+			&:hover {
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
+			}
+		}
+
+		//Outline base
+		&-outln {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-body-color);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-quaternary);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+		}
+
+		//Outline variants
+		&-outln-primary {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-primary);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-primary);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			}
+		}
+
+		&-outln-secondary {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-secondary);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-secondary--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary--hover);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
+			}
+		}
+
+		&-outln-success {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-success);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-success);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			}
+		}
+
+		&-outln-danger {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-danger);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-danger);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			}
+		}
+
+		&-outln-warning {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-warning);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-warning);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			}
+		}
+
+		&-outln-info {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-info);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-info);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			}
+		}
+
+		&-outln-light {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-body-color);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-light--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-body-color);
+			}
+		}
+
+		&-outln-dark {
+			#{variable.$varPrefix}-bg-cl: transparent;
+			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-dark);
+			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark);
+			#{variable.$varPrefix}-bdr-w: 1px;
+			#{variable.$varPrefix}-bdr-sty: solid;
+
+			&:hover {
+				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-dark--hover);
+				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark--hover);
+				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
+			}
+		}
+
+		//Button with icon (paired with at-inl-flx/at-gap utilities)
+		&-icon {
+			#{variable.$varPrefix}-gap: 0 5px;
+		}
 	}
 
 	&-pos {
