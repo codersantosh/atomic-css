@@ -69,7 +69,12 @@
 }
 
 @mixin make-col($size, $columns: variables.$grid-columns) {
-	flex: 0 0 calc(($size / $columns) * 100%);
+	// Gap-aware basis: subtract the flex gap share so percentage columns plus
+	// the row's `gap` never overflow the line (2×50% + gap > 100% would
+	// wrap). For N items of ratio S/C there are N-1 gaps; each item subtracts
+	// gap × (C - S)/C, summing to (N - 1) × gap — exactly the added gaps.
+	// var(--at-gap, 0px) keeps gap-less layouts pixel-identical.
+	flex: 0 0 calc((($size / $columns) * 100%) - var(--at-gap, 0px) * (($columns - $size) / $columns));
 	// Add a `max-width` to ensure content within each column does not blow out
 	// the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
 	// do not appear to require this.
