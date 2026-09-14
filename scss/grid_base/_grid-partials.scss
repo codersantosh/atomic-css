@@ -63,3 +63,9 @@
         @include grid-mixin.make-row-gap();
     }
 }
+
+@if variables.$enable-grid-classes {
+    .#{variables.$grid-prefix}-col-gap {
+        @include grid-mixin.make-col-gap();
+    }
+}

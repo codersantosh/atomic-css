@@ -4,9 +4,9 @@
 
 /*custom 5th col */
 
-@mixin make-col-5($size, $columns: $grid-columns5) {
-    flex: 0 0 calc(($size / $columns) * 100%);
-    max-width: calc(($size / $columns) * 100%);
+@mixin make-col-5($size, $columns: variables.$grid-columns5) {
+    flex: 0 0 calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
+    max-width: calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
 }
 
 .#{variables.$grid-col-prefix}-2m3,

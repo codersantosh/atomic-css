@@ -35,7 +35,11 @@
 }
 
 @mixin make-row-gap() {
-	row-gap: var(--at-row-gap);
+	row-gap: var(--at-row-gap, var(--at-gap));
+}
+
+@mixin make-col-gap() {
+	column-gap: var(--at-col-gap, var(--at-gap));
 }
 
 // For each breakpoint, define the maximum width of the container in a media query
@@ -73,12 +77,12 @@
 	// the row's `gap` never overflow the line (2×50% + gap > 100% would
 	// wrap). For N items of ratio S/C there are N-1 gaps; each item subtracts
 	// gap × (C - S)/C, summing to (N - 1) × gap — exactly the added gaps.
-	// var(--at-gap, 0px) keeps gap-less layouts pixel-identical.
-	flex: 0 0 calc((($size / $columns) * 100%) - var(--at-gap, 0px) * (($columns - $size) / $columns));
+	// var(--at-col-gap, var(--at-gap, 0px)) supports 1-value (--at-gap) and 2-value split (--at-col-gap).
+	flex: 0 0 calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
 	// Add a `max-width` to ensure content within each column does not blow out
 	// the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
 	// do not appear to require this.
-	max-width: calc(($size / $columns) * 100%);
+	max-width: calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
 }
 
 @mixin make-col-offset($size, $columns: variables.$grid-columns) {
