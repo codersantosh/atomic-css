@@ -1,7 +1,6 @@
 /*
  * check:vars — enforces the variable contract:
- *   1. The three root declarations exist exactly and are the only framework
- *      root declarations (normal + max + template bundles).
+ *   1. The framework bundles declare no :root (no global roots).
  *   2. The container and gutter use sites carry the exact direct fallbacks.
  *   3. Gap fallback chains remain context-specific.
  *   4. The reference variable set reconciles with the bundle/demo reads.
@@ -13,7 +12,8 @@ const postcss = require('postcss');
 
 const root = path.resolve(__dirname, '..');
 
-const SHIPPED = {
+// The values every framework read must carry as a direct var() fallback.
+const FALLBACK_DEFAULTS = {
     '--at-ctnr': '1140px',
     '--at-ctnr-min': '1100px',
     '--at-gtr': '15px',
@@ -83,39 +83,43 @@ const fail = (msg) => {
     console.error(`FAIL: ${msg}`);
 };
 
-// 1. Exact framework root declarations.
+// 1. No framework :root declarations (compiled bundles and the prefix source).
 for (const f of BUNDLES) {
-    const decls = rootDecls(f);
-    const found = [...decls.keys()];
-    const expected = Object.keys(SHIPPED);
-    if (found.length !== expected.length || !sameSet(new Set(found), new Set(expected))) {
-        fail(`${f}: :root must declare exactly [${expected.join(', ')}], found [${found.join(', ')}]`);
-        continue;
-    }
-    for (const [prop, value] of Object.entries(SHIPPED)) {
-        if (decls.get(prop) !== value) fail(`${f}: ${prop} is "${decls.get(prop)}", expected "${value}"`);
-    }
-    console.log(`ok  ${f}: :root = ${expected.join(', ')} (exact defaults)`);
+    let found = false;
+    parse(f).walkRules((rule) => {
+        if (rule.selector.trim() === ':root') found = true;
+    });
+    if (found) fail(`${f}: framework bundles must not declare :root`);
+    else console.log(`ok  ${f}: no :root declarations`);
+}
+{
+    const text = fs.readFileSync(path.join(root, 'scss/css-variable.scss'), 'utf8');
+    if (/^\s*:root\b/m.test(text)) fail('scss/css-variable.scss must not declare :root');
+    else console.log('ok  scss/css-variable.scss: no :root declarations');
 }
 
 // 2. Exact direct fallbacks at the container/gutter use sites.
+const F = FALLBACK_DEFAULTS;
+const ctnrExpected = `var(--at-ctnr,${F['--at-ctnr']})`;
+const ctnrMinExpected = `var(--at-ctnr-min,${F['--at-ctnr-min']})`;
+const gtrFallback = new RegExp(`var\\(--at-gtr,\\s*${F['--at-gtr']}\\)`, 'g');
 for (const f of BUNDLES) {
     const decls = declarations(f);
     let ok = true;
     const ctnr = valuesFor(decls, '.at-ctnr', 'max-width');
-    if (!ctnr.length || !ctnr.every((v) => v === 'var(--at-ctnr,1140px)')) {
-        fail(`${f}: .at-ctnr max-width must be var(--at-ctnr, 1140px)`);
+    if (!ctnr.length || !ctnr.every((v) => v === ctnrExpected)) {
+        fail(`${f}: .at-ctnr max-width must be var(--at-ctnr, ${F['--at-ctnr']})`);
         ok = false;
     }
     const ctnrMin = valuesFor(decls, '.at-ctnr-min', 'max-width');
-    if (!ctnrMin.length || !ctnrMin.every((v) => v === 'var(--at-ctnr-min,1100px)')) {
-        fail(`${f}: .at-ctnr-min max-width must be var(--at-ctnr-min, 1100px)`);
+    if (!ctnrMin.length || !ctnrMin.every((v) => v === ctnrMinExpected)) {
+        fail(`${f}: .at-ctnr-min max-width must be var(--at-ctnr-min, ${F['--at-ctnr-min']})`);
         ok = false;
     }
     const allGtr = decls.reduce((n, d) => n + (d.value.match(/var\(--at-gtr\b/g) || []).length, 0);
-    const fbGtr = decls.reduce((n, d) => n + (d.value.match(/var\(--at-gtr,\s*15px\)/g) || []).length, 0);
+    const fbGtr = decls.reduce((n, d) => n + (d.value.match(gtrFallback) || []).length, 0);
     if (!allGtr || allGtr !== fbGtr) {
-        fail(`${f}: ${allGtr - fbGtr} of ${allGtr} var(--at-gtr) reads miss the 15px fallback`);
+        fail(`${f}: ${allGtr - fbGtr} of ${allGtr} var(--at-gtr) reads miss the ${F['--at-gtr']} fallback`);
         ok = false;
     }
     if (ok) console.log(`ok  ${f}: container max-widths + all ${allGtr} gutter reads carry exact fallbacks`);
@@ -173,4 +177,4 @@ for (const f of BUNDLES) {
 }
 
 if (failed) process.exit(1);
-console.log('PASS: root globals exact, direct fallbacks present, gap chains contextual, reference set reconciled, no aliases.');
+console.log('PASS: no framework :root, direct fallbacks present, gap chains contextual, reference set reconciled, no aliases.');

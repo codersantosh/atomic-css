@@ -3,10 +3,3 @@ $appPrefix: '.at';
 
 //Root variable Prefix
 $varPrefix: '--at';
-
-:root {
-	// Container max width and gutter
-	#{$varPrefix}-ctnr: 1140px;
-	#{$varPrefix}-ctnr-min: 1100px;
-	#{$varPrefix}-gtr: 15px;
-}
