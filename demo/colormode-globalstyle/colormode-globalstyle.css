@@ -145,14 +145,14 @@ Phrasing content: elements that define phrasing content and the way it is render
 Metadata: elements that provide metadata about the document, such as <meta>, <title>, <link>, etc.
 */
 * {
-  margin: var(--at-m);
-  padding: var(--at-p);
-  -webkit-box-sizing: var(--at-box-szg);
-          box-sizing: var(--at-box-szg);
+  margin: var(--at-m, initial);
+  padding: var(--at-p, initial);
+  -webkit-box-sizing: var(--at-box-szg, initial);
+          box-sizing: var(--at-box-szg, initial);
 }
 
 html {
-  scroll-behavior: var(--at-scr-beh);
+  scroll-behavior: var(--at-scr-beh, initial);
 }
 
 /* Text elements */
@@ -169,52 +169,52 @@ code,
 span,
 li,
 .at-btn {
-  font-size: var(--at-fnt-sz);
-  font-weight: var(--at-fnt-wt);
-  font-family: var(--at-fnt-fam);
-  font-style: var(--at-fnt-sty);
-  text-transform: var(--at-txt-tf);
-  -webkit-text-decoration: var(--at-txt-dec);
-          text-decoration: var(--at-txt-dec);
-  line-height: var(--at-ln-h);
-  letter-spacing: var(--at-ltr-sp);
-  color: var(--at-cl);
+  font-size: var(--at-fnt-sz, initial);
+  font-weight: var(--at-fnt-wt, initial);
+  font-family: var(--at-fnt-fam, initial);
+  font-style: var(--at-fnt-sty, initial);
+  text-transform: var(--at-txt-tf, initial);
+  -webkit-text-decoration: var(--at-txt-dec, initial);
+          text-decoration: var(--at-txt-dec, initial);
+  line-height: var(--at-ln-h, initial);
+  letter-spacing: var(--at-ltr-sp, initial);
+  color: var(--at-cl, initial);
 }
 
 /* Content grou */
 table {
-  caption-side: var(--at-cpt-sd);
-  table-layout: var(--at-tbl-lyt);
+  caption-side: var(--at-cpt-sd, initial);
+  table-layout: var(--at-tbl-lyt, initial);
 }
 
 ul,
 ol,
 li {
-  list-style: var(--at-ls-sty);
+  list-style: var(--at-ls-sty, initial);
 }
 
 .at-acl {
-  accent-color: var(--at-acl);
+  accent-color: var(--at-acl, initial);
 }
 .at-bg-cl {
-  background-color: var(--at-bg-cl);
+  background-color: var(--at-bg-cl, initial);
 }
 .at-bg-img {
-  background-image: var(--at-bg-img);
-  background-position: var(--at-bg-pos);
-  background-size: var(--at-bg-sz);
-  background-repeat: var(--at-bg-rpt);
-  background-origin: var(--at-bg-org);
-  background-attachment: var(--at-bg-atch);
-  background-blend-mode: var(--at-bg-blend-mode);
+  background-image: var(--at-bg-img, initial);
+  background-position: var(--at-bg-pos, initial);
+  background-size: var(--at-bg-sz, initial);
+  background-repeat: var(--at-bg-rpt, initial);
+  background-origin: var(--at-bg-org, initial);
+  background-attachment: var(--at-bg-atch, initial);
+  background-blend-mode: var(--at-bg-blend-mode, initial);
 }
 .at-bdr {
-  border-color: var(--at-bdr-cl);
-  border-width: var(--at-bdr-w);
-  border-style: var(--at-bdr-sty);
+  border-color: var(--at-bdr-cl, initial);
+  border-width: var(--at-bdr-w, initial);
+  border-style: var(--at-bdr-sty, initial);
 }
 .at-bdr-rad {
-  border-radius: var(--at-bdr-rad);
+  border-radius: var(--at-bdr-rad, initial);
 }
 .at-btn {
   --at-cur: pointer;
@@ -223,17 +223,18 @@ li {
   --at-bdr-w: initial;
   --at-bdr-sty: initial;
   --at-p: 6px 12px;
-  cursor: var(--at-cur);
-  color: var(--at-cl);
-  background-color: var(--at-bg-cl);
-  font-size: var(--at-fnt-sz);
-  border-color: var(--at-bdr-cl);
-  border-width: var(--at-bdr-w);
-  border-style: var(--at-bdr-sty);
-  padding: var(--at-p);
+  cursor: var(--at-cur, pointer);
+  color: var(--at-cl, inherit);
+  background-color: var(--at-bg-cl, transparent);
+  font-size: var(--at-fnt-sz, 14px);
+  border-color: var(--at-bdr-cl, transparent);
+  border-width: var(--at-bdr-w, 0);
+  border-style: var(--at-bdr-sty, solid);
+  padding: var(--at-p, 6px 12px);
 }
 .at-btn[disabled] {
-  opacity: 0.5;
+  --at-opa: 0.5;
+  opacity: var(--at-opa, 0.5);
   cursor: not-allowed;
 }
 .at-btn-primary {
@@ -429,128 +430,128 @@ li {
   --at-gap: 0 5px;
 }
 .at-pos {
-  bottom: var(--at-b);
-  position: var(--at-pos);
-  top: var(--at-t);
-  right: var(--at-r);
-  left: var(--at-l);
+  bottom: var(--at-b, initial);
+  position: var(--at-pos, initial);
+  top: var(--at-t, initial);
+  right: var(--at-r, initial);
+  left: var(--at-l, initial);
 }
 .at-box-refl {
-  box-reflect: var(--at-box-refl);
+  box-reflect: var(--at-box-refl, initial);
 }
 .at-box-sdw {
-  -webkit-box-shadow: var(--at-box-sdw);
-          box-shadow: var(--at-box-sdw);
+  -webkit-box-shadow: var(--at-box-sdw, initial);
+          box-shadow: var(--at-box-sdw, initial);
 }
 .at-box-szg {
-  -webkit-box-sizing: var(--at-box-szg);
-          box-sizing: var(--at-box-szg);
+  -webkit-box-sizing: var(--at-box-szg, initial);
+          box-sizing: var(--at-box-szg, initial);
 }
 .at-ct-cl {
   caret-color: var(--at-ct-cl, initial);
 }
 .at-cl {
-  color: var(--at-cl);
+  color: var(--at-cl, initial);
 }
 .at-cur {
-  cursor: var(--at-cur);
+  cursor: var(--at-cur, initial);
 }
 .at-dir {
-  direction: var(--at-dir);
+  direction: var(--at-dir, initial);
 }
 .at-typ {
-  font-size: var(--at-fnt-sz);
-  font-weight: var(--at-fnt-wt);
-  font-family: var(--at-fnt-fam);
-  font-style: var(--at-fnt-sty);
-  text-transform: var(--at-txt-tf);
-  -webkit-text-decoration: var(--at-txt-dec);
-          text-decoration: var(--at-txt-dec);
-  line-height: var(--at-ln-h);
-  letter-spacing: var(--at-ltr-sp);
+  font-size: var(--at-fnt-sz, initial);
+  font-weight: var(--at-fnt-wt, initial);
+  font-family: var(--at-fnt-fam, initial);
+  font-style: var(--at-fnt-sty, initial);
+  text-transform: var(--at-txt-tf, initial);
+  -webkit-text-decoration: var(--at-txt-dec, initial);
+          text-decoration: var(--at-txt-dec, initial);
+  line-height: var(--at-ln-h, initial);
+  letter-spacing: var(--at-ltr-sp, initial);
 }
 .at-msk {
-  -webkit-mask-image: var(--at-msk-img);
-          mask-image: var(--at-msk-img);
-  mask-mode: var(--at-msk-mode);
-  -webkit-mask-origin: var(--at-msk-org);
-          mask-origin: var(--at-msk-org);
-  -webkit-mask-position: var(--at-msk-pos);
-          mask-position: var(--at-msk-pos);
-  -webkit-mask-repeat: var(--at-msk-rpt);
-          mask-repeat: var(--at-msk-rpt);
-  -webkit-mask-size: var(--at-msk-sz);
-          mask-size: var(--at-msk-sz);
+  -webkit-mask-image: var(--at-msk-img, initial);
+          mask-image: var(--at-msk-img, initial);
+  mask-mode: var(--at-msk-mode, initial);
+  -webkit-mask-origin: var(--at-msk-org, initial);
+          mask-origin: var(--at-msk-org, initial);
+  -webkit-mask-position: var(--at-msk-pos, initial);
+          mask-position: var(--at-msk-pos, initial);
+  -webkit-mask-repeat: var(--at-msk-rpt, initial);
+          mask-repeat: var(--at-msk-rpt, initial);
+  -webkit-mask-size: var(--at-msk-sz, initial);
+          mask-size: var(--at-msk-sz, initial);
 }
 .at-m {
-  margin: var(--at-m);
+  margin: var(--at-m, initial);
 }
 .at-max-h {
-  max-height: var(--at-max-h);
+  max-height: var(--at-max-h, initial);
 }
 .at-max-w {
-  max-width: var(--at-max-w);
+  max-width: var(--at-max-w, initial);
 }
 .at-min-h {
-  min-height: var(--at-min-h);
+  min-height: var(--at-min-h, initial);
 }
 .at-min-w {
-  min-width: var(--at-min-w);
+  min-width: var(--at-min-w, initial);
 }
 .at-h {
-  height: var(--at-h);
+  height: var(--at-h, initial);
 }
 .at-w {
-  width: var(--at-w);
+  width: var(--at-w, initial);
 }
 .at-opa {
-  opacity: var(--at-opa);
+  opacity: var(--at-opa, initial);
 }
 .at-ovf {
-  overflow: var(--at-ovf);
+  overflow: var(--at-ovf, initial);
 }
 .at-p {
-  padding: var(--at-p);
+  padding: var(--at-p, initial);
 }
 .at-ptr-ev {
-  pointer-events: var(--at-ptr-ev);
+  pointer-events: var(--at-ptr-ev, initial);
 }
 .at-txt-al {
-  text-align: var(--at-txt-al);
+  text-align: var(--at-txt-al, initial);
 }
 .at-txt-sdw {
-  text-shadow: var(--at-txt-sdw);
+  text-shadow: var(--at-txt-sdw, initial);
 }
 .at-tf {
-  -webkit-perspective: var(--at-ppv);
-          perspective: var(--at-ppv);
-  -webkit-perspective-origin: var(--at-ppv-org);
-          perspective-origin: var(--at-ppv-org);
-  -webkit-transform: var(--at-tf);
-      -ms-transform: var(--at-tf);
-          transform: var(--at-tf);
-  -webkit-transform-origin: var(--at-tf-org);
-      -ms-transform-origin: var(--at-tf-org);
-          transform-origin: var(--at-tf-org);
-  -webkit-transform-style: var(--at-tf-sty);
-          transform-style: var(--at-tf-sty);
+  -webkit-perspective: var(--at-ppv, initial);
+          perspective: var(--at-ppv, initial);
+  -webkit-perspective-origin: var(--at-ppv-org, initial);
+          perspective-origin: var(--at-ppv-org, initial);
+  -webkit-transform: var(--at-tf, initial);
+      -ms-transform: var(--at-tf, initial);
+          transform: var(--at-tf, initial);
+  -webkit-transform-origin: var(--at-tf-org, initial);
+      -ms-transform-origin: var(--at-tf-org, initial);
+          transform-origin: var(--at-tf-org, initial);
+  -webkit-transform-style: var(--at-tf-sty, initial);
+          transform-style: var(--at-tf-sty, initial);
 }
 .at-trs {
-  -webkit-transition: var(--at-trs);
-  transition: var(--at-trs);
+  -webkit-transition: var(--at-trs, initial);
+  transition: var(--at-trs, initial);
 }
 .at-vis {
-  visibility: var(--at-vis);
+  visibility: var(--at-vis, initial);
 }
 .at-wrd-brk {
-  word-break: var(--at-wrd-brk);
+  word-break: var(--at-wrd-brk, initial);
 }
 .at-wrd-spc {
-  word-spacing: var(--at-wrd-spg);
+  word-spacing: var(--at-wrd-spg, initial);
 }
 .at-wrd-wrp {
-  word-wrap: var(--at-wrd-wrp);
+  word-wrap: var(--at-wrd-wrp, initial);
 }
 .at-z-idx {
-  z-index: var(--at-z-idx);
+  z-index: var(--at-z-idx, initial);
 }

@@ -1,7 +1,12 @@
-//ClassesPrefix
+// ClassesPrefix
+// Framework source of truth: scss/css-variable.scss ($appPrefix '.at').
+// The demo compiles independently, so the constant is redeclared here; it MUST
+// always match the framework value (drift check, not a merge).
 $appPrefix: '.at';
 
-//Root variable Prefix
+// Root variable Prefix
+// Framework source of truth: scss/css-variable.scss ($varPrefix '--at').
+// Must always match (drift check, not a merge).
 $varPrefix: '--at';
 
 //global styles : with state and media queries

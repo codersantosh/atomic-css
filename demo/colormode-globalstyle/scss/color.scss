@@ -21,7 +21,7 @@ outline-color: Specifies the color of an element's outline. Example: outline-col
 column-rule-color: Specifies the color of a column rule in multi-column layout. Example: column-rule-color: green;
 caret-color: Specifies the color of the text input caret. Example: caret-color: blue;
 */
-h1 {
+:where(h1) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -30,7 +30,7 @@ h1 {
     }
 }
 
-h2 {
+:where(h2) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -39,7 +39,7 @@ h2 {
     }
 }
 
-h3 {
+:where(h3) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -48,7 +48,7 @@ h3 {
     }
 }
 
-h4 {
+:where(h4) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -57,7 +57,7 @@ h4 {
     }
 }
 
-h5 {
+:where(h5) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -66,7 +66,7 @@ h5 {
     }
 }
 
-h6 {
+:where(h6) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -75,7 +75,7 @@ h6 {
     }
 }
 
-p {
+:where(p) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -84,7 +84,7 @@ p {
     }
 }
 
-a {
+:where(a) {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-fnt-sz: 14px;
@@ -97,7 +97,7 @@ a {
     }
 }
 
-button {
+:where(button) {
     &#{variable.$appPrefix} {
         &-color {
             //#{$varPrefix}-p         : 10px 30px;
@@ -115,7 +115,7 @@ button {
 }
 
 [data-at-theme='dark'] {
-    p {
+    :where(p) {
         &#{variable.$appPrefix} {
             &-color {
                 #{variable.$varPrefix}-cl: #bfbfbf;
@@ -123,7 +123,7 @@ button {
         }
     }
 
-    button {
+    :where(button) {
         &#{variable.$appPrefix} {
             &-color {
                 #{variable.$varPrefix}-cl: #fff;

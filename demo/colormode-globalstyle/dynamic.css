@@ -137,64 +137,64 @@ outline-color: Specifies the color of an element's outline. Example: outline-col
 column-rule-color: Specifies the color of a column rule in multi-column layout. Example: column-rule-color: green;
 caret-color: Specifies the color of the text input caret. Example: caret-color: blue;
 */
-h1.at-color {
+:where(h1).at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 50px;
 }
 
-h2.at-color {
+:where(h2).at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 43px;
 }
 
-h3.at-color {
+:where(h3).at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 36px;
 }
 
-h4.at-color {
+:where(h4).at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 29px;
 }
 
-h5.at-color {
+:where(h5).at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 22px;
 }
 
-h6.at-color {
+:where(h6).at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 14px;
 }
 
-p.at-color {
+:where(p).at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 16px;
 }
 
-a.at-color {
+:where(a).at-color {
   --at-fnt-sz: 14px;
   --at-cl: #ffc107;
 }
-a.at-color:hover {
+:where(a).at-color:hover {
   --at-cl: #cea323;
 }
 
-button.at-color {
+:where(button).at-color {
   --at-cl: #fff;
   --at-bg-cl: #dc3545;
   --at-bdr-cl: #9b1c29;
 }
-button.at-color:hover {
+:where(button).at-color:hover {
   --at-cl: #fff;
   --at-bg-cl: #7f101b;
   --at-bdr-cl: #7f101b;
 }
 
-[data-at-theme=dark] p.at-color {
+[data-at-theme=dark] :where(p).at-color {
   --at-cl: #bfbfbf;
 }
-[data-at-theme=dark] button.at-color {
+[data-at-theme=dark] :where(button).at-color {
   --at-cl: #fff;
   --at-bg-cl: #131313;
 }
@@ -205,118 +205,128 @@ button.at-color:hover {
   --at-box-szg: border-box;
 }
 
-body {
+:where(body) {
   --at-fnt-fam: "Open Sans", sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+:where(h1),
+:where(h2),
+:where(h3),
+:where(h4),
+:where(h5),
+:where(h6) {
   --at-fnt-wt: bold;
 }
 
-h1 {
+:where(h1) {
   --at-cl: #060606;
   --at-fnt-sz: 50px;
   --at-m: 0 0 30px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 30px 0);
 }
 
-h2 {
+:where(h2) {
   --at-cl: #060606;
   --at-fnt-sz: 43px;
   --at-m: 0 0 30px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 30px 0);
 }
 
-h3 {
+:where(h3) {
   --at-cl: #060606;
   --at-fnt-sz: 36px;
   --at-m: 0 0 25px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 25px 0);
 }
 
-h4 {
+:where(h4) {
   --at-cl: #060606;
   --at-fnt-sz: 29px;
   --at-m: 0 0 20px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 20px 0);
 }
 
-h5 {
+:where(h5) {
   --at-cl: #060606;
   --at-fnt-sz: 22px;
   --at-m: 0 0 15px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 15px 0);
 }
 
-h6 {
+:where(h6) {
   --at-cl: #060606;
   --at-fnt-sz: 14px;
   --at-m: 0 0 10px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 10px 0);
 }
 
-p {
+:where(p) {
   --at-fnt-sz: 16px;
   --at-cl: #3c3c3c;
   --at-m: 0 0 15px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 15px 0);
 }
 
-a {
+:where(a) {
   --at-fnt-sz: 14px;
   --at-cl: #712cf9;
 }
-a:hover {
+
+:where(a:hover) {
   --at-cl: #4718a4;
 }
 
-code {
+:where(code) {
   --at-cl: #d63384;
 }
 
-li {
+:where(li) {
   --at-cl: #3c3c3c;
 }
 
-img {
+:where(img) {
   --at-w: 100%;
-  max-width: var(--at-w);
+  max-width: var(--at-w, 100%);
 }
 
-article {
+:where(article) {
   --at-fnt-fam: "Open Sans", sans-serif;
   --at-fnt-sz: 14px;
   --at-cl: #000;
 }
-article h4 {
+
+:where(article h4) {
   --at-m: 0 0 15px 0;
-  margin: var(--at-m);
-}
-article figure {
-  --at-m: 15px 0;
-  margin: var(--at-m);
-}
-article header div {
-  gap: 5px;
-}
-article header div span {
-  gap: 5px;
+  margin: var(--at-m, 0 0 15px 0);
 }
 
-details {
-  -webkit-transition: all 0.5s ease-in-out 0s;
-  transition: all 0.5s ease-in-out 0s;
+:where(article figure) {
+  --at-m: 15px 0;
+  margin: var(--at-m, 15px 0);
 }
-details:not(:last-of-type) {
+
+:where(article header div) {
+  --at-gap: 5px;
+  gap: var(--at-gap, 5px);
+}
+
+:where(article header div span) {
+  --at-gap: 5px;
+  gap: var(--at-gap, 5px);
+}
+
+:where(details) {
+  --at-trs: all 0.5s ease-in-out 0s;
+  -webkit-transition: var(--at-trs, all 0.5s ease-in-out 0s);
+  transition: var(--at-trs, all 0.5s ease-in-out 0s);
+}
+
+:where(details:not(:last-of-type)) {
   --at-m: 0 0 15px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 15px 0);
 }
-details summary {
+
+:where(details summary) {
   --at-bdr-w: 1px;
   --at-bdr-sty: solid;
   --at-bdr-cl: #ddd;
@@ -324,29 +334,35 @@ details summary {
   --at-fnt-fam: "Open Sans", sans-serif;
   --at-m: 0 0 15px 0;
   --at-cl: #000;
-  list-style: none;
-  margin: var(--at-m);
-  color: var(--at-cl);
-  border-color: var(--at-bdr-cl);
-  border-width: var(--at-bdr-w);
-  border-style: var(--at-bdr-sty);
-  padding: var(--at-p);
-  font-family: var(--at-fnt-fam);
+  --at-ls-sty: none;
+  list-style: var(--at-ls-sty, none);
+  margin: var(--at-m, 0 0 15px 0);
+  color: var(--at-cl, #000);
+  border-color: var(--at-bdr-cl, #ddd);
+  border-width: var(--at-bdr-w, 1px);
+  border-style: var(--at-bdr-sty, solid);
+  padding: var(--at-p, 10px);
+  font-family: var(--at-fnt-fam, "Open Sans", sans-serif);
   cursor: pointer;
 }
-details summary svg {
-  -webkit-transition: all 0.5s ease-in-out 0s;
-  transition: all 0.5s ease-in-out 0s;
+
+:where(details summary svg) {
+  --at-trs: all 0.5s ease-in-out 0s;
+  -webkit-transition: var(--at-trs, all 0.5s ease-in-out 0s);
+  transition: var(--at-trs, all 0.5s ease-in-out 0s);
 }
-details[open] {
-  -webkit-transition: all 0.5s ease-in-out 0s;
-  transition: all 0.5s ease-in-out 0s;
+
+:where(details[open]) {
+  --at-trs: all 0.5s ease-in-out 0s;
+  -webkit-transition: var(--at-trs, all 0.5s ease-in-out 0s);
+  transition: var(--at-trs, all 0.5s ease-in-out 0s);
 }
-details[open] summary svg {
+
+:where(details[open] summary svg) {
   --at-tf: rotate(180deg);
-  -webkit-transform: var(--at-tf);
-      -ms-transform: var(--at-tf);
-          transform: var(--at-tf);
+  -webkit-transform: var(--at-tf, rotate(180deg));
+      -ms-transform: var(--at-tf, rotate(180deg));
+          transform: var(--at-tf, rotate(180deg));
 }
 
 .at-btn {
@@ -409,7 +425,7 @@ details[open] summary svg {
 }
 .at-tbl {
   --at-m: 0 0 30px 0;
-  margin: var(--at-m);
+  margin: var(--at-m, 0 0 30px 0);
 }
 .at-tbl .at-bdr {
   --at-bdr-w: 0 0 1px 0;
@@ -421,22 +437,17 @@ details[open] summary svg {
   --at-bdr-w: 0 0 1px 0;
   --at-bdr-sty: solid;
   --at-bdr-cl: #ddd;
-  padding: var(--at-p);
-  border-style: var(--at-bdr-sty);
-  border-width: var(--at-bdr-w);
-  border-color: var(--at-bdr-cl);
+  padding: var(--at-p, 15px);
+  border-style: var(--at-bdr-sty, solid);
+  border-width: var(--at-bdr-w, 0 0 1px 0);
+  border-color: var(--at-bdr-cl, #ddd);
 }
-.at-tbl-cel h1,
-.at-tbl-cel h2,
-.at-tbl-cel h3,
-.at-tbl-cel h4,
-.at-tbl-cel h5,
-.at-tbl-cel h6 {
+.at-tbl-cel :where(h1, h2, h3, h4, h5, h6) {
   --at-m: 0;
 }
 .at-tbl-cel.at-cl {
   --at-cl: #323537;
-  color: var(--at-cl);
+  color: var(--at-cl, #323537);
 }
 .at-m.mt-15 {
   --at-m: 15px 0 0 0;
@@ -451,8 +462,10 @@ details[open] summary svg {
   --at-m: 0 0 15px 0;
 }
 .at-img {
-  max-width: 100%;
-  height: auto;
+  --at-max-w: 100%;
+  --at-h: auto;
+  max-width: var(--at-max-w, 100%);
+  height: var(--at-h, auto);
 }
 .at-gap-5 {
   --at-gap: 5px;
@@ -501,7 +514,8 @@ details[open] summary svg {
   --at-cl: #fff;
 }
 .at-nav {
-  list-style: none;
+  --at-ls-sty: none;
+  list-style: var(--at-ls-sty, none);
 }
 .at-nav-lnk {
   --at-bg-cl: transparent;
@@ -510,46 +524,46 @@ details[open] summary svg {
   --at-bdr-w: 1px;
   --at-bdr-sty: solid;
   --at-cl: #000;
-  padding: var(--at-p);
-  background-color: var(--at-bg-cl);
-  border-style: var(--at-bdr-sty);
-  border-width: var(--at-bdr-w);
-  border-color: var(--at-bdr-cl);
-  color: var(--at-cl);
+  padding: var(--at-p, 10px 15px);
+  background-color: var(--at-bg-cl, transparent);
+  border-style: var(--at-bdr-sty, solid);
+  border-width: var(--at-bdr-w, 1px);
+  border-color: var(--at-bdr-cl, transparent);
+  color: var(--at-cl, #000);
 }
 .at-nav-lnk.at-active {
   --at-bg-cl: #fbfbfb;
   --at-bdr-cl: #ddd #ddd transparent #ddd;
-  border-color: var(--at-bdr-cl);
+  border-color: var(--at-bdr-cl, #ddd #ddd transparent #ddd);
 }
 .at-nav-tabs {
   --at-bdr-cl: #ddd;
   --at-bdr-w: 0 0 1px 0;
   --at-bdr-sty: solid;
-  border-style: var(--at-bdr-sty);
-  border-width: var(--at-bdr-w);
-  border-color: var(--at-bdr-cl);
+  border-style: var(--at-bdr-sty, solid);
+  border-width: var(--at-bdr-w, 0 0 1px 0);
+  border-color: var(--at-bdr-cl, #ddd);
 }
 .at-nav-tabs .at-nav-lnk {
-  --at-m: calc(-1 * var(--at-bdr-w));
-  margin: var(--at-m);
+  --at-m: calc(-1 * var(--at-bdr-w, 1px));
+  margin: var(--at-m, -1px);
 }
 .at-nav-tabs-fill {
   --at-bdr-cl: #0d6efd;
 }
 .at-nav-tabs-fill .at-nav-lnk {
   --at-cl: #0d6efd;
-  color: var(--at-cl);
+  color: var(--at-cl, #0d6efd);
 }
 .at-nav-tabs-fill .at-nav-lnk.at-active {
   --at-cl: #fff;
   --at-bg-cl: #0d6efd;
   --at-bdr-cl: #0d6efd #0d6efd transparent #0d6efd;
-  border-color: var(--at-bdr-cl);
+  border-color: var(--at-bdr-cl, #0d6efd #0d6efd transparent #0d6efd);
 }
 .at-tab-pane {
   --at-p: 15px;
-  padding: var(--at-p);
+  padding: var(--at-p, 15px);
 }
 .at-footer.at-p {
   --at-p: 20px;
@@ -566,28 +580,28 @@ details[open] summary svg {
   --at-bg-cl: #000;
   --at-bdr-cl: #000;
 }
-[data-at-theme=dark] h1 {
+[data-at-theme=dark] :where(h1) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] h2 {
+[data-at-theme=dark] :where(h2) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] h3 {
+[data-at-theme=dark] :where(h3) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] h4 {
+[data-at-theme=dark] :where(h4) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] h5 {
+[data-at-theme=dark] :where(h5) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] h6 {
+[data-at-theme=dark] :where(h6) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] p {
+[data-at-theme=dark] :where(p) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] a {
+[data-at-theme=dark] :where(a) {
   --at-cl: #fff;
 }
 [data-at-theme=dark] .at-btn {
@@ -617,10 +631,10 @@ details[open] summary svg {
   --at-bg-cl: transparent;
   --at-cl: #2d2d2d;
 }
-[data-at-theme=dark] article {
+[data-at-theme=dark] :where(article) {
   --at-cl: #fff;
 }
-[data-at-theme=dark] details summary {
+[data-at-theme=dark] :where(details) :where(summary) {
   --at-bdr-cl: #444;
   --at-cl: #fff;
 }
@@ -659,7 +673,8 @@ details[open] summary svg {
   --at-bg-cl: #2d2d2d;
 }
 [data-at-theme=dark] .at-nav {
-  list-style: none;
+  --at-ls-sty: none;
+  list-style: var(--at-ls-sty, none);
 }
 [data-at-theme=dark] .at-nav-lnk {
   --at-cl: #fff;

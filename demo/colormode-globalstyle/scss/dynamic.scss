@@ -10,158 +10,160 @@
     #{variable.$varPrefix}-box-szg: border-box;
 }
 
-body {
+//element styles (zero-specificity base layer: utilities always win)
+:where(body) {
     #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
 }
 
-//element styles
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+:where(h1),
+:where(h2),
+:where(h3),
+:where(h4),
+:where(h5),
+:where(h6) {
     #{variable.$varPrefix}-fnt-wt: bold;
 }
 
-h1 {
+:where(h1) {
     #{variable.$varPrefix}-cl: #060606;
     #{variable.$varPrefix}-fnt-sz: 50px;
     #{variable.$varPrefix}-m: 0 0 30px 0;
-    margin : var(#{variable.$varPrefix}-m);
+    margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
 }
 
-h2 {
+:where(h2) {
     #{variable.$varPrefix}-cl: #060606;
     #{variable.$varPrefix}-fnt-sz: 43px;
     #{variable.$varPrefix}-m: 0 0 30px 0;
-    margin : var(#{variable.$varPrefix}-m);
+    margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
 }
 
-h3 {
+:where(h3) {
     #{variable.$varPrefix}-cl: #060606;
     #{variable.$varPrefix}-fnt-sz: 36px;
     #{variable.$varPrefix}-m: 0 0 25px 0;
-    margin : var(#{variable.$varPrefix}-m);
+    margin: var(#{variable.$varPrefix}-m, 0 0 25px 0);
 }
 
-h4 {
+:where(h4) {
     #{variable.$varPrefix}-cl: #060606;
     #{variable.$varPrefix}-fnt-sz: 29px;
     #{variable.$varPrefix}-m: 0 0 20px 0;
-    margin : var(#{variable.$varPrefix}-m);
+    margin: var(#{variable.$varPrefix}-m, 0 0 20px 0);
 }
 
-h5 {
+:where(h5) {
     #{variable.$varPrefix}-cl: #060606;
     #{variable.$varPrefix}-fnt-sz: 22px;
     #{variable.$varPrefix}-m: 0 0 15px 0;
-    margin : var(#{variable.$varPrefix}-m);
+    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
 }
 
-h6 {
+:where(h6) {
     #{variable.$varPrefix}-cl: #060606;
     #{variable.$varPrefix}-fnt-sz: 14px;
     #{variable.$varPrefix}-m: 0 0 10px 0;
-    margin : var(#{variable.$varPrefix}-m);
+    margin: var(#{variable.$varPrefix}-m, 0 0 10px 0);
 }
 
-p {
+:where(p) {
     #{variable.$varPrefix}-fnt-sz: 16px;
     #{variable.$varPrefix}-cl: #3c3c3c;
     #{variable.$varPrefix}-m: 0 0 15px 0;
-    margin : var(#{variable.$varPrefix}-m);
+    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
 }
 
-a {
+:where(a) {
     #{variable.$varPrefix}-fnt-sz: 14px;
     #{variable.$varPrefix}-cl: #712cf9;
-
-    &:hover {
-        #{variable.$varPrefix}-cl: #4718a4;
-    }
 }
 
-code {
+:where(a:hover) {
+    #{variable.$varPrefix}-cl: #4718a4;
+}
+
+:where(code) {
     #{variable.$varPrefix}-cl: #d63384;
 }
 
-li {
+:where(li) {
     #{variable.$varPrefix}-cl: #3c3c3c;
 }
 
-img {
+:where(img) {
     #{variable.$varPrefix}-w: 100%;
-    max-width : var(#{variable.$varPrefix}-w);
+    max-width: var(#{variable.$varPrefix}-w, 100%);
 }
 
-article {
+:where(article) {
     #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
     #{variable.$varPrefix}-fnt-sz: 14px;
     #{variable.$varPrefix}-cl: #000;
-
-    h4 {
-        #{variable.$varPrefix}-m: 0 0 15px 0;
-        margin : var(#{variable.$varPrefix}-m);
-    }
-
-    figure {
-        #{variable.$varPrefix}-m: 15px 0;
-        margin : var(#{variable.$varPrefix}-m);
-    }
-
-    header {
-        div {
-            gap: 5px;
-
-            span {
-                gap: 5px;
-            }
-        }
-    }
 }
 
-details {
-    transition: all 0.5s ease-in-out 0s;
+:where(article h4) {
+    #{variable.$varPrefix}-m: 0 0 15px 0;
+    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
+}
 
-    &:not(:last-of-type) {
-        #{variable.$varPrefix}-m: 0 0 15px 0;
-        margin : var(#{variable.$varPrefix}-m);
-    }
+:where(article figure) {
+    #{variable.$varPrefix}-m: 15px 0;
+    margin: var(#{variable.$varPrefix}-m, 15px 0);
+}
 
-    summary {
-        #{variable.$varPrefix}-bdr-w: 1px;
-        #{variable.$varPrefix}-bdr-sty: solid;
-        #{variable.$varPrefix}-bdr-cl: #ddd;
-        #{variable.$varPrefix}-p: 10px;
-        #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
-        #{variable.$varPrefix}-m: 0 0 15px 0;
-        #{variable.$varPrefix}-cl: #000;
-        list-style: none;
-        margin : var(#{variable.$varPrefix}-m);
-        color : var(#{variable.$varPrefix}-cl);
-        border-color : var(#{variable.$varPrefix}-bdr-cl);
-        border-width : var(#{variable.$varPrefix}-bdr-w);
-        border-style : var(#{variable.$varPrefix}-bdr-sty);
-        padding : var(#{variable.$varPrefix}-p);
-        font-family : var(#{variable.$varPrefix}-fnt-fam);
-        cursor: pointer;
+:where(article header div) {
+    #{variable.$varPrefix}-gap: 5px;
+    gap: var(#{variable.$varPrefix}-gap, 5px);
+}
 
-        svg {
-            transition: all 0.5s ease-in-out 0s;
-        }
-    }
+:where(article header div span) {
+    #{variable.$varPrefix}-gap: 5px;
+    gap: var(#{variable.$varPrefix}-gap, 5px);
+}
 
-    &[open] {
-        transition: all 0.5s ease-in-out 0s;
+:where(details) {
+    #{variable.$varPrefix}-trs: all 0.5s ease-in-out 0s;
+    transition: var(#{variable.$varPrefix}-trs, all 0.5s ease-in-out 0s);
+}
 
-        summary {
-            svg {
-                #{variable.$varPrefix}-tf: rotate(180deg);
-                transform : var(#{variable.$varPrefix}-tf);
-            }
-        }
-    }
+:where(details:not(:last-of-type)) {
+    #{variable.$varPrefix}-m: 0 0 15px 0;
+    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
+}
+
+:where(details summary) {
+    #{variable.$varPrefix}-bdr-w: 1px;
+    #{variable.$varPrefix}-bdr-sty: solid;
+    #{variable.$varPrefix}-bdr-cl: #ddd;
+    #{variable.$varPrefix}-p: 10px;
+    #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+    #{variable.$varPrefix}-m: 0 0 15px 0;
+    #{variable.$varPrefix}-cl: #000;
+    #{variable.$varPrefix}-ls-sty: none;
+    list-style: var(#{variable.$varPrefix}-ls-sty, none);
+    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
+    color: var(#{variable.$varPrefix}-cl, #000);
+    border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
+    border-width: var(#{variable.$varPrefix}-bdr-w, 1px);
+    border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
+    padding: var(#{variable.$varPrefix}-p, 10px);
+    font-family: var(#{variable.$varPrefix}-fnt-fam, 'Open Sans', sans-serif);
+    cursor: pointer;
+}
+
+:where(details summary svg) {
+    #{variable.$varPrefix}-trs: all 0.5s ease-in-out 0s;
+    transition: var(#{variable.$varPrefix}-trs, all 0.5s ease-in-out 0s);
+}
+
+:where(details[open]) {
+    #{variable.$varPrefix}-trs: all 0.5s ease-in-out 0s;
+    transition: var(#{variable.$varPrefix}-trs, all 0.5s ease-in-out 0s);
+}
+
+:where(details[open] summary svg) {
+    #{variable.$varPrefix}-tf: rotate(180deg);
+    transform: var(#{variable.$varPrefix}-tf, rotate(180deg));
 }
 
 //For Global Button need button tag
@@ -257,7 +259,7 @@ details {
 
     &-tbl {
         #{variable.$varPrefix}-m: 0 0 30px 0;
-        margin : var(#{variable.$varPrefix}-m);
+        margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
 
         #{variable.$appPrefix} {
             &-bdr {
@@ -272,24 +274,19 @@ details {
             #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
             #{variable.$varPrefix}-bdr-sty: solid;
             #{variable.$varPrefix}-bdr-cl: #ddd;
-            padding : var(#{variable.$varPrefix}-p);
-            border-style : var(#{variable.$varPrefix}-bdr-sty);
-            border-width : var(#{variable.$varPrefix}-bdr-w);
-            border-color : var(#{variable.$varPrefix}-bdr-cl);
+            padding: var(#{variable.$varPrefix}-p, 15px);
+            border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
+            border-width: var(#{variable.$varPrefix}-bdr-w, 0 0 1px 0);
+            border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
 
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
+            :where(h1, h2, h3, h4, h5, h6) {
                 #{variable.$varPrefix}-m: 0;
             }
 
             &#{variable.$appPrefix} {
                 &-cl {
                     #{variable.$varPrefix}-cl: #323537;
-                    color: var(#{variable.$varPrefix}-cl);
+                    color: var(#{variable.$varPrefix}-cl, #323537);
                 }
             }
         }
@@ -314,8 +311,10 @@ details {
     }
 
     &-img {
-        max-width: 100%;
-        height: auto;
+        #{variable.$varPrefix}-max-w: 100%;
+        #{variable.$varPrefix}-h: auto;
+        max-width: var(#{variable.$varPrefix}-max-w, 100%);
+        height: var(#{variable.$varPrefix}-h, auto);
     }
 
     //gap
@@ -405,7 +404,8 @@ details {
 
     //Nav Tabs
     &-nav {
-        list-style: none;
+        #{variable.$varPrefix}-ls-sty: none;
+        list-style: var(#{variable.$varPrefix}-ls-sty, none);
 
         &-lnk {
             #{variable.$varPrefix}-bg-cl: transparent;
@@ -415,18 +415,18 @@ details {
             #{variable.$varPrefix}-bdr-sty: solid;
             #{variable.$varPrefix}-cl: #000;
 
-            padding : var(#{variable.$varPrefix}-p);
-            background-color: var(#{variable.$varPrefix}-bg-cl);
-            border-style : var(#{variable.$varPrefix}-bdr-sty);
-            border-width : var(#{variable.$varPrefix}-bdr-w);
-            border-color : var(#{variable.$varPrefix}-bdr-cl);
-            color : var(#{variable.$varPrefix}-cl);
+            padding: var(#{variable.$varPrefix}-p, 10px 15px);
+            background-color: var(#{variable.$varPrefix}-bg-cl, transparent);
+            border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
+            border-width: var(#{variable.$varPrefix}-bdr-w, 1px);
+            border-color: var(#{variable.$varPrefix}-bdr-cl, transparent);
+            color: var(#{variable.$varPrefix}-cl, #000);
 
             &#{variable.$appPrefix} {
                 &-active {
                     #{variable.$varPrefix}-bg-cl: #fbfbfb;
                     #{variable.$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
-                    border-color : var(#{variable.$varPrefix}-bdr-cl);
+                    border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd #ddd transparent #ddd);
                 }
             }
         }
@@ -435,15 +435,15 @@ details {
             #{variable.$varPrefix}-bdr-cl: #ddd;
             #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
             #{variable.$varPrefix}-bdr-sty: solid;
-            border-style : var(#{variable.$varPrefix}-bdr-sty);
-            border-width : var(#{variable.$varPrefix}-bdr-w);
-            border-color : var(#{variable.$varPrefix}-bdr-cl);
+            border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
+            border-width: var(#{variable.$varPrefix}-bdr-w, 0 0 1px 0);
+            border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
 
             #{variable.$appPrefix} {
                 &-nav {
                     &-lnk {
-                        #{variable.$varPrefix}-m: calc(-1 * var(#{variable.$varPrefix}-bdr-w));
-                        margin : var(#{variable.$varPrefix}-m);
+                        #{variable.$varPrefix}-m: calc(-1 * var(#{variable.$varPrefix}-bdr-w, 1px));
+                        margin: var(#{variable.$varPrefix}-m, calc(-1 * 1px));
                     }
                 }
             }
@@ -455,14 +455,14 @@ details {
                     &-nav {
                         &-lnk {
                             #{variable.$varPrefix}-cl: #0d6efd;
-                            color : var(#{variable.$varPrefix}-cl);
+                            color: var(#{variable.$varPrefix}-cl, #0d6efd);
 
                             &#{variable.$appPrefix} {
                                 &-active {
                                     #{variable.$varPrefix}-cl: #fff;
                                     #{variable.$varPrefix}-bg-cl: #0d6efd;
                                     #{variable.$varPrefix}-bdr-cl: #0d6efd #0d6efd transparent #0d6efd;
-                                    border-color : var(#{variable.$varPrefix}-bdr-cl);
+                                    border-color: var(#{variable.$varPrefix}-bdr-cl, #0d6efd #0d6efd transparent #0d6efd);
                                 }
                             }
                         }
@@ -475,7 +475,7 @@ details {
     &-tab {
         &-pane {
             #{variable.$varPrefix}-p: 15px;
-            padding : var(#{variable.$varPrefix}-p);
+            padding: var(#{variable.$varPrefix}-p, 15px);
         }
     }
 
@@ -496,41 +496,43 @@ details {
     }
 }
 
+// Dark color mode (element defaults zero-specificity; the theme container keeps
+// its [data-at-theme] specificity so it still overrides the :root token set)
 [data-at-theme='dark'] {
     #{variable.$varPrefix}-cl: #fff;
     #{variable.$varPrefix}-bg-cl: #000;
     #{variable.$varPrefix}-bdr-cl: #000;
 
     //elements : h1-h6,p,button,a
-    h1 {
+    :where(h1) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    h2 {
+    :where(h2) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    h3 {
+    :where(h3) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    h4 {
+    :where(h4) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    h5 {
+    :where(h5) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    h6 {
+    :where(h6) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    p {
+    :where(p) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    a {
+    :where(a) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
@@ -571,12 +573,12 @@ details {
         }
     }
 
-    article {
+    :where(article) {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    details {
-        summary {
+    :where(details) {
+        :where(summary) {
             #{variable.$varPrefix}-bdr-cl: #444;
             #{variable.$varPrefix}-cl: #fff;
         }
@@ -651,7 +653,8 @@ details {
 
         //Nav Tabs
         &-nav {
-            list-style: none;
+            #{variable.$varPrefix}-ls-sty: none;
+            list-style: var(#{variable.$varPrefix}-ls-sty, none);
 
             &-lnk {
                 #{variable.$varPrefix}-cl: #fff;

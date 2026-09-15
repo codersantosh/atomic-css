@@ -26,20 +26,22 @@ Phrasing content: elements that define phrasing content and the way it is render
 
 Metadata: elements that provide metadata about the document, such as <meta>, <title>, <link>, etc.
 */
-//ClassesPrefix
+// Re-read of the demo's prefix constants (declared in scss/variable.scss).
+// They MUST equal the framework source scss/css-variable.scss ('.at' / '--at');
+// the demo stays self-contained, so this is a drift check, not a merge.
 variable.$appPrefix: '.at';
 
 //Root variable Prefix
 variable.$varPrefix: '--at';
 
 * {
-	margin: var(#{variable.$varPrefix}-m);
-	padding: var(#{variable.$varPrefix}-p);
-	box-sizing: var(#{variable.$varPrefix}-box-szg);
+	margin: var(#{variable.$varPrefix}-m, initial);
+	padding: var(#{variable.$varPrefix}-p, initial);
+	box-sizing: var(#{variable.$varPrefix}-box-szg, initial);
 }
 
 html {
-	scroll-behavior: var(#{variable.$varPrefix}-scr-beh);
+	scroll-behavior: var(#{variable.$varPrefix}-scr-beh, initial);
 }
 
 /* Text elements */
@@ -58,38 +60,38 @@ li,
 #{variable.$appPrefix}-btn {
 	// Font/Typography group
 	// TODO? font has many other properties but I think we dont need them all;
-	font-size: var(#{variable.$varPrefix}-fnt-sz);
-	font-weight: var(#{variable.$varPrefix}-fnt-wt);
-	font-family: var(#{variable.$varPrefix}-fnt-fam);
-	font-style: var(#{variable.$varPrefix}-fnt-sty);
-	text-transform: var(#{variable.$varPrefix}-txt-tf);
-	text-decoration: var(#{variable.$varPrefix}-txt-dec);
-	line-height: var(#{variable.$varPrefix}-ln-h);
-	letter-spacing: var(#{variable.$varPrefix}-ltr-sp);
+	font-size: var(#{variable.$varPrefix}-fnt-sz, initial);
+	font-weight: var(#{variable.$varPrefix}-fnt-wt, initial);
+	font-family: var(#{variable.$varPrefix}-fnt-fam, initial);
+	font-style: var(#{variable.$varPrefix}-fnt-sty, initial);
+	text-transform: var(#{variable.$varPrefix}-txt-tf, initial);
+	text-decoration: var(#{variable.$varPrefix}-txt-dec, initial);
+	line-height: var(#{variable.$varPrefix}-ln-h, initial);
+	letter-spacing: var(#{variable.$varPrefix}-ltr-sp, initial);
 	// color: color|initial|inherit;
-	color: var(#{variable.$varPrefix}-cl);
+	color: var(#{variable.$varPrefix}-cl, initial);
 }
 
 /* Content grou */
 table {
 	// caption-side: top|bottom|initial|inherit;
-	caption-side: var(#{variable.$varPrefix}-cpt-sd);
+	caption-side: var(#{variable.$varPrefix}-cpt-sd, initial);
 	// table-layout: auto|fixed|initial|inherit;
-	table-layout: var(#{variable.$varPrefix}-tbl-lyt);
+	table-layout: var(#{variable.$varPrefix}-tbl-lyt, initial);
 }
 
 ul,
 ol,
 li {
 	// list-style: list-style-type list-style-position list-style-image|initial|inherit;
-	list-style: var(#{variable.$varPrefix}-ls-sty);
+	list-style: var(#{variable.$varPrefix}-ls-sty, initial);
 }
 
 #{variable.$appPrefix} {
 	&-acl {
 		//The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. 
 		// accent-color: auto|color|initial|inherit;
-		accent-color: var(#{variable.$varPrefix}-acl);
+		accent-color: var(#{variable.$varPrefix}-acl, initial);
 	}
 
 	//animation: name duration timing-function delay iteration-count direction fill-mode play-state;
@@ -100,17 +102,17 @@ li {
 
 	&-bg {
 		&-cl {
-			background-color: var(#{variable.$varPrefix}-bg-cl);
+			background-color: var(#{variable.$varPrefix}-bg-cl, initial);
 		}
 
 		&-img {
-			background-image: var(#{variable.$varPrefix}-bg-img);
-			background-position: var(#{variable.$varPrefix}-bg-pos);
-			background-size: var(#{variable.$varPrefix}-bg-sz);
-			background-repeat: var(#{variable.$varPrefix}-bg-rpt);
-			background-origin: var(#{variable.$varPrefix}-bg-org);
-			background-attachment: var(#{variable.$varPrefix}-bg-atch);
-			background-blend-mode: var(#{variable.$varPrefix}-bg-blend-mode);
+			background-image: var(#{variable.$varPrefix}-bg-img, initial);
+			background-position: var(#{variable.$varPrefix}-bg-pos, initial);
+			background-size: var(#{variable.$varPrefix}-bg-sz, initial);
+			background-repeat: var(#{variable.$varPrefix}-bg-rpt, initial);
+			background-origin: var(#{variable.$varPrefix}-bg-org, initial);
+			background-attachment: var(#{variable.$varPrefix}-bg-atch, initial);
+			background-blend-mode: var(#{variable.$varPrefix}-bg-blend-mode, initial);
 		}
 	}
 
@@ -124,17 +126,17 @@ li {
 
 	&-bdr {
 		// border-color: color|transparent|initial|inherit;
-		border-color: var(#{variable.$varPrefix}-bdr-cl);
+		border-color: var(#{variable.$varPrefix}-bdr-cl, initial);
 
 		// border-width: medium|thin|thick|length|initial|inherit; (4sides)
-		border-width: var(#{variable.$varPrefix}-bdr-w);
+		border-width: var(#{variable.$varPrefix}-bdr-w, initial);
 
 		// border-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit; (4sides)
-		border-style: var(#{variable.$varPrefix}-bdr-sty);
+		border-style: var(#{variable.$varPrefix}-bdr-sty, initial);
 
 		&-rad {
 			// border-radius: 1-4 length|% / 1-4 length|%|initial|inherit; (4sides)
-			border-radius: var(#{variable.$varPrefix}-bdr-rad);
+			border-radius: var(#{variable.$varPrefix}-bdr-rad, initial);
 		}
 	}
 
@@ -146,17 +148,18 @@ li {
 		#{variable.$varPrefix}-bdr-sty: initial;
 		#{variable.$varPrefix}-p: 6px 12px;
 
-		cursor: var(#{variable.$varPrefix}-cur);
-		color: var(#{variable.$varPrefix}-cl);
-		background-color: var(#{variable.$varPrefix}-bg-cl);
-		font-size: var(#{variable.$varPrefix}-fnt-sz);
-		border-color: var(#{variable.$varPrefix}-bdr-cl);
-		border-width: var(#{variable.$varPrefix}-bdr-w);
-		border-style: var(#{variable.$varPrefix}-bdr-sty);
-		padding: var(#{variable.$varPrefix}-p);
+		cursor: var(#{variable.$varPrefix}-cur, pointer);
+		color: var(#{variable.$varPrefix}-cl, inherit);
+		background-color: var(#{variable.$varPrefix}-bg-cl, transparent);
+		font-size: var(#{variable.$varPrefix}-fnt-sz, 14px);
+		border-color: var(#{variable.$varPrefix}-bdr-cl, transparent);
+		border-width: var(#{variable.$varPrefix}-bdr-w, 0);
+		border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
+		padding: var(#{variable.$varPrefix}-p, 6px 12px);
 
 		&[disabled] {
-			opacity: 0.5;
+			#{variable.$varPrefix}-opa: 0.5;
+			opacity: var(#{variable.$varPrefix}-opa, 0.5);
 			cursor: not-allowed;
 		}
 
@@ -396,15 +399,15 @@ li {
 
 	&-pos {
 		// bottom: auto|length|initial|inherit; (Position group)
-		bottom: var(#{variable.$varPrefix}-b);
+		bottom: var(#{variable.$varPrefix}-b, initial);
 		// position: static|absolute|fixed|relative|sticky|initial|inherit;
-		position: var(#{variable.$varPrefix}-pos);
+		position: var(#{variable.$varPrefix}-pos, initial);
 		// top: auto|length|initial|inherit;
-		top: var(#{variable.$varPrefix}-t);
+		top: var(#{variable.$varPrefix}-t, initial);
 		// right: auto|length|initial|inherit;
-		right: var(#{variable.$varPrefix}-r);
+		right: var(#{variable.$varPrefix}-r, initial);
 		// left: auto|length|initial|inherit;
-		left: var(#{variable.$varPrefix}-l);
+		left: var(#{variable.$varPrefix}-l, initial);
 	}
 
 	// box-decoration-break TODO?
@@ -413,17 +416,17 @@ li {
 		&-refl {
 			// box-reflect
 			//Non-standard: This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user.
-			box-reflect: var(#{variable.$varPrefix}-box-refl);
+			box-reflect: var(#{variable.$varPrefix}-box-refl, initial);
 		}
 
 		&-sdw {
 			// box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;
-			box-shadow: var(#{variable.$varPrefix}-box-sdw);
+			box-shadow: var(#{variable.$varPrefix}-box-sdw, initial);
 		}
 
 		&-szg {
 			// box-sizing: content-box|border-box|initial|inherit;
-			box-sizing: var(#{variable.$varPrefix}-box-szg);
+			box-sizing: var(#{variable.$varPrefix}-box-szg, initial);
 		}
 	}
 
@@ -441,7 +444,7 @@ li {
 
 	&-cl {
 		// color: color|initial|inherit;
-		color: var(#{variable.$varPrefix}-cl);
+		color: var(#{variable.$varPrefix}-cl, initial);
 	}
 
 	// column-count,column-fill,column-gap, column-rule, column-rule-color, column-rule-style, column-rule-width, column-span, column-width, columns TODO?
@@ -451,12 +454,12 @@ li {
 
 	&-cur {
 		// cursor: value;
-		cursor: var(#{variable.$varPrefix}-cur);
+		cursor: var(#{variable.$varPrefix}-cur, initial);
 	}
 
 	&-dir {
 		// direction: ltr|rtl|initial|inherit;
-		direction: var(#{variable.$varPrefix}-dir);
+		direction: var(#{variable.$varPrefix}-dir, initial);
 	}
 
 	// display handle by at - flex css
@@ -470,14 +473,14 @@ li {
 	&-typ {
 		// Font/Typography group
 		// TODO? font has many other properties but I think we dont need them all;
-		font-size: var(#{variable.$varPrefix}-fnt-sz);
-		font-weight: var(#{variable.$varPrefix}-fnt-wt);
-		font-family: var(#{variable.$varPrefix}-fnt-fam);
-		font-style: var(#{variable.$varPrefix}-fnt-sty);
-		text-transform: var(#{variable.$varPrefix}-txt-tf);
-		text-decoration: var(#{variable.$varPrefix}-txt-dec);
-		line-height: var(#{variable.$varPrefix}-ln-h);
-		letter-spacing: var(#{variable.$varPrefix}-ltr-sp);
+		font-size: var(#{variable.$varPrefix}-fnt-sz, initial);
+		font-weight: var(#{variable.$varPrefix}-fnt-wt, initial);
+		font-family: var(#{variable.$varPrefix}-fnt-fam, initial);
+		font-style: var(#{variable.$varPrefix}-fnt-sty, initial);
+		text-transform: var(#{variable.$varPrefix}-txt-tf, initial);
+		text-decoration: var(#{variable.$varPrefix}-txt-dec, initial);
+		line-height: var(#{variable.$varPrefix}-ln-h, initial);
+		letter-spacing: var(#{variable.$varPrefix}-ltr-sp, initial);
 	}
 
 	// fap in flex
@@ -505,19 +508,19 @@ li {
 	// list-style used on ul, ol,li
 
 	&-msk {
-		mask-image: var(#{variable.$varPrefix}-msk-img);
-		mask-mode: var(#{variable.$varPrefix}-msk-mode);
-		mask-origin: var(#{variable.$varPrefix}-msk-org);
-		mask-position: var(#{variable.$varPrefix}-msk-pos);
-		mask-repeat: var(#{variable.$varPrefix}-msk-rpt);
-		mask-size: var(#{variable.$varPrefix}-msk-sz);
+		mask-image: var(#{variable.$varPrefix}-msk-img, initial);
+		mask-mode: var(#{variable.$varPrefix}-msk-mode, initial);
+		mask-origin: var(#{variable.$varPrefix}-msk-org, initial);
+		mask-position: var(#{variable.$varPrefix}-msk-pos, initial);
+		mask-repeat: var(#{variable.$varPrefix}-msk-rpt, initial);
+		mask-size: var(#{variable.$varPrefix}-msk-sz, initial);
 	}
 
 	// max-block-size TODO?
 
 	&-m {
 		// margin: length|auto|initial|inherit;
-		margin: var(#{variable.$varPrefix}-m);
+		margin: var(#{variable.$varPrefix}-m, initial);
 
 		//  margin-block, margin-block-end, margin-block-start, margin-top all should be handled by margin.
 
@@ -527,35 +530,35 @@ li {
 	&-max {
 		&-h {
 			// max-height: none|length|initial|inherit;
-			max-height: var(#{variable.$varPrefix}-max-h);
+			max-height: var(#{variable.$varPrefix}-max-h, initial);
 		}
 
 		&-w {
 			// max-width: none|length|initial|inherit;
-			max-width: var(#{variable.$varPrefix}-max-w);
+			max-width: var(#{variable.$varPrefix}-max-w, initial);
 		}
 	}
 
 	&-min {
 		&-h {
 			// min-height: length|initial|inherit;
-			min-height: var(#{variable.$varPrefix}-min-h);
+			min-height: var(#{variable.$varPrefix}-min-h, initial);
 		}
 
 		&-w {
 			// min-width: length|initial|inherit;
-			min-width: var(#{variable.$varPrefix}-min-w);
+			min-width: var(#{variable.$varPrefix}-min-w, initial);
 		}
 	}
 
 	&-h {
 		// height: length|initial|inherit;
-		height: var(#{variable.$varPrefix}-h);
+		height: var(#{variable.$varPrefix}-h, initial);
 	}
 
 	&-w {
 		// width: length|initial|inherit;
-		width: var(#{variable.$varPrefix}-w);
+		width: var(#{variable.$varPrefix}-w, initial);
 	}
 
 	//  max-inline-size: 60px; TODO?
@@ -570,7 +573,7 @@ li {
 
 	&-opa {
 		// opacity: number|initial|inherit;
-		opacity: var(#{variable.$varPrefix}-opa);
+		opacity: var(#{variable.$varPrefix}-opa, initial);
 	}
 
 	// order in at - flex css
@@ -581,13 +584,13 @@ li {
 
 	&-ovf {
 		// overflow: visible|hidden|clip|scroll|auto|initial|inherit;
-		overflow: var(#{variable.$varPrefix}-ovf);
+		overflow: var(#{variable.$varPrefix}-ovf, initial);
 		// Othere overflow TODO?
 	}
 
 	&-p {
 		// padding: length|initial|inherit;
-		padding: var(#{variable.$varPrefix}-p);
+		padding: var(#{variable.$varPrefix}-p, initial);
 		// padding-block,  padding-block-end etc should be handled by padding
 	}
 
@@ -601,7 +604,7 @@ li {
 
 	&-ptr-ev {
 		// pointer-events: auto|none;
-		pointer-events: var(#{variable.$varPrefix}-ptr-ev);
+		pointer-events: var(#{variable.$varPrefix}-ptr-ev, initial);
 	}
 
 	// position on position group
@@ -626,7 +629,7 @@ li {
 	&-txt {
 		&-al {
 			// text-align: left|right|center|justify|initial|inherit;
-			text-align: var(#{variable.$varPrefix}-txt-al);
+			text-align: var(#{variable.$varPrefix}-txt-al, initial);
 		}
 
 		// text-align-last TODO?
@@ -641,7 +644,7 @@ li {
 
 		&-sdw {
 			// text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit;
-			text-shadow: var(#{variable.$varPrefix}-txt-sdw);
+			text-shadow: var(#{variable.$varPrefix}-txt-sdw, initial);
 		}
 
 		// text-transform in typography group
@@ -651,19 +654,19 @@ li {
 
 	&-tf {
 		// perspective: length|none;
-		perspective: var(#{variable.$varPrefix}-ppv);
+		perspective: var(#{variable.$varPrefix}-ppv, initial);
 
 		// perspective-origin: x-axis y-axis|initial|inherit;
-		perspective-origin: var(#{variable.$varPrefix}-ppv-org);
+		perspective-origin: var(#{variable.$varPrefix}-ppv-org, initial);
 
 		// transform: none|transform-functions|initial|inherit;
-		transform: var(#{variable.$varPrefix}-tf);
+		transform: var(#{variable.$varPrefix}-tf, initial);
 
 		// transform-origin: x-axis y-axis z-axis|initial|inherit;
-		transform-origin: var(#{variable.$varPrefix}-tf-org);
+		transform-origin: var(#{variable.$varPrefix}-tf-org, initial);
 
 		// transform-style: flat|preserve-3d|initial|inherit;
-		transform-style: var(#{variable.$varPrefix}-tf-sty);
+		transform-style: var(#{variable.$varPrefix}-tf-sty, initial);
 	}
 
 	// translate in transform
@@ -675,12 +678,12 @@ li {
 	// table-layout on table
 	&-trs {
 		// transition: property duration timing-function delay|initial|inherit;
-		transition: var(#{variable.$varPrefix}-trs);
+		transition: var(#{variable.$varPrefix}-trs, initial);
 	}
 
 	&-vis {
 		// visibility: visible|hidden|collapse|initial|inherit;
-		visibility: var(#{variable.$varPrefix}-vis);
+		visibility: var(#{variable.$varPrefix}-vis, initial);
 	}
 
 	// white-space TODO?
@@ -690,17 +693,17 @@ li {
 	&-wrd {
 		&-brk {
 			// word-break: normal|break-all|keep-all|break-word|initial|inherit;
-			word-break: var(#{variable.$varPrefix}-wrd-brk);
+			word-break: var(#{variable.$varPrefix}-wrd-brk, initial);
 		}
 
 		&-spc {
 			// word-spacing: normal|length|initial|inherit;
-			word-spacing: var(#{variable.$varPrefix}-wrd-spg);
+			word-spacing: var(#{variable.$varPrefix}-wrd-spg, initial);
 		}
 
 		&-wrp {
 			// word-wrap: normal|break-word|initial|inherit;
-			word-wrap: var(#{variable.$varPrefix}-wrd-wrp);
+			word-wrap: var(#{variable.$varPrefix}-wrd-wrp, initial);
 		}
 	}
 
@@ -708,6 +711,6 @@ li {
 
 	&-z-idx {
 		// z-index: auto|number|initial|inherit;
-		z-index: var(#{variable.$varPrefix}-z-idx);
+		z-index: var(#{variable.$varPrefix}-z-idx, initial);
 	}
 }
