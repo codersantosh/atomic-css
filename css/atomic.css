@@ -2022,8 +2022,7 @@ html {
   fill: inherit;
 }
 .at-svg-wrp {
-  --at-ln-h: 0;
-  line-height: var(--at-ln-h);
+  line-height: 0;
 }
 .at-svg-wrp svg {
   width: var(--at-w, inherit);
@@ -2101,18 +2100,12 @@ html {
 }
 .at-ovl:after {
   content: "";
-  --at-pos: absolute;
-  --at-l: 0;
-  --at-t: 0;
-  --at-w: 100%;
-  --at-h: 100%;
-  --at-z-idx: -1;
-  width: var(--at-w, initial);
-  height: var(--at-h, initial);
-  position: var(--at-pos, initial);
-  left: var(--at-l, initial);
-  top: var(--at-t, initial);
-  z-index: var(--at-z-idx, initial);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
   -webkit-transition: var(--at-trs, initial);
   transition: var(--at-trs, initial);
 }
@@ -2285,10 +2278,8 @@ html {
   --at-pos: relative;
 }
 .at-blk-shp > :not(.at-shp):not(.at-z-idx) {
-  --at-z-idx: 2;
-  --at-pos: relative;
-  z-index: var(--at-z-idx, initial);
-  position: var(--at-pos, initial);
+  z-index: 2;
+  position: relative;
 }
 .at-shp {
   --at-pos: absolute;
@@ -2319,12 +2310,11 @@ html {
   bottom: 0;
 }
 .at-vrt {
-  --at-vrt-gap: var(--at-gap, 15px);
-  gap: var(--at-vrt-gap);
+  gap: var(--at-vrt-gap, var(--at-gap, 15px));
 }
 .at-vrt-hdr {
   width: var(--at-vrt-w, 20%);
 }
 .at-vrt-conts {
-  width: calc(100% - var(--at-vrt-w, 20%) - var(--at-vrt-gap));
+  width: calc(100% - var(--at-vrt-w, 20%) - var(--at-vrt-gap, var(--at-gap, 15px)));
 }

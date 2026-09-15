@@ -107,8 +107,7 @@ html {
 
         // svg wrap
         &-wrp {
-            #{css-variable.$varPrefix}-ln-h: 0;
-            line-height: var(#{css-variable.$varPrefix}-ln-h);
+            line-height: 0;
 
             svg {
                 width: var(#{css-variable.$varPrefix}-w, inherit);
@@ -135,6 +134,7 @@ html {
         height: var(#{css-variable.$varPrefix}-h, initial);
 
         &-bg {
+            // Seeded read: consumed by co-applied .at-pos/.at-w/.at-h/.at-z-idx
             #{css-variable.$varPrefix}-pos: absolute;
             #{css-variable.$varPrefix}-z-idx: -1;
             #{css-variable.$varPrefix}-l: 0;
@@ -182,6 +182,7 @@ html {
 
         // Video element wrapper
         &-vid {
+            // Seeded read: consumed by co-applied .at-pos/.at-z-idx
             #{css-variable.$varPrefix}-pos: relative;
             #{css-variable.$varPrefix}-z-idx: 1;
         }
@@ -224,23 +225,18 @@ html {
     //Overlay styles
 
     &-ovl {
+        // Seeded read: --at-pos/--at-z-idx for co-applied .at-pos/.at-z-idx
         #{css-variable.$varPrefix}-pos: relative;
         #{css-variable.$varPrefix}-z-idx: 2;
 
         &:after {
             content: '';
-            #{css-variable.$varPrefix}-pos: absolute;
-            #{css-variable.$varPrefix}-l: 0;
-            #{css-variable.$varPrefix}-t: 0;
-            #{css-variable.$varPrefix}-w: 100%;
-            #{css-variable.$varPrefix}-h: 100%;
-            #{css-variable.$varPrefix}-z-idx: -1;
-            width: var(#{css-variable.$varPrefix}-w, initial);
-            height: var(#{css-variable.$varPrefix}-h, initial);
-            position: var(#{css-variable.$varPrefix}-pos, initial);
-            left: var(#{css-variable.$varPrefix}-l, initial);
-            top: var(#{css-variable.$varPrefix}-t, initial);
-            z-index: var(#{css-variable.$varPrefix}-z-idx, initial);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             transition: var(#{css-variable.$varPrefix}-trs, initial);
         }
 
@@ -634,18 +630,18 @@ html {
     //Block shape (Html element section top bottom shape)
     //wrapper
     &-blk-shp {
+        // Seeded read: consumed by co-applied .at-pos
         #{css-variable.$varPrefix}-pos: relative;
 
         > :not(#{css-variable.$appPrefix}-shp):not(#{css-variable.$appPrefix}-z-idx) {
-            #{css-variable.$varPrefix}-z-idx: 2;
-            #{css-variable.$varPrefix}-pos: relative;
-            z-index: var(#{css-variable.$varPrefix}-z-idx, initial);
-            position: var(#{css-variable.$varPrefix}-pos, initial);
+            z-index: 2;
+            position: relative;
         }
     }
 
     //Block Shape Element
     &-shp {
+        // Seeded read: consumed by co-applied .at-pos/.at-w/.at-h
         #{css-variable.$varPrefix}-pos: absolute;
         #{css-variable.$varPrefix}-w: 100%;
         #{css-variable.$varPrefix}-l: 0;
@@ -686,15 +682,14 @@ html {
 
     //Vertical Layout
     &-vrt {
-        #{css-variable.$varPrefix}-vrt-gap: var(#{css-variable.$varPrefix}-gap, 15px);
-        gap: var(#{css-variable.$varPrefix}-vrt-gap);
+        gap: var(#{css-variable.$varPrefix}-vrt-gap, var(#{css-variable.$varPrefix}-gap, 15px));
 
         &-hdr {
             width: var(#{css-variable.$varPrefix}-vrt-w, 20%);
         }
 
         &-conts {
-            width: calc((100% - var(#{css-variable.$varPrefix}-vrt-w, 20%) - var(#{css-variable.$varPrefix}-vrt-gap)));
+            width: calc(100% - var(#{css-variable.$varPrefix}-vrt-w, 20%) - var(#{css-variable.$varPrefix}-vrt-gap, var(#{css-variable.$varPrefix}-gap, 15px)));
         }
     }
 }

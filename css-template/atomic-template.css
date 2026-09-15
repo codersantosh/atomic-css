@@ -2022,8 +2022,7 @@ html {
   fill: inherit%%IMPORTANT%%;
 }
 .at-svg-wrp {
-  --at-ln-h: 0%%IMPORTANT%%;
-  line-height: var(--at-ln-h)%%IMPORTANT%%;
+  line-height: 0%%IMPORTANT%%;
 }
 .at-svg-wrp svg {
   width: var(--at-w, inherit)%%IMPORTANT%%;
@@ -2101,18 +2100,12 @@ html {
 }
 .at-ovl:after {
   content: ""%%IMPORTANT%%;
-  --at-pos: absolute%%IMPORTANT%%;
-  --at-l: 0%%IMPORTANT%%;
-  --at-t: 0%%IMPORTANT%%;
-  --at-w: 100%%%IMPORTANT%%;
-  --at-h: 100%%%IMPORTANT%%;
-  --at-z-idx: -1%%IMPORTANT%%;
-  width: var(--at-w, initial)%%IMPORTANT%%;
-  height: var(--at-h, initial)%%IMPORTANT%%;
-  position: var(--at-pos, initial)%%IMPORTANT%%;
-  left: var(--at-l, initial)%%IMPORTANT%%;
-  top: var(--at-t, initial)%%IMPORTANT%%;
-  z-index: var(--at-z-idx, initial)%%IMPORTANT%%;
+  position: absolute%%IMPORTANT%%;
+  left: 0%%IMPORTANT%%;
+  top: 0%%IMPORTANT%%;
+  width: 100%%%IMPORTANT%%;
+  height: 100%%%IMPORTANT%%;
+  z-index: -1%%IMPORTANT%%;
   -webkit-transition: var(--at-trs, initial)%%IMPORTANT%%;
   transition: var(--at-trs, initial)%%IMPORTANT%%;
 }
@@ -2285,10 +2278,8 @@ html {
   --at-pos: relative%%IMPORTANT%%;
 }
 .at-blk-shp > :not(.at-shp):not(.at-z-idx) {
-  --at-z-idx: 2%%IMPORTANT%%;
-  --at-pos: relative%%IMPORTANT%%;
-  z-index: var(--at-z-idx, initial)%%IMPORTANT%%;
-  position: var(--at-pos, initial)%%IMPORTANT%%;
+  z-index: 2%%IMPORTANT%%;
+  position: relative%%IMPORTANT%%;
 }
 .at-shp {
   --at-pos: absolute%%IMPORTANT%%;
@@ -2319,12 +2310,11 @@ html {
   bottom: 0%%IMPORTANT%%;
 }
 .at-vrt {
-  --at-vrt-gap: var(--at-gap, 15px)%%IMPORTANT%%;
-  gap: var(--at-vrt-gap)%%IMPORTANT%%;
+  gap: var(--at-vrt-gap, var(--at-gap, 15px))%%IMPORTANT%%;
 }
 .at-vrt-hdr {
   width: var(--at-vrt-w, 20%)%%IMPORTANT%%;
 }
 .at-vrt-conts {
-  width: calc(100% - var(--at-vrt-w, 20%) - var(--at-vrt-gap))%%IMPORTANT%%;
+  width: calc(100% - var(--at-vrt-w, 20%) - var(--at-vrt-gap, var(--at-gap, 15px)))%%IMPORTANT%%;
 }
