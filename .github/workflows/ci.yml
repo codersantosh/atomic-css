@@ -26,4 +26,4 @@ jobs:
         run: npm run lint
 
       - name: Check for unexpected diff in committed CSS output
-        run: git diff --exit-code -- css css-max demo/colormode-globalstyle
+        run: git diff --exit-code -- css css-max css-template demo/colormode-globalstyle

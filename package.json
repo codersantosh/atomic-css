@@ -5,6 +5,7 @@
 	"files": [
 		"css",
 		"css-max",
+		"css-template",
 		"readme.md",
 		"LICENSE"
 	],

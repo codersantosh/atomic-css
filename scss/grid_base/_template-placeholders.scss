@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "sass:string";
+
+// Template-only output helpers. The css-template entry (scss/grid-template.scss)
+// configures this partial with $template-mode: true; the shipped entries
+// (scss/grid.scss, scss/grid-max.scss) never reference it, so $template-mode
+// stays false and the shared breakpoint mixins emit the real pixel values.
+//
+// Placeholders replace VALUES only — never selectors or var() names — so
+// check:names keeps working and a dynamic consumer (WordPress/PHP) can
+// regenerate every responsive breakpoint at its own values.
+// See ARCHITECTURE.md § The template bundle.
+
+// Template mode flag. Configured once by the css-template entry.
+$template-mode: false !default;
+
+// Breakpoint concept -> placeholder name. The %%UPPER_SNAKE%% form is fixed
+// and every entry is documented in readme.md.
+$breakpoint-placeholders: (
+    sm: "MOBILE_BREAKPOINT",
+    md: "TABLET_BREAKPOINT",
+    lg: "DESKTOP_BREAKPOINT",
+    xl: "LARGE_DESKTOP_BREAKPOINT",
+    xxl: "EXTRA_LARGE_DESKTOP_BREAKPOINT",
+    ) !default;
+
+// Placeholder media value for a breakpoint (%%NAME%%px), or null for the
+// smallest breakpoint / when the build is not in template mode.
+@function breakpoint-media-value($name) {
+    @if not $template-mode {
+        @return null;
+    }
+
+    $placeholder: map.get($breakpoint-placeholders, $name);
+
+    @if $placeholder == null {
+        @return null;
+    }
+
+    @return string.unquote("%%#{$placeholder}%%px");
+}

@@ -13,9 +13,16 @@ class RtlCssPlugin {
 				(assets, callback) => {
 					const chunks = Array.from(compilation.chunks);
 					chunks.forEach((chunk) => {
-						// Process each emitted CSS file, skipping already-generated RTL variants.
+						// Process each emitted CSS file, skipping already-generated RTL
+						// variants. The css-template entry is also skipped: it is a
+						// transform source for dynamic consumers, not a shipped bundle
+						// (ARCHITECTURE.md § The template bundle), so no -rtl variant
+						// is generated for it.
 						const files = Array.from(chunk.files).filter(
-							(f) => path.extname(f) === '.css' && !f.endsWith('-rtl.css')
+							(f) =>
+								path.extname(f) === '.css' &&
+								!f.endsWith('-rtl.css') &&
+								!f.startsWith('css-template/')
 						);
 						files.forEach((filename) => {
 							const src = compilation.assets[filename].source();

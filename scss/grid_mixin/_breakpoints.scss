@@ -1,6 +1,7 @@
 @use "sass:list";
 @use "sass:map";
 @use "../grid_base/variables";
+@use "../grid_base/template-placeholders" as template;
 
 // Breakpoint viewport sizes and media queries.
 //
@@ -71,10 +72,19 @@
 
 // Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
 // Makes the @content apply to the given breakpoint and wider.
+// In template mode the min-width value is replaced by its %%…%% placeholder so
+// a dynamic consumer can regenerate the responsive infixes at its own values.
 @mixin media-breakpoint-up($name, $breakpoints: variables.$grid-breakpoints) {
     $min: breakpoint-min($name, $breakpoints);
+    $placeholder: template.breakpoint-media-value($name);
 
-    @if $min {
+    @if $placeholder {
+        @media (min-width: $placeholder) {
+            @content;
+        }
+    }
+
+    @else if $min {
         @media (min-width: $min) {
             @content;
         }

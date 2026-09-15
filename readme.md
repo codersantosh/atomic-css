@@ -23,24 +23,22 @@ An atomic/utility CSS framework built on **CSS custom properties** and a **Flexb
 | --- | --- | --- |
 | `css/atomic.css` | Atomic utilities + flex/display utilities + minimal grid (containers, rows, 12-col columns, fifths, custom-width columns) | Default |
 | `css-max/atomic-max.css` | **Superset** — everything in `atomic.css` plus per-breakpoint order (`.at-ord-*`), offset (`.at-ofst-*`), print display (`.at-prt-*`), fifths offsets (`.at-ofst-*-2m3`) | You need order/offset/print utilities |
-| `css-template/atomic-template.css` *(planned — not yet available; see [plan.md](plan.md) Phase 1)* | **Template** — structural replica of `css/atomic.css` with `%%PLACEHOLDER%%` markers for dynamic consumers | WordPress/PHP/any dynamic script transforms it into its own build (see below) |
+| `css-template/atomic-template.css` | **Template** — structural replica of `css/atomic.css` with `%%PLACEHOLDER%%` markers for dynamic consumers | WordPress/PHP/any dynamic script transforms it into its own build (see below) |
 
 Minified (`.min.css`) and RTL (`-rtl.css`, `.min-rtl.css`) variants exist for both shipped bundles. A parity check in CI guarantees `atomic.css` stays a strict subset of `atomic-max.css`.
 
 ### CSS template (dynamic consumers)
 
-> **Planned — not yet available.** The template bundle does not exist in the repo yet; this section documents the contract it will ship with (implementation: [plan.md](plan.md) Phase 1).
-
 `css-template/atomic-template.css` is a build artifact to **transform, not link**. WordPress, PHP, or any dynamic script language replaces the placeholders and saves the result as its own stylesheet — the framework source never changes. The template mirrors the minimal bundle (same selectors, same order); placeholders appear in values only, never inside `var()` names or selectors:
 
 ```css
 /* Dynamic Breakpoint Placeholder */
-@media (max-width: %%MOBILE_BREAKPOINT%%px) {
+@media (min-width: %%MOBILE_BREAKPOINT%%px) {
 
 }
 
-.classes-of-atomic-css {
-    display: flex %%IMPORTANT%%;
+.at-flx-md {
+    display: flex%%IMPORTANT%%;
 }
 
 .at-col-cust {
@@ -48,8 +46,8 @@ Minified (`.min.css`) and RTL (`-rtl.css`, `.min-rtl.css`) variants exist for bo
 }
 ```
 
-- `%%MOBILE_BREAKPOINT%%`, `%%TABLET_BREAKPOINT%%`, `%%DESKTOP_BREAKPOINT%%` … — breakpoint pixel values, so a dynamic consumer can regenerate all responsive infixes at its own values.
-- `%%IMPORTANT%%` — appended after a value, before the `;`. For a force build, replace every occurrence with ` !important` (the whole build becomes important — never a partial mix); for a normal build, remove it entirely.
+- `%%MOBILE_BREAKPOINT%%` (sm), `%%TABLET_BREAKPOINT%%` (md), `%%DESKTOP_BREAKPOINT%%` (lg), `%%LARGE_DESKTOP_BREAKPOINT%%` (xl), `%%EXTRA_LARGE_DESKTOP_BREAKPOINT%%` (xxl) — the five `min-width` breakpoints, written `%%…%%px`, so a dynamic consumer can regenerate all responsive infixes at its own values.
+- `%%IMPORTANT%%` — appended to every declaration value (before the `;`), replacing the shipped bundles' built-in `!important`. For a force build, replace every occurrence with ` !important` (the whole build becomes important — never a partial mix); for a normal build, remove it entirely.
 - A consumer build that still contains any `%%…%%` marker is invalid — every placeholder must be replaced.
 
 ## Grid

@@ -1,0 +1,19 @@
+// Template bundle (dynamic-consumer source). Replica of scss/grid.scss (the
+// minimal bundle) with the shared partials in template mode: breakpoint values
+// become %%…%% placeholders and every declaration value carries %%IMPORTANT%%.
+// Never linked as-is; a dynamic consumer transforms it and saves its own build.
+// See ARCHITECTURE.md § The template bundle.
+@use 'grid_base/template-placeholders' with ($template-mode: true);
+@use 'css-variable';
+
+/*Grid*/
+@use 'grid_base/grid-partials';
+@use 'grid_minimal/grid-framework';
+@use 'grid_minimal/custom-grid-5ths';
+
+/*Utilities*/
+@use 'grid_base/flex';
+@use 'grid_base/display';
+
+/*Properties*/
+@use 'css-properties.scss';
