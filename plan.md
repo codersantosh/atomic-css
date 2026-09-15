@@ -116,6 +116,9 @@ fix is behavior-changing and needs visual sign-off:
 5. **Dead `.at-post-ttl.at-typo` selector.** The HTML applies `at-typ`, not
    `at-typo`; retargeting the rule applies 28px/700 to post titles (visible change —
    separate design decision).
+6. **Empty `class=""` attributes.** `color-mode.html` still carries 29 pre-existing
+   empty class attributes (unrelated to the removed dead classes); cleaning them is
+   markup hygiene and was deliberately left out of the behavior-neutral pass.
 
 ## Rollback
 Each phase is one commit (compiled CSS committed with source, per Build discipline);
