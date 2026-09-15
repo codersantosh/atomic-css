@@ -16,6 +16,10 @@ const files = [
     path.join(root, 'css', 'atomic.css'),
     path.join(root, 'css-max', 'atomic-max.css'),
     template,
+    // The demo is the reference consumer: its compiled CSS is scanned too,
+    // per ARCHITECTURE.md Part II ("class tokens are drawn from short-names.json").
+    path.join(root, 'demo', 'colormode-globalstyle', 'colormode-globalstyle.css'),
+    path.join(root, 'demo', 'colormode-globalstyle', 'dynamic.css'),
 ];
 
 const used = new Set();
@@ -87,4 +91,4 @@ if (missing.length) {
 }
 
 console.log(`PASS: all ${used.size} tokens used in compiled CSS are documented in short-names.json.`);
-console.log(`Note: ${unused.length} legend entries are not used by the current bundles (reference-only).`);
+console.log(`Note: ${unused.length} legend entries are not used by the scanned CSS (reference-only).`);
