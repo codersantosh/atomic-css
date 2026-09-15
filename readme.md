@@ -47,7 +47,7 @@ Minified (`.min.css`) and RTL (`-rtl.css`, `.min-rtl.css`) variants exist for bo
 ```
 
 - `%%MOBILE_BREAKPOINT%%` (sm), `%%TABLET_BREAKPOINT%%` (md), `%%DESKTOP_BREAKPOINT%%` (lg), `%%LARGE_DESKTOP_BREAKPOINT%%` (xl), `%%EXTRA_LARGE_DESKTOP_BREAKPOINT%%` (xxl) — the five `min-width` breakpoints, written `%%…%%px`, so a dynamic consumer can regenerate all responsive infixes at its own values.
-- `%%IMPORTANT%%` — appended to every declaration value (before the `;`), replacing the shipped bundles' built-in `!important`. For a force build, replace every occurrence with ` !important` (the whole build becomes important — never a partial mix); for a normal build, remove it entirely.
+- `%%IMPORTANT%%` — appended to every declaration value (before the `;`, no leading space, custom-property declarations included), replacing the shipped bundles' built-in `!important`. For a force build, replace every occurrence with ` !important` (the whole build becomes important — never a partial mix); for a normal build, remove it entirely, yielding an importance-free stylesheet.
 - A consumer build that still contains any `%%…%%` marker is invalid — every placeholder must be replaced.
 
 ## Grid

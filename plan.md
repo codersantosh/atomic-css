@@ -1,14 +1,14 @@
 # Master Migration Plan — atomic-css Architecture Adoption
 
-**Status:** plan only — no source, build, or compiled-CSS changes have been made.
+**Status:** executed — phases 0–6 complete (git history `c32324f`…`f0b9065`); this file is kept as the migration record and backlog.
 **Source of truth:** [ARCHITECTURE.md](ARCHITECTURE.md).
 
-**Docs state (done):**
+**Docs state (at plan time):**
 - `ARCHITECTURE.md` written and finalized (Standing section omitted per instruction).
 - `AGENTS.md` reduced to operational notes; all architecture rules removed in its favor.
 - `readme.md` received a targeted addition: the template bundle row and the
-  "CSS template (dynamic consumers)" subsection, **marked "Planned — not yet
-  available"** so user-facing docs never advertise a non-existent artifact.
+  "CSS template (dynamic consumers)" subsection, marked "Planned — not yet
+  available" at plan time; the markers were removed in Phase 1.6.
 - Review findings B1–B3 and NB1–NB5 addressed in docs; NB6 is a code cleanup
   scheduled below (Phase 3).
 
@@ -93,6 +93,29 @@ no `%%…%%` inside `var()` names or selectors.
   and wiring the placeholder transform.
 - Any rename of public classes/variables (breaking) — none planned.
 - Consumer transform tooling (PHP/WordPress placeholder replacement) — consumer-side.
+
+## Deferred residuals (post-migration)
+Known architecture deviations deliberately left for a separate milestone; each
+fix is behavior-changing and needs visual sign-off:
+
+1. **Demo utility re-implementation.** `demo/colormode-globalstyle/scss/css-properties.scss`
+   still re-implements the framework utility surface (ARCHITECTURE.md § Overrides).
+   Fixing means deleting the duplicate utilities and relying on `css/atomic.css`.
+2. **`.at-btn` dual ownership.** The legacy global button look lives in
+   `demo/colormode-globalstyle/scss/dynamic.scss`, while the identity/variants live
+   in `css-properties.scss` (ARCHITECTURE.md § Per-block output, "one class, one
+   owner"). Consolidation changes the demo's default button look.
+3. **Element-specificity demo rules.** Element rules at `css-properties.scss:37–88`
+   use element specificity instead of zero-specificity (ARCHITECTURE.md § General
+   rules); a `:where()` pass interacts with the `.at-btn` selector list in the same
+   file.
+4. **Missing tab behavior (content gap).** `color-mode.html`'s hidden panes were
+   marked with the never-defined `at-d-none`; the dead class was removed, but no
+   tab JavaScript exists. Implementing tabs is a content change, independent of the
+   class cleanup.
+5. **Dead `.at-post-ttl.at-typo` selector.** The HTML applies `at-typ`, not
+   `at-typo`; retargeting the rule applies 28px/700 to post titles (visible change —
+   separate design decision).
 
 ## Rollback
 Each phase is one commit (compiled CSS committed with source, per Build discipline);

@@ -8,7 +8,7 @@
 
 **Core Framework**
 - `/home/coder/atomic-css/scss/*`
-- `/home/coder/atomic-css/css/*`, `/home/coder/atomic-css/css-max/*`, `/home/coder/atomic-css/css-template/*` (build artifact; template is the dynamic-consumer source) **(to be created — see plan.md Phase 1)**
+- `/home/coder/atomic-css/css/*`, `/home/coder/atomic-css/css-max/*`, `/home/coder/atomic-css/css-template/*` (build artifact; template is the dynamic-consumer source)
 - `/home/coder/atomic-css/scripts/*`, `webpack.config.js`, `rtl-css-plugin.js`, `.bin/*`
 - `/home/coder/atomic-css/short-names.json`, `readme.md`
 
@@ -18,7 +18,7 @@
 **Key paths**
 - Prefix source of truth: `scss/css-variable.scss`
 - Grid class prefix source: `scss/grid_base/_variables.scss`
-- Bundle entries: `scss/grid.scss` (minimal), `scss/grid-max.scss` (max), `scss/grid-template.scss` (template — replica of the minimal bundle) **(to be created — see plan.md Phase 1)**
+- Bundle entries: `scss/grid.scss` (minimal), `scss/grid-max.scss` (max), `scss/grid-template.scss` (template — replica of the minimal bundle)
 - Shared partials: `scss/grid_base/`; mixins: `scss/grid_mixin/`
 - Naming legend: `short-names.json`
 - Reference variable set (consumer token source): `demo/colormode-globalstyle/scss/variable.scss`
@@ -52,7 +52,7 @@
 ### Bundles: exactly two shipped, one template
 - One SCSS source, shared partials. Two shipped entries (`css/atomic.css`, `css-max/atomic-max.css`), each with four generated outputs (`.css`, `.min.css`, `-rtl.css`, `.min-rtl.css`). Generated output is never hand-authored or hand-edited.
 - `atomic.css` MUST stay a strict subset of `atomic-max.css` (`check:parity`).
-- Bundles differ **only** via a dedicated partial included by one entry (e.g. `grid_base/_print-display.scss` — max only) or a flag. NEVER fork a shared partial per bundle. The existing `grid_minimal/_grid-framework.scss` / `grid_max/_grid-framework.scss` forks are legacy; do not create new forks, and converge them when touched.
+- Bundles differ **only** via a dedicated partial included by one entry (e.g. `grid_base/_print-display.scss` — max only) or a flag. NEVER fork a shared partial per bundle. The legacy `grid_minimal`/`grid_max` forks were converged into shared flag-gated partials: `grid_base/_grid-framework.scss` (`$orders-and-offsets`, set `true` only by `grid-max.scss`) and `grid_base/_custom-grid-5ths.scss` (`$offsets`, set `true` only by `grid-max.scss`). Do not create new forks.
 
 ### The template bundle (`css-template`) — dynamic-consumer source
 **Philosophy:** `atomic-css` provides a **CSS template**; WordPress, PHP, or any dynamic script language modifies the template and saves the result as **their own** build CSS. The framework source never needs to change for a consumer's dynamic needs. The template is a build artifact to be transformed, never linked as-is and never shipped as a finished stylesheet.
@@ -61,14 +61,15 @@
 - **`css-template` is a replica of `css/atomic.css` (the minimal bundle), not `css-max`.** It includes exactly what `scss/grid.scss` includes — same partial set, same exclusions (no `grid_base/_print-display.scss`, no order/offset generation). The dynamic consumer starts from the minimal surface and opts into more by composing with the other bundles; the template never silently grows to max.
   - Corollary: `css-template` MUST stay a structural mirror of `css/atomic.css` — same selectors, same order, only values/placeholders differing. A change to `scss/grid.scss` is applied to `scss/grid-template.scss` in the same commit.
 - Placeholders are the template's only dynamic points. They use the fixed `%%UPPER_SNAKE%%` form, are declared once per concept, and every one is documented in `readme.md`:
-  - `%%MOBILE_BREAKPOINT%%`, `%%TABLET_BREAKPOINT%%`, `%%DESKTOP_BREAKPOINT%%` … — breakpoint pixel values, so a dynamic consumer can regenerate all responsive infixes at its own values.
-  - `%%IMPORTANT%%` — appended after a value (before the `;`), so a dynamic consumer can turn any declaration into its `!important` build. **This is the only sanctioned selective-`!important` mechanism**: a consumer that needs the force build replaces `%%IMPORTANT%%` with ` !important` everywhere (the whole build becomes important — mirroring ATRC's dual build: normal CSS vs `!important` CSS, never a partial mix), or removes the token entirely for the normal build.
+  - `%%MOBILE_BREAKPOINT%%` (sm), `%%TABLET_BREAKPOINT%%` (md), `%%DESKTOP_BREAKPOINT%%` (lg), `%%LARGE_DESKTOP_BREAKPOINT%%` (xl), `%%EXTRA_LARGE_DESKTOP_BREAKPOINT%%` (xxl) — breakpoint pixel values written `%%…%%px` in the `min-width` queries, so a dynamic consumer can regenerate all responsive infixes at its own values.
+  - `%%IMPORTANT%%` — appended to **every** declaration value (after the value, before the `;`, no leading space; custom-property declarations included), replacing the shipped bundles' built-in `!important`, so a dynamic consumer can turn any declaration into its `!important` build. **This is the only sanctioned selective-`!important` mechanism**: a consumer that needs the force build replaces every occurrence with ` !important` (the whole build becomes important — mirroring ATRC's dual build: normal CSS vs `!important` CSS, never a partial mix); a consumer that needs the normal build removes every occurrence, yielding an importance-free build (the shipped flex/display/map/sticky forcing exists in the template only as this marker).
 
 Example — dynamic breakpoint:
 
 ```css
-/* Dynamic Breakpoint Placeholder */
-@media (max-width: %%MOBILE_BREAKPOINT%%px) {
+/* Dynamic Breakpoint Placeholder (the template mirrors the mobile-first
+   minimal bundle, so its queries are min-width) */
+@media (min-width: %%MOBILE_BREAKPOINT%%px) {
 
 }
 ```
@@ -77,7 +78,7 @@ Example — dynamic importance:
 
 ```css
 .classes-of-atomic-css {
-    display: flex %%IMPORTANT%%;
+    display: flex%%IMPORTANT%%;
 }
 ```
 
@@ -102,7 +103,7 @@ Variables (`:root`) → Grid → Utilities → Properties, marked with `/*Grid*/
 - **Inert by default is the meaningful fallback.** For a utility, `initial` expresses "Global First — the framework imposes nothing." A utility that imposes styling without its variable being set is a defect.
 - **No new utility class without a real consumer** (demo or ATRC). No magic numbers — route values through variables.
 - Breakpoint utilities use the fixed infix set `xs/sm/md/lg/xl/xxl`, `min-width` only (the template exposes the breakpoint values for consumers whose direction requires `max-width`).
-- **`!important` in shipped bundles is limited to:** the flex, display, and print-display utility groups, plus the map (`.at-map`) and sticky (`.at-stky`) blocks in the Properties layer (deliberate: these must beat variable-driven base styles and consumer base rules). No new `!important` may be added beyond these groups; new importance needs exist only via `%%IMPORTANT%%` in the template.
+- **`!important` in shipped bundles is limited to:** the flex, display, and print-display utility groups, plus the map (`.at-map`) and sticky (`.at-stky`) blocks in the Properties layer (deliberate: these must beat variable-driven base styles and consumer base rules). No new `!important` may be added beyond these groups; new importance needs exist only via `%%IMPORTANT%%` in the template (the template carries the marker in place of these flags — see § The template bundle).
 
 ### Identity classes are consumer-owned
 - The framework ships **no component CSS**. Identity classes such as `.at-btn` are implemented by consumers (the rules in Part II § Identity classes define how).
@@ -309,7 +310,7 @@ Example — color variant and its state:
 ### Reference-consumer checklist (mirrors ATRC's generator checklist)
 - [ ] Every variable read has a meaningful fallback (`initial` for utilities; `transparent`/`currentColor`/`inherit` where intent says so in base layers).
 - [ ] Every state/device block that uses a variable re-declares it in that block.
-- [ ] Class tokens are drawn from `short-names.json`; nothing invented ad hoc.
+- [ ] Class tokens are drawn from `short-names.json`; nothing invented ad hoc (enforced by `check:names` for the bundles, the template, and the demo's compiled CSS).
 - [ ] Class prefix is `$appPrefix` and property prefix is `$varPrefix` — never mixed, never redefined.
 - [ ] No static or hardcoded values where a `--at-*` variable exists.
 - [ ] Zero-specificity layer order respected; active/pressed state last.
