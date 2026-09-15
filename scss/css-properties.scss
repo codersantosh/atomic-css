@@ -118,7 +118,7 @@ html {
 
     //Video background layer
     &-vid-bg {
-        // Seeded read: consumed by co-applied .at-pos/.at-w/.at-h/.at-z-idx
+        // Seeded read: consumed by co-applied .at-pos/.at-z-idx
         #{css-variable.$varPrefix}-pos: absolute;
         #{css-variable.$varPrefix}-z-idx: -1;
         #{css-variable.$varPrefix}-l: 0;
@@ -609,7 +609,7 @@ html {
 
     //Block Shape Element
     &-shp {
-        // Seeded read: consumed by co-applied .at-pos/.at-w/.at-h
+        // Seeded read: consumed by co-applied .at-pos/.at-w/.at-z-idx
         #{css-variable.$varPrefix}-pos: absolute;
         #{css-variable.$varPrefix}-w: 100%;
         #{css-variable.$varPrefix}-l: 0;
