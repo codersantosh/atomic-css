@@ -7,17 +7,17 @@
 /*Grid*/
 /*Grid Container widths*/
 .at-ctnr-min {
-  max-width: var(--at-ctnr-min)%%IMPORTANT%%;
-  padding-right: var(--at-gtr)%%IMPORTANT%%;
-  padding-left: var(--at-gtr)%%IMPORTANT%%;
+  max-width: var(--at-ctnr-min, 1100px)%%IMPORTANT%%;
+  padding-right: var(--at-gtr, 15px)%%IMPORTANT%%;
+  padding-left: var(--at-gtr, 15px)%%IMPORTANT%%;
   margin-right: auto%%IMPORTANT%%;
   margin-left: auto%%IMPORTANT%%;
 }
 
 .at-ctnr {
-  max-width: var(--at-ctnr)%%IMPORTANT%%;
-  padding-right: var(--at-gtr)%%IMPORTANT%%;
-  padding-left: var(--at-gtr)%%IMPORTANT%%;
+  max-width: var(--at-ctnr, 1140px)%%IMPORTANT%%;
+  padding-right: var(--at-gtr, 15px)%%IMPORTANT%%;
+  padding-left: var(--at-gtr, 15px)%%IMPORTANT%%;
   margin-right: auto%%IMPORTANT%%;
   margin-left: auto%%IMPORTANT%%;
 }
@@ -25,8 +25,8 @@
 /*Grid Fluid container*/
 .at-ctnr-fld {
   max-width: 100%%%IMPORTANT%%;
-  padding-right: var(--at-gtr)%%IMPORTANT%%;
-  padding-left: var(--at-gtr)%%IMPORTANT%%;
+  padding-right: var(--at-gtr, 15px)%%IMPORTANT%%;
+  padding-left: var(--at-gtr, 15px)%%IMPORTANT%%;
   margin-right: auto%%IMPORTANT%%;
   margin-left: auto%%IMPORTANT%%;
 }
@@ -38,8 +38,8 @@
   display: flex%%IMPORTANT%%;
   -ms-flex-wrap: wrap%%IMPORTANT%%;
       flex-wrap: wrap%%IMPORTANT%%;
-  margin-right: calc(var(--at-gtr) * -1)%%IMPORTANT%%;
-  margin-left: calc(var(--at-gtr) * -1)%%IMPORTANT%%;
+  margin-right: calc(var(--at-gtr, 15px) * -1)%%IMPORTANT%%;
+  margin-left: calc(var(--at-gtr, 15px) * -1)%%IMPORTANT%%;
 }
 
 .at-no-gtr {
@@ -84,8 +84,8 @@
   position: relative%%IMPORTANT%%;
   width: 100%%%IMPORTANT%%;
   min-height: 1px%%IMPORTANT%%;
-  padding-right: var(--at-gtr)%%IMPORTANT%%;
-  padding-left: var(--at-gtr)%%IMPORTANT%%;
+  padding-right: var(--at-gtr, 15px)%%IMPORTANT%%;
+  padding-left: var(--at-gtr, 15px)%%IMPORTANT%%;
 }
 
 .at-col {
@@ -681,8 +681,8 @@
   position: relative%%IMPORTANT%%;
   width: 100%%%IMPORTANT%%;
   min-height: 1px%%IMPORTANT%%;
-  padding-right: var(--at-gtr)%%IMPORTANT%%;
-  padding-left: var(--at-gtr)%%IMPORTANT%%;
+  padding-right: var(--at-gtr, 15px)%%IMPORTANT%%;
+  padding-left: var(--at-gtr, 15px)%%IMPORTANT%%;
 }
 
 .at-col-2m3 {

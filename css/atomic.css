@@ -7,17 +7,17 @@
 /*Grid*/
 /*Grid Container widths*/
 .at-ctnr-min {
-  max-width: var(--at-ctnr-min);
-  padding-right: var(--at-gtr);
-  padding-left: var(--at-gtr);
+  max-width: var(--at-ctnr-min, 1100px);
+  padding-right: var(--at-gtr, 15px);
+  padding-left: var(--at-gtr, 15px);
   margin-right: auto;
   margin-left: auto;
 }
 
 .at-ctnr {
-  max-width: var(--at-ctnr);
-  padding-right: var(--at-gtr);
-  padding-left: var(--at-gtr);
+  max-width: var(--at-ctnr, 1140px);
+  padding-right: var(--at-gtr, 15px);
+  padding-left: var(--at-gtr, 15px);
   margin-right: auto;
   margin-left: auto;
 }
@@ -25,8 +25,8 @@
 /*Grid Fluid container*/
 .at-ctnr-fld {
   max-width: 100%;
-  padding-right: var(--at-gtr);
-  padding-left: var(--at-gtr);
+  padding-right: var(--at-gtr, 15px);
+  padding-left: var(--at-gtr, 15px);
   margin-right: auto;
   margin-left: auto;
 }
@@ -38,8 +38,8 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-right: calc(var(--at-gtr) * -1);
-  margin-left: calc(var(--at-gtr) * -1);
+  margin-right: calc(var(--at-gtr, 15px) * -1);
+  margin-left: calc(var(--at-gtr, 15px) * -1);
 }
 
 .at-no-gtr {
@@ -84,8 +84,8 @@
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: var(--at-gtr);
-  padding-left: var(--at-gtr);
+  padding-right: var(--at-gtr, 15px);
+  padding-left: var(--at-gtr, 15px);
 }
 
 .at-col {
@@ -681,8 +681,8 @@
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: var(--at-gtr);
-  padding-left: var(--at-gtr);
+  padding-right: var(--at-gtr, 15px);
+  padding-left: var(--at-gtr, 15px);
 }
 
 .at-col-2m3 {
