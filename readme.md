@@ -18,7 +18,7 @@ global CSS instead:
 Structural helpers (`.at-ovl`, `.at-blk-shp`, `.at-shp`, `.at-vrt`, …) now use
 plain-CSS geometry — they no longer publish `--at-*` values for their own
 layout. Their documented seeded reads for co-applied utilities (`.at-pos`,
-`.at-w`, `.at-h`, `.at-z-idx`) are unchanged.
+`.at-w`, `.at-z-idx`) are unchanged.
 
 ## Quick start
 

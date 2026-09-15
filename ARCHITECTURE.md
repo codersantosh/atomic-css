@@ -106,12 +106,12 @@ Variables (`:root`) → Grid → Utilities → Properties, marked with `/*Grid*/
 - **`!important` in shipped bundles is limited to:** the flex, display, and print-display utility groups, plus the sticky (`.at-stky`) block in the Properties layer (deliberate: these must beat variable-driven base styles and consumer base rules). No new `!important` may be added beyond these groups; new importance needs exist only via `%%IMPORTANT%%` in the template (the template carries the marker in place of these flags — see § The template bundle).
 
 ### Structural classes (framework-owned geometry)
-A small fixed set of classes is **structural**: the framework owns their geometry so compositions (overlays, block shapes, sticky columns, vertical layouts) work without a consumer stylesheet.
+A small fixed set of **Properties-layer** classes is **structural**: the framework owns their geometry so compositions (overlays, block shapes, sticky columns, vertical layouts) work without a consumer stylesheet.
 
 - Fixed set — nothing else may be added without a rule change: `.at-dropcap::first-letter`, `.at-svg-wrp`, `.at-ovl` (`-cl`/`-grd`), `.at-blk-shp`, `.at-shp` (`-t`/`-b`), `.at-bg-vid`, `.at-vid-bg`, `.at-has-abs-wrp`, `.at-abs-el`, `.at-stky`, `.at-vrt` (`-hdr`/`-conts`).
 - **Plain CSS is mandatory.** Geometry is written as raw declarations (`position: absolute`, `z-index: -1`, `line-height: 0`, …). A structural class MUST NOT set a `--at-*` variable and read it back in the same rule (self-set-then-read).
 - **`var()` is allowed only for consumer-configured values** — a property whose value a consumer is expected to set (e.g. `.at-svg-wrp svg { width: var(--at-w, inherit) }`, `.at-vrt { gap: var(--at-vrt-gap, var(--at-gap, 15px)) }`, `.at-ovl::after`'s `transition`), never for the class's own fixed geometry.
-- **Seeded reads are allowed and MUST be commented.** A structural class may seed a `--at-*` value consumed by a co-applied utility on the same or a child element (e.g. `.at-shp` seeds `--at-pos`/`--at-w`/`--at-l`/`--at-z-idx` for co-applied `.at-pos`/`.at-w`/`.at-h`/`.at-z-idx`). Every seed carries a `// Seeded read:` comment naming the consumer; uncommented seeds are defects.
+- **Seeded reads are allowed and MUST be commented.** A structural class may seed a `--at-*` value consumed by a co-applied utility on the same or a child element (e.g. `.at-shp` seeds `--at-pos`/`--at-w`/`--at-l`/`--at-z-idx` for co-applied `.at-pos`/`.at-w`/`.at-z-idx`). Every seed carries a `// Seeded read:` comment naming the consumer; uncommented seeds are defects.
 - **Element/media defaults (`img`, `video`, `audio`, map sizing) are consumer-global.** The framework ships no media-sizing identities; consumers declare those defaults once in their own global CSS (zero-specificity element rules — see Part II § General rules).
 
 ### Identity classes are consumer-owned
