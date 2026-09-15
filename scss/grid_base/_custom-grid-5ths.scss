@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "../css-variable";
 @use "variables";
 @use "../grid_mixin/breakpoints";
 
@@ -11,8 +12,8 @@ $offsets: false !default;
 /*custom 5th col */
 
 @mixin make-col-5($size, $columns: variables.$grid-columns5) {
-    flex: 0 0 calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
-    max-width: calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
+    flex: 0 0 calc((($size / $columns) * 100%) - var(#{css-variable.$varPrefix}-col-gap, var(#{css-variable.$varPrefix}-gap, 0px)) * (($columns - $size) / $columns));
+    max-width: calc((($size / $columns) * 100%) - var(#{css-variable.$varPrefix}-col-gap, var(#{css-variable.$varPrefix}-gap, 0px)) * (($columns - $size) / $columns));
 }
 
 @mixin make-col-offset5($size, $columns: variables.$grid-columns5) {
@@ -33,8 +34,8 @@ $offsets: false !default;
     position: relative;
     width: 100%;
     min-height: 1px; // Prevent columns from collapsing when empty
-    padding-right: var(--at-gtr);
-    padding-left: var(--at-gtr);
+    padding-right: var(#{css-variable.$varPrefix}-gtr);
+    padding-left: var(#{css-variable.$varPrefix}-gtr);
 }
 
 @each $breakpoint in map.keys(variables.$grid-breakpoints) {

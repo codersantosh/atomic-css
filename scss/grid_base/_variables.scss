@@ -1,3 +1,4 @@
+@use "../css-variable";
 @use "functions";
 
 // Variables
@@ -21,11 +22,11 @@ $grid-breakpoints: (
 
 // Grid containers
 $container-max-widths: (
-    sm: var(--at-ctnr),
-    md: var(--at-ctnr),
-    lg: var(--at-ctnr),
-    xl: var(--at-ctnr),
-    xxl: var(--at-ctnr),
+    sm: var(#{css-variable.$varPrefix}-ctnr),
+    md: var(#{css-variable.$varPrefix}-ctnr),
+    lg: var(#{css-variable.$varPrefix}-ctnr),
+    xl: var(#{css-variable.$varPrefix}-ctnr),
+    xxl: var(#{css-variable.$varPrefix}-ctnr),
     ) !default;
 // NOTE: container-max-widths hold var() references, not numbers, so ascending
 // order cannot be asserted for them. Breakpoints below are the numeric map.

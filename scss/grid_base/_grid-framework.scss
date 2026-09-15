@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "../css-variable";
 @use "variables";
 @use "../grid_mixin/breakpoints";
 @use "../grid_mixin/grid-mixin";
@@ -15,8 +16,8 @@ $orders-and-offsets: false !default;
     position: relative;
     width: 100%;
     min-height: 1px; // Prevent columns from collapsing when empty
-    padding-right: var(--at-gtr);
-    padding-left: var(--at-gtr);
+    padding-right: var(#{css-variable.$varPrefix}-gtr);
+    padding-left: var(#{css-variable.$varPrefix}-gtr);
 }
 
 
@@ -61,8 +62,8 @@ $orders-and-offsets: false !default;
 
             // Add custom column properties for this breakpoint
             .#{variables.$grid-col-prefix}#{$infix}-cust {
-                flex: 0 0 var(--at-cust-w);
-                max-width: var(--at-cust-w);
+                flex: 0 0 var(#{css-variable.$varPrefix}-cust-w);
+                max-width: var(#{css-variable.$varPrefix}-cust-w);
             }
 
             @for $i from 1 through $columns {
