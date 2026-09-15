@@ -39,27 +39,6 @@ html {
         }
     }
 
-    //Text  include typo and color* - HTML Elements
-    &-txt,
-    &-txt * {
-        // Font/Typography group
-        // TODO? font has many other properties but I think we dont need them all;
-        font-size: var(#{css-variable.$varPrefix}-fnt-sz, initial);
-        font-weight: var(#{css-variable.$varPrefix}-fnt-wt, initial);
-        font-family: var(#{css-variable.$varPrefix}-fnt-fam, initial);
-        font-style: var(#{css-variable.$varPrefix}-fnt-sty, initial);
-        text-transform: var(#{css-variable.$varPrefix}-txt-tf, initial);
-
-        //text-decoration: text-decoration-line text-decoration-color text-decoration-style text-decoration-thickness|initial|inherit; (value options)
-        text-decoration: var(#{css-variable.$varPrefix}-txt-dec, initial);
-
-        line-height: var(#{css-variable.$varPrefix}-ln-h, initial);
-        letter-spacing: var(#{css-variable.$varPrefix}-ltr-sp, initial);
-
-        // color: color|initial|inherit; (value options)
-        color: var(#{css-variable.$varPrefix}-cl, initial);
-    }
-
     &-txt {
         &-al {
             // text-align: left|right|center|justify|initial|inherit; (value options)
@@ -83,37 +62,8 @@ html {
     }
 
     &-dropcap::first-letter {
-        font-size: var(#{css-variable.$varPrefix}-fnt-sz, initial);
-        font-weight: var(#{css-variable.$varPrefix}-fnt-wt, initial);
-        font-family: var(#{css-variable.$varPrefix}-fnt-fam, initial);
-        font-style: var(#{css-variable.$varPrefix}-fnt-sty, initial);
-        text-transform: var(#{css-variable.$varPrefix}-txt-tf, initial);
-        text-decoration: var(#{css-variable.$varPrefix}-txt-dec, initial);
-        line-height: var(#{css-variable.$varPrefix}-ln-h, initial);
-        letter-spacing: var(#{css-variable.$varPrefix}-ltr-sp, initial);
-
-        // color: color|initial|inherit; (value options)
-        color: var(#{css-variable.$varPrefix}-cl, initial);
-        background-color: var(#{css-variable.$varPrefix}-bg-cl, initial);
-        margin: var(#{css-variable.$varPrefix}-m, initial);
-        padding: var(#{css-variable.$varPrefix}-p, initial);
-
-        // border-color: color|transparent|initial|inherit;(value options)
-        border-color: var(#{css-variable.$varPrefix}-bdr-cl, initial);
-
-        // border-width: medium|thin|thick|length|initial|inherit; (4sides & value options)
-        border-width: var(#{css-variable.$varPrefix}-bdr-w, initial);
-
-        // border-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit; (4sides & value options)
-        border-style: var(#{css-variable.$varPrefix}-bdr-sty, initial);
-
-        // border-radius: 1-4 length|% / 1-4 length|%|initial|inherit; (4sides & value options)
-        border-radius: var(#{css-variable.$varPrefix}-bdr-rad, initial);
-
-        // box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit; (value options)
-        box-shadow: var(#{css-variable.$varPrefix}-box-sdw, initial);
-
-        //added float (must have float left)
+        // Structural dropcap only — all styling values arrive as raw
+        // `::first-letter` declarations from the block CSS.
         float: left;
     }
 
@@ -358,6 +308,32 @@ html {
     &-cl {
         // color: color|initial|inherit;(value options)
         color: var(#{css-variable.$varPrefix}-cl, initial);
+    }
+
+    // Text typography utilities — each consumes its matching --at-* variable.
+    &-fnt-sz {
+        font-size: var(#{css-variable.$varPrefix}-fnt-sz, initial);
+    }
+    &-fnt-wt {
+        font-weight: var(#{css-variable.$varPrefix}-fnt-wt, initial);
+    }
+    &-fnt-fam {
+        font-family: var(#{css-variable.$varPrefix}-fnt-fam, initial);
+    }
+    &-fnt-sty {
+        font-style: var(#{css-variable.$varPrefix}-fnt-sty, initial);
+    }
+    &-txt-tf {
+        text-transform: var(#{css-variable.$varPrefix}-txt-tf, initial);
+    }
+    &-txt-dec {
+        text-decoration: var(#{css-variable.$varPrefix}-txt-dec, initial);
+    }
+    &-ln-h {
+        line-height: var(#{css-variable.$varPrefix}-ln-h, initial);
+    }
+    &-ltr-sp {
+        letter-spacing: var(#{css-variable.$varPrefix}-ltr-sp, initial);
     }
 
     //Clip Path

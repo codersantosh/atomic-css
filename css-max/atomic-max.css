@@ -2724,18 +2724,6 @@ html {
   -webkit-box-sizing: var(--at-box-szg, border-box);
           box-sizing: var(--at-box-szg, border-box);
 }
-.at-txt, .at-txt * {
-  font-size: var(--at-fnt-sz, initial);
-  font-weight: var(--at-fnt-wt, initial);
-  font-family: var(--at-fnt-fam, initial);
-  font-style: var(--at-fnt-sty, initial);
-  text-transform: var(--at-txt-tf, initial);
-  -webkit-text-decoration: var(--at-txt-dec, initial);
-          text-decoration: var(--at-txt-dec, initial);
-  line-height: var(--at-ln-h, initial);
-  letter-spacing: var(--at-ltr-sp, initial);
-  color: var(--at-cl, initial);
-}
 .at-txt-al {
   text-align: var(--at-txt-al, initial);
 }
@@ -2746,25 +2734,6 @@ html {
   text-overflow: var(--at-txt-ovf, initial);
 }
 .at-dropcap::first-letter {
-  font-size: var(--at-fnt-sz, initial);
-  font-weight: var(--at-fnt-wt, initial);
-  font-family: var(--at-fnt-fam, initial);
-  font-style: var(--at-fnt-sty, initial);
-  text-transform: var(--at-txt-tf, initial);
-  -webkit-text-decoration: var(--at-txt-dec, initial);
-          text-decoration: var(--at-txt-dec, initial);
-  line-height: var(--at-ln-h, initial);
-  letter-spacing: var(--at-ltr-sp, initial);
-  color: var(--at-cl, initial);
-  background-color: var(--at-bg-cl, initial);
-  margin: var(--at-m, initial);
-  padding: var(--at-p, initial);
-  border-color: var(--at-bdr-cl, initial);
-  border-width: var(--at-bdr-w, initial);
-  border-style: var(--at-bdr-sty, initial);
-  border-radius: var(--at-bdr-rad, initial);
-  -webkit-box-shadow: var(--at-box-sdw, initial);
-          box-shadow: var(--at-box-sdw, initial);
   float: left;
 }
 .at-tbl {
@@ -2913,6 +2882,31 @@ html {
 }
 .at-cl {
   color: var(--at-cl, initial);
+}
+.at-fnt-sz {
+  font-size: var(--at-fnt-sz, initial);
+}
+.at-fnt-wt {
+  font-weight: var(--at-fnt-wt, initial);
+}
+.at-fnt-fam {
+  font-family: var(--at-fnt-fam, initial);
+}
+.at-fnt-sty {
+  font-style: var(--at-fnt-sty, initial);
+}
+.at-txt-tf {
+  text-transform: var(--at-txt-tf, initial);
+}
+.at-txt-dec {
+  -webkit-text-decoration: var(--at-txt-dec, initial);
+          text-decoration: var(--at-txt-dec, initial);
+}
+.at-ln-h {
+  line-height: var(--at-ln-h, initial);
+}
+.at-ltr-sp {
+  letter-spacing: var(--at-ltr-sp, initial);
 }
 .at-clp-pth {
   clip-path: var(--at-clp-pth, initial);

@@ -68,6 +68,24 @@ Every class is a thin alias for a CSS property reading a matching variable, e.g.
 
 Abbreviations follow a documented legend (`bg-cl` = background-color, `bdr` = border, `tf` = transform, `msk` = mask, …) kept in [`short-names.json`](short-names.json).
 
+### Typography utilities
+
+Each typography property has its own utility class reading its matching `--at-*` variable:
+
+| Class | Property | Variable |
+| --- | --- | --- |
+| `.at-fnt-sz` | `font-size` | `--at-fnt-sz` |
+| `.at-fnt-wt` | `font-weight` | `--at-fnt-wt` |
+| `.at-fnt-fam` | `font-family` | `--at-fnt-fam` |
+| `.at-fnt-sty` | `font-style` | `--at-fnt-sty` |
+| `.at-txt-tf` | `text-transform` | `--at-txt-tf` |
+| `.at-txt-dec` | `text-decoration` | `--at-txt-dec` |
+| `.at-ln-h` | `line-height` | `--at-ln-h` |
+| `.at-ltr-sp` | `letter-spacing` | `--at-ltr-sp` |
+| `.at-cl` | `color` | `--at-cl` |
+
+> **Breaking Change**: The compound `.at-txt, .at-txt *` rule has been removed. `.at-txt` is now a marker class with no CSS declarations. Consumers apply individual typography utility classes conditionally. Additionally, `.at-dropcap::first-letter` only supplies structural `float: left`; all styling values arrive as raw `::first-letter` declarations from the block CSS.
+
 ## Theming
 
 Set variables on `:root`, on a theme container, or inline:
