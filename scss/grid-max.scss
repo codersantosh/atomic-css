@@ -2,8 +2,8 @@
 
 /*Grid*/
 @use "grid_base/grid-partials";
-@use "grid_max/grid-framework";
-@use "custom-grid-5ths";
+@use "grid_base/grid-framework" with ($orders-and-offsets: true);
+@use "grid_base/custom-grid-5ths" with ($offsets: true);
 
 /*Utilities*/
 @use "grid_base/flex";

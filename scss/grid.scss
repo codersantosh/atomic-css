@@ -2,8 +2,8 @@
 
 /*Grid*/
 @use 'grid_base/grid-partials';
-@use 'grid_minimal/grid-framework';
-@use 'grid_minimal/custom-grid-5ths';
+@use 'grid_base/grid-framework';
+@use 'grid_base/custom-grid-5ths';
 
 /*Utilities*/
 @use 'grid_base/flex';

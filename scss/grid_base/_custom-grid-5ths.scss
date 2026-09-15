@@ -1,12 +1,27 @@
 @use "sass:map";
-@use "../grid_base/variables";
+@use "variables";
 @use "../grid_mixin/breakpoints";
+
+// Unified custom fifths grid (converged from the legacy root
+// scss/custom-grid-5ths.scss and scss/grid_minimal/custom-grid-5ths.scss
+// forks). The shipped minimal bundles and the template use the default
+// ($offsets: false); the max bundle configures it to true.
+$offsets: false !default;
 
 /*custom 5th col */
 
 @mixin make-col-5($size, $columns: variables.$grid-columns5) {
     flex: 0 0 calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
     max-width: calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
+}
+
+@mixin make-col-offset5($size, $columns: variables.$grid-columns5) {
+    $num: calc($size / $columns);
+    @if $num == 0 {
+        margin-left: 0;
+    } @else {
+        margin-left: calc($num * 100%);
+    }
 }
 
 .#{variables.$grid-col-prefix}-2m3,
@@ -28,6 +43,13 @@
 
         .#{variables.$grid-col-prefix}#{$infix}-2m3 {
             @include make-col-5(1, 5);
+        }
+
+        // Fifths offsets are max-only.
+        @if $offsets {
+            .#{variables.$grid-prefix}-ofst#{$infix}-2m3 {
+                @include make-col-offset5(1, 5);
+            }
         }
     }
 }

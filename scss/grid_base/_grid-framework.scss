@@ -1,8 +1,15 @@
 @use "sass:map";
-@use "../grid_base/variables";
+@use "variables";
 @use "../grid_mixin/breakpoints";
 @use "../grid_mixin/grid-mixin";
 
+// Unified grid framework (converged from the legacy
+// grid_minimal/_grid-framework.scss and grid_max/_grid-framework.scss forks).
+// The shipped minimal bundles and the template use the default
+// ($orders-and-offsets: false); the max bundle configures it to true.
+$orders-and-offsets: false !default;
+
+/*Grid*/
 // Common properties for all breakpoints
 %grid-column {
     position: relative;
@@ -12,27 +19,28 @@
     padding-left: var(--at-gtr);
 }
 
+
 // Framework grid generation
 
 @mixin make-grid-columns($columns: variables.$grid-columns,
     $gutter: variables.$grid-gutter-width,
-    $breakpoints: variables.$grid-breakpoints) {
-
+    $breakpoints: variables.$grid-breakpoints,
+    $orders-and-offsets: false) {
 
     @each $breakpoint in map.keys($breakpoints) {
         $infix: breakpoints.breakpoint-infix($breakpoint, $breakpoints);
+
+        .#{variables.$grid-col-prefix}#{$infix},
+        .#{variables.$grid-col-prefix}#{$infix}-auto,
+        .#{variables.$grid-col-prefix}#{$infix}-cust {
+            @extend %grid-column;
+        }
 
         // Allow columns to stretch full width below their breakpoints
         @for $i from 1 through $columns {
             .#{variables.$grid-col-prefix}#{$infix}-#{$i} {
                 @extend %grid-column;
             }
-        }
-
-        .#{variables.$grid-col-prefix}#{$infix},
-        .#{variables.$grid-col-prefix}#{$infix}-auto,
-        .#{variables.$grid-col-prefix}#{$infix}-cust {
-            @extend %grid-column;
         }
 
         @include breakpoints.media-breakpoint-up($breakpoint, $breakpoints) {
@@ -50,6 +58,7 @@
                 max-width: none; // Reset earlier grid tiers
             }
 
+
             // Add custom column properties for this breakpoint
             .#{variables.$grid-col-prefix}#{$infix}-cust {
                 flex: 0 0 var(--at-cust-w);
@@ -62,27 +71,30 @@
                 }
             }
 
-            .#{variables.$grid-prefix}-ord#{$infix}-first {
-                order: -1;
-            }
-
-            .#{variables.$grid-prefix}-ord#{$infix}-last {
-                order: $columns + 1;
-            }
-
-            @for $i from 0 through $columns {
-                .#{variables.$grid-prefix}-ord#{$infix}-#{$i} {
-                    order: $i;
+            // Order and offset generation is max-only.
+            @if $orders-and-offsets {
+                .#{variables.$grid-prefix}-ord#{$infix}-first {
+                    order: -1;
                 }
-            }
 
-            // `$columns - 1` because offsetting by the width of an entire row isn't possible
-            @for $i from 0 through ($columns - 1) {
-                @if not($infix=='' and $i==0) {
+                .#{variables.$grid-prefix}-ord#{$infix}-last {
+                    order: $columns + 1;
+                }
 
-                    // Avoid emitting useless .offset-0
-                    .#{variables.$grid-prefix}-ofst#{$infix}-#{$i} {
-                        @include grid-mixin.make-col-offset($i, $columns);
+                @for $i from 0 through $columns {
+                    .#{variables.$grid-prefix}-ord#{$infix}-#{$i} {
+                        order: $i;
+                    }
+                }
+
+                // `$columns - 1` because offsetting by the width of an entire row isn't possible
+                @for $i from 0 through ($columns - 1) {
+                    @if not($infix=='' and $i==0) {
+
+                        // Avoid emitting useless .offset-0
+                        .#{variables.$grid-prefix}-ofst#{$infix}-#{$i} {
+                            @include grid-mixin.make-col-offset($i, $columns);
+                        }
                     }
                 }
             }
@@ -96,5 +108,5 @@
 // Common styles for small and large grid columns
 
 @if variables.$enable-grid-classes {
-    @include make-grid-columns();
+    @include make-grid-columns($orders-and-offsets: $orders-and-offsets);
 }
