@@ -34,7 +34,7 @@
 
 ## Shared Rules — Both Systems
 
-1. **Global First, Local Second** — base styling comes from the design system; local overrides are explicit and scoped. The framework ships only structural `:root` values (`--at-ctnr`, `--at-ctnr-min`, `--at-gtr`) and otherwise inert-by-default utilities; every actual value is supplied locally by a consumer setting a `--at-*` variable.
+1. **Global First, Local Second** — base styling comes from the design system; local overrides are explicit and scoped. The framework ships only structural `:root` values (`--at-ctnr`, `--at-ctnr-min`, `--at-gtr`) — repeated as direct `var()` fallbacks at the grid's use sites so the grid stays functional if a consumer strips or replaces the framework `:root` — and otherwise inert-by-default utilities; every actual value is supplied locally by a consumer setting a `--at-*` variable.
 2. **Mobile-First** — base rules target mobile; larger viewports are reached only via `min-width`.
 3. **Clean Semantic Markup** — use native semantic HTML; utility classes layer onto semantics, never replace it. Zero div soup.
 4. **Design Token Single Source of Truth** — exactly one legend (`short-names.json`) and one reference variable set (`demo/colormode-globalstyle/scss/variable.scss`). Never fork or alias either. Never merge the Core framework's structural tokens with the consumer's token root.
@@ -122,7 +122,7 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 
 ### Reference variable set
 - `demo/colormode-globalstyle/scss/variable.scss` MUST declare every `--at-*` the bundles read (and no orphaned vars), mirroring the prefix constants from `scss/css-variable.scss`. It is the one token source the demo and downstream dynamic systems reconcile against.
-- The core build's `:root` declares only `--at-ctnr`, `--at-ctnr-min`, `--at-gtr`.
+- The core build's `:root` declares only `--at-ctnr`, `--at-ctnr-min`, `--at-gtr`; the grid rules repeat the same defaults as direct fallbacks (`var(--at-ctnr, 1140px)`, `var(--at-ctnr-min, 1100px)`, `var(--at-gtr, 15px)`).
 - Present tokens (what a consumer's `:root` must look like) — palette tokens with state variants, structural tokens, and inert utility tokens:
 
 ```scss

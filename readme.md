@@ -74,8 +74,8 @@ Minified (`.min.css`) and RTL (`-rtl.css`, `.min-rtl.css`) variants exist for bo
 
 | Class | Behavior |
 | --- | --- |
-| `.at-ctnr` | Centered container — `max-width: var(--at-ctnr)`, gutters `var(--at-gtr)` |
-| `.at-ctnr-min` | Centered container using `--at-ctnr-min` |
+| `.at-ctnr` | Centered container — `max-width: var(--at-ctnr, 1140px)`, gutters `var(--at-gtr, 15px)` |
+| `.at-ctnr-min` | Centered container using `--at-ctnr-min` (fallback `1100px`) |
 | `.at-ctnr-fld` | Fluid (full-width) container |
 
 ### Row & columns
@@ -145,7 +145,58 @@ Set variables on `:root`, on a theme container, or inline:
 }
 ```
 
-The full reference variable set (with defaults) lives in [`demo/colormode-globalstyle/scss/variable.scss`](demo/colormode-globalstyle/scss/variable.scss); the core build itself declares only `--at-ctnr`, `--at-ctnr-min`, `--at-gtr`.
+### Framework defaults vs consumer-declared
+
+The framework declares **three** variables in `:root`; every other `--at-*`
+value is supplied by the consumer:
+
+| Variable | Default | Controls |
+| --- | --- | --- |
+| `--at-ctnr` | `1140px` | `.at-ctnr` max-width |
+| `--at-ctnr-min` | `1100px` | `.at-ctnr-min` max-width |
+| `--at-gtr` | `15px` | container/column padding and `.at-row` negative margins |
+
+The grid rules also carry the same defaults as direct `var()` fallbacks
+(`var(--at-ctnr, 1140px)`, `var(--at-gtr, 15px)`), so the grid stays functional
+if the framework `:root` is stripped or replaced. This resilience applies to
+the grid rules only — it does not extend the root-token contract to unrelated
+consumer CSS that reads `var(--at-ctnr)` or `var(--at-gtr)` without its own
+fallback. Consumer declarations always win, including scoped ones:
+
+```css
+/* loaded after the bundle */
+:root { --at-ctnr: 700px; --at-gtr: 20px; }
+
+@media (min-width: 576px) {
+  .at-ctnr { --at-ctnr: 540px; } /* element-scoped, as the demo does */
+}
+```
+
+The shipped container default is not responsive: re-declare `--at-ctnr` per
+breakpoint as the demo does
+([`demo/colormode-globalstyle/scss/dynamic.scss`](demo/colormode-globalstyle/scss/dynamic.scss)).
+
+Everything else is consumer-declared:
+
+- **Utility and gap tokens** — each utility stays inert until its variable is
+  set. `--at-gap` has no universal default: `.at-gap` and the grid column
+  offset resolve to `0` when unset, while `.at-vrt` uses `15px`
+  (`--at-vrt-gap` → `--at-gap` → `15px`); `--at-row-gap` and `--at-col-gap` fall
+  back to `--at-gap`.
+- **Palette and state tokens** — `--at-primary`, `--at-primary--hover`, … are
+  consumed by your own identity/variant classes (see [Buttons](#buttons)); state
+  variants use a double dash.
+- **Legacy alias fallbacks** — `--at-wrd-spg` and `--at-mix-blend-mode` are
+  optional; the active names are `--at-wrd-spc` and `--at-mix-blnd-mode`.
+- **Class-scoped seeds** — `--at-pos`, `--at-z-idx`, … published by structural
+  helpers (`.at-ovl`, `.at-shp`, …) for co-applied utilities; consumers never
+  declare these.
+
+The single reference set (all tokens with defaults) lives in
+[`demo/colormode-globalstyle/scss/variable.scss`](demo/colormode-globalstyle/scss/variable.scss);
+its plain-CSS equivalent is the `:root` block at the top of
+[`demo/colormode-globalstyle/colormode-globalstyle.css`](demo/colormode-globalstyle/colormode-globalstyle.css).
+Never fork or re-list it.
 
 ### Buttons
 
@@ -209,6 +260,10 @@ Variants consume the palette variables `--at-<color>` and `--at-<color>--hover`
 ```php
 wp_enqueue_style( 'atomic', 'url-path-to/css/atomic.min.css', array(), '2.0.0' );
 ```
+
+The enqueued bundle declares only the three structural variables
+(`--at-ctnr`, `--at-ctnr-min`, `--at-gtr`); the theme supplies the rest of the
+reference set (the grid itself relies on the built-in fallbacks otherwise).
 
 ## RTL
 
