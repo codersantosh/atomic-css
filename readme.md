@@ -148,14 +148,14 @@ demo `scss/css-properties.scss` shows the consumer pattern:
   --at-bdr-sty: initial;
   --at-p: 6px 12px;
 
-  cursor: var(--at-cur);
-  color: var(--at-cl);
-  background-color: var(--at-bg-cl);
-  font-size: var(--at-fnt-sz);
-  border-color: var(--at-bdr-cl);
-  border-width: var(--at-bdr-w);
-  border-style: var(--at-bdr-sty);
-  padding: var(--at-p);
+  cursor: var(--at-cur, pointer);
+  color: var(--at-cl, inherit);
+  background-color: var(--at-bg-cl, transparent);
+  font-size: var(--at-fnt-sz, 14px);
+  border-color: var(--at-bdr-cl, transparent);
+  border-width: var(--at-bdr-w, 0);
+  border-style: var(--at-bdr-sty, solid);
+  padding: var(--at-p, 6px 12px);
 }
 
 .at-btn-primary {
