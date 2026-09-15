@@ -158,7 +158,9 @@ $varPrefix: '--at';
 
     // mix-blend-mode (class token: blnd)
     #{$varPrefix}-mix-blnd-mode: initial;
-    // #{$varPrefix}-mix-blend-mode: initial; (legacy var name, still read as fallback)
+    // Legacy var name, read by the bundles as the nested fallback
+    // (var(--at-mix-blnd-mode, var(--at-mix-blend-mode, initial))).
+    #{$varPrefix}-mix-blend-mode: initial;
 
     // offser,offset-anchor and other offect  TODO?
 
