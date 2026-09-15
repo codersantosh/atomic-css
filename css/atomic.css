@@ -54,7 +54,7 @@
 
 /*Gap*/
 .at-gap {
-  gap: var(--at-gap);
+  gap: var(--at-gap, initial);
 }
 
 .at-row-gap {

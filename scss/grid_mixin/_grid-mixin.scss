@@ -31,7 +31,7 @@
 }
 
 @mixin make-gap() {
-	gap: var(#{css-variable.$varPrefix}-gap);
+	gap: var(#{css-variable.$varPrefix}-gap, initial);
 }
 
 @mixin make-row-gap() {
