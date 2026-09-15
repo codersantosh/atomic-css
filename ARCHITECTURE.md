@@ -34,7 +34,7 @@
 
 ## Shared Rules — Both Systems
 
-1. **Global First, Local Second** — base styling comes from the design system; local overrides are explicit and scoped. The framework ships only structural `:root` values (`--at-ctnr`, `--at-ctnr-min`, `--at-gtr`) — repeated as direct `var()` fallbacks at the grid's use sites so the grid stays functional if a consumer strips or replaces the framework `:root` — and otherwise inert-by-default utilities; every actual value is supplied locally by a consumer setting a `--at-*` variable.
+1. **Global First, Local Second** — base styling comes from the design system; local overrides are explicit and scoped. The framework ships **no `:root` variables**: the grid reads `--at-ctnr`, `--at-ctnr-min`, and `--at-gtr` with direct `var()` fallbacks (1140px / 1100px / 15px) so it is functional out of the box, and otherwise utilities are inert-by-default; every actual value is supplied locally by a consumer setting a `--at-*` variable.
 2. **Mobile-First** — base rules target mobile; larger viewports are reached only via `min-width`.
 3. **Clean Semantic Markup** — use native semantic HTML; utility classes layer onto semantics, never replace it. Zero div soup.
 4. **Design Token Single Source of Truth** — exactly one legend (`short-names.json`) and one reference variable set (`demo/colormode-globalstyle/scss/variable.scss`). Never fork or alias either. Never merge the Core framework's structural tokens with the consumer's token root.
@@ -96,7 +96,7 @@ Example — dynamic importance:
   - `%%IMPORTANT%%` placement is fixed: after the value, before the semicolon, on declarations only — never on selectors or at-rules.
 
 ### Compiled layer order (fixed)
-Variables (`:root`) → Grid → Utilities → Properties, marked with `/*Grid*/` `/*Utilities*/` `/*Properties*/` section comments (no inner space). The `/*Variables*/` marker is intentionally absent (dart-sass re-emits a comment above `@use` wherever that module is re-used). Reordering these layers silently changes which rule wins — it is an architecture defect. The template bundle preserves the same order as `css/atomic.css` so consumer transforms can anchor on it.
+Grid → Utilities → Properties, marked with `/*Grid*/` `/*Utilities*/` `/*Properties*/` section comments (no inner space). Reordering these layers silently changes which rule wins — it is an architecture defect. The template bundle preserves the same order as `css/atomic.css` so consumer transforms can anchor on it.
 
 ### Utility classes
 - **One class, one property, one variable:** `.at-x { property: var(--at-x, initial); }`. No utility hardcodes a value.
@@ -122,12 +122,12 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 
 ### Reference variable set
 - `demo/colormode-globalstyle/scss/variable.scss` MUST declare every `--at-*` the bundles read (and no orphaned vars), mirroring the prefix constants from `scss/css-variable.scss`. It is the one token source the demo and downstream dynamic systems reconcile against; enforced by `check:vars`.
-- The core build's `:root` declares only `--at-ctnr`, `--at-ctnr-min`, `--at-gtr`; the grid rules repeat the same defaults as direct fallbacks (`var(--at-ctnr, 1140px)`, `var(--at-ctnr-min, 1100px)`, `var(--at-gtr, 15px)`).
+- The core build declares **no `:root` variables**; the grid's three structural defaults are direct fallbacks (`var(--at-ctnr, 1140px)`, `var(--at-ctnr-min, 1100px)`, `var(--at-gtr, 15px)`). The reference set still declares them so consumers can theme the grid.
 - Present tokens (what a consumer's `:root` must look like) — palette tokens with state variants, structural tokens, and inert utility tokens:
 
 ```scss
 :root {
-    // Structural (mirrored from scss/css-variable.scss)
+    // Structural (framework reads these as var() fallbacks; declare to theme)
     #{$varPrefix}-ctnr: 1140px;
     #{$varPrefix}-ctnr-min: 1100px;
     #{$varPrefix}-gtr: 15px;

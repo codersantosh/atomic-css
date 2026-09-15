@@ -131,6 +131,13 @@ fix is behavior-changing and needs visual sign-off:
    and map iframe — mirroring this repo's commit 3, and update the stale
    "do not duplicate atomic.css-owned identities" note in `base-theme.scss`.
    Identity selectors stay as-is; no re-pointing.
+8. **ATRC grid-token fallback (cross-repo, required by the `:root` removal).**
+   The framework no longer ships `--at-ctnr`/`--at-ctnr-min`/`--at-gtr` globals.
+   `packages/settings/inspector/blocks/molecules/feature-columns/style.scss`
+   reads `calc(var(--at-gtr) * 2)` without a fallback, so its equal-height row
+   gap collapses to 0 when neither `--at-gap` nor `--at-row-gap` is set. Fix:
+   `calc(var(--at-gtr, 15px) * 2)`, and refresh the copied minimal bundle in
+   `/home/coder/atrc/.storybook/library/atomic-css` (already tracked out of scope).
 
 ## Rollback
 Each phase is one commit (compiled CSS committed with source, per Build discipline);

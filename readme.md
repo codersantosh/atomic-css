@@ -20,6 +20,11 @@ plain-CSS geometry — they no longer publish `--at-*` values for their own
 layout. Their documented seeded reads for co-applied utilities (`.at-pos`,
 `.at-w`, `.at-z-idx`) are unchanged.
 
+The framework also ships **no `:root` variables**. `--at-ctnr`, `--at-ctnr-min`,
+and `--at-gtr` are consumed with built-in fallbacks (`var(--at-ctnr, 1140px)`,
+…); if your own CSS reads these variables from `:root` or an ancestor, declare
+them yourself — a bare `var(--at-ctnr)`/`var(--at-gtr)` no longer resolves.
+
 ## Quick start
 
 ```html
@@ -147,21 +152,20 @@ Set variables on `:root`, on a theme container, or inline:
 
 ### Framework defaults vs consumer-declared
 
-The framework declares **three** variables in `:root`; every other `--at-*`
-value is supplied by the consumer:
+The framework ships **no `:root` variables**. Its three structural grid values
+are direct `var()` fallbacks at the use sites; every other `--at-*` value is
+supplied by the consumer:
 
-| Variable | Default | Controls |
+| Variable | Fallback | Controls |
 | --- | --- | --- |
 | `--at-ctnr` | `1140px` | `.at-ctnr` max-width |
 | `--at-ctnr-min` | `1100px` | `.at-ctnr-min` max-width |
 | `--at-gtr` | `15px` | container/column padding and `.at-row` negative margins |
 
-The grid rules also carry the same defaults as direct `var()` fallbacks
-(`var(--at-ctnr, 1140px)`, `var(--at-gtr, 15px)`), so the grid stays functional
-if the framework `:root` is stripped or replaced. This resilience applies to
-the grid rules only — it does not extend the root-token contract to unrelated
-consumer CSS that reads `var(--at-ctnr)` or `var(--at-gtr)` without its own
-fallback. Consumer declarations always win, including scoped ones:
+The fallbacks apply to the grid rules only — they do not extend a token contract
+to unrelated consumer CSS that reads `var(--at-ctnr)` or `var(--at-gtr)` without
+its own fallback; declare the variable if your CSS reads it. Consumer
+declarations always win, including scoped ones:
 
 ```css
 /* loaded after the bundle */
@@ -172,7 +176,7 @@ fallback. Consumer declarations always win, including scoped ones:
 }
 ```
 
-The shipped container default is not responsive: re-declare `--at-ctnr` per
+The fallback container default is not responsive: re-declare `--at-ctnr` per
 breakpoint as the demo does
 ([`demo/colormode-globalstyle/scss/dynamic.scss`](demo/colormode-globalstyle/scss/dynamic.scss)).
 
@@ -261,8 +265,7 @@ Variants consume the palette variables `--at-<color>` and `--at-<color>--hover`
 wp_enqueue_style( 'atomic', 'url-path-to/css/atomic.min.css', array(), '2.0.0' );
 ```
 
-The enqueued bundle declares only the three structural variables
-(`--at-ctnr`, `--at-ctnr-min`, `--at-gtr`); the theme supplies the rest of the
+The enqueued bundle declares no `:root` variables; the theme supplies the
 reference set (the grid itself relies on the built-in fallbacks otherwise).
 
 ## RTL
