@@ -90,7 +90,7 @@ Example — dynamic importance:
 
 - Template rules:
   - Placeholders never appear inside `var()` names or class names — they only replace **values** (breakpoints, importance). Names stay stable so `check:names` keeps working.
-  - The template is excluded from `check:parity` (it is not a shipped bundle) but MUST pass `check:names` and `npm run lint`.
+  - The template is excluded from `check:parity` (it is not a shipped bundle) but MUST pass `check:names`, `check:vars`, and `npm run lint`.
   - A consumer transform MUST replace every placeholder; a build that still contains `%%…%%` is invalid.
   - No third shipped variant is ever added: the framework ships normal + max + template sources; importance/breakpoint specialization happens in the consumer's own saved build, not here.
   - `%%IMPORTANT%%` placement is fixed: after the value, before the semicolon, on declarations only — never on selectors or at-rules.
@@ -121,7 +121,7 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 - **Seeded reads** are a deliberate, commented pattern (see Part II).
 
 ### Reference variable set
-- `demo/colormode-globalstyle/scss/variable.scss` MUST declare every `--at-*` the bundles read (and no orphaned vars), mirroring the prefix constants from `scss/css-variable.scss`. It is the one token source the demo and downstream dynamic systems reconcile against.
+- `demo/colormode-globalstyle/scss/variable.scss` MUST declare every `--at-*` the bundles read (and no orphaned vars), mirroring the prefix constants from `scss/css-variable.scss`. It is the one token source the demo and downstream dynamic systems reconcile against; enforced by `check:vars`.
 - The core build's `:root` declares only `--at-ctnr`, `--at-ctnr-min`, `--at-gtr`; the grid rules repeat the same defaults as direct fallbacks (`var(--at-ctnr, 1140px)`, `var(--at-ctnr-min, 1100px)`, `var(--at-gtr, 15px)`).
 - Present tokens (what a consumer's `:root` must look like) — palette tokens with state variants, structural tokens, and inert utility tokens:
 
@@ -172,7 +172,7 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 
 ### Build discipline
 - NEVER hand-edit `css/*.css`, `css-max/*.css`, `css-template/*.css`, or demo compiled CSS. Edit `scss/**` and run `npm run build`; commit regenerated CSS **with** the source change in a single commit.
-- `npm run build` must exit 0 with zero sass warnings and green `verify` (parity + naming); `npm run lint` must be clean — always, before committing.
+- `npm run build` must exit 0 with zero sass warnings and green `verify` (parity + naming + variables); `npm run lint` must be clean — always, before committing.
 - Never commit `dev` output over `build` output; never commit `tmp/`, `.playwright-cli/`, or `css/backup*.css`.
 - Version bumps: `npm version X.Y.Z --no-git-tag-version` + sync the version param in `readme.md` (WordPress example).
 

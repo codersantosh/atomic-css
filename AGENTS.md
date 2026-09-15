@@ -14,9 +14,9 @@ the template artifact are defined in ARCHITECTURE.md (§ Bundles, § The templat
 bundle).
 
 ## 2. Commands
-- `npm run build` — full build + cleanup + `verify` (parity + naming). ALWAYS green before committing.
+- `npm run build` — full build + cleanup + `verify` (parity + naming + variables). ALWAYS green before committing.
 - `npm run lint` — stylelint. ALWAYS green.
-- `npm run verify` — `check:parity` (atomic.css ⊂ atomic-max.css) + `check:names` (every used token documented in `short-names.json`).
+- `npm run verify` — `check:parity` (atomic.css ⊂ atomic-max.css) + `check:names` (every used token documented in `short-names.json`) + `check:vars` (exact framework root globals, direct grid fallbacks, contextual gap chains, reference-set reconciliation, no alias tokens).
 - `npm run dev` — development build (source maps). Never commit `dev` output over `build` output.
 
 ## 3. Process notes (non-architectural)

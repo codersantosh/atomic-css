@@ -290,7 +290,7 @@ npm install atomic-css
 
 ```bash
 npm install
-npm run build   # build + cleanup + parity/naming verification
+npm run build   # build + cleanup + parity/naming/variables verification
 npm run lint    # stylelint
 ```
 

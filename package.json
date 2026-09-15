@@ -17,7 +17,8 @@
 		"lint": "stylelint \"scss/**/*.scss\" \"demo/colormode-globalstyle/**/*.scss\"",
 		"check:parity": "node scripts/check-parity.js",
 		"check:names": "node scripts/check-names.js",
-		"verify": "npm run check:parity && npm run check:names"
+		"check:vars": "node scripts/check-vars.js",
+		"verify": "npm run check:parity && npm run check:names && npm run check:vars"
 	},
 	"repository": {
 		"type": "git",
