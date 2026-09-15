@@ -119,6 +119,14 @@ fix is behavior-changing and needs visual sign-off:
 6. **Empty `class=""` attributes.** `color-mode.html` still carries 29 pre-existing
    empty class attributes (unrelated to the removed dead classes); cleaning them is
    markup hygiene and was deliberately left out of the behavior-neutral pass.
+7. **ATRC media/element identities (cross-repo, required for the 2.0.0 removal).**
+   Removing `.at-img`/`.at-vid`/`.at-aud`/`.at-map` breaks ATRC until its follow-up
+   lands: `packages/utils/base-theme.scss` deliberately declines to duplicate those
+   atomic.css identities, while
+   `packages/settings/global/pages/global-styles/blocks/utils.ts` still maps
+   `img`/`video`/`audio`/`map-google` to them. ATRC must add its own zero-specificity
+   element/media defaults (img/video/audio sizing + map iframe sizing) and re-point
+   those identity selectors, mirroring this repo's commit 3.
 
 ## Rollback
 Each phase is one commit (compiled CSS committed with source, per Build discipline);

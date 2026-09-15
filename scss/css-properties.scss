@@ -116,40 +116,14 @@ html {
         }
     }
 
-    //Image - UI Elements
-    //Always cover img tag with figure tag 
-    &-img {
-        #{css-variable.$varPrefix}-max-w: 100%;
-        max-width: var(#{css-variable.$varPrefix}-max-w);
-    }
-
-    //Video - UI Elements
-    //Always cover video tag with figure tag 
-    &-vid {
-        #{css-variable.$varPrefix}-max-w: 100%;
-        #{css-variable.$varPrefix}-w: 100%;
-        #{css-variable.$varPrefix}-h: 100%;
-        max-width: var(#{css-variable.$varPrefix}-max-w, initial);
-        width: var(#{css-variable.$varPrefix}-w, initial);
-        height: var(#{css-variable.$varPrefix}-h, initial);
-
-        &-bg {
-            // Seeded read: consumed by co-applied .at-pos/.at-w/.at-h/.at-z-idx
-            #{css-variable.$varPrefix}-pos: absolute;
-            #{css-variable.$varPrefix}-z-idx: -1;
-            #{css-variable.$varPrefix}-l: 0;
-            #{css-variable.$varPrefix}-t: 0;
-            object-fit: cover;
-        }
-    }
-
-    //Audio - UI Elements
-    //Always cover audio tag with figure tag 
-    &-aud {
-        #{css-variable.$varPrefix}-w: 100%;
-        #{css-variable.$varPrefix}-min-w: 217px;
-        width: var(#{css-variable.$varPrefix}-w, initial);
-        min-width: var(#{css-variable.$varPrefix}-min-w, initial);
+    //Video background layer
+    &-vid-bg {
+        // Seeded read: consumed by co-applied .at-pos/.at-w/.at-h/.at-z-idx
+        #{css-variable.$varPrefix}-pos: absolute;
+        #{css-variable.$varPrefix}-z-idx: -1;
+        #{css-variable.$varPrefix}-l: 0;
+        #{css-variable.$varPrefix}-t: 0;
+        object-fit: cover;
     }
 
     //CSS properties based Class 
@@ -436,12 +410,6 @@ html {
             // min-width: length|initial|inherit; (value options)
             min-width: var(#{css-variable.$varPrefix}-min-w, initial);
         }
-    }
-
-    //Map
-    &-map {
-        height: 100% !important;
-        width: 100% !important;
     }
 
     //Progress Bar handle by custom html/css

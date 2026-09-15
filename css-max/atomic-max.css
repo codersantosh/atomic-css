@@ -2769,18 +2769,6 @@ html {
   width: var(--at-w, inherit);
   height: var(--at-h, inherit);
 }
-.at-img {
-  --at-max-w: 100%;
-  max-width: var(--at-max-w);
-}
-.at-vid {
-  --at-max-w: 100%;
-  --at-w: 100%;
-  --at-h: 100%;
-  max-width: var(--at-max-w, initial);
-  width: var(--at-w, initial);
-  height: var(--at-h, initial);
-}
 .at-vid-bg {
   --at-pos: absolute;
   --at-z-idx: -1;
@@ -2788,12 +2776,6 @@ html {
   --at-t: 0;
   -o-object-fit: cover;
      object-fit: cover;
-}
-.at-aud {
-  --at-w: 100%;
-  --at-min-w: 217px;
-  width: var(--at-w, initial);
-  min-width: var(--at-min-w, initial);
 }
 .at-acl {
   accent-color: var(--at-acl, initial);
@@ -2932,10 +2914,6 @@ html {
 }
 .at-min-w {
   min-width: var(--at-min-w, initial);
-}
-.at-map {
-  height: 100% !important;
-  width: 100% !important;
 }
 .at-h {
   height: var(--at-h, initial);

@@ -1,6 +1,6 @@
 {
 	"name": "atomic-css",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"description": "A Flexbox Grid System using Webpack and CSS variables",
 	"files": [
 		"css",

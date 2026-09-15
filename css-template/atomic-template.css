@@ -2028,18 +2028,6 @@ html {
   width: var(--at-w, inherit)%%IMPORTANT%%;
   height: var(--at-h, inherit)%%IMPORTANT%%;
 }
-.at-img {
-  --at-max-w: 100%%%IMPORTANT%%;
-  max-width: var(--at-max-w)%%IMPORTANT%%;
-}
-.at-vid {
-  --at-max-w: 100%%%IMPORTANT%%;
-  --at-w: 100%%%IMPORTANT%%;
-  --at-h: 100%%%IMPORTANT%%;
-  max-width: var(--at-max-w, initial)%%IMPORTANT%%;
-  width: var(--at-w, initial)%%IMPORTANT%%;
-  height: var(--at-h, initial)%%IMPORTANT%%;
-}
 .at-vid-bg {
   --at-pos: absolute%%IMPORTANT%%;
   --at-z-idx: -1%%IMPORTANT%%;
@@ -2047,12 +2035,6 @@ html {
   --at-t: 0%%IMPORTANT%%;
   -o-object-fit: cover%%IMPORTANT%%;
      object-fit: cover%%IMPORTANT%%;
-}
-.at-aud {
-  --at-w: 100%%%IMPORTANT%%;
-  --at-min-w: 217px%%IMPORTANT%%;
-  width: var(--at-w, initial)%%IMPORTANT%%;
-  min-width: var(--at-min-w, initial)%%IMPORTANT%%;
 }
 .at-acl {
   accent-color: var(--at-acl, initial)%%IMPORTANT%%;
@@ -2191,10 +2173,6 @@ html {
 }
 .at-min-w {
   min-width: var(--at-min-w, initial)%%IMPORTANT%%;
-}
-.at-map {
-  height: 100%%%IMPORTANT%%;
-  width: 100%%%IMPORTANT%%;
 }
 .at-h {
   height: var(--at-h, initial)%%IMPORTANT%%;

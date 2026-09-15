@@ -2,6 +2,24 @@
 
 An atomic/utility CSS framework built on **CSS custom properties** and a **Flexbox grid system**. Every utility class (`.at-*`) reads its value from a matching CSS variable (`--at-*`), so theming is done entirely in variables — no class overrides, no JavaScript runtime.
 
+## Breaking changes in 2.0.0
+
+The framework no longer ships element/media sizing classes. `.at-img`, `.at-vid`,
+`.at-aud`, and `.at-map` were removed — declare those defaults once in your own
+global CSS instead:
+
+```css
+:where(img)   { max-width: 100%; height: auto; }
+:where(video) { max-width: 100%; width: 100%; height: 100%; }
+:where(audio) { width: 100%; min-width: 217px; }
+/* map (iframe) sizing is consumer-owned too, e.g. width: 100%; height: 100%; */
+```
+
+Structural helpers (`.at-ovl`, `.at-blk-shp`, `.at-shp`, `.at-vrt`, …) now use
+plain-CSS geometry — they no longer publish `--at-*` values for their own
+layout. Their documented seeded reads for co-applied utilities (`.at-pos`,
+`.at-w`, `.at-h`, `.at-z-idx`) are unchanged.
+
 ## Quick start
 
 ```html
@@ -189,7 +207,7 @@ Variants consume the palette variables `--at-<color>` and `--at-<color>--hover`
 ### WordPress
 
 ```php
-wp_enqueue_style( 'atomic', 'url-path-to/css/atomic.min.css', array(), '1.0.1' );
+wp_enqueue_style( 'atomic', 'url-path-to/css/atomic.min.css', array(), '2.0.0' );
 ```
 
 ## RTL

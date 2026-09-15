@@ -103,7 +103,16 @@ Variables (`:root`) → Grid → Utilities → Properties, marked with `/*Grid*/
 - **Inert by default is the meaningful fallback.** For a utility, `initial` expresses "Global First — the framework imposes nothing." A utility that imposes styling without its variable being set is a defect.
 - **No new utility class without a real consumer** (demo or ATRC). No magic numbers — route values through variables.
 - Breakpoint utilities use the fixed infix set `xs/sm/md/lg/xl/xxl`, `min-width` only (the template exposes the breakpoint values for consumers whose direction requires `max-width`).
-- **`!important` in shipped bundles is limited to:** the flex, display, and print-display utility groups, plus the map (`.at-map`) and sticky (`.at-stky`) blocks in the Properties layer (deliberate: these must beat variable-driven base styles and consumer base rules). No new `!important` may be added beyond these groups; new importance needs exist only via `%%IMPORTANT%%` in the template (the template carries the marker in place of these flags — see § The template bundle).
+- **`!important` in shipped bundles is limited to:** the flex, display, and print-display utility groups, plus the sticky (`.at-stky`) block in the Properties layer (deliberate: these must beat variable-driven base styles and consumer base rules). No new `!important` may be added beyond these groups; new importance needs exist only via `%%IMPORTANT%%` in the template (the template carries the marker in place of these flags — see § The template bundle).
+
+### Structural classes (framework-owned geometry)
+A small fixed set of classes is **structural**: the framework owns their geometry so compositions (overlays, block shapes, sticky columns, vertical layouts) work without a consumer stylesheet.
+
+- Fixed set — nothing else may be added without a rule change: `.at-dropcap::first-letter`, `.at-svg-wrp`, `.at-ovl` (`-cl`/`-grd`), `.at-blk-shp`, `.at-shp` (`-t`/`-b`), `.at-bg-vid`, `.at-vid-bg`, `.at-has-abs-wrp`, `.at-abs-el`, `.at-stky`, `.at-vrt` (`-hdr`/`-conts`).
+- **Plain CSS is mandatory.** Geometry is written as raw declarations (`position: absolute`, `z-index: -1`, `line-height: 0`, …). A structural class MUST NOT set a `--at-*` variable and read it back in the same rule (self-set-then-read).
+- **`var()` is allowed only for consumer-configured values** — a property whose value a consumer is expected to set (e.g. `.at-svg-wrp svg { width: var(--at-w, inherit) }`, `.at-vrt { gap: var(--at-vrt-gap, var(--at-gap, 15px)) }`, `.at-ovl::after`'s `transition`), never for the class's own fixed geometry.
+- **Seeded reads are allowed and MUST be commented.** A structural class may seed a `--at-*` value consumed by a co-applied utility on the same or a child element (e.g. `.at-shp` seeds `--at-pos`/`--at-w`/`--at-l`/`--at-z-idx` for co-applied `.at-pos`/`.at-w`/`.at-h`/`.at-z-idx`). Every seed carries a `// Seeded read:` comment naming the consumer; uncommented seeds are defects.
+- **Element/media defaults (`img`, `video`, `audio`, map sizing) are consumer-global.** The framework ships no media-sizing identities; consumers declare those defaults once in their own global CSS (zero-specificity element rules — see Part II § General rules).
 
 ### Identity classes are consumer-owned
 - The framework ships **no component CSS**. Identity classes such as `.at-btn` are implemented by consumers (the rules in Part II § Identity classes define how).
@@ -319,5 +328,6 @@ Example — color variant and its state:
 ### General rules
 - Do not declare new root custom properties outside the reference variable set. Check `short-names.json` before adding any new segment.
 - Element resets stay zero-specificity. Do not promote them to class rules. One owner per element type.
+- **Element/media defaults (`img`, `video`, `audio`, map sizing) are consumer-global.** The framework ships no `.at-img`/`.at-vid`/`.at-aud`/`.at-map` identities. The reference consumer declares them once as zero-specificity element rules (`:where(img)`, `:where(video)`, `:where(audio)`, map sizing) — never as reusable utility classes.
 - **Every variable read has a meaningful fallback.** `transparent` and `currentColor` are preferred over `initial` where they express intent; a missing fallback in a base-layer rule is a defect.
 - **RTL:** any directional property in a consumer rule or variant goes through a variable with a direction-neutral name (no `-left` / `-right` in the variable name), so the `atomic-css` RTL build can remap it.
