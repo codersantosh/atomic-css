@@ -6,7 +6,12 @@
 		"css",
 		"css-max",
 		"css-template",
-		"readme.md",
+		"docs",
+		"llms.txt",
+		"USAGE.md",
+		"ARCHITECTURE.md",
+		"short-names.json",
+		"README.md",
 		"LICENSE"
 	],
 	"scripts": {
@@ -15,10 +20,14 @@
 		"dev": "webpack --mode development",
 		"start": "webpack --watch --mode development",
 		"lint": "stylelint \"scss/**/*.scss\" \"demo/colormode-globalstyle/**/*.scss\"",
+		"docs": "node scripts/generate-docs.js",
+		"docs:check": "node scripts/generate-docs.js --check",
 		"check:parity": "node scripts/check-parity.js",
 		"check:names": "node scripts/check-names.js",
 		"check:vars": "node scripts/check-vars.js",
-		"verify": "npm run check:parity && npm run check:names && npm run check:vars"
+		"check:important": "node scripts/check-important.js",
+		"check:docs": "npm run docs:check",
+		"verify": "npm run check:parity && npm run check:names && npm run check:vars && npm run check:important && npm run check:docs"
 	},
 	"repository": {
 		"type": "git",

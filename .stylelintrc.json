@@ -1,10 +1,11 @@
 {
   "customSyntax": "postcss-scss",
-  "rules": {
-    "block-no-empty": true,
-    "color-no-invalid-hex": true,
-    "declaration-block-no-duplicate-properties": true,
-    "no-duplicate-selectors": true,
+	"rules": {
+		"block-no-empty": true,
+		"color-no-invalid-hex": true,
+		"declaration-block-no-duplicate-properties": true,
+		"declaration-no-important": true,
+		"no-duplicate-selectors": true,
     "no-empty-source": true,
     "property-no-unknown": [
       true,

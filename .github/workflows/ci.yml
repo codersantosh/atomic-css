@@ -19,11 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build CSS (includes parity + naming checks)
+      - name: Build CSS (includes parity + naming + variable + importance + docs checks)
         run: npm run build
 
       - name: Lint SCSS
         run: npm run lint
 
-      - name: Check for unexpected diff in committed CSS output
-        run: git diff --exit-code -- css css-max css-template demo/colormode-globalstyle
+      - name: Check for unexpected diff in committed CSS output and generated docs
+        run: git diff --exit-code -- css css-max css-template docs llms.txt USAGE.md README.md demo/colormode-globalstyle

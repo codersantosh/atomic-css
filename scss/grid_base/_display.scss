@@ -2,7 +2,6 @@
 @use "../grid_mixin/breakpoints";
 @use "variables";
 
-// stylelint-disable declaration-no-important
 
 //
 // Utilities for common `display` values
@@ -13,39 +12,39 @@
         $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
         .#{variables.$grid-prefix}#{$infix}-d-non {
-            display: none !important;
+            display: none;
         }
 
         .#{variables.$grid-prefix}#{$infix}-inl {
-            display: inline !important;
+            display: inline;
         }
 
         .#{variables.$grid-prefix}#{$infix}-inl-blk {
-            display: inline-block !important;
+            display: inline-block;
         }
 
         .#{variables.$grid-prefix}#{$infix}-blk {
-            display: block !important;
+            display: block;
         }
 
         .#{variables.$grid-prefix}#{$infix}-tbl {
-            display: table !important;
+            display: table;
         }
 
         .#{variables.$grid-prefix}#{$infix}-tbl-row {
-            display: table-row !important;
+            display: table-row;
         }
 
         .#{variables.$grid-prefix}#{$infix}-tbl-cel {
-            display: table-cell !important;
+            display: table-cell;
         }
 
         .#{variables.$grid-prefix}#{$infix}-flx {
-            display: flex !important;
+            display: flex;
         }
 
         .#{variables.$grid-prefix}#{$infix}-inl-flx {
-            display: inline-flex !important;
+            display: inline-flex;
         }
     }
 }

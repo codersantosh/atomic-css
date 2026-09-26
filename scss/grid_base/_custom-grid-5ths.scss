@@ -25,7 +25,13 @@ $offsets: false !default;
     }
 }
 
+// The column box every 2m3 term shares. This list must cover every term the
+// breakpoint loop below generates — `-xxl-2m3` was missing, so that term
+// shipped with the sizing pair but no box, no padding and no min-height.
+// scripts/generate-docs.js now derives the ladder and fails if any term loses
+// its geometry, so a term added to one place and not the other is caught.
 .#{variables.$grid-col-prefix}-2m3,
+.#{variables.$grid-col-prefix}-xxl-2m3,
 .#{variables.$grid-col-prefix}-xl-2m3,
 .#{variables.$grid-col-prefix}-lg-2m3,
 .#{variables.$grid-col-prefix}-md-2m3,

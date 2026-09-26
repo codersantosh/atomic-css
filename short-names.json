@@ -1,5 +1,5 @@
 {
-	"2m3": "2.5 of 3 (2 middle 3 — a custom column spanning 2 and a half of the 3 columns)",
+	"2m3": "fifths column, 1 of 5 (misleading token name; the shipped width is 20%, not 2.5 of 3)",
 	"abs": "absolute",
 	"acc": "accordion",
 	"accent": "accent",

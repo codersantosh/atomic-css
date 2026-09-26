@@ -626,9 +626,9 @@ html {
 
     //Sticky columns
     &-stky {
-        position: sticky !important;
-        top: 0 !important;
-        align-self: flex-start !important;
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
     }
 
     // If we want to wrap whole div by anchor and make it clickable or 

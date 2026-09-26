@@ -1,0 +1,55 @@
+# atomic-css (2.0.0)
+
+> Atomic/utility CSS framework built on CSS custom properties with a Flexbox grid. No JS runtime. Every class (`.at-*`) reads its value from a matching variable (`--at-*`), so theming is done entirely in variables. Install: `npm i atomic-css`.
+
+## The one rule
+
+A class applies the property; a variable supplies the value. **Neither works alone.**
+
+```html
+<div class="at-p" style="--at-p: 24px">works</div>
+```
+
+`initial` is the deliberate fallback for almost every utility, so the framework imposes nothing until you set the variable. If a utility "does nothing", you have not set its variable.
+
+## Bundles
+
+| File | Role |
+| --- | --- |
+| `css/atomic.css` | Minimal — the default bundle. Link this. Also `.min`, `-rtl`, `.min-rtl`. |
+| `css-max/atomic-max.css` | Superset — adds `at-ord-*`, `at-ofst-*`, `at-prt-*`. Also `.min`, `-rtl`, `.min-rtl`. |
+| `css-template/atomic-template.css` | Build input for WordPress/PHP — breakpoint and `%%IMPORTANT%%` markers. **Never link it.** |
+
+Class counts and file sizes: `docs/CLASS-REFERENCE.md` (generated, never stale).
+
+## Rules for agents
+
+1. Never invent a class or variable — every framework name you use must appear in `docs/CLASS-REFERENCE.md`. Your own component/marker class names are yours to define and are not in there by design.
+2. Never link two bundles; max is a strict superset of minimal.
+3. Never link the template bundle.
+4. No shipped bundle carries `!important` — every utility is an ordinary (0,1,0) declaration, so consumer CSS can override it by specificity or order. Importance is opt-in and comes only from building with `css-template/atomic-template.css`; the `%%IMPORTANT%%` marker is the sole mechanism, and a partial mix is never valid.
+5. Only `--at-ctnr` (1140px), `--at-ctnr-min` (1100px) and `--at-gtr` (15px) ship a themeable default. Everything else falls back to `initial` — so it is inert — or to a property-appropriate keyword such as `inherit` or `none`. Read the fallback in the variable table before assuming a class does nothing.
+6. The framework ships no `:root` variables, no media-sizing classes and no component CSS. Media defaults, component classes and global resets are yours, at zero specificity.
+7. Mobile-first, `min-width` only. There is no `xs` breakpoint and no max-width variant; the infixes are `sm`, `md`, `lg`, `xl`, `xxl`. The only `xs`-named class is `.at-col-xs-2m3`, which is unprefixed.
+8. Override by redefining variables, never by rewriting properties.
+9. rtlcss mirrors declarations but not values inside `var()` — keep direction out of variable values. Link the `-rtl` file on RTL pages.
+10. Seeded reads (structural classes listed in the reference) declare a variable for a co-applied utility. A seed alone does nothing.
+
+## Agent docs
+
+- `USAGE.md` — task-oriented guide: grid, responsive, flex, property utilities, structural classes, theming, RTL, template transform.
+- `docs/CLASS-REFERENCE.md` — generated lookup: every class, variable, breakpoint and legend token.
+- `docs/CLASS-REFERENCE.json` — the same inventory as JSON, for tooling.
+- `README.md` — install, bundle detail, the full button contract, WordPress enqueue.
+- `ARCHITECTURE.md` — the rules the framework itself follows.
+- `short-names.json` — token legend; names are assembled from these tokens, and the class and the variable share the same joined string.
+- The repository's `demo` directory (not shipped) — working pages: colour modes, organisms, templates.
+
+## Commands
+
+- `npm run docs` — regenerate the reference from the compiled CSS.
+- `npm run docs:check` — fail if the committed reference is stale, or if the docs break an invariant: template mirrors the minimal bundle, each class's breakpoint infix matches its compiled `min-width`, every class classifies, every 2m3 term keeps its column box, no example links two bundles, no doc names a class or variable that does not exist, and every section pointer, fragment and path in a shipped doc resolves inside the published tarball.
+- `npm run build` — build + verify (parity and layer order, names, vars, importance, docs).
+- `npm run lint` — stylelint.
+
+`AGENTS.md` covers contributing to the framework; this file and `USAGE.md` cover consuming it.

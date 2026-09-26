@@ -10,7 +10,7 @@
 - `/home/coder/atomic-css/scss/*`
 - `/home/coder/atomic-css/css/*`, `/home/coder/atomic-css/css-max/*`, `/home/coder/atomic-css/css-template/*` (build artifact; template is the dynamic-consumer source)
 - `/home/coder/atomic-css/scripts/*`, `webpack.config.js`, `rtl-css-plugin.js`, `.bin/*`
-- `/home/coder/atomic-css/short-names.json`, `readme.md`
+- `/home/coder/atomic-css/short-names.json`, `README.md`
 
 **Consumer Simulation (reference consumer)**
 - `/home/coder/atomic-css/demo/**` — the demo plays the role that ATRC's dynamic design system plays downstream. Every pattern a consumer (including ATRC) is expected to follow must be demonstrated here first.
@@ -23,7 +23,7 @@
 - Naming legend: `short-names.json`
 - Reference variable set (consumer token source): `demo/colormode-globalstyle/scss/variable.scss`
 - Consumer base theme (global semantic tag design): `demo/colormode-globalstyle/scss/dynamic.scss`
-- Consumer identity/variant reference pattern: `demo/colormode-globalstyle/scss/css-properties.scss` and `readme.md` (`.at-btn` contract)
+- Consumer identity/variant reference pattern: `demo/colormode-globalstyle/scss/css-properties.scss` and `README.md` (`.at-btn` contract)
 - Verifiers: `scripts/check-parity.js`, `scripts/check-names.js`
 
 **Two prefixes, one source.** `$appPrefix` (`.at`) is the **class-name prefix**; `$varPrefix` (`--at`) is the **custom-property prefix**. They are two different constants sourced from the same shared module (`scss/css-variable.scss`), never varied by bundle, breakpoint, or context within the framework (`scss/**`). The demo reference set redeclares the same constant values in its own compilation (Part II); its values MUST always match. Grid prefixes `$grid-prefix`/`$grid-col-prefix` exist only in `scss/grid_base/_variables.scss` (the two "at" declarations kept in sync).
@@ -38,6 +38,7 @@
 2. **Mobile-First** — base rules target mobile; larger viewports are reached only via `min-width`.
 3. **Clean Semantic Markup** — use native semantic HTML; utility classes layer onto semantics, never replace it. Zero div soup.
 4. **Design Token Single Source of Truth** — exactly one legend (`short-names.json`) and one reference variable set (`demo/colormode-globalstyle/scss/variable.scss`). Never fork or alias either. Never merge the Core framework's structural tokens with the consumer's token root.
+5. **Shipped CSS is Importance-Free** — no bundle carries `!important`, so a consumer's own rules can override any utility by specificity or order, and a consumer base theme can stay at zero specificity. Importance is opt-in through the template's `%%IMPORTANT%%` marker and is never partial.
 
 ---
 
@@ -47,7 +48,7 @@
 - Every `.at-*` class token MUST equal its `--at-*` variable token (`check:names` fails otherwise — e.g. `.at-wrd-spc` reads `--at-wrd-spc`).
 - Legacy tokens survive only as a nested fallback: `var(--at-new, var(--at-old, initial))` (e.g. `--at-wrd-spc` with `--at-wrd-spg` fallback).
 - Every abbreviation used in any class or variable token MUST be added to `short-names.json` in the same change.
-- Renames are **BREAKING**: require explicit sign-off, keep the legacy nested fallback for ≥ 1 release, and update `readme.md` in the same commit.
+- Renames are **BREAKING**: require explicit sign-off, keep the legacy nested fallback for ≥ 1 release, and update `README.md` in the same commit.
 
 ### Bundles: exactly two shipped, one template
 - One SCSS source, shared partials. Two shipped entries (`css/atomic.css`, `css-max/atomic-max.css`), each with four generated outputs (`.css`, `.min.css`, `-rtl.css`, `.min-rtl.css`). Generated output is never hand-authored or hand-edited.
@@ -60,9 +61,9 @@
 - A third entry (`scss/grid-template.scss` → `css-template/atomic-template.css`) is generated from the **same shared partials** as the shipped bundles (flag/dedicated partial — never a fork).
 - **`css-template` is a replica of `css/atomic.css` (the minimal bundle), not `css-max`.** It includes exactly what `scss/grid.scss` includes — same partial set, same exclusions (no `grid_base/_print-display.scss`, no order/offset generation). The dynamic consumer starts from the minimal surface and opts into more by composing with the other bundles; the template never silently grows to max.
   - Corollary: `css-template` MUST stay a structural mirror of `css/atomic.css` — same selectors, same order, only values/placeholders differing. A change to `scss/grid.scss` is applied to `scss/grid-template.scss` in the same commit.
-- Placeholders are the template's only dynamic points. They use the fixed `%%UPPER_SNAKE%%` form, are declared once per concept, and every one is documented in `readme.md`:
+- Placeholders are the template's only dynamic points. They use the fixed `%%UPPER_SNAKE%%` form, are declared once per concept, and every one is documented in `README.md`:
   - `%%MOBILE_BREAKPOINT%%` (sm), `%%TABLET_BREAKPOINT%%` (md), `%%DESKTOP_BREAKPOINT%%` (lg), `%%LARGE_DESKTOP_BREAKPOINT%%` (xl), `%%EXTRA_LARGE_DESKTOP_BREAKPOINT%%` (xxl) — breakpoint pixel values written `%%…%%px` in the `min-width` queries, so a dynamic consumer can regenerate all responsive infixes at its own values.
-  - `%%IMPORTANT%%` — appended to **every** declaration value (after the value, before the `;`, no leading space; custom-property declarations included), replacing the shipped bundles' built-in `!important`, so a dynamic consumer can turn any declaration into its `!important` build. **This is the only sanctioned selective-`!important` mechanism**: a consumer that needs the force build replaces every occurrence with ` !important` (the whole build becomes important — mirroring ATRC's dual build: normal CSS vs `!important` CSS, never a partial mix); a consumer that needs the normal build removes every occurrence, yielding an importance-free build (the shipped flex/display/map/sticky forcing exists in the template only as this marker).
+  - `%%IMPORTANT%%` — appended to **every** declaration value (after the value, before the `;`, no leading space; custom-property declarations included), so a dynamic consumer can turn any declaration into its `!important` build — the shipped bundles themselves carry none. **This is the only sanctioned selective-`!important` mechanism**: a consumer that needs the force build replaces every occurrence with ` !important` (the whole build becomes important — mirroring ATRC's dual build: normal CSS vs `!important` CSS, never a partial mix); a consumer that needs the normal build removes every occurrence, yielding a stylesheet identical in behaviour to the shipped bundles, which carry no importance of their own).
 
 Example — dynamic breakpoint:
 
@@ -96,14 +97,14 @@ Example — dynamic importance:
   - `%%IMPORTANT%%` placement is fixed: after the value, before the semicolon, on declarations only — never on selectors or at-rules.
 
 ### Compiled layer order (fixed)
-Grid → Utilities → Properties, marked with `/*Grid*/` `/*Utilities*/` `/*Properties*/` section comments (no inner space). Reordering these layers silently changes which rule wins — it is an architecture defect. The template bundle preserves the same order as `css/atomic.css` so consumer transforms can anchor on it.
+Grid → Utilities → Properties, marked with `/*Grid*/` `/*Utilities*/` `/*Properties*/` section comments (no inner space). Reordering these layers silently changes which rule wins — it is an architecture defect, and `check:parity` verifies the order on the compiled output. The order is **behaviourally load-bearing**, not merely conventional: `.at-stky` sets `position: sticky` while `.at-col-*` sets `position: relative`, and because nothing carries `!important`, the sticky rule wins only by coming later. Properties must therefore remain last. The template bundle preserves the same order as `css/atomic.css` so consumer transforms can anchor on it.
 
 ### Utility classes
 - **One class, one property, one variable:** `.at-x { property: var(--at-x, initial); }`. No utility hardcodes a value.
 - **Inert by default is the meaningful fallback.** For a utility, `initial` expresses "Global First — the framework imposes nothing." A utility that imposes styling without its variable being set is a defect.
 - **No new utility class without a real consumer** (demo or ATRC). No magic numbers — route values through variables.
 - Breakpoint utilities use the fixed infix set `xs/sm/md/lg/xl/xxl`, `min-width` only (the template exposes the breakpoint values for consumers whose direction requires `max-width`).
-- **`!important` in shipped bundles is limited to:** the flex, display, and print-display utility groups, plus the sticky (`.at-stky`) block in the Properties layer (deliberate: these must beat variable-driven base styles and consumer base rules). No new `!important` may be added beyond these groups; new importance needs exist only via `%%IMPORTANT%%` in the template (the template carries the marker in place of these flags — see § The template bundle).
+- **Shipped bundles carry no `!important`.** Every utility is an ordinary declaration, so a consumer's own rules can override it by specificity or order — which is what "Global First, Local Second" requires, and what lets a consumer base theme work at zero specificity (see § Consumer Simulation). Importance is available only through `%%IMPORTANT%%` in the template (see § The template bundle). Enforced on the compiled output by `check:important`; `declaration-no-important` in the stylelint config covers the source.
 
 ### Structural classes (framework-owned geometry)
 A small fixed set of **Properties-layer** classes is **structural**: the framework owns their geometry so compositions (overlays, block shapes, sticky columns, vertical layouts) work without a consumer stylesheet.
@@ -116,7 +117,7 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 
 ### Identity classes are consumer-owned
 - The framework ships **no component CSS**. Identity classes such as `.at-btn` are implemented by consumers (the rules in Part II § Identity classes define how).
-- **Variant registry** (documented in `readme.md`): solid group `at-btn-primary/-secondary/-success/-danger/-warning/-info/-light/-dark/-lnk`; outline group `at-btn-outln(-<color>)`; `at-btn-icon`. Adding a variant name means updating the registry in the same change.
+- **Variant registry** (documented in `README.md`): solid group `at-btn-primary/-secondary/-success/-danger/-warning/-info/-light/-dark/-lnk`; outline group `at-btn-outln(-<color>)`; `at-btn-icon`. Adding a variant name means updating the registry in the same change.
 - **State tokens use a double dash:** `--at-primary--hover`, `--at-primary--active`. No other convention, so state tokens are always greppable.
 - **Seeded reads** are a deliberate, commented pattern (see Part II).
 
@@ -174,7 +175,7 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 - NEVER hand-edit `css/*.css`, `css-max/*.css`, `css-template/*.css`, or demo compiled CSS. Edit `scss/**` and run `npm run build`; commit regenerated CSS **with** the source change in a single commit.
 - `npm run build` must exit 0 with zero sass warnings and green `verify` (parity + naming + variables); `npm run lint` must be clean — always, before committing.
 - Never commit `dev` output over `build` output; never commit `tmp/`, `.playwright-cli/`, or `css/backup*.css`.
-- Version bumps: `npm version X.Y.Z --no-git-tag-version` + sync the version param in `readme.md` (WordPress example).
+- Version bumps: `npm version X.Y.Z --no-git-tag-version` + sync the version param in `README.md` (WordPress example).
 
 ---
 
@@ -304,11 +305,11 @@ Example — color variant and its state:
 - **Inner components/blocks override only** by adding classes and setting `--at-*` custom properties — consumed by `atomic-css` utility classes from the bundle. Consumers never write raw property CSS where a utility + variable exists, and never reimplement an `atomic-css` utility.
 - **Exception:** external components such as WordPress or third-party libraries may need raw CSS and `!important` to override. Keep it scoped, commented, and minimal.
 - **`!important` is limited to:**
-  1. Cases where adding classes and customizing via CSS variables cannot win because the utility groups themselves use `!important` (see § Utility classes for the exhaustive group list) — the consumer takes the `%%IMPORTANT%%` transform of the template instead.
-  2. External-boundary isolation.
-  3. Registered force-reset utilities.
+   1. External-boundary isolation — an element the consumer does not control.
+   2. Registered force-reset utilities.
+   3. When the consumer's own sheet cannot win by specificity or order, building from the `%%IMPORTANT%%` transform of the template is the sanctioned route (the shipped bundles are importance-free, so there is no framework rule to fight).
 
-  Consumer-to-consumer conflicts are architecture defects — fix them at the source, never with `!important`.
+   Consumer-to-consumer conflicts are architecture defects — fix them at the source, never with `!important`.
 
 ### Per-block output
 - Per-block CSS emits **scoped custom-property values only**, consumed by `at-*` utilities.

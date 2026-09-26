@@ -7,38 +7,38 @@
 
 @media print {
     .#{variables.$grid-prefix}-prt-non {
-        display: none !important;
+        display: none;
     }
 
     .#{variables.$grid-prefix}-prt-inl {
-        display: inline !important;
+        display: inline;
     }
 
     .#{variables.$grid-prefix}-prt-inl-blk {
-        display: inline-block !important;
+        display: inline-block;
     }
 
     .#{variables.$grid-prefix}-prt-blk {
-        display: block !important;
+        display: block;
     }
 
     .#{variables.$grid-prefix}-prt-tbl {
-        display: table !important;
+        display: table;
     }
 
     .#{variables.$grid-prefix}-prt-tbl-row {
-        display: table-row !important;
+        display: table-row;
     }
 
     .#{variables.$grid-prefix}-prt-tbl-cel {
-        display: table-cell !important;
+        display: table-cell;
     }
 
     .#{variables.$grid-prefix}-prt-flx {
-        display: flex !important;
+        display: flex;
     }
 
     .#{variables.$grid-prefix}-prt-inl-flx {
-        display: inline-flex !important;
+        display: inline-flex;
     }
 }
