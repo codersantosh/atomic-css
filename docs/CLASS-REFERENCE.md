@@ -34,15 +34,15 @@ mechanism. A dedicated verifier enforces this on the compiled output; see `AGENT
 
 | File | Bytes | Role |
 | --- | --- | --- |
-| `css/atomic.css` | 65,347 | minimal bundle — link this by default |
-| `css/atomic.min.css` | 48,271 | minimal, minified |
-| `css/atomic-rtl.css` | 65,349 | minimal, RTL |
-| `css/atomic.min-rtl.css` | 48,273 | minimal, minified + RTL |
-| `css-max/atomic-max.css` | 79,065 | superset — adds order, offset and print |
-| `css-max/atomic-max.min.css` | 57,533 | superset, minified |
-| `css-max/atomic-max-rtl.css` | 79,144 | superset, RTL |
-| `css-max/atomic-max.min-rtl.css` | 57,612 | superset, minified + RTL |
-| `css-template/atomic-template.css` | 81,643 | transform source for WordPress/PHP — never a link target |
+| `css/atomic.css` | 65,315 | minimal bundle — link this by default |
+| `css/atomic.min.css` | 48,241 | minimal, minified |
+| `css/atomic-rtl.css` | 65,317 | minimal, RTL |
+| `css/atomic.min-rtl.css` | 48,243 | minimal, minified + RTL |
+| `css-max/atomic-max.css` | 79,033 | superset — adds order, offset and print |
+| `css-max/atomic-max.min.css` | 57,503 | superset, minified |
+| `css-max/atomic-max-rtl.css` | 79,112 | superset, RTL |
+| `css-max/atomic-max.min-rtl.css` | 57,582 | superset, minified + RTL |
+| `css-template/atomic-template.css` | 81,611 | transform source for WordPress/PHP — never a link target |
 
 ## Breakpoints
 
@@ -662,7 +662,7 @@ The framework owns this geometry so compositions work with no consumer styleshee
 | `.at-shp-b` | — | — | `--at-b` | — | both |
 | `.at-shp-t` | — | — | `--at-t` | — | both |
 | `.at-stky` | `align-self`, `position`, `top` | — | — | — | both |
-| `.at-svg-wrp` | `height`, `line-height`, `width` | `--at-h`, `--at-w` | — | — | both |
+| `.at-svg-wrp` | `height`, `line-height`, `width` | — | — | — | both |
 | `.at-vid-bg` | `object-fit` | — | `--at-l`, `--at-pos`, `--at-t`, `--at-z-idx` | — | both |
 | `.at-vrt` | `gap` | `--at-gap`, `--at-vrt-gap` | — | — | both |
 | `.at-vrt-conts` | `width` | `--at-gap`, `--at-vrt-gap`, `--at-vrt-w` | — | — | both |
@@ -765,7 +765,7 @@ The framework ships no component CSS, so nothing else consumes a seed.
 | `.at-bg-vid` | `--at-pos`, `--at-z-idx` | `.at-pos`, `.at-z-idx` |
 | `.at-blk-shp` | `--at-pos` | `.at-pos` |
 | `.at-ovl` | `--at-pos`, `--at-z-idx` | `.at-pos`, `.at-z-idx` |
-| `.at-shp` | `--at-l`, `--at-pos`, `--at-w`, `--at-z-idx` | `.at-pos`, `.at-svg-wrp`, `.at-w`, `.at-z-idx` |
+| `.at-shp` | `--at-l`, `--at-pos`, `--at-w`, `--at-z-idx` | `.at-pos`, `.at-w`, `.at-z-idx` |
 | `.at-shp-b` | `--at-b` | `.at-pos` |
 | `.at-shp-t` | `--at-t` | `.at-pos` |
 | `.at-vid-bg` | `--at-l`, `--at-pos`, `--at-t`, `--at-z-idx` | `.at-pos`, `.at-z-idx` |
@@ -811,7 +811,7 @@ fallback: the framework imposes nothing until you supply a value.
 | `--at-fnt-wt` | `initial` | 1 |
 | `--at-gap` | _(none — unset means invalid)_<br>`0px` _(in 78)_<br>`15px` _(in 2)_<br>`initial` _(in 1)_ | 83 |
 | `--at-gtr` | `15px` | 101 |
-| `--at-h` | `inherit` _(in 1)_<br>`initial` _(in 1)_ | 2 |
+| `--at-h` | `initial` | 1 |
 | `--at-l` | `initial` | 1 |
 | `--at-ln-h` | `initial` | 1 |
 | `--at-ls-img` | `none` | 1 |
@@ -863,7 +863,7 @@ fallback: the framework imposes nothing until you supply a value.
 | `--at-vis` | `initial` | 1 |
 | `--at-vrt-gap` | `var(--at-gap, 15px)` — contextual chain | 2 |
 | `--at-vrt-w` | `20%` | 2 |
-| `--at-w` | `inherit` _(in 1)_<br>`initial` _(in 1)_ | 2 |
+| `--at-w` | `initial` | 1 |
 | `--at-white-sp` | `initial` | 1 |
 | `--at-wrd-brk` | `initial` | 1 |
 | `--at-wrd-spc` | `var(--at-wrd-spg, initial)` — nested chain, legacy name `--at-wrd-spg` | 1 |
@@ -905,7 +905,7 @@ fallback: the framework imposes nothing until you supply a value.
 - `--at-fnt-wt` — .at-fnt-wt
 - `--at-gap` — .at-col-1, .at-col-10, .at-col-11, .at-col-12, .at-col-2, .at-col-2m3, .at-col-3, .at-col-4, .at-col-5, .at-col-6, .at-col-7, .at-col-8, .at-col-9, .at-col-gap, .at-col-lg-1, .at-col-lg-10, .at-col-lg-11, .at-col-lg-12, .at-col-lg-2, .at-col-lg-2m3, .at-col-lg-3, .at-col-lg-4, .at-col-lg-5, .at-col-lg-6, .at-col-lg-7, .at-col-lg-8, .at-col-lg-9, .at-col-md-1, .at-col-md-10, .at-col-md-11, .at-col-md-12, .at-col-md-2, .at-col-md-2m3, .at-col-md-3, .at-col-md-4, .at-col-md-5, .at-col-md-6, .at-col-md-7, .at-col-md-8, .at-col-md-9, .at-col-sm-1, .at-col-sm-10, .at-col-sm-11, .at-col-sm-12, .at-col-sm-2, .at-col-sm-2m3, .at-col-sm-3, .at-col-sm-4, .at-col-sm-5, .at-col-sm-6, .at-col-sm-7, .at-col-sm-8, .at-col-sm-9, .at-col-xl-1, .at-col-xl-10, .at-col-xl-11, .at-col-xl-12, .at-col-xl-2, .at-col-xl-2m3, .at-col-xl-3, .at-col-xl-4, .at-col-xl-5, .at-col-xl-6, .at-col-xl-7, .at-col-xl-8, .at-col-xl-9, .at-col-xxl-1, .at-col-xxl-10, .at-col-xxl-11, .at-col-xxl-12, .at-col-xxl-2, .at-col-xxl-2m3, .at-col-xxl-3, .at-col-xxl-4, .at-col-xxl-5, .at-col-xxl-6, .at-col-xxl-7, .at-col-xxl-8, .at-col-xxl-9, .at-gap, .at-row-gap, .at-vrt, .at-vrt-conts
 - `--at-gtr` — .at-col, .at-col-1, .at-col-10, .at-col-11, .at-col-12, .at-col-2, .at-col-2m3, .at-col-3, .at-col-4, .at-col-5, .at-col-6, .at-col-7, .at-col-8, .at-col-9, .at-col-auto, .at-col-cust, .at-col-lg, .at-col-lg-1, .at-col-lg-10, .at-col-lg-11, .at-col-lg-12, .at-col-lg-2, .at-col-lg-2m3, .at-col-lg-3, .at-col-lg-4, .at-col-lg-5, .at-col-lg-6, .at-col-lg-7, .at-col-lg-8, .at-col-lg-9, .at-col-lg-auto, .at-col-lg-cust, .at-col-md, .at-col-md-1, .at-col-md-10, .at-col-md-11, .at-col-md-12, .at-col-md-2, .at-col-md-2m3, .at-col-md-3, .at-col-md-4, .at-col-md-5, .at-col-md-6, .at-col-md-7, .at-col-md-8, .at-col-md-9, .at-col-md-auto, .at-col-md-cust, .at-col-sm, .at-col-sm-1, .at-col-sm-10, .at-col-sm-11, .at-col-sm-12, .at-col-sm-2, .at-col-sm-2m3, .at-col-sm-3, .at-col-sm-4, .at-col-sm-5, .at-col-sm-6, .at-col-sm-7, .at-col-sm-8, .at-col-sm-9, .at-col-sm-auto, .at-col-sm-cust, .at-col-xl, .at-col-xl-1, .at-col-xl-10, .at-col-xl-11, .at-col-xl-12, .at-col-xl-2, .at-col-xl-2m3, .at-col-xl-3, .at-col-xl-4, .at-col-xl-5, .at-col-xl-6, .at-col-xl-7, .at-col-xl-8, .at-col-xl-9, .at-col-xl-auto, .at-col-xl-cust, .at-col-xs-2m3, .at-col-xxl, .at-col-xxl-1, .at-col-xxl-10, .at-col-xxl-11, .at-col-xxl-12, .at-col-xxl-2, .at-col-xxl-2m3, .at-col-xxl-3, .at-col-xxl-4, .at-col-xxl-5, .at-col-xxl-6, .at-col-xxl-7, .at-col-xxl-8, .at-col-xxl-9, .at-col-xxl-auto, .at-col-xxl-cust, .at-ctnr, .at-ctnr-fld, .at-ctnr-min, .at-row
-- `--at-h` — .at-h, .at-svg-wrp
+- `--at-h` — .at-h
 - `--at-l` — .at-pos
 - `--at-ln-h` — .at-ln-h
 - `--at-ls-img` — .at-ls
@@ -957,7 +957,7 @@ fallback: the framework imposes nothing until you supply a value.
 - `--at-vis` — .at-vis
 - `--at-vrt-gap` — .at-vrt, .at-vrt-conts
 - `--at-vrt-w` — .at-vrt-conts, .at-vrt-hdr
-- `--at-w` — .at-svg-wrp, .at-w
+- `--at-w` — .at-w
 - `--at-white-sp` — .at-white-sp
 - `--at-wrd-brk` — .at-wrd-brk
 - `--at-wrd-spc` — .at-wrd-spc

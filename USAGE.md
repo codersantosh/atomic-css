@@ -347,7 +347,7 @@ own, so set the variable accordingly.
 | --- | --- |
 | `.at-stky` | `position: sticky; top: 0`, plus `align-self: flex-start` |
 | `.at-dropcap` | `float: left` on `::first-letter` — geometry only, no styling |
-| `.at-svg-wrp` | Wraps an inline SVG and collapses its line box |
+| `.at-svg-wrp` | Wraps an inline SVG, collapses its line box, and fills it — the SVG is fixed at `100%`/`100%` and reads no channel, so no ancestor can resize it |
 | `.at-has-abs-wrp` | `position: relative` — the positioning context for `.at-abs-el` |
 | `.at-abs-el` | Absolutely fills that context |
 | `.at-bg-vid` `.at-vid-bg` | Video-as-background pairing |
@@ -361,7 +361,7 @@ one of the reading utilities.
 
 | Class | Seeds | Read by |
 | --- | --- | --- |
-| `.at-shp` | `--at-l` `--at-pos` `--at-w` `--at-z-idx` | `.at-pos` `.at-w` `.at-z-idx` `.at-svg-wrp` |
+| `.at-shp` | `--at-l` `--at-pos` `--at-w` `--at-z-idx` | `.at-pos` `.at-w` `.at-z-idx` |
 | `.at-shp-t` | `--at-t` | `.at-pos` |
 | `.at-shp-b` | `--at-b` | `.at-pos` |
 | `.at-ovl` | `--at-pos` `--at-z-idx` | `.at-pos` `.at-z-idx` |

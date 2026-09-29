@@ -2020,8 +2020,8 @@ html {
   line-height: 0%%IMPORTANT%%;
 }
 .at-svg-wrp svg {
-  width: var(--at-w, inherit)%%IMPORTANT%%;
-  height: var(--at-h, inherit)%%IMPORTANT%%;
+  width: 100%%%IMPORTANT%%;
+  height: 100%%%IMPORTANT%%;
 }
 .at-vid-bg {
   --at-pos: absolute%%IMPORTANT%%;

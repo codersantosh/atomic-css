@@ -10356,10 +10356,7 @@
         "line-height",
         "width"
       ],
-      "reads": [
-        "--at-h",
-        "--at-w"
-      ],
+      "reads": [],
       "seeds": [],
       "importance": "none",
       "tokens": [
@@ -12348,14 +12345,6 @@
       "name": "--at-h",
       "fallbacks": [
         {
-          "fallback": "inherit",
-          "usedBy": [
-            "at-svg-wrp"
-          ],
-          "chain": false,
-          "legacy": null
-        },
-        {
           "fallback": "initial",
           "usedBy": [
             "at-h"
@@ -12364,12 +12353,11 @@
           "legacy": null
         }
       ],
-      "fallback": "inherit",
+      "fallback": "initial",
       "chain": false,
       "legacy": null,
       "readBy": [
-        "at-h",
-        "at-svg-wrp"
+        "at-h"
       ],
       "legacyName": false,
       "legacyHost": null
@@ -13457,14 +13445,6 @@
       "name": "--at-w",
       "fallbacks": [
         {
-          "fallback": "inherit",
-          "usedBy": [
-            "at-svg-wrp"
-          ],
-          "chain": false,
-          "legacy": null
-        },
-        {
           "fallback": "initial",
           "usedBy": [
             "at-w"
@@ -13473,11 +13453,10 @@
           "legacy": null
         }
       ],
-      "fallback": "inherit",
+      "fallback": "initial",
       "chain": false,
       "legacy": null,
       "readBy": [
-        "at-svg-wrp",
         "at-w"
       ],
       "legacyName": false,
