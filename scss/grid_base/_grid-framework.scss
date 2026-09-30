@@ -16,8 +16,8 @@ $orders-and-offsets: false !default;
     position: relative;
     width: 100%;
     min-height: 1px; // Prevent columns from collapsing when empty
-    padding-right: var(#{css-variable.$varPrefix}-gtr, 15px);
-    padding-left: var(#{css-variable.$varPrefix}-gtr, 15px);
+    padding-right: var(--at-gtr, 15px);
+    padding-left: var(--at-gtr, 15px);
 }
 
 
@@ -31,15 +31,15 @@ $orders-and-offsets: false !default;
     @each $breakpoint in map.keys($breakpoints) {
         $infix: breakpoints.breakpoint-infix($breakpoint, $breakpoints);
 
-        .#{variables.$grid-col-prefix}#{$infix},
-        .#{variables.$grid-col-prefix}#{$infix}-auto,
-        .#{variables.$grid-col-prefix}#{$infix}-cust {
+        .at-col#{$infix},
+        .at-col#{$infix}-auto,
+        .at-col#{$infix}-cust {
             @extend %grid-column;
         }
 
         // Allow columns to stretch full width below their breakpoints
         @for $i from 1 through $columns {
-            .#{variables.$grid-col-prefix}#{$infix}-#{$i} {
+            .at-col#{$infix}-#{$i} {
                 @extend %grid-column;
             }
         }
@@ -47,13 +47,13 @@ $orders-and-offsets: false !default;
         @include breakpoints.media-breakpoint-up($breakpoint, $breakpoints) {
 
             // Provide basic `.grid-{bp}` classes for equal-width flexbox columns
-            .#{variables.$grid-col-prefix}#{$infix} {
+            .at-col#{$infix} {
                 flex-basis: 0;
                 flex-grow: 1;
                 max-width: 100%;
             }
 
-            .#{variables.$grid-col-prefix}#{$infix}-auto {
+            .at-col#{$infix}-auto {
                 flex: 0 0 auto;
                 width: auto;
                 max-width: none; // Reset earlier grid tiers
@@ -61,29 +61,29 @@ $orders-and-offsets: false !default;
 
 
             // Add custom column properties for this breakpoint
-            .#{variables.$grid-col-prefix}#{$infix}-cust {
-                flex: 0 0 var(#{css-variable.$varPrefix}-cust-w);
-                max-width: var(#{css-variable.$varPrefix}-cust-w);
+            .at-col#{$infix}-cust {
+                flex: 0 0 var(--at-cust-w);
+                max-width: var(--at-cust-w);
             }
 
             @for $i from 1 through $columns {
-                .#{variables.$grid-col-prefix}#{$infix}-#{$i} {
+                .at-col#{$infix}-#{$i} {
                     @include grid-mixin.make-col($i, $columns);
                 }
             }
 
             // Order and offset generation is max-only.
             @if $orders-and-offsets {
-                .#{variables.$grid-prefix}-ord#{$infix}-first {
+                .at-ord#{$infix}-first {
                     order: -1;
                 }
 
-                .#{variables.$grid-prefix}-ord#{$infix}-last {
+                .at-ord#{$infix}-last {
                     order: $columns + 1;
                 }
 
                 @for $i from 0 through $columns {
-                    .#{variables.$grid-prefix}-ord#{$infix}-#{$i} {
+                    .at-ord#{$infix}-#{$i} {
                         order: $i;
                     }
                 }
@@ -93,7 +93,7 @@ $orders-and-offsets: false !default;
                     @if not($infix=='' and $i==0) {
 
                         // Avoid emitting useless .offset-0
-                        .#{variables.$grid-prefix}-ofst#{$infix}-#{$i} {
+                        .at-ofst#{$infix}-#{$i} {
                             @include grid-mixin.make-col-offset($i, $columns);
                         }
                     }

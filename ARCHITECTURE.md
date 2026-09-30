@@ -17,8 +17,7 @@
 - `/home/coder/atomic-css/demo/**` — the demo plays the role that ATRC's dynamic design system plays downstream. Every pattern a consumer (including ATRC) is expected to follow must be demonstrated here first. That makes it a *required* surface, not a showroom: `scripts/check-demo.js` fails the build on an unresolvable stylesheet, an undefined `.at-*`, or dead CSS, and `demo/organism/*` is inside the CI drift check for the same reason. A pattern may only be dropped from the demo if the framework stops shipping the feature it demonstrates — deleting a page is an amendment to this file, in the same change, never a silent diff.
 
 **Key paths**
-- Prefix source of truth: `scss/css-variable.scss`
-- Grid class prefix source: `scss/grid_base/_variables.scss`
+- Prefix: written literally (`.at` / `--at`) in every `.scss` source — there is no prefix variable. See § The prefixes are literals.
 - Bundle entries: `scss/grid.scss` (minimal), `scss/grid-max.scss` (max), `scss/grid-template.scss` (template — replica of the minimal bundle)
 - Shared partials: `scss/grid_base/`; mixins: `scss/grid_mixin/`
 - Naming legend: `short-names.json`
@@ -27,7 +26,7 @@
 - Consumer identity/variant reference pattern: `demo/colormode-globalstyle/scss/css-properties.scss` and `README.md` (`.at-btn` contract)
 - Verifiers: `scripts/check-parity.js`, `scripts/check-names.js`
 
-**Two prefixes, one source.** `$appPrefix` (`.at`) is the **class-name prefix**; `$varPrefix` (`--at`) is the **custom-property prefix**. They are two different constants sourced from the same shared module (`scss/css-variable.scss`), never varied by bundle, breakpoint, or context within the framework (`scss/**`). The demo reference set redeclares the same constant values in its own compilation (Part II); its values MUST always match. Grid prefixes `$grid-prefix`/`$grid-col-prefix` exist only in `scss/grid_base/_variables.scss` (the two "at" declarations kept in sync).
+**The prefixes are literals.** `.at` (class names) and `--at` (custom properties) are written literally in every `.scss` source. They are not held in variables, in the framework or in any consumer. The prefixes are fixed by the shipped bundles and by the downstream contract below, so a variable for them can only invite a value that matches nothing — and a mismatch renders nothing at all, silently. A consumer that spells its own prefix compiles clean and produces dead CSS. `$appPrefix`, `$varPrefix`, `$grid-prefix` and `$grid-col-prefix` are all removed; nothing may reintroduce them. The compiled output is the drift check: if a literal ever disagreed with a bundle, `check:vars` and the demo gates would fail rather than render wrong.
 
 **Downstream contract.** ATRC (`/home/coder/atrc/`) copies the minimal bundle (`css/` with its min/RTL variants) into `/home/coder/atrc/.storybook/library/atomic-css` and generates all of its consumer CSS against this project's class and variable names. WordPress/PHP and other dynamic consumers transform `css-template` into their own build. Any rename here is breaking for both.
 
@@ -123,7 +122,7 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 - **Seeded reads** are a deliberate, commented pattern (see Part II).
 
 ### Reference variable set
-- `demo/colormode-globalstyle/scss/variable.scss` MUST declare every `--at-*` the bundles read (and no orphaned vars), mirroring the prefix constants from `scss/css-variable.scss`. It is the one token source the demo and downstream dynamic systems reconcile against; enforced by `check:vars`.
+- `demo/colormode-globalstyle/scss/variable.scss` MUST declare every `--at-*` the bundles read (and no orphaned vars). It is the one token source the demo and downstream dynamic systems reconcile against; enforced by `check:vars`.
 - The core build declares **no `:root` variables**; the grid's three structural defaults are direct fallbacks (`var(--at-ctnr, 1140px)`, `var(--at-ctnr-min, 1100px)`, `var(--at-gtr, 15px)`). The reference set still declares them so consumers can theme the grid.
 - Present tokens (what a consumer's `:root` must look like) — palette tokens with state variants, structural tokens, and inert utility tokens:
 

@@ -136,6 +136,7 @@ Verify any name you have not seen before in
 | Use `--at-x: unset` to clear an inherited token | It computes to `inherit`; use `initial`, which yields the guaranteed-invalid value |
 | Assume `at-p` means `1rem` | Read the fallback column; `initial` means inert |
 | Invent `at-mt-4`, `at-flex-md-row`, `at-xs-col-6` | Look the name up; a wrong name fails silently |
+| Put the prefix in a variable (`$at: '.at'`, `--prefix-cl`) | `at-` is fixed by the bundles; a variable only invites a value that matches nothing |
 | Put the infix first outside display (e.g. `at-md-` + flex) | Infix in the middle: `.at-flx-md-row` |
 | Override a utility with `!important` | Redefine the variable; bundles carry **zero** `!important` |
 | Read a bare `var(--at-ctnr)` in your CSS | The framework declares no `:root`; use `var(--at-ctnr, 1140px)` or declare it |

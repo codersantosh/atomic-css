@@ -28,21 +28,21 @@ Metadata: elements that provide metadata about the document, such as <meta>, <ti
 
 
 html {
-    scroll-behavior: var(#{css-variable.$varPrefix}-scr-beh, initial);
+    scroll-behavior: var(--at-scr-beh, initial);
 }
 
 /* Content group */
-#{css-variable.$appPrefix} {
+.at {
     &-row {
         * {
-            box-sizing: var(#{css-variable.$varPrefix}-box-szg, border-box);
+            box-sizing: var(--at-box-szg, border-box);
         }
     }
 
     &-txt {
         &-al {
             // text-align: left|right|center|justify|initial|inherit; (value options)
-            text-align: var(#{css-variable.$varPrefix}-txt-al, initial);
+            text-align: var(--at-txt-al, initial);
         }
 
         // text-indent TODO?
@@ -52,12 +52,12 @@ html {
 
         &-sdw {
             // text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit; (value options)
-            text-shadow: var(#{css-variable.$varPrefix}-txt-sdw, initial);
+            text-shadow: var(--at-txt-sdw, initial);
         }
 
         &-ovf {
             //text-overflow: clip|ellipsis|string|initial|inherit;(value options)
-            text-overflow: var(#{css-variable.$varPrefix}-txt-ovf, initial);
+            text-overflow: var(--at-txt-ovf, initial);
         }
     }
 
@@ -70,30 +70,30 @@ html {
     //Table - UI Elements
     &-tbl {
         // caption-side: top|bottom|initial|inherit;
-        caption-side: var(#{css-variable.$varPrefix}-cpt-sd, initial);
+        caption-side: var(--at-cpt-sd, initial);
 
         // table-layout: auto|fixed|initial|inherit;
-        table-layout: var(#{css-variable.$varPrefix}-tbl-lyt, initial);
+        table-layout: var(--at-tbl-lyt, initial);
     }
 
     //List - UI Elements
     &-ls {
         // list-style: list-style-type list-style-position list-style-image|initial|inherit; (value options)
-        list-style-position: var(#{css-variable.$varPrefix}-ls-pos, outside);
-        list-style-image: var(#{css-variable.$varPrefix}-ls-img, none);
-        list-style-type: var(#{css-variable.$varPrefix}-ls-typ, none);
+        list-style-position: var(--at-ls-pos, outside);
+        list-style-image: var(--at-ls-img, none);
+        list-style-type: var(--at-ls-typ, none);
 
         li {
             &::marker {
-                font-size: var(#{css-variable.$varPrefix}-mkr-sz, initial);
-                color: var(#{css-variable.$varPrefix}-mkr-cl, initial);
+                font-size: var(--at-mkr-sz, initial);
+                color: var(--at-mkr-cl, initial);
             }
         }
     }
 
     //SVG - UI Elements
     &-svg {
-        fill: var(#{css-variable.$varPrefix}-cl);
+        fill: var(--at-cl);
 
         text,
         polyline,
@@ -125,10 +125,10 @@ html {
     //Video background layer
     &-vid-bg {
         // Seeded read: consumed by co-applied .at-pos/.at-z-idx
-        #{css-variable.$varPrefix}-pos: absolute;
-        #{css-variable.$varPrefix}-z-idx: -1;
-        #{css-variable.$varPrefix}-l: 0;
-        #{css-variable.$varPrefix}-t: 0;
+        --at-pos: absolute;
+        --at-z-idx: -1;
+        --at-l: 0;
+        --at-t: 0;
         object-fit: cover;
     }
 
@@ -136,7 +136,7 @@ html {
     &-acl {
         //The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. 
         // accent-color: auto|color|initial|inherit; (value options)
-        accent-color: var(#{css-variable.$varPrefix}-acl, initial);
+        accent-color: var(--at-acl, initial);
     }
 
     //animation: name duration timing-function delay iteration-count direction fill-mode play-state;
@@ -147,24 +147,24 @@ html {
 
     &-bg {
         &-cl {
-            background-color: var(#{css-variable.$varPrefix}-bg-cl, initial);
+            background-color: var(--at-bg-cl, initial);
         }
 
         &-img {
-            background-image: var(#{css-variable.$varPrefix}-bg-img, initial);
-            background-position: var(#{css-variable.$varPrefix}-bg-pos, initial);
-            background-size: var(#{css-variable.$varPrefix}-bg-sz, initial);
-            background-repeat: var(#{css-variable.$varPrefix}-bg-rpt, initial);
-            background-origin: var(#{css-variable.$varPrefix}-bg-org, initial);
-            background-attachment: var(#{css-variable.$varPrefix}-bg-atch, initial);
-            background-blend-mode: var(#{css-variable.$varPrefix}-bg-blend-mode, initial);
+            background-image: var(--at-bg-img, initial);
+            background-position: var(--at-bg-pos, initial);
+            background-size: var(--at-bg-sz, initial);
+            background-repeat: var(--at-bg-rpt, initial);
+            background-origin: var(--at-bg-org, initial);
+            background-attachment: var(--at-bg-atch, initial);
+            background-blend-mode: var(--at-bg-blend-mode, initial);
         }
 
         // Video element wrapper
         &-vid {
             // Seeded read: consumed by co-applied .at-pos/.at-z-idx
-            #{css-variable.$varPrefix}-pos: relative;
-            #{css-variable.$varPrefix}-z-idx: 1;
+            --at-pos: relative;
+            --at-z-idx: 1;
         }
     }
 
@@ -178,36 +178,36 @@ html {
 
     &-bdr {
         // border-color: color|transparent|initial|inherit;(value options)
-        border-color: var(#{css-variable.$varPrefix}-bdr-cl, initial);
+        border-color: var(--at-bdr-cl, initial);
 
         // border-width: medium|thin|thick|length|initial|inherit; (4sides & value options)
-        border-width: var(#{css-variable.$varPrefix}-bdr-w, initial);
+        border-width: var(--at-bdr-w, initial);
 
         // border-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit; (4sides & value options)
-        border-style: var(#{css-variable.$varPrefix}-bdr-sty, initial);
+        border-style: var(--at-bdr-sty, initial);
 
         &-rad {
             // border-radius: 1-4 length|% / 1-4 length|%|initial|inherit; (4sides & value options)
-            border-radius: var(#{css-variable.$varPrefix}-bdr-rad, initial);
+            border-radius: var(--at-bdr-rad, initial);
         }
     }
 
     //Always cover img tag with figure tag 
     &-msk {
-        mask-image: var(#{css-variable.$varPrefix}-msk-img, initial);
-        mask-mode: var(#{css-variable.$varPrefix}-msk-mode, initial);
-        mask-origin: var(#{css-variable.$varPrefix}-msk-org, initial);
-        mask-position: var(#{css-variable.$varPrefix}-msk-pos, initial);
-        mask-repeat: var(#{css-variable.$varPrefix}-msk-rpt, initial);
-        mask-size: var(#{css-variable.$varPrefix}-msk-sz, initial);
+        mask-image: var(--at-msk-img, initial);
+        mask-mode: var(--at-msk-mode, initial);
+        mask-origin: var(--at-msk-org, initial);
+        mask-position: var(--at-msk-pos, initial);
+        mask-repeat: var(--at-msk-rpt, initial);
+        mask-size: var(--at-msk-sz, initial);
     }
 
     //Overlay styles
 
     &-ovl {
         // Seeded read: --at-pos/--at-z-idx for co-applied .at-pos/.at-z-idx
-        #{css-variable.$varPrefix}-pos: relative;
-        #{css-variable.$varPrefix}-z-idx: 2;
+        --at-pos: relative;
+        --at-z-idx: 2;
 
         &:after {
             content: '';
@@ -217,18 +217,18 @@ html {
             width: 100%;
             height: 100%;
             z-index: -1;
-            transition: var(#{css-variable.$varPrefix}-trs, initial);
+            transition: var(--at-trs, initial);
         }
 
         &-cl {
             &:after {
-                background: var(#{css-variable.$varPrefix}-ovl, initial);
+                background: var(--at-ovl, initial);
             }
         }
 
         &-grd {
             &:after {
-                background: var(#{css-variable.$varPrefix}-ovl, initial);
+                background: var(--at-ovl, initial);
             }
         }
     }
@@ -236,19 +236,19 @@ html {
     //Position
     &-pos {
         // position: static|absolute|fixed|relative|sticky|initial|inherit; (value options)
-        position: var(#{css-variable.$varPrefix}-pos, initial);
+        position: var(--at-pos, initial);
 
         // top: auto|length|initial|inherit;(value options)
-        top: var(#{css-variable.$varPrefix}-t, initial);
+        top: var(--at-t, initial);
 
         // right: auto|length|initial|inherit;(value options)
-        right: var(#{css-variable.$varPrefix}-r, initial);
+        right: var(--at-r, initial);
 
         // bottom: auto|length|initial|inherit; (Position group)
-        bottom: var(#{css-variable.$varPrefix}-b, initial);
+        bottom: var(--at-b, initial);
 
         // left: auto|length|initial|inherit;(value options)
-        left: var(#{css-variable.$varPrefix}-l, initial);
+        left: var(--at-l, initial);
     }
 
     // box-decoration-break TODO?
@@ -258,12 +258,12 @@ html {
     &-box {
         &-sdw {
             // box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;(value options)
-            box-shadow: var(#{css-variable.$varPrefix}-box-sdw, initial);
+            box-shadow: var(--at-box-sdw, initial);
         }
 
         &-szg {
             // box-sizing: content-box|border-box|initial|inherit;(value options)
-            box-sizing: var(#{css-variable.$varPrefix}-box-szg, initial);
+            box-sizing: var(--at-box-szg, initial);
         }
     }
 
@@ -274,7 +274,7 @@ html {
         &-cl {
             //Set the color of the cursor in input elements:
             // caret-color: auto|color|initial|inherit;(value options)
-            caret-color: var(#{css-variable.$varPrefix}-ct-cl, initial);
+            caret-color: var(--at-ct-cl, initial);
         }
     }
 
@@ -283,45 +283,45 @@ html {
     //Color
     &-cl {
         // color: color|initial|inherit;(value options)
-        color: var(#{css-variable.$varPrefix}-cl, initial);
+        color: var(--at-cl, initial);
     }
 
     // Text typography utilities — each consumes its matching --at-* variable.
     &-fnt-sz {
-        font-size: var(#{css-variable.$varPrefix}-fnt-sz, initial);
+        font-size: var(--at-fnt-sz, initial);
     }
     &-fnt-wt {
-        font-weight: var(#{css-variable.$varPrefix}-fnt-wt, initial);
+        font-weight: var(--at-fnt-wt, initial);
     }
     &-fnt-fam {
-        font-family: var(#{css-variable.$varPrefix}-fnt-fam, initial);
+        font-family: var(--at-fnt-fam, initial);
     }
     &-fnt-sty {
-        font-style: var(#{css-variable.$varPrefix}-fnt-sty, initial);
+        font-style: var(--at-fnt-sty, initial);
     }
     &-txt-tf {
-        text-transform: var(#{css-variable.$varPrefix}-txt-tf, initial);
+        text-transform: var(--at-txt-tf, initial);
     }
     &-txt-dec {
-        text-decoration: var(#{css-variable.$varPrefix}-txt-dec, initial);
+        text-decoration: var(--at-txt-dec, initial);
     }
     &-ln-h {
-        line-height: var(#{css-variable.$varPrefix}-ln-h, initial);
+        line-height: var(--at-ln-h, initial);
     }
     &-ltr-sp {
-        letter-spacing: var(#{css-variable.$varPrefix}-ltr-sp, initial);
+        letter-spacing: var(--at-ltr-sp, initial);
     }
 
     //Clip Path
     &-clp-pth {
         //clip: clip-source|basic-shape|margin-box|border-box|padding-box|content-box|fill-box|stroke-box|view-box|none|initial|inherit;(value options)
-        clip-path: var(#{css-variable.$varPrefix}-clp-pth, initial);
+        clip-path: var(--at-clp-pth, initial);
     }
 
     //Clear
     &-clr {
         //clear: none|left|right|both|initial|inherit; (value options)
-        clear: var(#{css-variable.$varPrefix}-clr, initial);
+        clear: var(--at-clr, initial);
     }
 
     // column-count,column-fill,column-gap, column-rule, column-rule-color, column-rule-style, column-rule-width, column-span, column-width, columns TODO?
@@ -332,13 +332,13 @@ html {
     //Cursor
     &-cur {
         // cursor: value;
-        cursor: var(#{css-variable.$varPrefix}-cur, initial);
+        cursor: var(--at-cur, initial);
     }
 
     //Direction
     &-dir {
         // direction: ltr|rtl|initial|inherit; (value options)
-        direction: var(#{css-variable.$varPrefix}-dir, initial);
+        direction: var(--at-dir, initial);
     }
 
     // display handle by at - flex css
@@ -349,7 +349,7 @@ html {
     //Special use in Image
     &-fl {
         // filter: none | blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia() | url(); (value options)
-        filter: var(#{css-variable.$varPrefix}-fl, initial);
+        filter: var(--at-fl, initial);
     }
 
     // flex related css handled by at - flex css. flex, flex-basis, flex-direction, flex-flow, flex-grow, flex-shrink, flex-wrap
@@ -385,7 +385,7 @@ html {
     //Margin
     &-m {
         // margin: length|auto|initial|inherit; (value options)
-        margin: var(#{css-variable.$varPrefix}-m, initial);
+        margin: var(--at-m, initial);
 
         //  margin-block, margin-block-end, margin-block-start, margin-top all should be handled by margin.
 
@@ -396,12 +396,12 @@ html {
     &-max {
         &-h {
             // max-height: none|length|initial|inherit; (value options)
-            max-height: var(#{css-variable.$varPrefix}-max-h, initial);
+            max-height: var(--at-max-h, initial);
         }
 
         &-w {
             // max-width: none|length|initial|inherit; (value options)
-            max-width: var(#{css-variable.$varPrefix}-max-w, initial);
+            max-width: var(--at-max-w, initial);
         }
     }
 
@@ -409,12 +409,12 @@ html {
     &-min {
         &-h {
             // min-height: length|initial|inherit; (value options)
-            min-height: var(#{css-variable.$varPrefix}-min-h, initial);
+            min-height: var(--at-min-h, initial);
         }
 
         &-w {
             // min-width: length|initial|inherit; (value options)
-            min-width: var(#{css-variable.$varPrefix}-min-w, initial);
+            min-width: var(--at-min-w, initial);
         }
     }
 
@@ -423,13 +423,13 @@ html {
     //Height
     &-h {
         // height: length|initial|inherit; (value options)
-        height: var(#{css-variable.$varPrefix}-h, initial);
+        height: var(--at-h, initial);
     }
 
     //Width
     &-w {
         // width: length|initial|inherit; (value options)
-        width: var(#{css-variable.$varPrefix}-w, initial);
+        width: var(--at-w, initial);
     }
 
     //  max-inline-size: 60px; TODO?
@@ -439,13 +439,13 @@ html {
     //Mix Blens Mode
     &-mix-blnd-mode {
         // mix-blend-mode: normal|multiply|screen|overlay|darken|lighten|color-dodge|color-burn|difference|exclusion|hue|saturation|color|luminosity;(value options)
-        mix-blend-mode: var(#{css-variable.$varPrefix}-mix-blnd-mode, var(#{css-variable.$varPrefix}-mix-blend-mode, initial));
+        mix-blend-mode: var(--at-mix-blnd-mode, var(--at-mix-blend-mode, initial));
     }
 
     //Object Fit
     &-obj-fit {
         // object-fit : fill|container|cover|none|scale-down (value options)
-        object-fit: var(#{css-variable.$varPrefix}-obj-fit, initial);
+        object-fit: var(--at-obj-fit, initial);
     }
 
     // offser,offset-anchor and other offect  TODO?
@@ -453,7 +453,7 @@ html {
     //Opacity
     &-opa {
         // opacity: number|initial|inherit; (value options)
-        opacity: var(#{css-variable.$varPrefix}-opa, initial);
+        opacity: var(--at-opa, initial);
     }
 
     // order in at - flex css
@@ -463,27 +463,27 @@ html {
     //Outline
     &-outl {
         // outline: outline-width outline-style outline-color|initial|inherit; (value options)
-        outline: var(#{css-variable.$varPrefix}-outl, initial);
+        outline: var(--at-outl, initial);
     }
 
     //OverFlow
     &-ovf {
         // overflow: visible|hidden|clip|scroll|auto|initial|inherit; (value options)
-        overflow: var(#{css-variable.$varPrefix}-ovf, initial);
+        overflow: var(--at-ovf, initial);
 
         &-x {
-            overflow-x: var(#{css-variable.$varPrefix}-ovf-x, initial);
+            overflow-x: var(--at-ovf-x, initial);
         }
 
         &-y {
-            overflow-y: var(#{css-variable.$varPrefix}-ovf-y, initial);
+            overflow-y: var(--at-ovf-y, initial);
         }
     }
 
     //Padding
     &-p {
         // padding: length|initial|inherit;
-        padding: var(#{css-variable.$varPrefix}-p, initial);
+        padding: var(--at-p, initial);
         // padding-block,  padding-block-end etc should be handled by padding
     }
 
@@ -498,7 +498,7 @@ html {
     //Pointer Event
     &-ptr-ev {
         // pointer-events: auto|none;
-        pointer-events: var(#{css-variable.$varPrefix}-ptr-ev, initial);
+        pointer-events: var(--at-ptr-ev, initial);
     }
 
     // position on position group
@@ -508,7 +508,7 @@ html {
     //Resize
     &-resz {
         //resize: none|both|horizontal|vertical|initial|inherit;
-        resize: var(#{css-variable.$varPrefix}-resz, initial);
+        resize: var(--at-resz, initial);
     }
 
     // right on position group
@@ -524,7 +524,7 @@ html {
 
     //Tab-size
     &-tab-sz {
-        tab-size: var(#{css-variable.$varPrefix}-tab-sz, initial);
+        tab-size: var(--at-tab-sz, initial);
     }
 
     // top in position group
@@ -532,19 +532,19 @@ html {
     //Transform
     &-tf {
         // perspective: length|none;
-        perspective: var(#{css-variable.$varPrefix}-ppv, initial);
+        perspective: var(--at-ppv, initial);
 
         // perspective-origin: x-axis y-axis|initial|inherit;
-        perspective-origin: var(#{css-variable.$varPrefix}-ppv-org, initial);
+        perspective-origin: var(--at-ppv-org, initial);
 
         // transform: none|transform-functions|initial|inherit;
-        transform: var(#{css-variable.$varPrefix}-tf, initial);
+        transform: var(--at-tf, initial);
 
         // transform-origin: x-axis y-axis z-axis|initial|inherit;
-        transform-origin: var(#{css-variable.$varPrefix}-tf-org, initial);
+        transform-origin: var(--at-tf-org, initial);
 
         // transform-style: flat|preserve-3d|initial|inherit;
-        transform-style: var(#{css-variable.$varPrefix}-tf-sty, initial);
+        transform-style: var(--at-tf-sty, initial);
     }
 
     // translate in transform
@@ -558,19 +558,19 @@ html {
     //Transition
     &-trs {
         // transition: property duration timing-function delay|initial|inherit;
-        transition: var(#{css-variable.$varPrefix}-trs, initial);
+        transition: var(--at-trs, initial);
     }
 
     //Visibility
     &-vis {
         // visibility: visible|hidden|collapse|initial|inherit;
-        visibility: var(#{css-variable.$varPrefix}-vis, initial);
+        visibility: var(--at-vis, initial);
     }
 
     //White Space
     &-white-sp {
         //white-space: normal|nowrap|pre|pre-line|pre-wrap|initial|inherit;
-        white-space: var(#{css-variable.$varPrefix}-white-sp, initial);
+        white-space: var(--at-white-sp, initial);
     }
 
     // width: auto|length|initial|inherit; handle by max-width
@@ -579,17 +579,17 @@ html {
     &-wrd {
         &-brk {
             // word-break: normal|break-all|keep-all|break-word|initial|inherit;
-            word-break: var(#{css-variable.$varPrefix}-wrd-brk, initial);
+            word-break: var(--at-wrd-brk, initial);
         }
 
         &-spc {
             // word-spacing: normal|length|initial|inherit;
-            word-spacing: var(#{css-variable.$varPrefix}-wrd-spc, var(#{css-variable.$varPrefix}-wrd-spg, initial));
+            word-spacing: var(--at-wrd-spc, var(--at-wrd-spg, initial));
         }
 
         &-wrp {
             // word-wrap: normal|break-word|initial|inherit;
-            word-wrap: var(#{css-variable.$varPrefix}-wrd-wrp, initial);
+            word-wrap: var(--at-wrd-wrp, initial);
         }
     }
 
@@ -598,16 +598,16 @@ html {
     //Z index
     &-z-idx {
         // z-index: auto|number|initial|inherit;
-        z-index: var(#{css-variable.$varPrefix}-z-idx, initial);
+        z-index: var(--at-z-idx, initial);
     }
 
     //Block shape (Html element section top bottom shape)
     //wrapper
     &-blk-shp {
         // Seeded read: consumed by co-applied .at-pos
-        #{css-variable.$varPrefix}-pos: relative;
+        --at-pos: relative;
 
-        > :not(#{css-variable.$appPrefix}-shp):not(#{css-variable.$appPrefix}-z-idx) {
+        > :not(.at-shp):not(.at-z-idx) {
             z-index: 2;
             position: relative;
         }
@@ -616,17 +616,17 @@ html {
     //Block Shape Element
     &-shp {
         // Seeded read: consumed by co-applied .at-pos/.at-w/.at-z-idx
-        #{css-variable.$varPrefix}-pos: absolute;
-        #{css-variable.$varPrefix}-w: 100%;
-        #{css-variable.$varPrefix}-l: 0;
-        #{css-variable.$varPrefix}-z-idx: 1;
+        --at-pos: absolute;
+        --at-w: 100%;
+        --at-l: 0;
+        --at-z-idx: 1;
 
         &-t {
-            #{css-variable.$varPrefix}-t: 0;
+            --at-t: 0;
         }
 
         &-b {
-            #{css-variable.$varPrefix}-b: 0;
+            --at-b: 0;
         }
     }
 
@@ -656,14 +656,14 @@ html {
 
     //Vertical Layout
     &-vrt {
-        gap: var(#{css-variable.$varPrefix}-vrt-gap, var(#{css-variable.$varPrefix}-gap, 15px));
+        gap: var(--at-vrt-gap, var(--at-gap, 15px));
 
         &-hdr {
-            width: var(#{css-variable.$varPrefix}-vrt-w, 20%);
+            width: var(--at-vrt-w, 20%);
         }
 
         &-conts {
-            width: calc(100% - var(#{css-variable.$varPrefix}-vrt-w, 20%) - var(#{css-variable.$varPrefix}-vrt-gap, var(#{css-variable.$varPrefix}-gap, 15px)));
+            width: calc(100% - var(--at-vrt-w, 20%) - var(--at-vrt-gap, var(--at-gap, 15px)));
         }
     }
 }

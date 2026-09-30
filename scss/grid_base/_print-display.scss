@@ -6,39 +6,39 @@
 // Included only by the atomic-max bundle (grid-max.scss).
 
 @media print {
-    .#{variables.$grid-prefix}-prt-non {
+    .at-prt-non {
         display: none;
     }
 
-    .#{variables.$grid-prefix}-prt-inl {
+    .at-prt-inl {
         display: inline;
     }
 
-    .#{variables.$grid-prefix}-prt-inl-blk {
+    .at-prt-inl-blk {
         display: inline-block;
     }
 
-    .#{variables.$grid-prefix}-prt-blk {
+    .at-prt-blk {
         display: block;
     }
 
-    .#{variables.$grid-prefix}-prt-tbl {
+    .at-prt-tbl {
         display: table;
     }
 
-    .#{variables.$grid-prefix}-prt-tbl-row {
+    .at-prt-tbl-row {
         display: table-row;
     }
 
-    .#{variables.$grid-prefix}-prt-tbl-cel {
+    .at-prt-tbl-cel {
         display: table-cell;
     }
 
-    .#{variables.$grid-prefix}-prt-flx {
+    .at-prt-flx {
         display: flex;
     }
 
-    .#{variables.$grid-prefix}-prt-inl-flx {
+    .at-prt-inl-flx {
         display: inline-flex;
     }
 }

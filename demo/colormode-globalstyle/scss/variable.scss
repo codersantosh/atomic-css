@@ -1,267 +1,264 @@
-// ClassesPrefix
-// Framework source of truth: scss/css-variable.scss ($appPrefix '.at').
-// The demo compiles independently, so the constant is redeclared here; it MUST
-// always match the framework value (drift check, not a merge).
-$appPrefix: '.at';
+// The `at-` class prefix and `--at-` custom-property prefix are written
+// literally across this consumer, and the demo declares no constant for
+// either. Both are fixed by the shipped bundles: a consumer that spells its
+// own prefix produces classes nothing matches, which is silent. The compiled
+// output is the drift check now — if a literal ever disagreed with a bundle,
+// every gate here would fail rather than render wrong.
 
-// Root variable Prefix
-// Framework source of truth: scss/css-variable.scss ($varPrefix '--at').
-// Must always match (drift check, not a merge).
-$varPrefix: '--at';
 
 //global styles : with state and media queries
 //flex properties given from AT-Grid
 :root {
-    // Container max width and gutter, dont use #{$varPrefix}
-    #{$varPrefix}-ctnr: 1140px;
-    #{$varPrefix}-ctnr-min: 1100px;
-    #{$varPrefix}-gtr: 15px;
+    // Container max width and gutter, dont use --at
+    --at-ctnr: 1140px;
+    --at-ctnr-min: 1100px;
+    --at-gtr: 15px;
 
     //Button palette (consumed by .at-btn and .at-btn-* variants)
-    #{$varPrefix}-white: #fff;
-    #{$varPrefix}-black: #000;
+    --at-white: #fff;
+    --at-black: #000;
 
-    #{$varPrefix}-base-color: #2e312f;
-    #{$varPrefix}-body-color: #9da29f;
+    --at-base-color: #2e312f;
+    --at-body-color: #9da29f;
 
-    #{$varPrefix}-primary: #48b44f;
-    #{$varPrefix}-primary--hover: #3ea245;
+    --at-primary: #48b44f;
+    --at-primary--hover: #3ea245;
 
     // `--primary` is a *surface* colour: white on it is 2.65:1 and it is only
     // 2.65:1 as text on white. This is the darkened same hue, for outline and
     // link text (6.25:1 on white), so a text role never reuses a surface token.
-    #{$varPrefix}-primary-tint: #1f6f26;
-    #{$varPrefix}-primary-tint--hover: #185620;
+    --at-primary-tint: #1f6f26;
+    --at-primary-tint--hover: #185620;
 
-    #{$varPrefix}-secondary: #d4e6d9;
-    #{$varPrefix}-secondary--hover: #b1cfb8;
+    --at-secondary: #d4e6d9;
+    --at-secondary--hover: #b1cfb8;
 
-    #{$varPrefix}-success: #46b450;
-    #{$varPrefix}-success--hover: #1e7e34;
+    --at-success: #46b450;
+    --at-success--hover: #1e7e34;
 
-    #{$varPrefix}-danger: #dc3232;
-    #{$varPrefix}-danger--hover: #c82333;
+    --at-danger: #dc3232;
+    --at-danger--hover: #c82333;
 
-    #{$varPrefix}-warning: #ffb900;
-    #{$varPrefix}-warning--hover: #e0a800;
+    --at-warning: #ffb900;
+    --at-warning--hover: #e0a800;
 
-    #{$varPrefix}-info: #00a0d2;
-    #{$varPrefix}-info--hover: #17a2b8;
+    --at-info: #00a0d2;
+    --at-info--hover: #17a2b8;
 
-    #{$varPrefix}-light: #d3d9de;
-    #{$varPrefix}-light--hover: #eee;
+    --at-light: #d3d9de;
+    --at-light--hover: #eee;
 
-    #{$varPrefix}-dark: #000;
-    #{$varPrefix}-dark--hover: #121212;
+    --at-dark: #000;
+    --at-dark--hover: #121212;
 
-    #{$varPrefix}-quaternary: #585a59;
+    --at-quaternary: #585a59;
 
 
     //Color value (dynamic value): hex,rgb,rgba,gradient,hsl. (Global)
-    #{$varPrefix}-cl: initial;
+    --at-cl: initial;
 
     //Accent color
-    #{$varPrefix}-acl: var(#{$varPrefix}-cl);
+    --at-acl: var(--at-cl);
 
     // Background
-    #{$varPrefix}-bg-cl: initial;
-    #{$varPrefix}-bg-img: initial;
-    #{$varPrefix}-bg-pos: initial;
-    #{$varPrefix}-bg-sz: initial;
-    #{$varPrefix}-bg-rpt: initial;
-    #{$varPrefix}-bg-org: initial;
-    #{$varPrefix}-bg-atch: initial;
-    #{$varPrefix}-bg-blend-mode: initial;
+    --at-bg-cl: initial;
+    --at-bg-img: initial;
+    --at-bg-pos: initial;
+    --at-bg-sz: initial;
+    --at-bg-rpt: initial;
+    --at-bg-org: initial;
+    --at-bg-atch: initial;
+    --at-bg-blend-mode: initial;
 
     // Border
-    #{$varPrefix}-bdr-w: initial;
-    #{$varPrefix}-bdr-sty: initial;
-    #{$varPrefix}-bdr-cl: initial;
+    --at-bdr-w: initial;
+    --at-bdr-sty: initial;
+    --at-bdr-cl: initial;
 
     // Border radius
-    #{$varPrefix}-bdr-rad: initial;
+    --at-bdr-rad: initial;
 
     // Position group
-    #{$varPrefix}-b: initial;
-    #{$varPrefix}-pos: initial;
-    #{$varPrefix}-t: initial;
-    #{$varPrefix}-r: initial;
-    #{$varPrefix}-l: initial;
+    --at-b: initial;
+    --at-pos: initial;
+    --at-t: initial;
+    --at-r: initial;
+    --at-l: initial;
 
     // Box shadow
-    #{$varPrefix}-box-sdw: initial;
+    --at-box-sdw: initial;
 
     // Box sizing
-    #{$varPrefix}-box-szg: initial;
+    --at-box-szg: initial;
 
     // Table group
-    #{$varPrefix}-cpt-sd: initial;
-    #{$varPrefix}-tbl-lyt: initial;
+    --at-cpt-sd: initial;
+    --at-tbl-lyt: initial;
 
     //Caret color
-    #{$varPrefix}-ct-cl: var(#{$varPrefix}-cl);
+    --at-ct-cl: var(--at-cl);
 
     // cursor
-    #{$varPrefix}-cur: initial;
+    --at-cur: initial;
 
     // direction
-    #{$varPrefix}-dir: initial;
+    --at-dir: initial;
 
     // filter
-    #{$varPrefix}-fl: initial;
+    --at-fl: initial;
 
     // display handle by at - flex css
     // flex related css handled by at - flex css
 
     // Font/Typography group
-    #{$varPrefix}-fnt-sz: initial;
-    #{$varPrefix}-fnt-wt: initial;
-    #{$varPrefix}-fnt-fam: initial;
-    #{$varPrefix}-fnt-sty: normal;
-    #{$varPrefix}-txt-tf: initial;
-    #{$varPrefix}-txt-dec: initial;
-    #{$varPrefix}-ln-h: normal;
-    #{$varPrefix}-ltr-sp: initial;
+    --at-fnt-sz: initial;
+    --at-fnt-wt: initial;
+    --at-fnt-fam: initial;
+    --at-fnt-sty: normal;
+    --at-txt-tf: initial;
+    --at-txt-dec: initial;
+    --at-ln-h: normal;
+    --at-ltr-sp: initial;
 
     // Gap
-    #{$varPrefix}-gap: initial;
+    --at-gap: initial;
 
     // Not using any grid properties, we use flex from by at - flex css
 
     // List style (demo fork consumes ls-sty; main build consumes ls-pos/ls-img/ls-typ and mkr-sz/mkr-cl)
-    #{$varPrefix}-ls-sty: initial;
-    #{$varPrefix}-ls-pos: outside;
-    #{$varPrefix}-ls-img: none;
-    #{$varPrefix}-ls-typ: none;
-    #{$varPrefix}-mkr-sz: initial;
-    #{$varPrefix}-mkr-cl: initial;
+    --at-ls-sty: initial;
+    --at-ls-pos: outside;
+    --at-ls-img: none;
+    --at-ls-typ: none;
+    --at-mkr-sz: initial;
+    --at-mkr-cl: initial;
 
     // Margin
-    #{$varPrefix}-m: initial;
+    --at-m: initial;
 
     // Mask
-    #{$varPrefix}-msk-img: initial;
-    #{$varPrefix}-msk-mode: initial;
-    #{$varPrefix}-msk-org: initial;
-    #{$varPrefix}-msk-pos: initial;
-    #{$varPrefix}-msk-rpt: initial;
-    #{$varPrefix}-msk-sz: initial;
+    --at-msk-img: initial;
+    --at-msk-mode: initial;
+    --at-msk-org: initial;
+    --at-msk-pos: initial;
+    --at-msk-rpt: initial;
+    --at-msk-sz: initial;
 
     // Max height
-    #{$varPrefix}-max-h: initial;
+    --at-max-h: initial;
 
     // Max width
-    #{$varPrefix}-max-w: initial;
+    --at-max-w: initial;
 
     // Min height
-    #{$varPrefix}-min-h: initial;
+    --at-min-h: initial;
 
     // Min width
-    #{$varPrefix}-min-w: initial;
+    --at-min-w: initial;
 
     // mix-blend-mode (class token: blnd)
-    #{$varPrefix}-mix-blnd-mode: initial;
+    --at-mix-blnd-mode: initial;
     // Legacy var name, read by the bundles as the nested fallback
     // (var(--at-mix-blnd-mode, var(--at-mix-blend-mode, initial))).
-    #{$varPrefix}-mix-blend-mode: initial;
+    --at-mix-blend-mode: initial;
 
     // offser,offset-anchor and other offect  TODO?
 
     // Opacity
-    #{$varPrefix}-opa: initial;
+    --at-opa: initial;
 
     // Overflow
-    #{$varPrefix}-ovf: initial;
-    #{$varPrefix}-ovf-x: initial;
-    #{$varPrefix}-ovf-y: initial;
+    --at-ovf: initial;
+    --at-ovf-x: initial;
+    --at-ovf-y: initial;
 
     // Outline
-    #{$varPrefix}-outl: initial;
+    --at-outl: initial;
 
     // Padding
-    #{$varPrefix}-p: initial;
+    --at-p: initial;
 
     // pointer-events
-    #{$varPrefix}-ptr-ev: initial;
+    --at-ptr-ev: initial;
 
     // Transform group
-    #{$varPrefix}-ppv: initial;
-    #{$varPrefix}-ppv-org: initial;
-    #{$varPrefix}-tf: initial;
-    #{$varPrefix}-tf-org: initial;
-    #{$varPrefix}-tf-sty: initial;
+    --at-ppv: initial;
+    --at-ppv-org: initial;
+    --at-tf: initial;
+    --at-tf-org: initial;
+    --at-tf-sty: initial;
 
     // row-gap
-    #{$varPrefix}-row-gap: initial;
+    --at-row-gap: initial;
 
     // col-gap
-    #{$varPrefix}-col-gap: initial;
+    --at-col-gap: initial;
 
     // scroll-behavior
-    #{$varPrefix}-scr-beh: initial;
+    --at-scr-beh: initial;
 
     // Text Align
-    #{$varPrefix}-txt-al: initial;
+    --at-txt-al: initial;
 
     // Text overflow
-    #{$varPrefix}-txt-ovf: initial;
+    --at-txt-ovf: initial;
 
     // Text shadow
-    #{$varPrefix}-txt-sdw: initial;
+    --at-txt-sdw: initial;
 
     // Transition
-    #{$varPrefix}-trs: initial;
+    --at-trs: initial;
 
     // Width / Height
-    #{$varPrefix}-w: initial;
-    #{$varPrefix}-h: initial;
+    --at-w: initial;
+    --at-h: initial;
 
     // Object fit
-    #{$varPrefix}-obj-fit: initial;
+    --at-obj-fit: initial;
 
     // Overlay
-    #{$varPrefix}-ovl: initial;
+    --at-ovl: initial;
 
     // Resize
-    #{$varPrefix}-resz: initial;
+    --at-resz: initial;
 
     // Tab size
-    #{$varPrefix}-tab-sz: initial;
+    --at-tab-sz: initial;
 
     // Clear
-    #{$varPrefix}-clr: initial;
+    --at-clr: initial;
 
     // Clip path
-    #{$varPrefix}-clp-pth: initial;
+    --at-clp-pth: initial;
 
     // White space
-    #{$varPrefix}-white-sp: initial;
+    --at-white-sp: initial;
 
     // Custom grid column width (used by .at-col-*-cust)
-    #{$varPrefix}-cust-w: initial;
+    --at-cust-w: initial;
 
     // Vertical layout group
-    #{$varPrefix}-vrt-gap: initial;
-    #{$varPrefix}-vrt-w: initial;
+    --at-vrt-gap: initial;
+    --at-vrt-w: initial;
 
     // Visibility
-    #{$varPrefix}-vis: initial;
+    --at-vis: initial;
 
     // Word group
-    #{$varPrefix}-wrd-brk: initial;
-    #{$varPrefix}-wrd-spc: initial;
-    #{$varPrefix}-wrd-spg: var(#{$varPrefix}-wrd-spc); // legacy alias
-    #{$varPrefix}-wrd-wrp: initial;
+    --at-wrd-brk: initial;
+    --at-wrd-spc: initial;
+    --at-wrd-spg: var(--at-wrd-spc); // legacy alias
+    --at-wrd-wrp: initial;
 
     // Z-index
-    #{$varPrefix}-z-idx: initial;
+    --at-z-idx: initial;
 
     // Spacing scale (consumer-owned; the framework ships no numeric spacing
     // utility). The *step* is named by the class, as it is everywhere else
     // (`.at-col-6`); the *value* is a digit-free token declared once, because no
     // framework variable carries a digit.
-    #{$varPrefix}-spc-sm: 5px;
-    #{$varPrefix}-spc-md: 15px;
-    #{$varPrefix}-spc-lg: 20px;
-    #{$varPrefix}-spc-xl: 30px;
+    --at-spc-sm: 5px;
+    --at-spc-md: 15px;
+    --at-spc-lg: 20px;
+    --at-spc-xl: 30px;
 }

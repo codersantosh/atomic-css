@@ -12,8 +12,8 @@ $offsets: false !default;
 /*custom 5th col */
 
 @mixin make-col-5($size, $columns: variables.$grid-columns5) {
-    flex: 0 0 calc((($size / $columns) * 100%) - var(#{css-variable.$varPrefix}-col-gap, var(#{css-variable.$varPrefix}-gap, 0px)) * (($columns - $size) / $columns));
-    max-width: calc((($size / $columns) * 100%) - var(#{css-variable.$varPrefix}-col-gap, var(#{css-variable.$varPrefix}-gap, 0px)) * (($columns - $size) / $columns));
+    flex: 0 0 calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
+    max-width: calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
 }
 
 @mixin make-col-offset5($size, $columns: variables.$grid-columns5) {
@@ -30,30 +30,30 @@ $offsets: false !default;
 // shipped with the sizing pair but no box, no padding and no min-height.
 // scripts/generate-docs.js now derives the ladder and fails if any term loses
 // its geometry, so a term added to one place and not the other is caught.
-.#{variables.$grid-col-prefix}-2m3,
-.#{variables.$grid-col-prefix}-xxl-2m3,
-.#{variables.$grid-col-prefix}-xl-2m3,
-.#{variables.$grid-col-prefix}-lg-2m3,
-.#{variables.$grid-col-prefix}-md-2m3,
-.#{variables.$grid-col-prefix}-sm-2m3 {
+.at-col-2m3,
+.at-col-xxl-2m3,
+.at-col-xl-2m3,
+.at-col-lg-2m3,
+.at-col-md-2m3,
+.at-col-sm-2m3 {
     position: relative;
     width: 100%;
     min-height: 1px; // Prevent columns from collapsing when empty
-    padding-right: var(#{css-variable.$varPrefix}-gtr, 15px);
-    padding-left: var(#{css-variable.$varPrefix}-gtr, 15px);
+    padding-right: var(--at-gtr, 15px);
+    padding-left: var(--at-gtr, 15px);
 }
 
 @each $breakpoint in map.keys(variables.$grid-breakpoints) {
     @include breakpoints.media-breakpoint-up($breakpoint) {
         $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
-        .#{variables.$grid-col-prefix}#{$infix}-2m3 {
+        .at-col#{$infix}-2m3 {
             @include make-col-5(1, 5);
         }
 
         // Fifths offsets are max-only.
         @if $offsets {
-            .#{variables.$grid-prefix}-ofst#{$infix}-2m3 {
+            .at-ofst#{$infix}-2m3 {
                 @include make-col-offset5(1, 5);
             }
         }

@@ -8,38 +8,38 @@
 
 @mixin make-container-fld() {
 	max-width: 100%;
-	padding-right: var(#{css-variable.$varPrefix}-gtr, 15px);
-	padding-left: var(#{css-variable.$varPrefix}-gtr, 15px);
+	padding-right: var(--at-gtr, 15px);
+	padding-left: var(--at-gtr, 15px);
 	margin-right: auto;
 	margin-left: auto;
 }
 
 @mixin make-container() {
-	max-width: var(#{css-variable.$varPrefix}-ctnr, 1140px);
-	padding-right: var(#{css-variable.$varPrefix}-gtr, 15px);
-	padding-left: var(#{css-variable.$varPrefix}-gtr, 15px);
+	max-width: var(--at-ctnr, 1140px);
+	padding-right: var(--at-gtr, 15px);
+	padding-left: var(--at-gtr, 15px);
 	margin-right: auto;
 	margin-left: auto;
 }
 
 @mixin make-container-min() {
-	max-width: var(#{css-variable.$varPrefix}-ctnr-min, 1100px);
-	padding-right: var(#{css-variable.$varPrefix}-gtr, 15px);
-	padding-left: var(#{css-variable.$varPrefix}-gtr, 15px);
+	max-width: var(--at-ctnr-min, 1100px);
+	padding-right: var(--at-gtr, 15px);
+	padding-left: var(--at-gtr, 15px);
 	margin-right: auto;
 	margin-left: auto;
 }
 
 @mixin make-gap() {
-	gap: var(#{css-variable.$varPrefix}-gap, initial);
+	gap: var(--at-gap, initial);
 }
 
 @mixin make-row-gap() {
-	row-gap: var(#{css-variable.$varPrefix}-row-gap, var(#{css-variable.$varPrefix}-gap));
+	row-gap: var(--at-row-gap, var(--at-gap));
 }
 
 @mixin make-col-gap() {
-	column-gap: var(#{css-variable.$varPrefix}-col-gap, var(#{css-variable.$varPrefix}-gap));
+	column-gap: var(--at-col-gap, var(--at-gap));
 }
 
 // For each breakpoint, define the maximum width of the container in a media query
@@ -57,8 +57,8 @@
 @mixin make-row() {
 	display: flex;
 	flex-wrap: wrap;
-	margin-right: calc(var(#{css-variable.$varPrefix}-gtr, 15px) * -1);
-	margin-left: calc(var(#{css-variable.$varPrefix}-gtr, 15px) * -1);
+	margin-right: calc(var(--at-gtr, 15px) * -1);
+	margin-left: calc(var(--at-gtr, 15px) * -1);
 }
 
 @mixin make-col-ready() {
@@ -68,8 +68,8 @@
 	// later on to override this initial width.
 	width: 100%;
 	min-height: 1px; // Prevent collapsing
-	padding-right: var(#{css-variable.$varPrefix}-gtr, 15px);
-	padding-left: var(#{css-variable.$varPrefix}-gtr, 15px);
+	padding-right: var(--at-gtr, 15px);
+	padding-left: var(--at-gtr, 15px);
 }
 
 @mixin make-col($size, $columns: variables.$grid-columns) {
@@ -78,11 +78,11 @@
 	// wrap). For N items of ratio S/C there are N-1 gaps; each item subtracts
 	// gap × (C - S)/C, summing to (N - 1) × gap — exactly the added gaps.
 	// The nested fallback supports 1-value (gap) and 2-value split (col-gap).
-	flex: 0 0 calc((($size / $columns) * 100%) - var(#{css-variable.$varPrefix}-col-gap, var(#{css-variable.$varPrefix}-gap, 0px)) * (($columns - $size) / $columns));
+	flex: 0 0 calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
 	// Add a `max-width` to ensure content within each column does not blow out
 	// the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
 	// do not appear to require this.
-	max-width: calc((($size / $columns) * 100%) - var(#{css-variable.$varPrefix}-col-gap, var(#{css-variable.$varPrefix}-gap, 0px)) * (($columns - $size) / $columns));
+	max-width: calc((($size / $columns) * 100%) - var(--at-col-gap, var(--at-gap, 0px)) * (($columns - $size) / $columns));
 }
 
 @mixin make-col-offset($size, $columns: variables.$grid-columns) {

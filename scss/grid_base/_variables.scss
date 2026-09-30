@@ -23,11 +23,11 @@ $grid-breakpoints: (
 // Grid containers
 // NOTE: the framework ships no :root; every read carries the 1140px fallback.
 $container-max-widths: (
-    sm: var(#{css-variable.$varPrefix}-ctnr, 1140px),
-    md: var(#{css-variable.$varPrefix}-ctnr, 1140px),
-    lg: var(#{css-variable.$varPrefix}-ctnr, 1140px),
-    xl: var(#{css-variable.$varPrefix}-ctnr, 1140px),
-    xxl: var(#{css-variable.$varPrefix}-ctnr, 1140px),
+    sm: var(--at-ctnr, 1140px),
+    md: var(--at-ctnr, 1140px),
+    lg: var(--at-ctnr, 1140px),
+    xl: var(--at-ctnr, 1140px),
+    xxl: var(--at-ctnr, 1140px),
     ) !default;
 // NOTE: container-max-widths hold var() references, not numbers, so ascending
 // order cannot be asserted for them. Breakpoints below are the numeric map.
@@ -38,5 +38,3 @@ $grid-columns: 12 !default;
 // Columns in the custom fifths grid (custom-grid-5ths)
 $grid-columns5: 5 !default;
 $grid-gutter-width: 30px !default;
-$grid-prefix: at;
-$grid-col-prefix: at-col;

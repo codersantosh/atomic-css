@@ -4,13 +4,13 @@
 /*Grid Container widths*/
 
 @if variables.$enable-grid-classes {
-    .#{variables.$grid-prefix}-ctnr-min {
+    .at-ctnr-min {
         @include grid-mixin.make-container-min();
     }
 }
 
 @if variables.$enable-grid-classes {
-    .#{variables.$grid-prefix}-ctnr {
+    .at-ctnr {
         @include grid-mixin.make-container();
         //uncomment if media query required
         //@include make-container-max-widths();
@@ -22,7 +22,7 @@
 // fluid, full width layouts.
 
 @if variables.$enable-grid-classes {
-    .#{variables.$grid-prefix}-ctnr-fld {
+    .at-ctnr-fld {
         @include grid-mixin.make-container-fld();
     }
 }
@@ -31,19 +31,19 @@
 // Grid Rows contain and clear the floats of your columns.
 
 @if variables.$enable-grid-classes {
-    .#{variables.$grid-prefix}-row {
+    .at-row {
         @include grid-mixin.make-row();
 
     }
 
     // Remove the negative margin from default .row, then the horizontal padding
     // from all immediate children columns (to prevent runaway style inheritance).
-    .#{variables.$grid-prefix }-no-gtr {
+    .at-no-gtr {
         margin-right: 0;
         margin-left: 0;
 
-        >.#{variables.$grid-col-prefix},
-        >[class*='#{variables.$grid-col-prefix}-'] {
+        >.at-col,
+        >[class*='at-col-'] {
             padding-right: 0;
             padding-left: 0;
         }
@@ -53,19 +53,19 @@
 
 /*Gap*/
 @if variables.$enable-grid-classes {
-    .#{variables.$grid-prefix}-gap {
+    .at-gap {
         @include grid-mixin.make-gap();
     }
 }
 
 @if variables.$enable-grid-classes {
-    .#{variables.$grid-prefix}-row-gap {
+    .at-row-gap {
         @include grid-mixin.make-row-gap();
     }
 }
 
 @if variables.$enable-grid-classes {
-    .#{variables.$grid-prefix}-col-gap {
+    .at-col-gap {
         @include grid-mixin.make-col-gap();
     }
 }

@@ -546,6 +546,36 @@ than a consistent one.
   subject to the state-arm rule above and needs a base — the permission covers
   restating a property, not skipping a declaration.
 
+## Write the prefix literally
+
+`at-` and `--at-` are **constants fixed by the bundles you linked**. Write them
+literally. Never introduce a variable, map or alias for them:
+
+```scss
+/* WRONG — a constant that cannot change, wrapped in indirection. */
+$at: '.at';
+$vp: '--at';
+.card { #{$vp}-cl: #000; }
+
+/* RIGHT */
+.card { --at-cl: #000; }
+```
+
+The cost is not verbosity, it is a silent failure mode. The prefix is part of
+the shipped CSS's public surface: if you set your own, `.card-btn` compiles
+clean, passes every build, and matches **nothing** — no error, no warning, just
+a rule that does nothing. A literal cannot drift; a variable invites someone to
+change it, and that change is invisible until the CSS stops working.
+
+Three consequences worth knowing:
+
+- **The demo and the framework both write it literally.** If you are copying a
+  pattern from either, you will not inherit a prefix variable.
+- **Grep works.** `rg -- '--at-cl'` finds every reader. Through an
+  interpolation it finds only the template.
+- **A prefix that *did* need to differ is a different framework.** Renaming is
+  breaking for every downstream consumer, so it is a fork, not a setting.
+
 ## Components: one owner per class
 
 No component CSS ships. A class is either a framework utility, or an identity

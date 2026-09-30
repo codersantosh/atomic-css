@@ -59,6 +59,24 @@ const AGENT_DOCS = ['skills/atomic-css/SKILL.md',
 // nesting (`&-spc { &-lg { … } }`), so a source scan cannot see the class at all.
 const CONSUMER_STYLESHEETS = ['demo/colormode-globalstyle/dynamic.css'];
 
+// Every SCSS source, framework and demo: the prefix must be literal everywhere.
+function scssSources() {
+    const out = [];
+    for (const dir of ['scss', 'demo']) {
+        const walk = (d) => {
+            let entries;
+            try { entries = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+            for (const e of entries) {
+                const abs = path.join(d, e.name);
+                if (e.isDirectory()) walk(abs);
+                else if (e.name.endsWith('.scss')) out.push(abs);
+            }
+        };
+        if (fs.existsSync(path.join(root, dir))) walk(path.join(root, dir));
+    }
+    return out.sort();
+}
+
 // Names that legitimately appear in prose but are in no bundle. Each is a
 // reviewed exception, not a gap: add a line here when the framework docs a
 // consumer-owned name.
@@ -1131,6 +1149,34 @@ function cssFences(content) {
     return [...content.matchAll(/```css\n([\s\S]*?)```/g)].map((m) => m[1]);
 }
 
+/**
+ * The prefix is a literal, never a variable.
+ *
+ * `at-` and `--at-` are fixed by the shipped bundles. A source that declares a
+ * prefix variable has introduced an indirection whose only possible effect is a
+ * value that matches no shipped class — and that compiles clean, passes every
+ * name check, and renders nothing. The framework removed $appPrefix,
+ * $varPrefix, $grid-prefix and $grid-col-prefix for exactly this reason
+ * (ARCHITECTURE.md § The prefixes are literals).
+ */
+// Any Sass variable that names a prefix, plus the short aliases this pattern
+// actually shipped under (`$at`, `$vp`, `$app`, `$pfx`). Matching only the four
+// historical names let `$atPrefix` through in the negative test.
+const PREFIX_VARIABLES = /\$(?:[\w-]*[Pp]refix[\w-]*|at|vp|app|pfx)\b/;
+
+function checkPrefixLiterals(owner, content) {
+    const re = new RegExp(PREFIX_VARIABLES, 'g');
+    let m;
+    while ((m = re.exec(content))) {
+        const line = content.slice(0, m.index).split('\n').length;
+        failures.push(
+            `${owner}:${line} declares or uses \`${m[0]}\` — the \`at-\` / \`--at-\` `
+            + 'prefix is fixed by the shipped bundles and must be written literally. '
+            + 'A prefix variable can only ever produce classes nothing matches.',
+        );
+    }
+}
+
 function checkStateArmSeeds(owner, content, isStylesheet) {
     const run = (css) => {
         const resting = new Map();
@@ -1390,6 +1436,15 @@ for (const file of CONSUMER_STYLESHEETS) {
     checkScaleSteps(file, content);
     checkRowGap(file, content);
     checkStateArmSeeds(file, content, true);
+    checkPrefixLiterals(file, content);
+}
+
+// SCSS sources: the prefix-literal rule only. The CSS-shape checks above are
+// written against compiled output, and a literal-vs-variable question is only
+// answerable from the source.
+for (const abs of scssSources()) {
+    const rel = path.relative(root, abs).split(path.sep).join('/');
+    checkPrefixLiterals(rel, fs.readFileSync(abs, 'utf8'));
 }
 
 

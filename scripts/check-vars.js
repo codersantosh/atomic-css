@@ -67,7 +67,10 @@ function reads(files) {
 function scssDeclared(file) {
     const text = fs.readFileSync(path.join(root, file), 'utf8');
     const out = new Set();
-    const re = /#\{\$varPrefix\}-([\w-]+)\s*:/g;
+    // The prefix is written literally, so the source reads `--at-gtr:`. The
+    // interpolated form is still accepted so a half-migrated file keeps its
+    // declarations visible here rather than silently reading as "declares none".
+    const re = /(?:--at|#\{\$varPrefix\})-([\w-]+)\s*:/g;
     let m;
     while ((m = re.exec(text))) out.add(m[1]);
     return out;

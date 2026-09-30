@@ -14,7 +14,7 @@
 // styling the element. Values are unchanged from the previous seed+apply form.
 body {
     font-family: 'Open Sans', sans-serif;
-    color: var(#{variable.$varPrefix}-body-color, inherit);
+    color: var(--at-body-color, inherit);
 }
 
 h1,
@@ -27,44 +27,44 @@ h6 {
 }
 
 h1 {
-    color: var(#{variable.$varPrefix}-cl, #060606);
+    color: var(--at-cl, #060606);
     font-size: 50px;
     margin: 0 0 30px 0;
 }
 
 h2 {
-    color: var(#{variable.$varPrefix}-cl, #060606);
+    color: var(--at-cl, #060606);
     font-size: 43px;
     margin: 0 0 30px 0;
 }
 
 h3 {
-    color: var(#{variable.$varPrefix}-cl, #060606);
+    color: var(--at-cl, #060606);
     font-size: 36px;
     margin: 0 0 25px 0;
 }
 
 h4 {
-    color: var(#{variable.$varPrefix}-cl, #060606);
+    color: var(--at-cl, #060606);
     font-size: 29px;
     margin: 0 0 20px 0;
 }
 
 h5 {
-    color: var(#{variable.$varPrefix}-cl, #060606);
+    color: var(--at-cl, #060606);
     font-size: 22px;
     margin: 0 0 15px 0;
 }
 
 h6 {
-    color: var(#{variable.$varPrefix}-cl, #060606);
+    color: var(--at-cl, #060606);
     font-size: 14px;
     margin: 0 0 10px 0;
 }
 
 p {
     font-size: 16px;
-    color: var(#{variable.$varPrefix}-cl, #3c3c3c);
+    color: var(--at-cl, #3c3c3c);
     margin: 0 0 15px 0;
 }
 
@@ -82,7 +82,7 @@ code {
 }
 
 li {
-    color: var(#{variable.$varPrefix}-cl, #3c3c3c);
+    color: var(--at-cl, #3c3c3c);
 }
 
 //Element/media defaults (consumer-global; the framework ships no media-sizing identities)
@@ -105,7 +105,7 @@ audio {
 article {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
-    color: var(#{variable.$varPrefix}-cl, #000);
+    color: var(--at-cl, #000);
 }
 
 article h4 {
@@ -158,80 +158,73 @@ details[open] summary svg {
 
 //Global CSS : Applied to only HTML of Atomic CSS excluding other global HTML
 //demo styles
-#{variable.$appPrefix} {
-    &-btn {
-        &#{variable.$appPrefix} {
+    .at-btn {
+        &.at {
             &-p {
-                #{variable.$varPrefix}-p: 10px 30px;
+                --at-p: 10px 30px;
             }
         }
     }
-
-    &-sec {
+    .at-sec {
         &-1 {
-            #{variable.$varPrefix}-bg-cl: #ececec;
+            --at-bg-cl: #ececec;
 
-            &#{variable.$appPrefix} {
+            &.at {
                 &-p {
-                    #{variable.$varPrefix}-p: 40px 0;
+                    --at-p: 40px 0;
                 }
             }
         }
 
         &-2 {
-            #{variable.$varPrefix}-bg-cl: #fff;
+            --at-bg-cl: #fff;
 
-            &#{variable.$appPrefix} {
+            &.at {
                 &-p {
-                    #{variable.$varPrefix}-p: 80px 0;
+                    --at-p: 80px 0;
                 }
             }
         }
 
         &-3 {
-            #{variable.$varPrefix}-bg-cl: #fbfbfb;
+            --at-bg-cl: #fbfbfb;
 
-            &#{variable.$appPrefix} {
+            &.at {
                 &-p {
-                    #{variable.$varPrefix}-p: 80px 0;
+                    --at-p: 80px 0;
                 }
             }
         }
     }
-
-    &-tbl-demo {
-        margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
-
-        #{variable.$appPrefix} {
-            &-bdr {
-                #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
-                #{variable.$varPrefix}-bdr-sty: solid;
-                #{variable.$varPrefix}-bdr-cl: #ddd;
+    .at-tbl-demo {
+        margin: var(--at-m, 0 0 30px 0);
+            .at-bdr {
+                --at-bdr-w: 0 0 1px 0;
+                --at-bdr-sty: solid;
+                --at-bdr-cl: #ddd;
             }
-        }
 
     }
 
     // Spacing steps. The class names the step on a scale the demo owns; the
     // value comes from a digit-free token, so no measurement is baked into a name
     // and the scale changes in one place.
-    &-m-t {
+    .at-m-t {
         &-md {
-            #{variable.$varPrefix}-m: var(#{variable.$varPrefix}-spc-md) 0 0 0;
+            --at-m: var(--at-spc-md) 0 0 0;
         }
 
         &-xl {
-            #{variable.$varPrefix}-m: var(#{variable.$varPrefix}-spc-xl) 0 0 0;
+            --at-m: var(--at-spc-xl) 0 0 0;
         }
     }
-
-    &-m-b {
+    .at-m-b {
         &-md {
-            #{variable.$varPrefix}-m: 0 0 var(#{variable.$varPrefix}-spc-md) 0;
+            --at-m: 0 0 var(--at-spc-md) 0;
         }
 
         &-xl {
-            #{variable.$varPrefix}-m: 0 0 var(#{variable.$varPrefix}-spc-xl) 0;
+            --at-m: 0 0 var(--at-spc-xl) 0;
         }
     }
 
@@ -239,68 +232,64 @@ details[open] summary svg {
     //own); the value comes from a digit-free token, so no measurement is
     //hard-coded in a name. A step only seeds the channel — `.at-gap` or any other
     //reader applies it, so the two co-apply on one element.
-    &-spc {
+    .at-spc {
         &-sm {
-            #{variable.$varPrefix}-gap: var(#{variable.$varPrefix}-spc-sm);
+            --at-gap: var(--at-spc-sm);
         }
 
         &-lg {
-            #{variable.$varPrefix}-gap: var(#{variable.$varPrefix}-spc-lg);
+            --at-gap: var(--at-spc-lg);
         }
     }
 
     //post
-    &-post {
-        &#{variable.$appPrefix} {
+    .at-post {
+        &.at {
             &-p {
-                #{variable.$varPrefix}-p: 20px;
+                --at-p: 20px;
             }
 
             &-bdr {
-                #{variable.$varPrefix}-bdr-w: 1px;
-                #{variable.$varPrefix}-bdr-cl: #ddd;
-                #{variable.$varPrefix}-bdr-sty: solid;
+                --at-bdr-w: 1px;
+                --at-bdr-cl: #ddd;
+                --at-bdr-sty: solid;
             }
 
             &-bg-cl {
-                #{variable.$varPrefix}-bg-cl: #fff;
+                --at-bg-cl: #fff;
             }
 
             &-box-sdw {
-                #{variable.$varPrefix}-box-sdw: 0 0 10px 1px rgba(0, 0, 0, 0.03);
+                --at-box-sdw: 0 0 10px 1px rgba(0, 0, 0, 0.03);
             }
         }
-
-        #{variable.$appPrefix} {
-            &-m {
+            .at-m {
                 &.m-minus {
-                    #{variable.$varPrefix}-m: 20px -20px;
+                    --at-m: 20px -20px;
                 }
             }
-        }
 
         &-ttl {
-            &#{variable.$appPrefix} {
+            &.at {
                 &-typ {
-                    #{variable.$varPrefix}-fnt-sz: 28px;
-                    #{variable.$varPrefix}-fnt-wt: 700;
+                    --at-fnt-sz: 28px;
+                    --at-fnt-wt: 700;
                 }
             }
         }
 
         &-mtdt {
-            #{variable.$varPrefix}-gap: 20px;
+            --at-gap: 20px;
         }
     }
 
     // Accordion
-
-    &-acc {
+    .at-acc {
         &-ttl {
-            #{variable.$varPrefix}-bg-cl: #f5f5f5;
+            --at-bg-cl: #f5f5f5;
 
             &:hover {
-                #{variable.$varPrefix}-bg-cl: #0d6efd;
+                --at-bg-cl: #0d6efd;
                 // --at-bdr-cl and --at-cl are not seeded: the summary carries only
                 // `at-bg-cl`, so neither token has a reader here. A state arm may not
                 // seed a channel its resting state does not own, and a seed nothing
@@ -310,18 +299,16 @@ details[open] summary svg {
         }
 
         &[open] {
-            #{variable.$appPrefix} {
-                &-acc {
+                .at-acc {
                     &-ttl {
-                        #{variable.$varPrefix}-bg-cl: #0d6efd;
+                        --at-bg-cl: #0d6efd;
                     }
                 }
-            }
         }
     }
 
     //Nav Tabs
-    &-nav {
+    .at-nav {
         list-style: none;
 
         // The nav wraps its links in <li role="presentation">; without this the
@@ -344,7 +331,7 @@ details[open] summary svg {
             border-color: transparent;
             color: #000;
 
-            &#{variable.$appPrefix} {
+            &.at {
                 &-active {
                     background-color: #fbfbfb;
                     border-color: #ddd #ddd transparent #ddd;
@@ -353,28 +340,23 @@ details[open] summary svg {
         }
 
         &-tabs {
-            border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
-            border-width: var(#{variable.$varPrefix}-bdr-w, 0 0 1px 0);
-            border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
-
-            #{variable.$appPrefix} {
-                &-nav {
+            border-style: var(--at-bdr-sty, solid);
+            border-width: var(--at-bdr-w, 0 0 1px 0);
+            border-color: var(--at-bdr-cl, #ddd);
+                .at-nav {
                     &-lnk {
-                        #{variable.$varPrefix}-m: calc(-1 * var(#{variable.$varPrefix}-bdr-w, 1px));
-                        margin: var(#{variable.$varPrefix}-m, calc(-1 * 1px));
+                        --at-m: calc(-1 * var(--at-bdr-w, 1px));
+                        margin: var(--at-m, calc(-1 * 1px));
                     }
                 }
-            }
 
             &-fill {
                 border-color: #0d6efd;
-
-                #{variable.$appPrefix} {
-                    &-nav {
+                    .at-nav {
                         &-lnk {
                             color: #0d6efd;
 
-                            &#{variable.$appPrefix} {
+                            &.at {
                                 &-active {
                                     color: #fff;
                                     background-color: #0d6efd;
@@ -383,15 +365,13 @@ details[open] summary svg {
                             }
                         }
                     }
-                }
             }
         }
     }
-
-    &-tab {
+    .at-tab {
         &-pane {
             display: none;
-            padding: var(#{variable.$varPrefix}-p, 15px);
+            padding: var(--at-p, 15px);
 
             // No Bootstrap JS ships with this demo, so `data-bs-toggle="tab"`
             // is inert and every panel would render stacked. The page's own
@@ -402,185 +382,174 @@ details[open] summary svg {
             }
         }
     }
-
-    &-footer {
-        &#{variable.$appPrefix} {
+    .at-footer {
+        &.at {
             &-p {
-                #{variable.$varPrefix}-p: 20px;
+                --at-p: 20px;
             }
 
             &-txt-al {
-                #{variable.$varPrefix}-txt-al: center;
+                --at-txt-al: center;
             }
 
             &-m {
-                #{variable.$varPrefix}-m: 0;
+                --at-m: 0;
             }
         }
     }
-}
 
 // Dark color mode (element defaults zero-specificity; the theme container keeps
 // its [data-at-theme] specificity so it still overrides the :root token set)
 [data-at-theme='dark'] {
-    #{variable.$varPrefix}-cl: #fff;
-    #{variable.$varPrefix}-bg-cl: #000;
-    #{variable.$varPrefix}-bdr-cl: #000;
+    --at-cl: #fff;
+    --at-bg-cl: #000;
+    --at-bdr-cl: #000;
 
     // The body surface is its own token, so the dark arm has to reseed it;
     // inheriting the light `#9da29f` on a black page is unreadable.
-    #{variable.$varPrefix}-body-color: #9da29f;
+    --at-body-color: #9da29f;
 
     //elements : h1-h6,p,button,a
     h1 {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     h2 {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     h3 {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     h4 {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     h5 {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     h6 {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     p {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     a {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
+        .at-btn {
 
-    #{variable.$appPrefix} {
-        &-btn {
-
-            #{variable.$varPrefix}-cl: #fff;
-            #{variable.$varPrefix}-bg-cl: #000;
-            #{variable.$varPrefix}-bdr-cl: #000;
+            --at-cl: #fff;
+            --at-bg-cl: #000;
+            --at-bdr-cl: #000;
 
             &:hover {
-                #{variable.$varPrefix}-cl: #fff;
-                #{variable.$varPrefix}-bg-cl: #2d2d2d;
-                #{variable.$varPrefix}-bdr-cl: #2d2d2d;
+                --at-cl: #fff;
+                --at-bg-cl: #2d2d2d;
+                --at-bdr-cl: #2d2d2d;
             }
 
-
             &-outln {
-                #{variable.$varPrefix}-bg-cl: transparent;
-                #{variable.$varPrefix}-cl: #2d2d2d;
-                #{variable.$varPrefix}-bdr-cl: #2d2d2d;
+                --at-bg-cl: transparent;
+                --at-cl: #2d2d2d;
+                --at-bdr-cl: #2d2d2d;
 
                 &:hover {
-                    #{variable.$varPrefix}-cl: #666;
-                    #{variable.$varPrefix}-bdr-cl: #666;
+                    --at-cl: #666;
+                    --at-bdr-cl: #666;
                 }
             }
 
             &-lnk {
-                #{variable.$varPrefix}-cl: #fff;
-                #{variable.$varPrefix}-bg-cl: transparent;
+                --at-cl: #fff;
+                --at-bg-cl: transparent;
 
                 &:hover {
-                    #{variable.$varPrefix}-bg-cl: transparent;
-                    #{variable.$varPrefix}-cl: #2d2d2d;
+                    --at-bg-cl: transparent;
+                    --at-cl: #2d2d2d;
                 }
             }
         }
-    }
 
     article {
-        #{variable.$varPrefix}-cl: #fff;
+        --at-cl: #fff;
     }
 
     details {
         summary {
-            #{variable.$varPrefix}-bdr-cl: #444;
-            #{variable.$varPrefix}-cl: #fff;
+            --at-bdr-cl: #444;
+            --at-cl: #fff;
         }
     }
 
     //demo styles
-    #{variable.$appPrefix} {
-        &-sec {
+        .at-sec {
             &-1 {
-                #{variable.$varPrefix}-bg-cl: #0d0d0d;
+                --at-bg-cl: #0d0d0d;
             }
 
             &-2 {
-                #{variable.$varPrefix}-bg-cl: #000;
+                --at-bg-cl: #000;
             }
 
             &-3 {
-                #{variable.$varPrefix}-bg-cl: #131313;
+                --at-bg-cl: #131313;
             }
         }
-
-        &-tbl-demo {
+        .at-tbl-demo {
             &-cel {
-                #{variable.$varPrefix}-cl: #fff;
+                --at-cl: #fff;
 
-                &#{variable.$appPrefix} {
+                &.at {
                     &-cl {
-                        #{variable.$varPrefix}-cl: #828282;
+                        --at-cl: #828282;
                     }
                 }
             }
         }
 
         // Accordion
-
-        &-acc {
+        .at-acc {
             &-ttl {
-                #{variable.$varPrefix}-bg-cl: #131313;
+                --at-bg-cl: #131313;
 
                 &:hover {
-                    #{variable.$varPrefix}-bg-cl: #2d2d2d;
+                    --at-bg-cl: #2d2d2d;
                 }
             }
 
             &[open] {
-                #{variable.$appPrefix} {
-                    &-acc {
+                    .at-acc {
                         &-ttl {
-                            #{variable.$varPrefix}-bg-cl: #2d2d2d;
+                            --at-bg-cl: #2d2d2d;
                         }
                     }
-                }
             }
         }
 
         //post
-        &-post {
-            &#{variable.$appPrefix} {
+        .at-post {
+            &.at {
                 &-bdr {
-                    #{variable.$varPrefix}-bdr-cl: #131313;
+                    --at-bdr-cl: #131313;
                 }
 
                 &-bg-cl {
-                    #{variable.$varPrefix}-bg-cl: #2d2d2d;
+                    --at-bg-cl: #2d2d2d;
                 }
             }
         }
 
         //Nav Tabs
-        &-nav {
+        .at-nav {
             &-lnk {
                 color: #fff;
 
-                &#{variable.$appPrefix} {
+                &.at {
                     &-active {
                         background-color: #131313;
                         border-color: #ddd #ddd transparent #ddd;
@@ -593,13 +562,11 @@ details[open] summary svg {
 
                 &-fill {
                     border-color: #131313;
-
-                    #{variable.$appPrefix} {
-                        &-nav {
+                        .at-nav {
                             &-lnk {
                                 color: #2d2d2d;
 
-                                &#{variable.$appPrefix} {
+                                &.at {
                                     &-active {
                                         color: #fff;
                                         background-color: #131313;
@@ -608,11 +575,9 @@ details[open] summary svg {
                                 }
                             }
                         }
-                    }
                 }
             }
         }
-    }
 
     //Wrapper elements : header,footer,section,article,aside,div,main,nav
 }

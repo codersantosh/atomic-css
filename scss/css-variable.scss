@@ -1,5 +1,6 @@
-//ClassesPrefix
-$appPrefix: '.at';
-
-//Root variable Prefix
-$varPrefix: '--at';
+// The `at-` class prefix and `--at-` custom-property prefix are written
+// literally throughout the framework. They are fixed by the shipped bundles and
+// by the downstream contract (ARCHITECTURE.md § Downstream contract): a rename
+// is breaking, so a variable for them can only invite a mismatch that silently
+// renders nothing. See skills/atomic-css/references/patterns.md § Write the
+// prefix literally.

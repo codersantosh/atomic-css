@@ -11,39 +11,39 @@
     @include breakpoints.media-breakpoint-up($breakpoint) {
         $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
-        .#{variables.$grid-prefix}#{$infix}-d-non {
+        .at#{$infix}-d-non {
             display: none;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-inl {
+        .at#{$infix}-inl {
             display: inline;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-inl-blk {
+        .at#{$infix}-inl-blk {
             display: inline-block;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-blk {
+        .at#{$infix}-blk {
             display: block;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-tbl {
+        .at#{$infix}-tbl {
             display: table;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-tbl-row {
+        .at#{$infix}-tbl-row {
             display: table-row;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-tbl-cel {
+        .at#{$infix}-tbl-cel {
             display: table-cell;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-flx {
+        .at#{$infix}-flx {
             display: flex;
         }
 
-        .#{variables.$grid-prefix}#{$infix}-inl-flx {
+        .at#{$infix}-inl-flx {
             display: inline-flex;
         }
     }

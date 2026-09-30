@@ -26,22 +26,15 @@ Phrasing content: elements that define phrasing content and the way it is render
 
 Metadata: elements that provide metadata about the document, such as <meta>, <title>, <link>, etc.
 */
-// Re-read of the demo's prefix constants (declared in scss/variable.scss).
-// They MUST equal the framework source scss/css-variable.scss ('.at' / '--at');
-// the demo stays self-contained, so this is a drift check, not a merge.
-variable.$appPrefix: '.at';
-
-//Root variable Prefix
-variable.$varPrefix: '--at';
 
 * {
-	margin: var(#{variable.$varPrefix}-m, initial);
-	padding: var(#{variable.$varPrefix}-p, initial);
-	box-sizing: var(#{variable.$varPrefix}-box-szg, initial);
+	margin: var(--at-m, initial);
+	padding: var(--at-p, initial);
+	box-sizing: var(--at-box-szg, initial);
 }
 
 html {
-	scroll-behavior: var(#{variable.$varPrefix}-scr-beh, initial);
+	scroll-behavior: var(--at-scr-beh, initial);
 }
 
 /* Text elements */
@@ -59,35 +52,35 @@ span,
 li {
 	// Font/Typography group
 	// TODO? font has many other properties but I think we dont need them all;
-	font-size: var(#{variable.$varPrefix}-fnt-sz, initial);
-	font-weight: var(#{variable.$varPrefix}-fnt-wt, initial);
-	font-family: var(#{variable.$varPrefix}-fnt-fam, initial);
-	font-style: var(#{variable.$varPrefix}-fnt-sty, initial);
-	text-transform: var(#{variable.$varPrefix}-txt-tf, initial);
-	text-decoration: var(#{variable.$varPrefix}-txt-dec, initial);
-	line-height: var(#{variable.$varPrefix}-ln-h, initial);
-	letter-spacing: var(#{variable.$varPrefix}-ltr-sp, initial);
+	font-size: var(--at-fnt-sz, initial);
+	font-weight: var(--at-fnt-wt, initial);
+	font-family: var(--at-fnt-fam, initial);
+	font-style: var(--at-fnt-sty, initial);
+	text-transform: var(--at-txt-tf, initial);
+	text-decoration: var(--at-txt-dec, initial);
+	line-height: var(--at-ln-h, initial);
+	letter-spacing: var(--at-ltr-sp, initial);
 	// color: color|initial|inherit;
-	color: var(#{variable.$varPrefix}-cl, initial);
+	color: var(--at-cl, initial);
 }
 
 /* Content grou */
 table {
 	// caption-side: top|bottom|initial|inherit;
-	caption-side: var(#{variable.$varPrefix}-cpt-sd, initial);
+	caption-side: var(--at-cpt-sd, initial);
 	// table-layout: auto|fixed|initial|inherit;
-	table-layout: var(#{variable.$varPrefix}-tbl-lyt, initial);
+	table-layout: var(--at-tbl-lyt, initial);
 }
 
 ul,
 ol,
 li {
 	// list-style: list-style-type list-style-position list-style-image|initial|inherit;
-	list-style: var(#{variable.$varPrefix}-ls-sty, initial);
+	list-style: var(--at-ls-sty, initial);
 
 }
 
-#{variable.$appPrefix} {
+.at {
 		// Property appliers (.at-cl, .at-p, .at-bdr, …) are deliberately NOT
 		// repeated here. The framework ships every one of them in css/atomic.css
 		// and this stylesheet loads *before* that bundle, so a local copy was
@@ -110,34 +103,34 @@ li {
 		// reaching in (patterns.md § A state arm must declare the base it
 		// overrides). A same-element variant still wins: `.at-btn-primary` is a
 		// later declaration at equal specificity.
-		#{variable.$varPrefix}-btn-cl: initial;
-		#{variable.$varPrefix}-btn-bg-cl: initial;
-		#{variable.$varPrefix}-btn-bdr-cl: initial;
+		--at-btn-cl: initial;
+		--at-btn-bg-cl: initial;
+		--at-btn-bdr-cl: initial;
 
 		// Seeds for a nested .at-svg / .at-cl to inherit; the properties below
 		// read the private namespace so a variant sets one value.
-		#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-btn-cl, inherit);
-		#{variable.$varPrefix}-cur: var(#{variable.$varPrefix}-btn-cur, pointer);
+		--at-cl: var(--at-btn-cl, inherit);
+		--at-cur: var(--at-btn-cur, pointer);
 
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(#{variable.$varPrefix}-btn-gap, 6px);
+		gap: var(--at-btn-gap, 6px);
 		box-sizing: border-box;
 		cursor: pointer;
-		color: var(#{variable.$varPrefix}-btn-cl, inherit);
+		color: var(--at-btn-cl, inherit);
 		text-decoration: none;
-		background-color: var(#{variable.$varPrefix}-btn-bg-cl, transparent);
-		font-size: var(#{variable.$varPrefix}-btn-fnt-sz, 14px);
-		line-height: var(#{variable.$varPrefix}-btn-ln-h, normal);
-		border-color: var(#{variable.$varPrefix}-btn-bdr-cl, transparent);
-		border-width: var(#{variable.$varPrefix}-btn-bdr-w, 0);
-		border-style: var(#{variable.$varPrefix}-btn-bdr-sty, solid);
-		border-radius: var(#{variable.$varPrefix}-btn-bdr-rad, 3px);
-		padding: var(#{variable.$varPrefix}-btn-p, 6px 12px);
+		background-color: var(--at-btn-bg-cl, transparent);
+		font-size: var(--at-btn-fnt-sz, 14px);
+		line-height: var(--at-btn-ln-h, normal);
+		border-color: var(--at-btn-bdr-cl, transparent);
+		border-width: var(--at-btn-bdr-w, 0);
+		border-style: var(--at-btn-bdr-sty, solid);
+		border-radius: var(--at-btn-bdr-rad, 3px);
+		padding: var(--at-btn-p, 6px 12px);
 
 		&[disabled] {
-			#{variable.$varPrefix}-btn-cur: not-allowed;
+			--at-btn-cur: not-allowed;
 			opacity: 0.5;
 		}
 		//`at-fc-4` is a wrapper-specific opt-out; `at-typ` supplies a font face.
@@ -150,94 +143,94 @@ li {
 		&-primary {
 			// White on `#primary` (#48b44f) is 2.65:1 — below WCAG AA. Black
 			// reaches 7.92:1 on the same token, so only the pairing changes.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-primary);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-primary);
+			--at-btn-bdr-cl: var(--at-primary);
 		}
 
 		&-secondary {
 			// White on `#secondary` (#d4e6d9) is 1.30:1 — unreadable. Black is 16:1.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-secondary);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-secondary);
+			--at-btn-bdr-cl: var(--at-secondary);
 		}
 
 		&-success {
 			// Same as -primary: white on `#success` (#46b450) is 2.66:1, black 7.9:1.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-success);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-success);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-success);
+			--at-btn-bdr-cl: var(--at-success);
 		}
 
 		&-danger {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-danger);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-danger);
+			--at-btn-cl: var(--at-white);
+			--at-btn-bg-cl: var(--at-danger);
+			--at-btn-bdr-cl: var(--at-danger);
 		}
 
 		&-warning {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-warning);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-warning);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-warning);
+			--at-btn-bdr-cl: var(--at-warning);
 		}
 
 		&-info {
 			// White on `#info` (#00a0d2) is 3.02:1, below AA. Black reaches 6.96.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-info);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-info);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-info);
+			--at-btn-bdr-cl: var(--at-info);
 		}
 
 		&-light {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-light);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-light);
+			--at-btn-cl: var(--at-base-color);
+			--at-btn-bg-cl: var(--at-light);
+			--at-btn-bdr-cl: var(--at-light);
 		}
 
 		//`quaternary` is the page's muted text, `body-color` the body surface
 		// tone: the two quiet variants that make the palette complete.
 		&-quaternary {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-quaternary);
-			#{variable.$varPrefix}-btn-bg-cl: transparent;
-			#{variable.$varPrefix}-btn-bdr-cl: transparent;
+			--at-btn-cl: var(--at-quaternary);
+			--at-btn-bg-cl: transparent;
+			--at-btn-bdr-cl: transparent;
 		}
 
 		&-dark {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-dark);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-dark);
+			--at-btn-cl: var(--at-white);
+			--at-btn-bg-cl: var(--at-dark);
+			--at-btn-bdr-cl: var(--at-dark);
 		}
 
 		&-outln {
 			// Text role, so `--primary-tint` rather than the surface green.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary-tint);
-			#{variable.$varPrefix}-btn-bg-cl: transparent;
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
+			--at-btn-cl: var(--at-primary-tint);
+			--at-btn-bg-cl: transparent;
+			--at-btn-bdr-cl: var(--at-primary);
 		}
 
 		&-outln-primary {
 			// `#primary` (#48b44f) as outline text on white is 2.65:1. The dark
 			// base colour is the readable text; the border keeps the green.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
-			#{variable.$varPrefix}-btn-bg-cl: transparent;
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
+			--at-btn-cl: var(--at-base-color);
+			--at-btn-bg-cl: transparent;
+			--at-btn-bdr-cl: var(--at-primary);
 		}
 
 		&-outln-secondary {
 			// `--secondary` (#d4e6d9) is a surface token: as outline *text* on
 			// white it is 1.30:1. `--base-color` is the readable pairing; the
 			// border keeps the secondary tint.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
-			#{variable.$varPrefix}-btn-bg-cl: transparent;
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary);
+			--at-btn-cl: var(--at-base-color);
+			--at-btn-bg-cl: transparent;
+			--at-btn-bdr-cl: var(--at-secondary);
 		}
 
 		&-lnk {
 			// Text role, so `--primary-tint` rather than the surface green.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary-tint);
-			#{variable.$varPrefix}-btn-bg-cl: transparent;
-			#{variable.$varPrefix}-btn-bdr-w: 0;
-			#{variable.$varPrefix}-btn-p: 0;
+			--at-btn-cl: var(--at-primary-tint);
+			--at-btn-bg-cl: transparent;
+			--at-btn-bdr-w: 0;
+			--at-btn-p: 0;
 			text-decoration: underline;
 		}
 
@@ -245,61 +238,61 @@ li {
 		&:hover,
 		&-primary:hover {
 			// Keeps the resting pairing: black on #3ea245 is 6.46:1, white 3.25.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-primary--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-primary--hover);
+			--at-btn-bdr-cl: var(--at-primary--hover);
 		}
 
 		&-secondary:hover {
 			// #b1cfb8 is light: black is 12.5:1, white only 1.68.
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-secondary--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary--hover);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-secondary--hover);
+			--at-btn-bdr-cl: var(--at-secondary--hover);
 		}
 
 		&-success:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-success--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-success--hover);
+			--at-btn-cl: var(--at-white);
+			--at-btn-bg-cl: var(--at-success--hover);
+			--at-btn-bdr-cl: var(--at-success--hover);
 		}
 
 		&-danger:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-danger--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-danger--hover);
+			--at-btn-cl: var(--at-white);
+			--at-btn-bg-cl: var(--at-danger--hover);
+			--at-btn-bdr-cl: var(--at-danger--hover);
 		}
 
 		&-warning:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-warning--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-warning--hover);
+			--at-btn-cl: var(--at-black);
+			--at-btn-bg-cl: var(--at-warning--hover);
+			--at-btn-bdr-cl: var(--at-warning--hover);
 		}
 
 		&-info:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-info--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-info--hover);
+			--at-btn-cl: var(--at-white);
+			--at-btn-bg-cl: var(--at-info--hover);
+			--at-btn-bdr-cl: var(--at-info--hover);
 		}
 
 		&-light:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-light--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-light--hover);
+			--at-btn-cl: var(--at-base-color);
+			--at-btn-bg-cl: var(--at-light--hover);
+			--at-btn-bdr-cl: var(--at-light--hover);
 		}
 
 		&-dark:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-dark--hover);
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-dark--hover);
+			--at-btn-cl: var(--at-white);
+			--at-btn-bg-cl: var(--at-dark--hover);
+			--at-btn-bdr-cl: var(--at-dark--hover);
 		}
 
 		&-outln:hover,
 		&-outln-primary:hover,
 		&-outln-secondary:hover,
 		&-lnk:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary-tint--hover);
-			#{variable.$varPrefix}-btn-bg-cl: transparent;
-			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
+			--at-btn-cl: var(--at-primary-tint--hover);
+			--at-btn-bg-cl: transparent;
+			--at-btn-bdr-cl: var(--at-primary--hover);
 		}
 	}
 
@@ -312,13 +305,13 @@ li {
 	&-typ {
 		// Font/Typography group: a consumer identity class, not a framework
 		// applier. It reads the same channels .at-fnt-sz and friends do.
-		font-size: var(#{variable.$varPrefix}-fnt-sz, initial);
-		font-weight: var(#{variable.$varPrefix}-fnt-wt, initial);
-		font-family: var(#{variable.$varPrefix}-fnt-fam, initial);
-		font-style: var(#{variable.$varPrefix}-fnt-sty, initial);
-		text-transform: var(#{variable.$varPrefix}-txt-tf, initial);
-		text-decoration: var(#{variable.$varPrefix}-txt-dec, initial);
-		line-height: var(#{variable.$varPrefix}-ln-h, initial);
-		letter-spacing: var(#{variable.$varPrefix}-ltr-sp, initial);
+		font-size: var(--at-fnt-sz, initial);
+		font-weight: var(--at-fnt-wt, initial);
+		font-family: var(--at-fnt-fam, initial);
+		font-style: var(--at-fnt-sty, initial);
+		text-transform: var(--at-txt-tf, initial);
+		text-decoration: var(--at-txt-dec, initial);
+		line-height: var(--at-ln-h, initial);
+		letter-spacing: var(--at-ltr-sp, initial);
 	}
 }
