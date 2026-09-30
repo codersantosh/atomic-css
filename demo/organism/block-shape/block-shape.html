@@ -34,7 +34,10 @@
 
         .ab-8cw4c41 {
             --at-p: 200px;
-            --at-bg-img: url("http://localhost/acme_blocks/wp-content/uploads/2023/06/man-table-person-people-plant-woman-1070851-pxhere.com_.jpg");
+            /* Root-relative on purpose: .at-bg-img lives in the framework
+             * stylesheet, so its url() resolves against that file's URL, not
+             * this page's. A document-relative path 404s. */
+            --at-bg-img: url(/demo/img/sphynx-1521190_1280.jpg);
             --at-bg-sz: cover;
         }
 

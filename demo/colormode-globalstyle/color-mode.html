@@ -30,7 +30,7 @@
             <p>Write CSS in the Atomic Way using CSS Variables and CSS Properties</p>
         </div>
         <div class="at-flx at-jfy-cont-ctr">
-            <button type="button" class="at-btn at-m at-m-t-xl at-box-sdw"
+            <button type="button" class="at-btn at-btn-primary at-m at-m-t-xl at-box-sdw"
                 onclick="userActionToggleColorMode()">Toggle Dark
                 Mode </button>
         </div>
@@ -940,6 +940,37 @@
             }
 
             handleSystemColorSchemeChange(preferredColorScheme);
+        });
+
+        // The tab strips below carry Bootstrap's `data-bs-toggle="tab"`, but no
+        // Bootstrap JS ships here, so that attribute switches nothing. Drive the
+        // same ARIA contract by hand: move `aria-selected` and `at-active`.
+        document.addEventListener('DOMContentLoaded', () => {
+            for (const list of document.querySelectorAll('[role="tablist"]')) {
+                const tabs = [...list.querySelectorAll('[role="tab"]')];
+
+                const select = tab => {
+                    for (const other of tabs) {
+                        const panel = document.getElementById(
+                            other.getAttribute('aria-controls'),
+                        );
+                        const active = other === tab;
+                        other.setAttribute('aria-selected', String(active));
+                        other.classList.toggle('at-active', active);
+                        if (panel) panel.setAttribute('aria-selected', String(active));
+                    }
+                };
+
+                // The panes ship without `aria-selected`, so mirror the initial
+                // tab state onto them before anything is clicked.
+                const initial = tabs.find(tab => tab.getAttribute('aria-selected') === 'true');
+                if (initial) select(initial);
+
+                for (const tab of tabs) {
+                    if (tab.disabled) continue;
+                    tab.addEventListener('click', () => select(tab));
+                }
+            }
         });
     </script>
 

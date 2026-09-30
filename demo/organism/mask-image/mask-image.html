@@ -34,21 +34,17 @@
         }
 
         .at-msk-img {
-            --at-msk-img: url("img/bottles-576056_1280.png");
+            --at-msk-img: url("../../img/bottles-576056_1280.png");
 
+            // Declared here as well as via the framework's .at-msk applier, so
+            // the url() resolves against this document instead of the bundle.
+            -webkit-mask-image: var(--at-msk-img);
             mask-image: var(--at-msk-img);
 
             --at-msk-pos: center center;
             --at-msk-rpt: no-repeat;
             --at-msk-sz: 70%;
             --at-msk-mode: alpha;
-
-            /* -webkit-mask-image: url(img/bottles-576056_1280.png); */
-            /* mask-image: url(img/bottles-576056_1280.png); */
-            /* -webkit-mask-size: 70%; */
-            /* mask-size: 70%; */
-            /* -webkit-mask-repeat: no-repeat; */
-            /* mask-repeat: no-repeat; */
         }
     </style>
 

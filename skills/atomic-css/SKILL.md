@@ -229,7 +229,7 @@ several fail silently. See [production.md](references/production.md):
 In the framework package (not in this folder), for the framework's own docs:
 
 - `README.md` — install, bundle detail, the full button contract, WordPress.
-- `short-names.json` — the same 316 legend entries, the source the generated
+- `short-names.json` — the same 317 legend entries, the source the generated
   `legend` key is built from.
 - `ARCHITECTURE.md` — the rules the framework follows, for when you need to know
   why rather than what.

@@ -27,6 +27,12 @@ $varPrefix: '--at';
     #{$varPrefix}-primary: #48b44f;
     #{$varPrefix}-primary--hover: #3ea245;
 
+    // `--primary` is a *surface* colour: white on it is 2.65:1 and it is only
+    // 2.65:1 as text on white. This is the darkened same hue, for outline and
+    // link text (6.25:1 on white), so a text role never reuses a surface token.
+    #{$varPrefix}-primary-tint: #1f6f26;
+    #{$varPrefix}-primary-tint--hover: #185620;
+
     #{$varPrefix}-secondary: #d4e6d9;
     #{$varPrefix}-secondary--hover: #b1cfb8;
 

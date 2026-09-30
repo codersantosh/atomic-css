@@ -181,6 +181,29 @@ Two things follow, and both fail silently:
   ancestor supplies is the same defect as restating a property behind a class,
   one layer out.
 
+### `url()` in a seeded image token is resolved against the stylesheet
+
+A seed the framework's own class consumes carries one more trap. `--at-bg-img`
+and `--at-msk-img` are read by `.at-bg-img` / `.at-msk` in the bundle, so the
+browser resolves the `url()` **against that stylesheet's URL, not the document's**:
+
+```css
+/* WRONG on a page at /products/index.html — resolves to /css/img/hero.jpg */
+.hero { --at-bg-img: url("img/hero.jpg"); }
+
+/* RIGHT — root-relative, so it does not depend on where the rule is declared */
+.hero { --at-bg-img: url("/img/hero.jpg"); }
+```
+
+It fails silently: the token is set, the class applies, the declaration is
+valid, and only the image is missing. Either use a root-relative path, or
+declare the consuming property on the same rule that seeds it.
+
+```css
+/* Also correct — the page declares the read, so the url() is document-relative. */
+.hero { --at-bg-img: url("img/hero.jpg"); background-image: var(--at-bg-img); }
+```
+
 ## The consumer contract
 
 Raw properties are cheap to write and easy to leave behind, so a strict

@@ -23,7 +23,7 @@ itself follows, read [`../../../ARCHITECTURE.md`](../../../ARCHITECTURE.md).
 | Classes only in the max bundle | 176 |
 | Classes in `css-template/atomic-template.css` | 440 |
 | Distinct `--at-*` variables read | 93 |
-| Naming-legend tokens (`short-names.json`) | 316 |
+| Naming-legend tokens (`short-names.json`) | 317 |
 | Structural classes | 17 |
 | Classes that seed a `--at-*` value | 7 |
 | Classes carrying `!important` | 0 |
@@ -964,7 +964,7 @@ fallback: the framework imposes nothing until you supply a value.
 - `--at-wrd-wrp` — .at-wrd-wrp
 - `--at-z-idx` — .at-z-idx
 
-## Token legend (316)
+## Token legend (317)
 
 Names are assembled from these tokens, and the same joined string is used for the
 class and for the variable: `bg` + `cl` gives `.at-bg-cl` and `--at-bg-cl`.
@@ -1252,6 +1252,7 @@ class and for the variable: `bg` + `cl` gives `.at-bg-cl` and `--at-bg-cl`.
 | `tertiary` | tertiary |
 | `tf` | transform |
 | `tgt` | target |
+| `tint` | a surface colour darkened for use as text |
 | `tkr` | ticker |
 | `tl` | top-left |
 | `tmg` | timing |

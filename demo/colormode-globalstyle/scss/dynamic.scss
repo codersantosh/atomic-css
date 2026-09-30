@@ -27,44 +27,44 @@ h6 {
 }
 
 h1 {
-    color: #060606;
+    color: var(#{variable.$varPrefix}-cl, #060606);
     font-size: 50px;
     margin: 0 0 30px 0;
 }
 
 h2 {
-    color: #060606;
+    color: var(#{variable.$varPrefix}-cl, #060606);
     font-size: 43px;
     margin: 0 0 30px 0;
 }
 
 h3 {
-    color: #060606;
+    color: var(#{variable.$varPrefix}-cl, #060606);
     font-size: 36px;
     margin: 0 0 25px 0;
 }
 
 h4 {
-    color: #060606;
+    color: var(#{variable.$varPrefix}-cl, #060606);
     font-size: 29px;
     margin: 0 0 20px 0;
 }
 
 h5 {
-    color: #060606;
+    color: var(#{variable.$varPrefix}-cl, #060606);
     font-size: 22px;
     margin: 0 0 15px 0;
 }
 
 h6 {
-    color: #060606;
+    color: var(#{variable.$varPrefix}-cl, #060606);
     font-size: 14px;
     margin: 0 0 10px 0;
 }
 
 p {
     font-size: 16px;
-    color: #3c3c3c;
+    color: var(#{variable.$varPrefix}-cl, #3c3c3c);
     margin: 0 0 15px 0;
 }
 
@@ -82,7 +82,7 @@ code {
 }
 
 li {
-    color: #3c3c3c;
+    color: var(#{variable.$varPrefix}-cl, #3c3c3c);
 }
 
 //Element/media defaults (consumer-global; the framework ships no media-sizing identities)
@@ -105,7 +105,7 @@ audio {
 article {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
-    color: #000;
+    color: var(#{variable.$varPrefix}-cl, #000);
 }
 
 article h4 {
@@ -321,21 +321,32 @@ details[open] summary svg {
 
     //Nav Tabs
     &-nav {
-        list-style: var(#{variable.$varPrefix}-ls-sty, none);
+        list-style: none;
+
+        // The nav wraps its links in <li role="presentation">; without this the
+        // bullets still render, because the items are display:list-item.
+        > li {
+            list-style: none;
+        }
 
         &-lnk {
-
-            padding: var(#{variable.$varPrefix}-p, 10px 15px);
-            background-color: var(#{variable.$varPrefix}-bg-cl, transparent);
-            border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
-            border-width: var(#{variable.$varPrefix}-bdr-w, 1px);
-            border-color: var(#{variable.$varPrefix}-bdr-cl, transparent);
-            color: var(#{variable.$varPrefix}-cl, #000);
+            // Component identity, in raw properties rather than var() reads.
+            // `--at-p`, `--at-bg-cl` and `--at-bdr-cl` all inherit, and an
+            // ancestor like `.at-sec-3.at-p` / `.at-sec-3` would otherwise hand
+            // every nav link that section's `80px 0` and `#fbfbfb`. A var()
+            // fallback can never outrank an inherited value, so these are the
+            // component's own values; state overrides below target the node.
+            padding: 10px 15px;
+            background-color: transparent;
+            border-style: solid;
+            border-width: 1px;
+            border-color: transparent;
+            color: #000;
 
             &#{variable.$appPrefix} {
                 &-active {
-                    #{variable.$varPrefix}-bg-cl: #fbfbfb;
-                    border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd #ddd transparent #ddd);
+                    background-color: #fbfbfb;
+                    border-color: #ddd #ddd transparent #ddd;
                 }
             }
         }
@@ -355,18 +366,18 @@ details[open] summary svg {
             }
 
             &-fill {
-                #{variable.$varPrefix}-bdr-cl: #0d6efd;
+                border-color: #0d6efd;
 
                 #{variable.$appPrefix} {
                     &-nav {
                         &-lnk {
-                            color: var(#{variable.$varPrefix}-cl, #0d6efd);
+                            color: #0d6efd;
 
                             &#{variable.$appPrefix} {
                                 &-active {
-                                    #{variable.$varPrefix}-cl: #fff;
-                                    #{variable.$varPrefix}-bg-cl: #0d6efd;
-                                    border-color: var(#{variable.$varPrefix}-bdr-cl, #0d6efd #0d6efd transparent #0d6efd);
+                                    color: #fff;
+                                    background-color: #0d6efd;
+                                    border-color: #0d6efd #0d6efd transparent #0d6efd;
                                 }
                             }
                         }
@@ -378,7 +389,16 @@ details[open] summary svg {
 
     &-tab {
         &-pane {
+            display: none;
             padding: var(#{variable.$varPrefix}-p, 15px);
+
+            // No Bootstrap JS ships with this demo, so `data-bs-toggle="tab"`
+            // is inert and every panel would render stacked. The page's own
+            // script toggles `aria-selected`, and that drives visibility here.
+            &[aria-selected='true'],
+            &.at-active {
+                display: block;
+            }
         }
     }
 
@@ -405,6 +425,10 @@ details[open] summary svg {
     #{variable.$varPrefix}-cl: #fff;
     #{variable.$varPrefix}-bg-cl: #000;
     #{variable.$varPrefix}-bdr-cl: #000;
+
+    // The body surface is its own token, so the dark arm has to reseed it;
+    // inheriting the light `#9da29f` on a black page is unreadable.
+    #{variable.$varPrefix}-body-color: #9da29f;
 
     //elements : h1-h6,p,button,a
     h1 {
@@ -556,35 +580,33 @@ details[open] summary svg {
 
         //Nav Tabs
         &-nav {
-            list-style: var(#{variable.$varPrefix}-ls-sty, none);
-
             &-lnk {
-                #{variable.$varPrefix}-cl: #fff;
+                color: #fff;
 
                 &#{variable.$appPrefix} {
                     &-active {
-                        #{variable.$varPrefix}-bg-cl: #131313;
-                        #{variable.$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
+                        background-color: #131313;
+                        border-color: #ddd #ddd transparent #ddd;
                     }
                 }
             }
 
             &-tabs {
-                #{variable.$varPrefix}-bdr-cl: #ddd;
+                border-color: #ddd;
 
                 &-fill {
-                    #{variable.$varPrefix}-bdr-cl: #131313;
+                    border-color: #131313;
 
                     #{variable.$appPrefix} {
                         &-nav {
                             &-lnk {
-                                #{variable.$varPrefix}-cl: #2d2d2d;
+                                color: #2d2d2d;
 
                                 &#{variable.$appPrefix} {
                                     &-active {
-                                        #{variable.$varPrefix}-cl: #fff;
-                                        #{variable.$varPrefix}-bg-cl: #131313;
-                                        #{variable.$varPrefix}-bdr-cl: #131313 #131313 transparent #131313;
+                                        color: #fff;
+                                        background-color: #131313;
+                                        border-color: #131313 #131313 transparent #131313;
                                     }
                                 }
                             }

@@ -8,6 +8,8 @@
   --at-body-color: #9da29f;
   --at-primary: #48b44f;
   --at-primary--hover: #3ea245;
+  --at-primary-tint: #1f6f26;
+  --at-primary-tint--hover: #185620;
   --at-secondary: #d4e6d9;
   --at-secondary--hover: #b1cfb8;
   --at-success: #46b450;
@@ -231,17 +233,17 @@ li {
   display: inline-block;
 }
 .at-btn-primary {
-  --at-btn-cl: var(--at-white);
+  --at-btn-cl: var(--at-black);
   --at-btn-bg-cl: var(--at-primary);
   --at-btn-bdr-cl: var(--at-primary);
 }
 .at-btn-secondary {
-  --at-btn-cl: var(--at-white);
+  --at-btn-cl: var(--at-black);
   --at-btn-bg-cl: var(--at-secondary);
   --at-btn-bdr-cl: var(--at-secondary);
 }
 .at-btn-success {
-  --at-btn-cl: var(--at-white);
+  --at-btn-cl: var(--at-black);
   --at-btn-bg-cl: var(--at-success);
   --at-btn-bdr-cl: var(--at-success);
 }
@@ -256,7 +258,7 @@ li {
   --at-btn-bdr-cl: var(--at-warning);
 }
 .at-btn-info {
-  --at-btn-cl: var(--at-white);
+  --at-btn-cl: var(--at-black);
   --at-btn-bg-cl: var(--at-info);
   --at-btn-bdr-cl: var(--at-info);
 }
@@ -276,34 +278,34 @@ li {
   --at-btn-bdr-cl: var(--at-dark);
 }
 .at-btn-outln {
-  --at-btn-cl: var(--at-primary);
+  --at-btn-cl: var(--at-primary-tint);
   --at-btn-bg-cl: transparent;
   --at-btn-bdr-cl: var(--at-primary);
 }
 .at-btn-outln-primary {
-  --at-btn-cl: var(--at-primary);
+  --at-btn-cl: var(--at-base-color);
   --at-btn-bg-cl: transparent;
   --at-btn-bdr-cl: var(--at-primary);
 }
 .at-btn-outln-secondary {
-  --at-btn-cl: var(--at-secondary);
+  --at-btn-cl: var(--at-base-color);
   --at-btn-bg-cl: transparent;
   --at-btn-bdr-cl: var(--at-secondary);
 }
 .at-btn-lnk {
-  --at-btn-cl: var(--at-primary);
+  --at-btn-cl: var(--at-primary-tint);
   --at-btn-bg-cl: transparent;
   --at-btn-bdr-w: 0;
   --at-btn-p: 0;
   text-decoration: underline;
 }
 .at-btn:hover, .at-btn-primary:hover {
-  --at-btn-cl: var(--at-white);
+  --at-btn-cl: var(--at-black);
   --at-btn-bg-cl: var(--at-primary--hover);
   --at-btn-bdr-cl: var(--at-primary--hover);
 }
 .at-btn-secondary:hover {
-  --at-btn-cl: var(--at-white);
+  --at-btn-cl: var(--at-black);
   --at-btn-bg-cl: var(--at-secondary--hover);
   --at-btn-bdr-cl: var(--at-secondary--hover);
 }
@@ -338,7 +340,7 @@ li {
   --at-btn-bdr-cl: var(--at-dark--hover);
 }
 .at-btn-outln:hover, .at-btn-outln-primary:hover, .at-btn-outln-secondary:hover, .at-btn-lnk:hover {
-  --at-btn-cl: var(--at-primary--hover);
+  --at-btn-cl: var(--at-primary-tint--hover);
   --at-btn-bg-cl: transparent;
   --at-btn-bdr-cl: var(--at-primary--hover);
 }

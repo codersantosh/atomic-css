@@ -136,19 +136,23 @@ li {
 		// ---- variants: values only, no properties ----
 
 		&-primary {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			// White on `#primary` (#48b44f) is 2.65:1 — below WCAG AA. Black
+			// reaches 7.92:1 on the same token, so only the pairing changes.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
 			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-primary);
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
 		}
 
 		&-secondary {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			// White on `#secondary` (#d4e6d9) is 1.30:1 — unreadable. Black is 16:1.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
 			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-secondary);
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary);
 		}
 
 		&-success {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			// Same as -primary: white on `#success` (#46b450) is 2.66:1, black 7.9:1.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
 			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-success);
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-success);
 		}
@@ -166,7 +170,8 @@ li {
 		}
 
 		&-info {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			// White on `#info` (#00a0d2) is 3.02:1, below AA. Black reaches 6.96.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
 			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-info);
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-info);
 		}
@@ -192,25 +197,32 @@ li {
 		}
 
 		&-outln {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary);
+			// Text role, so `--primary-tint` rather than the surface green.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary-tint);
 			#{variable.$varPrefix}-btn-bg-cl: transparent;
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
 		}
 
 		&-outln-primary {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary);
+			// `#primary` (#48b44f) as outline text on white is 2.65:1. The dark
+			// base colour is the readable text; the border keeps the green.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
 			#{variable.$varPrefix}-btn-bg-cl: transparent;
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
 		}
 
 		&-outln-secondary {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-secondary);
+			// `--secondary` (#d4e6d9) is a surface token: as outline *text* on
+			// white it is 1.30:1. `--base-color` is the readable pairing; the
+			// border keeps the secondary tint.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
 			#{variable.$varPrefix}-btn-bg-cl: transparent;
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary);
 		}
 
 		&-lnk {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary);
+			// Text role, so `--primary-tint` rather than the surface green.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary-tint);
 			#{variable.$varPrefix}-btn-bg-cl: transparent;
 			#{variable.$varPrefix}-btn-bdr-w: 0;
 			#{variable.$varPrefix}-btn-p: 0;
@@ -220,13 +232,15 @@ li {
 		// Hover is a state arm, so it stays last and only restates values.
 		&:hover,
 		&-primary:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			// Keeps the resting pairing: black on #3ea245 is 6.46:1, white 3.25.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
 			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-primary--hover);
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
 		}
 
 		&-secondary:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			// #b1cfb8 is light: black is 12.5:1, white only 1.68.
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
 			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-secondary--hover);
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary--hover);
 		}
@@ -271,7 +285,7 @@ li {
 		&-outln-primary:hover,
 		&-outln-secondary:hover,
 		&-lnk:hover {
-			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary--hover);
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary-tint--hover);
 			#{variable.$varPrefix}-btn-bg-cl: transparent;
 			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
 		}

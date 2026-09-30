@@ -24,6 +24,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const postcss = require('postcss');
 
 const root = path.resolve(__dirname, '..');
 const failures = [];
@@ -112,6 +113,46 @@ for (const file of pages) {
             failures.push(`${path.relative(root, file)}: ${target} does not exist`);
         }
     }
+    // `url(...)` in inline <style> blocks and --at-bg-img/-msk-img seeds are
+    // assets too, and a stale or foreign path there is invisible to the
+    // href/src scan above. Two real cases got past it: a hard-coded
+    // http://localhost/... from another project, and img/ pointing one level
+    // too shallow for a page that had moved under demo/organism/.
+    for (const m of html.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) {
+        const target = m[1];
+        // Runtime-built value (mask-image.html composes a data: URL in script).
+        if (/[${}]/.test(target)) continue;
+        if (/^(?:https?:)?\/\//.test(target) || /^(?:data:|#)/.test(target)) {
+            if (/^https?:\/\/(?:localhost|127\.0\.0\.1)/.test(target)) {
+                failures.push(`${path.relative(root, file)}: url(${target}) points at a `
+                    + 'dev server from another project — it can never resolve');
+            }
+            continue;
+        }
+        // An applier class (.at-bg-img, .at-msk-img) declared only in the
+        // framework stylesheet resolves this url() against *that* file's URL,
+        // not the document, so a document-relative path silently 404s. A page
+        // that also declares the consuming property itself resolves it
+        // document-relative, and is correct as written.
+        const before = html.slice(0, m.index);
+        const after = html.slice(m.index);
+        const seedsOnly = /--at-(?:bg|msk)-img\s*:/.test(before)
+            && /class="[^"]*\bat-(?:bg|msk)-img\b/.test(html)
+            && !/(?:background-image|mask-image)\s*:\s*var\(--at-(?:bg|msk)-img/.test(after);
+        if (seedsOnly && !target.startsWith('/')) {
+            failures.push(`${path.relative(root, file)}: url(${target}) seeds an `
+                + '--at-bg-img/-msk-img that only the framework stylesheet consumes, '
+                + 'so it resolves against that file rather than this page — '
+                + 'use a root-relative path');
+            continue;
+        }
+        const abs = target.startsWith('/')
+            ? path.join(root, target)
+            : path.resolve(path.dirname(file), target);
+        if (!fs.existsSync(abs)) {
+            failures.push(`${path.relative(root, file)}: url(${target}) does not exist`);
+        }
+    }
 }
 
 // --- 2 & 3. every `.at-*` resolves, and is not a silent no-op ----------------
@@ -169,6 +210,41 @@ if (fs.existsSync(indexFile)) {
             failures.push(`index.html does not link ${rel} — the demo pages are unreachable from the front door`);
         }
     }
+}
+
+// --- 6. the dark arm can actually reach the text it themes ---------------
+// The dark arm sets `--at-cl` on [data-at-theme=dark], but a consumer rule
+// that hard-codes `color:` ignores that seed, so the whole dark page renders
+// as dark-on-dark. Static gates cannot see it: the CSS is valid and every
+// class resolves. This is the check that would have caught it.
+const themeFile = path.join(root, 'demo/colormode-globalstyle/dynamic.css');
+if (fs.existsSync(themeFile)) {
+    const css = fs.readFileSync(themeFile, 'utf8');
+    if (!/\[data-at-theme=(?:['"])?dark(?:['"])?\]\s*\{[^}]*--at-cl\s*:/.test(css)) {
+        failures.push('the dark arm never sets --at-cl, so nothing can theme it');
+    }
+
+    // A consumer rule that hard-codes `color:` on a bare element ignores the
+    // dark arm's seed. Brand accents (link, code) are deliberately exempt: they
+    // are the same in both themes by design, and are meant to stay readable.
+    const UNTHEMED_OK = new Set(['a', 'a:hover', 'code', 'html', 'body']);
+    const BARE_ELEMENT = /^[a-z][\w-]*(::?[a-z-]+)?$/i;
+    const root = postcss.parse(css);
+    root.walkRules((rule) => {
+        if (!BARE_ELEMENT.test(rule.selector)) return;
+        if (UNTHEMED_OK.has(rule.selector.toLowerCase())) return;
+        const literals = rule.nodes.filter(
+            (n) => n.type === 'decl'
+                && /^(color|background-color)$/i.test(n.prop)
+                && /^#[0-9a-f]{3,8}$/i.test(n.value),
+        );
+        if (!literals.length) return;
+        failures.push(
+            `dynamic.css: bare element \`${rule.selector}\` hard-codes `
+            + `${literals.map((n) => n.prop).join(', ')}, so the dark arm cannot theme it`
+            + ' — read var(--at-cl) instead',
+        );
+    });
 }
 
 if (failures.length) {
