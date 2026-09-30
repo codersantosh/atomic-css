@@ -56,8 +56,7 @@ a,
 button,
 code,
 span,
-li,
-#{variable.$appPrefix}-btn {
+li {
 	// Font/Typography group
 	// TODO? font has many other properties but I think we dont need them all;
 	font-size: var(#{variable.$varPrefix}-fnt-sz, initial);
@@ -141,254 +140,184 @@ li {
 	}
 
 	&-btn {
-		// Values only, never properties. The utility classes the markup carries
-		// apply the properties (rule 3/4 of the consumer contract in README.md
-		// § Buttons). scss/dynamic.scss is the single owner of the live button
-		// values; this block is the pattern reference README cites.
-		#{variable.$varPrefix}-cur: pointer;
-		#{variable.$varPrefix}-fnt-sz: 14px;
-		#{variable.$varPrefix}-ln-h: normal;
-		#{variable.$varPrefix}-bdr-w: initial;
-		#{variable.$varPrefix}-bdr-sty: solid;
-		#{variable.$varPrefix}-bdr-cl: transparent;
-		#{variable.$varPrefix}-p: 6px 12px;
+		// The shell OWNS its properties. A repeating component with variants does
+		// not ask the markup to name appliers: `class="at-btn at-btn-primary"` is
+		// the whole contract. Its own measurements live in a private
+		// `--at-btn-*` namespace, because `--at-p`, `--at-gap` and friends are
+		// the app's shared vocabulary and a button's padding is not part of it.
+		//
+		// Seeds for a nested .at-svg / .at-cl to inherit; the properties below
+		// read the private namespace so a variant sets one value.
+		#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-btn-cl, inherit);
+		#{variable.$varPrefix}-cur: var(#{variable.$varPrefix}-btn-cur, pointer);
+
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(#{variable.$varPrefix}-btn-gap, 6px);
+		box-sizing: border-box;
+		cursor: pointer;
+		color: var(#{variable.$varPrefix}-btn-cl, inherit);
+		text-decoration: none;
+		background-color: var(#{variable.$varPrefix}-btn-bg-cl, transparent);
+		font-size: var(#{variable.$varPrefix}-btn-fnt-sz, 14px);
+		line-height: var(#{variable.$varPrefix}-btn-ln-h, normal);
+		border-color: var(#{variable.$varPrefix}-btn-bdr-cl, transparent);
+		border-width: var(#{variable.$varPrefix}-btn-bdr-w, 0);
+		border-style: var(#{variable.$varPrefix}-btn-bdr-sty, solid);
+		border-radius: var(#{variable.$varPrefix}-btn-bdr-rad, 3px);
+		padding: var(#{variable.$varPrefix}-btn-p, 6px 12px);
 
 		&[disabled] {
-			#{variable.$varPrefix}-opa: 0.5;
-			#{variable.$varPrefix}-cur: not-allowed;
+			#{variable.$varPrefix}-btn-cur: not-allowed;
+			opacity: 0.5;
+		}
+		//`at-fc-4` is a wrapper-specific opt-out; `at-typ` supplies a font face.
+		&.at-inl {
+			display: inline-block;
 		}
 
-		//Solid variants (consumer-side implementation; atrc owns the same
-		//rules in packages/atoms/button/style.scss)
-		&-primary {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-primary);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary);
+		// ---- variants: values only, no properties ----
 
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-primary--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
-			}
+		&-primary {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-primary);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
 		}
 
 		&-secondary {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-secondary);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary);
-
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-secondary--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary--hover);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-secondary);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary);
 		}
 
 		&-success {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-success);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success);
-
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-success--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success--hover);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-success);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-success);
 		}
 
 		&-danger {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-danger);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger);
-
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-danger--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger--hover);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-danger);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-danger);
 		}
 
 		&-warning {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-warning);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning);
-
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-warning--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning--hover);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-warning);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-warning);
 		}
 
 		&-info {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-info);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info);
-
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-info--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info--hover);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-info);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-info);
 		}
 
 		&-light {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-base-color);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-light);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light);
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-light);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-light);
+		}
 
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-base-color);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-light--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light--hover);
-			}
+		//`quaternary` is the page's muted text, `body-color` the body surface
+		// tone: the two quiet variants that make the palette complete.
+		&-quaternary {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-quaternary);
+			#{variable.$varPrefix}-btn-bg-cl: transparent;
+			#{variable.$varPrefix}-btn-bdr-cl: transparent;
 		}
 
 		&-dark {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-dark);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark);
-
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-dark--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark--hover);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-dark);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-dark);
 		}
 
-		&-lnk {
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
-
-			&:hover {
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
-			}
-		}
-
-		//Outline base
 		&-outln {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-body-color);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-quaternary);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary);
+			#{variable.$varPrefix}-btn-bg-cl: transparent;
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
 		}
 
-		//Outline variants
 		&-outln-primary {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-primary);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-primary);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-primary);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary);
+			#{variable.$varPrefix}-btn-bg-cl: transparent;
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary);
 		}
 
 		&-outln-secondary {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-secondary);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-secondary--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-secondary--hover);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-black);
-			}
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-secondary);
+			#{variable.$varPrefix}-btn-bg-cl: transparent;
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary);
 		}
 
-		&-outln-success {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-success);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-success);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-success);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			}
+		&-lnk {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary);
+			#{variable.$varPrefix}-btn-bg-cl: transparent;
+			#{variable.$varPrefix}-btn-bdr-w: 0;
+			#{variable.$varPrefix}-btn-p: 0;
+			text-decoration: underline;
 		}
 
-		&-outln-danger {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-danger);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-danger);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-danger);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			}
+		// Hover is a state arm, so it stays last and only restates values.
+		&:hover,
+		&-primary:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-primary--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
 		}
 
-		&-outln-warning {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-warning);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-warning);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-warning);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			}
+		&-secondary:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-secondary--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-secondary--hover);
 		}
 
-		&-outln-info {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-info);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-info);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-info);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			}
+		&-success:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-success--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-success--hover);
 		}
 
-		&-outln-light {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-body-color);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-light--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-light);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-body-color);
-			}
+		&-danger:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-danger--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-danger--hover);
 		}
 
-		&-outln-dark {
-			#{variable.$varPrefix}-bg-cl: transparent;
-			#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-dark);
-			#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark);
-			#{variable.$varPrefix}-bdr-w: 1px;
-			#{variable.$varPrefix}-bdr-sty: solid;
-
-			&:hover {
-				#{variable.$varPrefix}-bg-cl: var(#{variable.$varPrefix}-dark--hover);
-				#{variable.$varPrefix}-bdr-cl: var(#{variable.$varPrefix}-dark--hover);
-				#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-white);
-			}
+		&-warning:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-black);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-warning--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-warning--hover);
 		}
 
-		//Button with icon (paired with at-inl-flx/at-gap utilities)
-		&-icon {
-			#{variable.$varPrefix}-gap: 0 5px;
+		&-info:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-info--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-info--hover);
+		}
+
+		&-light:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-base-color);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-light--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-light--hover);
+		}
+
+		&-dark:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-white);
+			#{variable.$varPrefix}-btn-bg-cl: var(#{variable.$varPrefix}-dark--hover);
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-dark--hover);
+		}
+
+		&-outln:hover,
+		&-outln-primary:hover,
+		&-outln-secondary:hover,
+		&-lnk:hover {
+			#{variable.$varPrefix}-btn-cl: var(#{variable.$varPrefix}-primary--hover);
+			#{variable.$varPrefix}-btn-bg-cl: transparent;
+			#{variable.$varPrefix}-btn-bdr-cl: var(#{variable.$varPrefix}-primary--hover);
 		}
 	}
 

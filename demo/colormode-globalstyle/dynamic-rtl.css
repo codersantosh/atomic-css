@@ -204,6 +204,7 @@ button.at-color:hover {
 
 body {
   font-family: "Open Sans", sans-serif;
+  color: var(--at-body-color, inherit);
 }
 
 h1,
@@ -347,43 +348,6 @@ details[open] summary svg {
   -webkit-transform: rotate(-180deg);
       -ms-transform: rotate(-180deg);
           transform: rotate(-180deg);
-}
-
-.at-btn {
-  --at-cl: #fff;
-  --at-bg-cl: #0d6efd;
-  --at-bdr-cl: #0c5ed7;
-  --at-bdr-w: 1px;
-  --at-bdr-sty: solid;
-  --at-p: 10px 25px;
-}
-.at-btn:hover {
-  --at-cl: #fff;
-  --at-bg-cl: #0f4087;
-  --at-bdr-cl: #0f4087;
-}
-.at-btn-outln {
-  --at-bg-cl: transparent;
-  --at-cl: #0c5ed7;
-  --at-bdr-cl: #0c5ed7;
-  --at-bdr-w: 1px;
-  --at-bdr-sty: solid;
-  --at-p: 10px 15px;
-}
-.at-btn-outln:hover {
-  --at-bg-cl: transparent;
-  --at-cl: #0c5ed7;
-  --at-bdr-cl: #0f4087;
-}
-.at-btn-lnk {
-  --at-cl: #0c5ed7;
-  --at-bg-cl: transparent;
-  --at-bdr-w: 0;
-  --at-p: 0;
-}
-.at-btn-lnk:hover {
-  --at-cl: #0f4087;
-  --at-bg-cl: transparent;
 }
 
 .at-btn.at-p {

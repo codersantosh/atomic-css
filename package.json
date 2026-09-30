@@ -1,60 +1,61 @@
 {
-	"name": "atomic-css",
-	"version": "2.0.0",
-	"description": "A Flexbox Grid System using Webpack and CSS variables",
-	"files": [
-		"css",
-		"css-max",
-		"css-template",
-		"skills",
-		"ARCHITECTURE.md",
-		"short-names.json",
-		"README.md",
-		"LICENSE"
-	],
-	"scripts": {
-		"live": "node .bin/build.js",
-		"build": "webpack --mode none && npm run live && npm run verify",
-		"dev": "webpack --mode development",
-		"start": "webpack --watch --mode development",
-		"lint": "stylelint \"scss/**/*.scss\" \"demo/colormode-globalstyle/**/*.scss\"",
-		"docs": "node scripts/generate-docs.js",
-		"docs:check": "node scripts/generate-docs.js --check",
-		"check:parity": "node scripts/check-parity.js",
-		"check:names": "node scripts/check-names.js",
-		"check:vars": "node scripts/check-vars.js",
-		"check:important": "node scripts/check-important.js",
-		"check:docs": "npm run docs:check",
-		"verify": "npm run check:parity && npm run check:names && npm run check:vars && npm run check:important && npm run check:docs"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/codersantosh/atomic-css"
-	},
-	"keywords": [
-		"flexbox",
-		"grid",
-		"atomic",
-		"css"
-	],
-	"author": "codersantosh",
-	"license": "GPL-2.0-or-later",
-	"bugs": {
-		"url": "https://github.com/codersantosh/atomic-css/issues"
-	},
-	"homepage": "https://github.com/codersantosh/atomic-css",
-	"devDependencies": {
-		"autoprefixer": "^10.4.20",
-		"css-loader": "^7.1.2",
-		"css-minimizer-webpack-plugin": "^8.0.0",
-		"mini-css-extract-plugin": "^2.9.1",
-		"postcss-loader": "^8.1.1",
-		"postcss-scss": "^4.0.9",
-		"rtlcss": "^4.3.0",
-		"sass": "^1.79.5",
-		"sass-loader": "^17.0.0",
-		"stylelint": "^17.14.1",
-		"webpack": "^5.109.2",
-		"webpack-cli": "^7.2.2"
-	}
+  "name": "atomic-css",
+  "version": "2.0.0",
+  "description": "A Flexbox Grid System using Webpack and CSS variables",
+  "files": [
+    "css",
+    "css-max",
+    "css-template",
+    "skills",
+    "ARCHITECTURE.md",
+    "short-names.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "live": "node .bin/build.js",
+    "build": "webpack --mode none && npm run live && npm run verify",
+    "dev": "webpack --mode development",
+    "start": "webpack --watch --mode development",
+    "lint": "stylelint \"scss/**/*.scss\" \"demo/colormode-globalstyle/**/*.scss\"",
+    "docs": "node scripts/generate-docs.js",
+    "docs:check": "node scripts/generate-docs.js --check",
+    "check:parity": "node scripts/check-parity.js",
+    "check:names": "node scripts/check-names.js",
+    "check:vars": "node scripts/check-vars.js",
+    "check:important": "node scripts/check-important.js",
+    "check:docs": "npm run docs:check",
+    "verify": "npm run check:parity && npm run check:names && npm run check:vars && npm run check:important && npm run check:demo && npm run check:docs",
+    "check:demo": "node scripts/check-demo.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codersantosh/atomic-css"
+  },
+  "keywords": [
+    "flexbox",
+    "grid",
+    "atomic",
+    "css"
+  ],
+  "author": "codersantosh",
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/codersantosh/atomic-css/issues"
+  },
+  "homepage": "https://github.com/codersantosh/atomic-css",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^8.0.0",
+    "mini-css-extract-plugin": "^2.9.1",
+    "postcss-loader": "^8.1.1",
+    "postcss-scss": "^4.0.9",
+    "rtlcss": "^4.3.0",
+    "sass": "^1.79.5",
+    "sass-loader": "^17.0.0",
+    "stylelint": "^17.14.1",
+    "webpack": "^5.109.2",
+    "webpack-cli": "^7.2.2"
+  }
 }

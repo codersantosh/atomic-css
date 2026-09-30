@@ -17,6 +17,7 @@
 // styling the element. Values are unchanged from the previous seed+apply form.
 body {
     font-family: 'Open Sans', sans-serif;
+    color: var(#{variable.$varPrefix}-body-color, inherit);
 }
 
 h1,
@@ -156,54 +157,6 @@ details[open] {
 
 details[open] summary svg {
     transform: rotate(180deg);
-}
-
-//For Global Button need button tag
-
-#{variable.$appPrefix} {
-    &-btn {
-
-        #{variable.$varPrefix}-cl: #fff;
-        #{variable.$varPrefix}-bg-cl: #0d6efd;
-        #{variable.$varPrefix}-bdr-cl: #0c5ed7;
-        #{variable.$varPrefix}-bdr-w: 1px;
-        #{variable.$varPrefix}-bdr-sty: solid;
-        #{variable.$varPrefix}-p: 10px 25px;
-
-        &:hover {
-            #{variable.$varPrefix}-cl: #fff;
-            #{variable.$varPrefix}-bg-cl: #0f4087;
-            #{variable.$varPrefix}-bdr-cl: #0f4087;
-        }
-
-
-        &-outln {
-            #{variable.$varPrefix}-bg-cl: transparent;
-            #{variable.$varPrefix}-cl: #0c5ed7;
-            #{variable.$varPrefix}-bdr-cl: #0c5ed7;
-            #{variable.$varPrefix}-bdr-w: 1px;
-            #{variable.$varPrefix}-bdr-sty: solid;
-            #{variable.$varPrefix}-p: 10px 15px;
-
-            &:hover {
-                #{variable.$varPrefix}-bg-cl: transparent;
-                #{variable.$varPrefix}-cl: #0c5ed7;
-                #{variable.$varPrefix}-bdr-cl: #0f4087;
-            }
-        }
-
-        &-lnk {
-            #{variable.$varPrefix}-cl: #0c5ed7;
-            #{variable.$varPrefix}-bg-cl: transparent;
-            #{variable.$varPrefix}-bdr-w: 0;
-            #{variable.$varPrefix}-p: 0;
-
-            &:hover {
-                #{variable.$varPrefix}-cl: #0f4087;
-                #{variable.$varPrefix}-bg-cl: transparent;
-            }
-        }
-    }
 }
 
 //Global CSS : Applied to only HTML of Atomic CSS excluding other global HTML

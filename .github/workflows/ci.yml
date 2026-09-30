@@ -25,5 +25,8 @@ jobs:
       - name: Lint SCSS
         run: npm run lint
 
+      - name: Check the demo is a working reference consumer
+        run: npm run check:demo
+
       - name: Check for unexpected diff in committed CSS output and generated docs
-        run: git diff --exit-code -- css css-max css-template skills README.md demo/colormode-globalstyle
+        run: git diff --exit-code -- css css-max css-template skills README.md demo

@@ -304,7 +304,8 @@ npm install atomic-css
 - [`index.html`](index.html) — main showcase (superset bundle)
 - [`demo/organism/`](demo/organism/) — component examples (slider, gallery, tooltip, progressbar, …)
 - [`demo/colormode-globalstyle/color-mode.html`](demo/colormode-globalstyle/color-mode.html) — theming
-- [`demo/template/landing/template-1.html`](demo/template/landing/template-1.html) — landing page
+
+`index.html` is the front door: it links every demo below it.
 
 ## Building from source
 
