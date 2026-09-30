@@ -117,7 +117,10 @@
             }
         }
 
-        .at-modal-slide {
+        /* Hidden until MicroModal sets aria-hidden="false". Keying the display
+           off the attribute rather than off .at-blk keeps this rule (0,2,0) and
+           above the bundle's own .at-blk, so the dialog can actually open. */
+        .at-modal-slide[aria-hidden='true'] {
             display: none;
         }
 
@@ -158,9 +161,9 @@
         <div class="at-modal__overlay at-pos at-flx at-jfy-cont-ctr at-al-itm-ctr at-bg-cl" tabindex="-1"
             data-at-modal-close>
             <div class="at-modal__container at-p at-bdr-rad at-max-w at-max-h at-bg-cl" role="dialog"
-                aria-at-at-modal="true" aria-labelledby="at-modal-1-title">
+                aria-modal="true" aria-labelledby="at-modal-1-title">
                 <header class="at-modal__header at-flx at-jfy-cont-btw at-al-itm-ctr">
-                    <h5 class="at-txt at-m at-modal__title" id="at-at-modal-1-title">
+                    <h5 class="at-txt at-m at-modal__title" id="at-modal-1-title">
                         Modal title Goes Here
                     </h5>
                     <button class="at-modal__close" aria-label="Close Modal" data-at-modal-close></button>

@@ -422,9 +422,6 @@ details[open] summary svg {
   --at-bdr-cl: #ddd;
   --at-bdr-sty: solid;
 }
-.at-post.at-rad {
-  --at-bdr-rad: 5px;
-}
 .at-post.at-bg-cl {
   --at-bg-cl: #fff;
 }
@@ -434,7 +431,7 @@ details[open] summary svg {
 .at-post .at-m.m-minus {
   --at-m: 20px -20px;
 }
-.at-post-ttl.at-typo {
+.at-post-ttl.at-typ {
   --at-fnt-sz: 28px;
   --at-fnt-wt: 700;
 }

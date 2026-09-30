@@ -282,10 +282,6 @@ details[open] summary svg {
                 #{variable.$varPrefix}-bdr-sty: solid;
             }
 
-            &-rad {
-                #{variable.$varPrefix}-bdr-rad: 5px;
-            }
-
             &-bg-cl {
                 #{variable.$varPrefix}-bg-cl: #fff;
             }
@@ -305,7 +301,7 @@ details[open] summary svg {
 
         &-ttl {
             &#{variable.$appPrefix} {
-                &-typo {
+                &-typ {
                     #{variable.$varPrefix}-fnt-sz: 28px;
                     #{variable.$varPrefix}-fnt-wt: 700;
                 }
