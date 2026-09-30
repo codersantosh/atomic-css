@@ -203,7 +203,6 @@ details[open] summary svg {
     }
 
     &-tbl-demo {
-        #{variable.$varPrefix}-m: 0 0 30px 0;
         margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
 
         #{variable.$appPrefix} {
@@ -215,10 +214,6 @@ details[open] summary svg {
         }
 
         &-cel {
-            #{variable.$varPrefix}-p: 15px;
-            #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
-            #{variable.$varPrefix}-bdr-sty: solid;
-            #{variable.$varPrefix}-bdr-cl: #ddd;
             padding: var(#{variable.$varPrefix}-p, 15px);
             border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
             border-width: var(#{variable.$varPrefix}-bdr-w, 0 0 1px 0);
@@ -230,7 +225,6 @@ details[open] summary svg {
 
             &#{variable.$appPrefix} {
                 &-cl {
-                    #{variable.$varPrefix}-cl: #323537;
                     color: var(#{variable.$varPrefix}-cl, #323537);
                 }
             }
@@ -341,16 +335,9 @@ details[open] summary svg {
 
     //Nav Tabs
     &-nav {
-        #{variable.$varPrefix}-ls-sty: none;
         list-style: var(#{variable.$varPrefix}-ls-sty, none);
 
         &-lnk {
-            #{variable.$varPrefix}-bg-cl: transparent;
-            #{variable.$varPrefix}-p: 10px 15px;
-            #{variable.$varPrefix}-bdr-cl: transparent;
-            #{variable.$varPrefix}-bdr-w: 1px;
-            #{variable.$varPrefix}-bdr-sty: solid;
-            #{variable.$varPrefix}-cl: #000;
 
             padding: var(#{variable.$varPrefix}-p, 10px 15px);
             background-color: var(#{variable.$varPrefix}-bg-cl, transparent);
@@ -362,16 +349,12 @@ details[open] summary svg {
             &#{variable.$appPrefix} {
                 &-active {
                     #{variable.$varPrefix}-bg-cl: #fbfbfb;
-                    #{variable.$varPrefix}-bdr-cl: #ddd #ddd transparent #ddd;
                     border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd #ddd transparent #ddd);
                 }
             }
         }
 
         &-tabs {
-            #{variable.$varPrefix}-bdr-cl: #ddd;
-            #{variable.$varPrefix}-bdr-w: 0 0 1px 0;
-            #{variable.$varPrefix}-bdr-sty: solid;
             border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
             border-width: var(#{variable.$varPrefix}-bdr-w, 0 0 1px 0);
             border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
@@ -391,14 +374,12 @@ details[open] summary svg {
                 #{variable.$appPrefix} {
                     &-nav {
                         &-lnk {
-                            #{variable.$varPrefix}-cl: #0d6efd;
                             color: var(#{variable.$varPrefix}-cl, #0d6efd);
 
                             &#{variable.$appPrefix} {
                                 &-active {
                                     #{variable.$varPrefix}-cl: #fff;
                                     #{variable.$varPrefix}-bg-cl: #0d6efd;
-                                    #{variable.$varPrefix}-bdr-cl: #0d6efd #0d6efd transparent #0d6efd;
                                     border-color: var(#{variable.$varPrefix}-bdr-cl, #0d6efd #0d6efd transparent #0d6efd);
                                 }
                             }
@@ -411,7 +392,6 @@ details[open] summary svg {
 
     &-tab {
         &-pane {
-            #{variable.$varPrefix}-p: 15px;
             padding: var(#{variable.$varPrefix}-p, 15px);
         }
     }
@@ -590,7 +570,6 @@ details[open] summary svg {
 
         //Nav Tabs
         &-nav {
-            #{variable.$varPrefix}-ls-sty: none;
             list-style: var(#{variable.$varPrefix}-ls-sty, none);
 
             &-lnk {
