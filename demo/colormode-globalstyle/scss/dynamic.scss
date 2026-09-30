@@ -3,180 +3,159 @@
 /*Color*/
 @use 'color.scss';
 
-//Global CSS : Applied to all HTML including or excluding Atomic CSS
-* {
-    #{variable.$varPrefix}-m: 0;
-    #{variable.$varPrefix}-p: 0;
-    #{variable.$varPrefix}-box-szg: border-box;
-}
+//Global CSS : applied to all HTML, including or excluding Atomic CSS.
+// Seeding `--at-box-szg` on `*` is deliberate and is the one place a bare
+// selector may seed a channel: it is the only way to make `.at-box-szg` mean
+// border-box everywhere, because that class applies `box-sizing` explicitly and
+// would otherwise win over an inherited value. `.at-m` / `.at-p` are deliberately
+// NOT seeded to zero here — they already fall back to `initial`, which is 0, so a
+// zero seed would be dead code.
 
 //element styles (zero-specificity base layer: utilities always win)
-:where(body) {
-    #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
+// Raw properties, never a channel seed: custom properties inherit, so seeding
+// `--at-*` on a bare element sets that token for its whole subtree instead of
+// styling the element. Values are unchanged from the previous seed+apply form.
+body {
+    font-family: 'Open Sans', sans-serif;
 }
 
-:where(h1),
-:where(h2),
-:where(h3),
-:where(h4),
-:where(h5),
-:where(h6) {
-    #{variable.$varPrefix}-fnt-wt: bold;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
 }
 
-:where(h1) {
-    #{variable.$varPrefix}-cl: #060606;
-    #{variable.$varPrefix}-fnt-sz: 50px;
-    #{variable.$varPrefix}-m: 0 0 30px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
+h1 {
+    color: #060606;
+    font-size: 50px;
+    margin: 0 0 30px 0;
 }
 
-:where(h2) {
-    #{variable.$varPrefix}-cl: #060606;
-    #{variable.$varPrefix}-fnt-sz: 43px;
-    #{variable.$varPrefix}-m: 0 0 30px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
+h2 {
+    color: #060606;
+    font-size: 43px;
+    margin: 0 0 30px 0;
 }
 
-:where(h3) {
-    #{variable.$varPrefix}-cl: #060606;
-    #{variable.$varPrefix}-fnt-sz: 36px;
-    #{variable.$varPrefix}-m: 0 0 25px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 25px 0);
+h3 {
+    color: #060606;
+    font-size: 36px;
+    margin: 0 0 25px 0;
 }
 
-:where(h4) {
-    #{variable.$varPrefix}-cl: #060606;
-    #{variable.$varPrefix}-fnt-sz: 29px;
-    #{variable.$varPrefix}-m: 0 0 20px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 20px 0);
+h4 {
+    color: #060606;
+    font-size: 29px;
+    margin: 0 0 20px 0;
 }
 
-:where(h5) {
-    #{variable.$varPrefix}-cl: #060606;
-    #{variable.$varPrefix}-fnt-sz: 22px;
-    #{variable.$varPrefix}-m: 0 0 15px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
+h5 {
+    color: #060606;
+    font-size: 22px;
+    margin: 0 0 15px 0;
 }
 
-:where(h6) {
-    #{variable.$varPrefix}-cl: #060606;
-    #{variable.$varPrefix}-fnt-sz: 14px;
-    #{variable.$varPrefix}-m: 0 0 10px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 10px 0);
+h6 {
+    color: #060606;
+    font-size: 14px;
+    margin: 0 0 10px 0;
 }
 
-:where(p) {
-    #{variable.$varPrefix}-fnt-sz: 16px;
-    #{variable.$varPrefix}-cl: #3c3c3c;
-    #{variable.$varPrefix}-m: 0 0 15px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
+p {
+    font-size: 16px;
+    color: #3c3c3c;
+    margin: 0 0 15px 0;
 }
 
-:where(a) {
-    #{variable.$varPrefix}-fnt-sz: 14px;
-    #{variable.$varPrefix}-cl: #712cf9;
+a {
+    font-size: 14px;
+    color: #712cf9;
 }
 
-:where(a:hover) {
-    #{variable.$varPrefix}-cl: #4718a4;
+a:hover {
+    color: #4718a4;
 }
 
-:where(code) {
-    #{variable.$varPrefix}-cl: #d63384;
+code {
+    color: #d63384;
 }
 
-:where(li) {
-    #{variable.$varPrefix}-cl: #3c3c3c;
+li {
+    color: #3c3c3c;
 }
 
 //Element/media defaults (consumer-global; the framework ships no media-sizing identities)
-:where(img) {
-    #{variable.$varPrefix}-w: 100%;
-    max-width: var(#{variable.$varPrefix}-w, 100%);
+img {
+    max-width: 100%;
     height: auto;
 }
 
-:where(video) {
+video {
     max-width: 100%;
     width: 100%;
     height: 100%;
 }
 
-:where(audio) {
+audio {
     width: 100%;
     min-width: 217px;
 }
 
-:where(article) {
-    #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
-    #{variable.$varPrefix}-fnt-sz: 14px;
-    #{variable.$varPrefix}-cl: #000;
+article {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #000;
 }
 
-:where(article h4) {
-    #{variable.$varPrefix}-m: 0 0 15px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
+article h4 {
+    margin: 0 0 15px 0;
 }
 
-:where(article figure) {
-    #{variable.$varPrefix}-m: 15px 0;
-    margin: var(#{variable.$varPrefix}-m, 15px 0);
+article figure {
+    margin: 15px 0;
 }
 
-:where(article header div) {
-    #{variable.$varPrefix}-gap: 5px;
-    gap: var(#{variable.$varPrefix}-gap, 5px);
+article header div {
+    gap: 5px;
 }
 
-:where(article header div span) {
-    #{variable.$varPrefix}-gap: 5px;
-    gap: var(#{variable.$varPrefix}-gap, 5px);
+article header div span {
+    gap: 5px;
 }
 
-:where(details) {
-    #{variable.$varPrefix}-trs: all 0.5s ease-in-out 0s;
-    transition: var(#{variable.$varPrefix}-trs, all 0.5s ease-in-out 0s);
+details {
+    transition: all 0.5s ease-in-out 0s;
 }
 
-:where(details:not(:last-of-type)) {
-    #{variable.$varPrefix}-m: 0 0 15px 0;
-    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
+details:not(:last-of-type) {
+    margin: 0 0 15px 0;
 }
 
-:where(details summary) {
-    #{variable.$varPrefix}-bdr-w: 1px;
-    #{variable.$varPrefix}-bdr-sty: solid;
-    #{variable.$varPrefix}-bdr-cl: #ddd;
-    #{variable.$varPrefix}-p: 10px;
-    #{variable.$varPrefix}-fnt-fam: 'Open Sans', sans-serif;
-    #{variable.$varPrefix}-m: 0 0 15px 0;
-    #{variable.$varPrefix}-cl: #000;
-    #{variable.$varPrefix}-ls-sty: none;
-    list-style: var(#{variable.$varPrefix}-ls-sty, none);
-    margin: var(#{variable.$varPrefix}-m, 0 0 15px 0);
-    color: var(#{variable.$varPrefix}-cl, #000);
-    border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
-    border-width: var(#{variable.$varPrefix}-bdr-w, 1px);
-    border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
-    padding: var(#{variable.$varPrefix}-p, 10px);
-    font-family: var(#{variable.$varPrefix}-fnt-fam, 'Open Sans', sans-serif);
+details summary {
+    list-style: none;
+    margin: 0 0 15px 0;
+    color: #000;
+    border-color: #ddd;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
     cursor: pointer;
 }
 
-:where(details summary svg) {
-    #{variable.$varPrefix}-trs: all 0.5s ease-in-out 0s;
-    transition: var(#{variable.$varPrefix}-trs, all 0.5s ease-in-out 0s);
+details summary svg {
+    transition: all 0.5s ease-in-out 0s;
 }
 
-:where(details[open]) {
-    #{variable.$varPrefix}-trs: all 0.5s ease-in-out 0s;
-    transition: var(#{variable.$varPrefix}-trs, all 0.5s ease-in-out 0s);
+details[open] {
+    transition: all 0.5s ease-in-out 0s;
 }
 
-:where(details[open] summary svg) {
-    #{variable.$varPrefix}-tf: rotate(180deg);
-    transform: var(#{variable.$varPrefix}-tf, rotate(180deg));
+details[open] summary svg {
+    transform: rotate(180deg);
 }
 
 //For Global Button need button tag
@@ -292,7 +271,7 @@
             border-width: var(#{variable.$varPrefix}-bdr-w, 0 0 1px 0);
             border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
 
-            :where(h1, h2, h3, h4, h5, h6) {
+            h1, h2, h3, h4, h5, h6 {
                 #{variable.$varPrefix}-m: 0;
             }
 
@@ -323,14 +302,17 @@
         }
     }
 
-    //gap
-    &-gap {
-        &-5 {
-            #{variable.$varPrefix}-gap: 5px;
+    //Spacing scale steps. The class names the step (as `.at-col-6` names its
+    //own); the value comes from a digit-free token, so no measurement is
+    //hard-coded in a name. A step only seeds the channel — `.at-gap` or any other
+    //reader applies it, so the two co-apply on one element.
+    &-spc {
+        &-sm {
+            #{variable.$varPrefix}-gap: var(#{variable.$varPrefix}-spc-sm);
         }
 
-        &-20 {
-            #{variable.$varPrefix}-gap: 20px;
+        &-lg {
+            #{variable.$varPrefix}-gap: var(#{variable.$varPrefix}-spc-lg);
         }
     }
 
@@ -510,35 +492,35 @@
     #{variable.$varPrefix}-bdr-cl: #000;
 
     //elements : h1-h6,p,button,a
-    :where(h1) {
+    h1 {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(h2) {
+    h2 {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(h3) {
+    h3 {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(h4) {
+    h4 {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(h5) {
+    h5 {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(h6) {
+    h6 {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(p) {
+    p {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(a) {
+    a {
         #{variable.$varPrefix}-cl: #fff;
     }
 
@@ -579,12 +561,12 @@
         }
     }
 
-    :where(article) {
+    article {
         #{variable.$varPrefix}-cl: #fff;
     }
 
-    :where(details) {
-        :where(summary) {
+    details {
+        summary {
             #{variable.$varPrefix}-bdr-cl: #444;
             #{variable.$varPrefix}-cl: #fff;
         }

@@ -8,15 +8,24 @@
     "legend": "short-names.json"
   },
   "counts": {
-    "minimalClasses": 441,
-    "maxClasses": 617,
-    "templateClasses": 441,
+    "minimalClasses": 440,
+    "maxClasses": 616,
+    "templateClasses": 440,
     "maxOnlyClasses": 176,
     "variables": 93,
-    "legendEntries": 314,
+    "legendEntries": 315,
     "structuralClasses": 17,
     "seedClasses": 7,
-    "importantClasses": 0
+    "importantClasses": 0,
+    "gridClasses": 104,
+    "flexClasses": 210,
+    "displayClasses": 54,
+    "propertyClasses": 55,
+    "distinctProperties": 102,
+    "channelReaders": 165,
+    "channelSilent": 451,
+    "minimalChannelReaders": 165,
+    "minimalChannelSilent": 275
   },
   "fifths": [
     {
@@ -25,11 +34,6 @@
       "maxWidthByContext": {
         "base (all widths)": "calc(20% - var(--at-col-gap, var(--at-gap, 0px)) * 0.8)"
       }
-    },
-    {
-      "name": "at-col-xs-2m3",
-      "baseColumnGeometry": true,
-      "maxWidthByContext": {}
     },
     {
       "name": "at-col-sm-2m3",
@@ -71,7 +75,7 @@
     {
       "infix": "xs",
       "minWidth": null,
-      "applies": "no min-width — base rules are unprefixed. The one name carrying an `xs` segment is `.at-col-xs-2m3`, which is also unprefixed (see the `fifths` key)"
+      "applies": "no min-width — base rules are unprefixed (see the `fifths` key)"
     },
     {
       "infix": "sm",
@@ -4109,28 +4113,6 @@
       "tokens": [
         "col",
         "cust"
-      ]
-    },
-    {
-      "name": "at-col-xs-2m3",
-      "kind": "grid",
-      "bundle": "both",
-      "breakpoint": "xs",
-      "properties": [
-        "min-height",
-        "padding-left",
-        "padding-right",
-        "position",
-        "width"
-      ],
-      "reads": [
-        "--at-gtr"
-      ],
-      "seeds": [],
-      "importance": "none",
-      "tokens": [
-        "col",
-        "2m3"
       ]
     },
     {
@@ -12206,7 +12188,6 @@
             "at-col-xl-9",
             "at-col-xl-auto",
             "at-col-xl-cust",
-            "at-col-xs-2m3",
             "at-col-xxl",
             "at-col-xxl-1",
             "at-col-xxl-10",
@@ -12316,7 +12297,6 @@
         "at-col-xl-9",
         "at-col-xl-auto",
         "at-col-xl-cust",
-        "at-col-xs-2m3",
         "at-col-xxl",
         "at-col-xxl-1",
         "at-col-xxl-10",
@@ -13714,6 +13694,7 @@
     "grd": "gradient",
     "grp": "group",
     "grw": "grow",
+    "h1": "heading level 1",
     "gtr": "gutter",
     "h": "height",
     "has": "has (wrapper pattern)",

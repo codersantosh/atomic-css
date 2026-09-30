@@ -35,8 +35,7 @@ $offsets: false !default;
 .#{variables.$grid-col-prefix}-xl-2m3,
 .#{variables.$grid-col-prefix}-lg-2m3,
 .#{variables.$grid-col-prefix}-md-2m3,
-.#{variables.$grid-col-prefix}-sm-2m3,
-.#{variables.$grid-col-prefix}-xs-2m3 {
+.#{variables.$grid-col-prefix}-sm-2m3 {
     position: relative;
     width: 100%;
     min-height: 1px; // Prevent columns from collapsing when empty

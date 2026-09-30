@@ -7,20 +7,23 @@
 > `css-template/atomic-template.css`
 > `short-names.json`
 
-For how to *use* these classes read [`../USAGE.md`](../USAGE.md) first; this file is
-the lookup table. For the rules the framework itself follows, read
-[`../ARCHITECTURE.md`](../ARCHITECTURE.md).
+This file is the generated lookup: every class, variable, breakpoint and
+token, derived from the compiled CSS. It is not a guide. For how to *use*
+the classes, read the skill that ships beside this file —
+[`../SKILL.md`](../SKILL.md) and its [`../references/`](../references/) —
+plus [`../../../README.md`](../../../README.md). For the rules the framework
+itself follows, read [`../../../ARCHITECTURE.md`](../../../ARCHITECTURE.md).
 
 ## At a glance
 
 | | Count |
 | --- | --- |
-| Classes in `css/atomic.css` | 441 |
-| Classes in `css-max/atomic-max.css` | 617 |
+| Classes in `css/atomic.css` | 440 |
+| Classes in `css-max/atomic-max.css` | 616 |
 | Classes only in the max bundle | 176 |
-| Classes in `css-template/atomic-template.css` | 441 |
+| Classes in `css-template/atomic-template.css` | 440 |
 | Distinct `--at-*` variables read | 93 |
-| Naming-legend tokens (`short-names.json`) | 314 |
+| Naming-legend tokens (`short-names.json`) | 315 |
 | Structural classes | 17 |
 | Classes that seed a `--at-*` value | 7 |
 | Classes carrying `!important` | 0 |
@@ -34,15 +37,15 @@ mechanism. A dedicated verifier enforces this on the compiled output; see `AGENT
 
 | File | Bytes | Role |
 | --- | --- | --- |
-| `css/atomic.css` | 65,315 | minimal bundle — link this by default |
-| `css/atomic.min.css` | 48,241 | minimal, minified |
-| `css/atomic-rtl.css` | 65,317 | minimal, RTL |
-| `css/atomic.min-rtl.css` | 48,243 | minimal, minified + RTL |
-| `css-max/atomic-max.css` | 79,033 | superset — adds order, offset and print |
-| `css-max/atomic-max.min.css` | 57,503 | superset, minified |
-| `css-max/atomic-max-rtl.css` | 79,112 | superset, RTL |
-| `css-max/atomic-max.min-rtl.css` | 57,582 | superset, minified + RTL |
-| `css-template/atomic-template.css` | 81,611 | transform source for WordPress/PHP — never a link target |
+| `css/atomic.css` | 65,299 | minimal bundle — link this by default |
+| `css/atomic.min.css` | 48,226 | minimal, minified |
+| `css/atomic-rtl.css` | 65,301 | minimal, RTL |
+| `css/atomic.min-rtl.css` | 48,228 | minimal, minified + RTL |
+| `css-max/atomic-max.css` | 79,017 | superset — adds order, offset and print |
+| `css-max/atomic-max.min.css` | 57,488 | superset, minified |
+| `css-max/atomic-max-rtl.css` | 79,096 | superset, RTL |
+| `css-max/atomic-max.min-rtl.css` | 57,567 | superset, minified + RTL |
+| `css-template/atomic-template.css` | 81,595 | transform source for WordPress/PHP — never a link target |
 
 ## Breakpoints
 
@@ -50,7 +53,7 @@ Mobile-first: larger viewports are reached only through `min-width`, never `max-
 
 | Infix | Min width | Applied as |
 | --- | --- | --- |
-| `xs` | — | no min-width — base rules are unprefixed. The one name carrying an `xs` segment is `.at-col-xs-2m3`, which is also unprefixed (see the fifths ladder below) |
+| `xs` | — | no min-width — base rules are unprefixed (see the fifths ladder below) |
 | `sm` | 576px | @media (min-width: 576px) |
 | `md` | 768px | @media (min-width: 768px) |
 | `lg` | 992px | @media (min-width: 992px) |
@@ -71,7 +74,7 @@ A base class has no infix. `.at-col-6` applies at every width, `.at-col-md-6` fr
 | BP | Breakpoint infix, or `—` for all widths. |
 | Bundle | `both`, `minimal only`, or `max only`. |
 
-## Grid (105)
+## Grid (104)
 
 Grid geometry. The row and column classes compute their own `flex`; only the container widths and gaps read a variable from you.
 
@@ -158,7 +161,6 @@ Grid geometry. The row and column classes compute their own `flex`; only the con
 | `.at-col-xl-9` | `flex`, `max-width`, `min-height`, `padding-left`, `padding-right`, `position`, `width` | `--at-col-gap`, `--at-gap`, `--at-gtr` | — | `xl` | both |
 | `.at-col-xl-auto` | `flex`, `max-width`, `min-height`, `padding-left`, `padding-right`, `position`, `width` | `--at-gtr` | — | `xl` | both |
 | `.at-col-xl-cust` | `flex`, `max-width`, `min-height`, `padding-left`, `padding-right`, `position`, `width` | `--at-cust-w`, `--at-gtr` | — | `xl` | both |
-| `.at-col-xs-2m3` | `min-height`, `padding-left`, `padding-right`, `position`, `width` | `--at-gtr` | — | `xs` | both |
 | `.at-col-xxl` | `flex-basis`, `flex-grow`, `max-width`, `min-height`, `padding-left`, `padding-right`, `position`, `width` | `--at-gtr` | — | `xxl` | both |
 | `.at-col-xxl-1` | `flex`, `max-width`, `min-height`, `padding-left`, `padding-right`, `position`, `width` | `--at-col-gap`, `--at-gap`, `--at-gtr` | — | `xxl` | both |
 | `.at-col-xxl-10` | `flex`, `max-width`, `min-height`, `padding-left`, `padding-right`, `position`, `width` | `--at-col-gap`, `--at-gap`, `--at-gtr` | — | `xxl` | both |
@@ -730,7 +732,7 @@ One class applies a property, reading the matching variable. `initial` is the fa
 | `.at-wrd-wrp` | `word-wrap` | `--at-wrd-wrp` | — | — | both |
 | `.at-z-idx` | `position`, `z-index` | `--at-z-idx` | — | — | both |
 
-## The 2m3 fifths ladder (7)
+## The 2m3 fifths ladder (6)
 
 The `2m3` family is the fifths column. Each class is a separate term of one
 ladder. The two facts below are derived separately from the compiled CSS, because a
@@ -740,14 +742,11 @@ misreports terms that do.
 | Class | Base column geometry | `max-width` applied in |
 | --- | --- | --- |
 | `at-col-2m3` | yes | base (all widths) |
-| `at-col-xs-2m3` | yes | _none_ |
 | `at-col-sm-2m3` | yes | 576px |
 | `at-col-md-2m3` | yes | 768px |
 | `at-col-lg-2m3` | yes | 992px |
 | `at-col-xl-2m3` | yes | 1200px |
 | `at-col-xxl-2m3` | yes | 1400px |
-
-So `.at-col-2m3` on its own is capped at every width, while `.at-col-xs-2m3` only widens to `100%` — to get the cap from `sm` up you apply both, and that term supplies the `max-width` once its media query matches.
 
 `2m3` is a misleading token name: it reads as "2 and a half of 3" but ships 20%,
 which is 1 of 5. The name was not changed because a rename is breaking under
@@ -810,7 +809,7 @@ fallback: the framework imposes nothing until you supply a value.
 | `--at-fnt-sz` | `initial` | 1 |
 | `--at-fnt-wt` | `initial` | 1 |
 | `--at-gap` | _(none — unset means invalid)_<br>`0px` _(in 78)_<br>`15px` _(in 2)_<br>`initial` _(in 1)_ | 83 |
-| `--at-gtr` | `15px` | 101 |
+| `--at-gtr` | `15px` | 100 |
 | `--at-h` | `initial` | 1 |
 | `--at-l` | `initial` | 1 |
 | `--at-ln-h` | `initial` | 1 |
@@ -904,7 +903,7 @@ fallback: the framework imposes nothing until you supply a value.
 - `--at-fnt-sz` — .at-fnt-sz
 - `--at-fnt-wt` — .at-fnt-wt
 - `--at-gap` — .at-col-1, .at-col-10, .at-col-11, .at-col-12, .at-col-2, .at-col-2m3, .at-col-3, .at-col-4, .at-col-5, .at-col-6, .at-col-7, .at-col-8, .at-col-9, .at-col-gap, .at-col-lg-1, .at-col-lg-10, .at-col-lg-11, .at-col-lg-12, .at-col-lg-2, .at-col-lg-2m3, .at-col-lg-3, .at-col-lg-4, .at-col-lg-5, .at-col-lg-6, .at-col-lg-7, .at-col-lg-8, .at-col-lg-9, .at-col-md-1, .at-col-md-10, .at-col-md-11, .at-col-md-12, .at-col-md-2, .at-col-md-2m3, .at-col-md-3, .at-col-md-4, .at-col-md-5, .at-col-md-6, .at-col-md-7, .at-col-md-8, .at-col-md-9, .at-col-sm-1, .at-col-sm-10, .at-col-sm-11, .at-col-sm-12, .at-col-sm-2, .at-col-sm-2m3, .at-col-sm-3, .at-col-sm-4, .at-col-sm-5, .at-col-sm-6, .at-col-sm-7, .at-col-sm-8, .at-col-sm-9, .at-col-xl-1, .at-col-xl-10, .at-col-xl-11, .at-col-xl-12, .at-col-xl-2, .at-col-xl-2m3, .at-col-xl-3, .at-col-xl-4, .at-col-xl-5, .at-col-xl-6, .at-col-xl-7, .at-col-xl-8, .at-col-xl-9, .at-col-xxl-1, .at-col-xxl-10, .at-col-xxl-11, .at-col-xxl-12, .at-col-xxl-2, .at-col-xxl-2m3, .at-col-xxl-3, .at-col-xxl-4, .at-col-xxl-5, .at-col-xxl-6, .at-col-xxl-7, .at-col-xxl-8, .at-col-xxl-9, .at-gap, .at-row-gap, .at-vrt, .at-vrt-conts
-- `--at-gtr` — .at-col, .at-col-1, .at-col-10, .at-col-11, .at-col-12, .at-col-2, .at-col-2m3, .at-col-3, .at-col-4, .at-col-5, .at-col-6, .at-col-7, .at-col-8, .at-col-9, .at-col-auto, .at-col-cust, .at-col-lg, .at-col-lg-1, .at-col-lg-10, .at-col-lg-11, .at-col-lg-12, .at-col-lg-2, .at-col-lg-2m3, .at-col-lg-3, .at-col-lg-4, .at-col-lg-5, .at-col-lg-6, .at-col-lg-7, .at-col-lg-8, .at-col-lg-9, .at-col-lg-auto, .at-col-lg-cust, .at-col-md, .at-col-md-1, .at-col-md-10, .at-col-md-11, .at-col-md-12, .at-col-md-2, .at-col-md-2m3, .at-col-md-3, .at-col-md-4, .at-col-md-5, .at-col-md-6, .at-col-md-7, .at-col-md-8, .at-col-md-9, .at-col-md-auto, .at-col-md-cust, .at-col-sm, .at-col-sm-1, .at-col-sm-10, .at-col-sm-11, .at-col-sm-12, .at-col-sm-2, .at-col-sm-2m3, .at-col-sm-3, .at-col-sm-4, .at-col-sm-5, .at-col-sm-6, .at-col-sm-7, .at-col-sm-8, .at-col-sm-9, .at-col-sm-auto, .at-col-sm-cust, .at-col-xl, .at-col-xl-1, .at-col-xl-10, .at-col-xl-11, .at-col-xl-12, .at-col-xl-2, .at-col-xl-2m3, .at-col-xl-3, .at-col-xl-4, .at-col-xl-5, .at-col-xl-6, .at-col-xl-7, .at-col-xl-8, .at-col-xl-9, .at-col-xl-auto, .at-col-xl-cust, .at-col-xs-2m3, .at-col-xxl, .at-col-xxl-1, .at-col-xxl-10, .at-col-xxl-11, .at-col-xxl-12, .at-col-xxl-2, .at-col-xxl-2m3, .at-col-xxl-3, .at-col-xxl-4, .at-col-xxl-5, .at-col-xxl-6, .at-col-xxl-7, .at-col-xxl-8, .at-col-xxl-9, .at-col-xxl-auto, .at-col-xxl-cust, .at-ctnr, .at-ctnr-fld, .at-ctnr-min, .at-row
+- `--at-gtr` — .at-col, .at-col-1, .at-col-10, .at-col-11, .at-col-12, .at-col-2, .at-col-2m3, .at-col-3, .at-col-4, .at-col-5, .at-col-6, .at-col-7, .at-col-8, .at-col-9, .at-col-auto, .at-col-cust, .at-col-lg, .at-col-lg-1, .at-col-lg-10, .at-col-lg-11, .at-col-lg-12, .at-col-lg-2, .at-col-lg-2m3, .at-col-lg-3, .at-col-lg-4, .at-col-lg-5, .at-col-lg-6, .at-col-lg-7, .at-col-lg-8, .at-col-lg-9, .at-col-lg-auto, .at-col-lg-cust, .at-col-md, .at-col-md-1, .at-col-md-10, .at-col-md-11, .at-col-md-12, .at-col-md-2, .at-col-md-2m3, .at-col-md-3, .at-col-md-4, .at-col-md-5, .at-col-md-6, .at-col-md-7, .at-col-md-8, .at-col-md-9, .at-col-md-auto, .at-col-md-cust, .at-col-sm, .at-col-sm-1, .at-col-sm-10, .at-col-sm-11, .at-col-sm-12, .at-col-sm-2, .at-col-sm-2m3, .at-col-sm-3, .at-col-sm-4, .at-col-sm-5, .at-col-sm-6, .at-col-sm-7, .at-col-sm-8, .at-col-sm-9, .at-col-sm-auto, .at-col-sm-cust, .at-col-xl, .at-col-xl-1, .at-col-xl-10, .at-col-xl-11, .at-col-xl-12, .at-col-xl-2, .at-col-xl-2m3, .at-col-xl-3, .at-col-xl-4, .at-col-xl-5, .at-col-xl-6, .at-col-xl-7, .at-col-xl-8, .at-col-xl-9, .at-col-xl-auto, .at-col-xl-cust, .at-col-xxl, .at-col-xxl-1, .at-col-xxl-10, .at-col-xxl-11, .at-col-xxl-12, .at-col-xxl-2, .at-col-xxl-2m3, .at-col-xxl-3, .at-col-xxl-4, .at-col-xxl-5, .at-col-xxl-6, .at-col-xxl-7, .at-col-xxl-8, .at-col-xxl-9, .at-col-xxl-auto, .at-col-xxl-cust, .at-ctnr, .at-ctnr-fld, .at-ctnr-min, .at-row
 - `--at-h` — .at-h
 - `--at-l` — .at-pos
 - `--at-ln-h` — .at-ln-h
@@ -965,7 +964,7 @@ fallback: the framework imposes nothing until you supply a value.
 - `--at-wrd-wrp` — .at-wrd-wrp
 - `--at-z-idx` — .at-z-idx
 
-## Token legend (314)
+## Token legend (315)
 
 Names are assembled from these tokens, and the same joined string is used for the
 class and for the variable: `bg` + `cl` gives `.at-bg-cl` and `--at-bg-cl`.
@@ -1098,6 +1097,7 @@ class and for the variable: `bg` + `cl` gives `.at-bg-cl` and `--at-bg-cl`.
 | `grw` | grow |
 | `gtr` | gutter |
 | `h` | height |
+| `h1` | heading level 1 |
 | `has` | has (wrapper pattern) |
 | `hdg` | heading |
 | `hdr` | header |

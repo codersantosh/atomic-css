@@ -21,7 +21,7 @@ outline-color: Specifies the color of an element's outline. Example: outline-col
 column-rule-color: Specifies the color of a column rule in multi-column layout. Example: column-rule-color: green;
 caret-color: Specifies the color of the text input caret. Example: caret-color: blue;
 */
-:where(h1) {
+h1 {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -30,7 +30,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(h2) {
+h2 {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -39,7 +39,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(h3) {
+h3 {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -48,7 +48,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(h4) {
+h4 {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -57,7 +57,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(h5) {
+h5 {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -66,7 +66,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(h6) {
+h6 {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -75,7 +75,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(p) {
+p {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-cl: #6c757d;
@@ -84,7 +84,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(a) {
+a {
     &#{variable.$appPrefix} {
         &-color {
             #{variable.$varPrefix}-fnt-sz: 14px;
@@ -97,7 +97,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
     }
 }
 
-:where(button) {
+button {
     &#{variable.$appPrefix} {
         &-color {
             //#{$varPrefix}-p         : 10px 30px;
@@ -115,7 +115,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
 }
 
 [data-at-theme='dark'] {
-    :where(p) {
+    p {
         &#{variable.$appPrefix} {
             &-color {
                 #{variable.$varPrefix}-cl: #bfbfbf;
@@ -123,7 +123,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
         }
     }
 
-    :where(button) {
+    button {
         &#{variable.$appPrefix} {
             &-color {
                 #{variable.$varPrefix}-cl: #fff;

@@ -1,0 +1,178 @@
+# Setup and integration
+
+Everything here was verified against commit `c51609b`. Re-verify names against
+`../generated/CLASS-REFERENCE.json` — the folder that travels with this skill —
+before trusting a class.
+
+This reference is about getting the **stylesheet** onto the page, which is
+separate from installing the skill itself (see `SKILL.md`). The commands below
+assume the framework package is installed; a vendored copy of `atomic.css` works
+just as well.
+
+## Install
+
+```bash
+# reproducible — the only immutable ref, because the repo has no git tag
+npm install github:codersantosh/atomic-css#c51609b
+
+# convenience only: `1.0.1` is a moving branch, not a version
+npm install github:codersantosh/atomic-css#1.0.1
+```
+
+Do **not** use `npm install atomic-css`: that registry name is an unrelated
+2017 project. Do **not** rely on `github:codersantosh/atomic-css` with no ref —
+it resolves to `master`, which is the pre-2.0 tree.
+
+Git installs ship the committed CSS. There is no `prepare`/`postinstall` build
+step, so nothing runs and nothing is compiled — the CSS in the repo is the
+artifact.
+
+Alternatives when you cannot add a dependency:
+
+```bash
+# vendor the three directories (1.0.1 is a moving branch — prefer the SHA)
+git clone --depth 1 --branch 1.0.1 https://github.com/codersantosh/atomic-css
+cp -r atomic-css/css atomic-css/css-max atomic-css/css-template .
+
+# or a single raw file
+curl -LO https://raw.githubusercontent.com/codersantosh/atomic-css/c51609b/css/atomic.min.css
+```
+
+There is **no JavaScript entry point** — `package.json` defines no `main`, no
+`exports` and no `style`. Do not `import 'atomic-css'`; that resolves to nothing.
+Link the file, or import its path from your own CSS (`@import "…/atomic.min.css"`
+if your bundler resolves `node_modules` in CSS).
+
+## What you get
+
+| File | Classes | Use when |
+| --- | --- | --- |
+| `css/atomic.css` (+ `.min`, `-rtl`, `.min-rtl`) | 440 | Default |
+| `css-max/atomic-max.css` (+ 3 variants) | 616 | You need `at-ord-*`, `at-ofst-*` or `at-prt-*` |
+| `css-template/atomic-template.css` | 440 | WordPress/PHP/dynamic build input — **never link** |
+
+Max is a strict superset of minimal; the framework enforces that in CI. Also
+shipped: `README.md`, `short-names.json`, `ARCHITECTURE.md`, and the rest of
+this skill folder — including the generated `generated/CLASS-REFERENCE.{md,json}`.
+
+```html
+<link rel="stylesheet" href="/node_modules/atomic-css/css/atomic.min.css">
+```
+
+Link exactly one bundle. Linking minimal and max together ships every rule
+twice. Link your own stylesheet **after** it, so your rules win on equal
+specificity — no `!important` is needed anywhere.
+
+## Load order is load-bearing
+
+The compiled order is **Grid → Utilities → Properties**, and it changes which
+rule wins. `.at-stky` sets `position: sticky` while `.at-col-*` sets
+`position: relative`; because nothing carries `!important`, sticky wins only
+because the Properties layer comes later. Never concatenate, reorder or
+partially include a bundle.
+
+## RTL
+
+Each bundle has an `-rtl` sibling (rtlcss flips `margin-left`→`margin-right`,
+`float: left`→`float: right`, `.at-ofst-*` offsets included).
+
+```html
+<link rel="stylesheet" href="/node_modules/atomic-css/css/atomic.min-rtl.css">
+```
+
+rtlcss mirrors **declarations, not the contents of `var()`**. A directional
+value inside a variable stays LTR-oriented, so author it direction-aware or keep
+direction out of the variable entirely:
+
+```css
+--at-p: 16px;              /* fine — no direction in the value */
+--at-m: 0 auto 0 0;        /* the -rtl bundle will NOT flip this */
+```
+
+## Confirming it is wired up
+
+```bash
+# 1. the stylesheet actually resolves (200, not 404)
+curl -sI /node_modules/atomic-css/css/atomic.min.css | head -1
+
+# 2. it contains real rules, not template markers
+grep -c '%%' node_modules/atomic-css/css/atomic.min.css        # expect 0
+grep -c '!important' node_modules/atomic-css/css/atomic.min.css # expect 0
+
+# 3. the class you rely on is really in the bundle you link
+grep -c '\.at-col-md-6' node_modules/atomic-css/css/atomic.min.css
+
+# 4. in the browser
+#    getComputedStyle(document.querySelector('.at-p')).padding
+#    -> "24px" only if the variable resolves
+```
+
+In DevTools, select an element with a utility class and check the *custom
+property* in the Computed panel: if `--at-p` is `initial` or empty, the class is
+working and the **variable** is the missing half.
+
+One caveat found while writing this skill: the bundles contain exactly one
+non-`.at-*` rule — `html { scroll-behavior: var(--at-scr-beh, initial); }`. It is
+an element rule at `(0,0,1)`, so your own `html` rule ties with it and **source
+order decides** — link your sheet after the bundle (as above) and yours wins. The
+token is the cleaner fix, and it also themes: `--at-scr-beh: smooth` in your own
+`html` rule beats the bundle's `initial` fallback.
+
+## WordPress / PHP and any runtime-generated build
+
+Use the **template**, transform it, and save the result as your own stylesheet.
+Placeholders live in values only, never inside `var()` names or selectors.
+
+| Marker | Occurrences in the template | Replace with |
+| --- | --- | --- |
+| `%%MOBILE_BREAKPOINT%%` | 4 | your `sm` width, e.g. `576` |
+| `%%TABLET_BREAKPOINT%%` | 4 | your `md` width |
+| `%%DESKTOP_BREAKPOINT%%` | 4 | your `lg` width |
+| `%%LARGE_DESKTOP_BREAKPOINT%%` | 4 | your `xl` width |
+| `%%EXTRA_LARGE_DESKTOP_BREAKPOINT%%` | 4 | your `xxl` width |
+| `%%IMPORTANT%%` | 1220 | `''` or `' !important'` — see below |
+
+The five breakpoint markers are written `%%NAME%%px` inside a `min-width`, so
+replacing the name regenerates every responsive infix at your values.
+`%%IMPORTANT%%` is appended to the tail of **every** declaration value, custom
+properties included. There are exactly two builds, never a partial mix:
+
+```php
+// Normal build (default). Behaviourally identical to the shipped bundles.
+$css = str_replace( '%%IMPORTANT%%', '', $css );
+
+// Force build — every declaration becomes !important. Leading space matters:
+// it replaces the tail of the value, not the whole declaration.
+$css = str_replace( '%%IMPORTANT%%', ' !important', $css );
+```
+
+A JS equivalent, from a real consumer in this repo's orbit:
+
+```js
+const apply = (css, { breakpoints, important = false } = {}) =>
+  css
+    .replace(/%%MOBILE_BREAKPOINT%%/g, String(breakpoints?.sm ?? 576))
+    .replace(/%%TABLET_BREAKPOINT%%/g, String(breakpoints?.md ?? 768))
+    .replace(/%%DESKTOP_BREAKPOINT%%/g, String(breakpoints?.lg ?? 992))
+    .replace(/%%LARGE_DESKTOP_BREAKPOINT%%/g, String(breakpoints?.xl ?? 1200))
+    .replace(/%%EXTRA_LARGE_DESKTOP_BREAKPOINT%%/g, String(breakpoints?.xxl ?? 1400))
+    .replace(/%%IMPORTANT%%/g, important ? " !important" : "");
+```
+
+The result must contain **zero** `%%` markers — that is the post-build check:
+
+```bash
+grep -c '%%' path/to/your-built.css   # must be 0
+```
+
+Prefer the normal build. Importance is opt-in because it changes what wins.
+
+## Enqueue (WordPress)
+
+```php
+wp_enqueue_style( 'atomic', get_template_directory_uri() . '/css/atomic.min.css', array(), '2.0.0' );
+```
+
+The enqueued bundle declares no `:root` variables; the theme supplies the token
+set. The grid still works, because `--at-ctnr` / `--at-ctnr-min` / `--at-gtr`
+carry direct `var()` fallbacks.

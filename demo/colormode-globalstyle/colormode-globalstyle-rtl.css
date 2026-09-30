@@ -116,6 +116,8 @@
   --at-wrd-spg: var(--at-wrd-spc);
   --at-wrd-wrp: initial;
   --at-z-idx: initial;
+  --at-spc-sm: 5px;
+  --at-spc-lg: 20px;
 }
 
 /*Properties*/
@@ -222,21 +224,13 @@ li {
   --at-fnt-sz: 14px;
   --at-ln-h: normal;
   --at-bdr-w: initial;
-  --at-bdr-sty: initial;
+  --at-bdr-sty: solid;
+  --at-bdr-cl: transparent;
   --at-p: 6px 12px;
-  cursor: var(--at-cur, pointer);
-  color: var(--at-cl, inherit);
-  background-color: var(--at-bg-cl, transparent);
-  font-size: var(--at-fnt-sz, 14px);
-  border-color: var(--at-bdr-cl, transparent);
-  border-width: var(--at-bdr-w, 0);
-  border-style: var(--at-bdr-sty, solid);
-  padding: var(--at-p, 6px 12px);
 }
 .at-btn[disabled] {
   --at-opa: 0.5;
-  opacity: var(--at-opa, 0.5);
-  cursor: not-allowed;
+  --at-cur: not-allowed;
 }
 .at-btn-primary {
   --at-cl: var(--at-white);

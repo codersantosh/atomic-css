@@ -252,4 +252,11 @@ $varPrefix: '--at';
 
     // Z-index
     #{$varPrefix}-z-idx: initial;
+
+    // Spacing scale (consumer-owned; the framework ships no numeric spacing
+    // utility). The *step* is named by the class, as it is everywhere else
+    // (`.at-col-6`); the *value* is a digit-free token declared once, because no
+    // framework variable carries a digit.
+    #{$varPrefix}-spc-sm: 5px;
+    #{$varPrefix}-spc-lg: 20px;
 }

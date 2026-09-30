@@ -116,6 +116,8 @@
   --at-wrd-spg: var(--at-wrd-spc);
   --at-wrd-wrp: initial;
   --at-z-idx: initial;
+  --at-spc-sm: 5px;
+  --at-spc-lg: 20px;
 }
 
 /*Color*/
@@ -138,244 +140,213 @@ outline-color: Specifies the color of an element's outline. Example: outline-col
 column-rule-color: Specifies the color of a column rule in multi-column layout. Example: column-rule-color: green;
 caret-color: Specifies the color of the text input caret. Example: caret-color: blue;
 */
-:where(h1).at-color {
+h1.at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 50px;
 }
 
-:where(h2).at-color {
+h2.at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 43px;
 }
 
-:where(h3).at-color {
+h3.at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 36px;
 }
 
-:where(h4).at-color {
+h4.at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 29px;
 }
 
-:where(h5).at-color {
+h5.at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 22px;
 }
 
-:where(h6).at-color {
+h6.at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 14px;
 }
 
-:where(p).at-color {
+p.at-color {
   --at-cl: #6c757d;
   --at-fnt-sz: 16px;
 }
 
-:where(a).at-color {
+a.at-color {
   --at-fnt-sz: 14px;
   --at-cl: #ffc107;
 }
-:where(a).at-color:hover {
+a.at-color:hover {
   --at-cl: #cea323;
 }
 
-:where(button).at-color {
+button.at-color {
   --at-cl: #fff;
   --at-bg-cl: #dc3545;
   --at-bdr-cl: #9b1c29;
 }
-:where(button).at-color:hover {
+button.at-color:hover {
   --at-cl: #fff;
   --at-bg-cl: #7f101b;
   --at-bdr-cl: #7f101b;
 }
 
-[data-at-theme=dark] :where(p).at-color {
+[data-at-theme=dark] p.at-color {
   --at-cl: #bfbfbf;
 }
-[data-at-theme=dark] :where(button).at-color {
+[data-at-theme=dark] button.at-color {
   --at-cl: #fff;
   --at-bg-cl: #131313;
 }
 
-* {
-  --at-m: 0;
-  --at-p: 0;
-  --at-box-szg: border-box;
+body {
+  font-family: "Open Sans", sans-serif;
 }
 
-:where(body) {
-  --at-fnt-fam: "Open Sans", sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
 }
 
-:where(h1),
-:where(h2),
-:where(h3),
-:where(h4),
-:where(h5),
-:where(h6) {
-  --at-fnt-wt: bold;
+h1 {
+  color: #060606;
+  font-size: 50px;
+  margin: 0 0 30px 0;
 }
 
-:where(h1) {
-  --at-cl: #060606;
-  --at-fnt-sz: 50px;
-  --at-m: 0 0 30px 0;
-  margin: var(--at-m, 0 0 30px 0);
+h2 {
+  color: #060606;
+  font-size: 43px;
+  margin: 0 0 30px 0;
 }
 
-:where(h2) {
-  --at-cl: #060606;
-  --at-fnt-sz: 43px;
-  --at-m: 0 0 30px 0;
-  margin: var(--at-m, 0 0 30px 0);
+h3 {
+  color: #060606;
+  font-size: 36px;
+  margin: 0 0 25px 0;
 }
 
-:where(h3) {
-  --at-cl: #060606;
-  --at-fnt-sz: 36px;
-  --at-m: 0 0 25px 0;
-  margin: var(--at-m, 0 0 25px 0);
+h4 {
+  color: #060606;
+  font-size: 29px;
+  margin: 0 0 20px 0;
 }
 
-:where(h4) {
-  --at-cl: #060606;
-  --at-fnt-sz: 29px;
-  --at-m: 0 0 20px 0;
-  margin: var(--at-m, 0 0 20px 0);
+h5 {
+  color: #060606;
+  font-size: 22px;
+  margin: 0 0 15px 0;
 }
 
-:where(h5) {
-  --at-cl: #060606;
-  --at-fnt-sz: 22px;
-  --at-m: 0 0 15px 0;
-  margin: var(--at-m, 0 0 15px 0);
+h6 {
+  color: #060606;
+  font-size: 14px;
+  margin: 0 0 10px 0;
 }
 
-:where(h6) {
-  --at-cl: #060606;
-  --at-fnt-sz: 14px;
-  --at-m: 0 0 10px 0;
-  margin: var(--at-m, 0 0 10px 0);
+p {
+  font-size: 16px;
+  color: #3c3c3c;
+  margin: 0 0 15px 0;
 }
 
-:where(p) {
-  --at-fnt-sz: 16px;
-  --at-cl: #3c3c3c;
-  --at-m: 0 0 15px 0;
-  margin: var(--at-m, 0 0 15px 0);
+a {
+  font-size: 14px;
+  color: #712cf9;
 }
 
-:where(a) {
-  --at-fnt-sz: 14px;
-  --at-cl: #712cf9;
+a:hover {
+  color: #4718a4;
 }
 
-:where(a:hover) {
-  --at-cl: #4718a4;
+code {
+  color: #d63384;
 }
 
-:where(code) {
-  --at-cl: #d63384;
+li {
+  color: #3c3c3c;
 }
 
-:where(li) {
-  --at-cl: #3c3c3c;
-}
-
-:where(img) {
-  --at-w: 100%;
-  max-width: var(--at-w, 100%);
+img {
+  max-width: 100%;
   height: auto;
 }
 
-:where(video) {
+video {
   max-width: 100%;
   width: 100%;
   height: 100%;
 }
 
-:where(audio) {
+audio {
   width: 100%;
   min-width: 217px;
 }
 
-:where(article) {
-  --at-fnt-fam: "Open Sans", sans-serif;
-  --at-fnt-sz: 14px;
-  --at-cl: #000;
+article {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: #000;
 }
 
-:where(article h4) {
-  --at-m: 0 0 15px 0;
-  margin: var(--at-m, 0 0 15px 0);
+article h4 {
+  margin: 0 0 15px 0;
 }
 
-:where(article figure) {
-  --at-m: 15px 0;
-  margin: var(--at-m, 15px 0);
+article figure {
+  margin: 15px 0;
 }
 
-:where(article header div) {
-  --at-gap: 5px;
-  gap: var(--at-gap, 5px);
+article header div {
+  gap: 5px;
 }
 
-:where(article header div span) {
-  --at-gap: 5px;
-  gap: var(--at-gap, 5px);
+article header div span {
+  gap: 5px;
 }
 
-:where(details) {
-  --at-trs: all 0.5s ease-in-out 0s;
-  -webkit-transition: var(--at-trs, all 0.5s ease-in-out 0s);
-  transition: var(--at-trs, all 0.5s ease-in-out 0s);
+details {
+  -webkit-transition: all 0.5s ease-in-out 0s;
+  transition: all 0.5s ease-in-out 0s;
 }
 
-:where(details:not(:last-of-type)) {
-  --at-m: 0 0 15px 0;
-  margin: var(--at-m, 0 0 15px 0);
+details:not(:last-of-type) {
+  margin: 0 0 15px 0;
 }
 
-:where(details summary) {
-  --at-bdr-w: 1px;
-  --at-bdr-sty: solid;
-  --at-bdr-cl: #ddd;
-  --at-p: 10px;
-  --at-fnt-fam: "Open Sans", sans-serif;
-  --at-m: 0 0 15px 0;
-  --at-cl: #000;
-  --at-ls-sty: none;
-  list-style: var(--at-ls-sty, none);
-  margin: var(--at-m, 0 0 15px 0);
-  color: var(--at-cl, #000);
-  border-color: var(--at-bdr-cl, #ddd);
-  border-width: var(--at-bdr-w, 1px);
-  border-style: var(--at-bdr-sty, solid);
-  padding: var(--at-p, 10px);
-  font-family: var(--at-fnt-fam, "Open Sans", sans-serif);
+details summary {
+  list-style: none;
+  margin: 0 0 15px 0;
+  color: #000;
+  border-color: #ddd;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  font-family: "Open Sans", sans-serif;
   cursor: pointer;
 }
 
-:where(details summary svg) {
-  --at-trs: all 0.5s ease-in-out 0s;
-  -webkit-transition: var(--at-trs, all 0.5s ease-in-out 0s);
-  transition: var(--at-trs, all 0.5s ease-in-out 0s);
+details summary svg {
+  -webkit-transition: all 0.5s ease-in-out 0s;
+  transition: all 0.5s ease-in-out 0s;
 }
 
-:where(details[open]) {
-  --at-trs: all 0.5s ease-in-out 0s;
-  -webkit-transition: var(--at-trs, all 0.5s ease-in-out 0s);
-  transition: var(--at-trs, all 0.5s ease-in-out 0s);
+details[open] {
+  -webkit-transition: all 0.5s ease-in-out 0s;
+  transition: all 0.5s ease-in-out 0s;
 }
 
-:where(details[open] summary svg) {
-  --at-tf: rotate(180deg);
-  -webkit-transform: var(--at-tf, rotate(180deg));
-      -ms-transform: var(--at-tf, rotate(180deg));
-          transform: var(--at-tf, rotate(180deg));
+details[open] summary svg {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .at-btn {
@@ -455,7 +426,7 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
   border-width: var(--at-bdr-w, 0 0 1px 0);
   border-color: var(--at-bdr-cl, #ddd);
 }
-.at-tbl-cel :where(h1, h2, h3, h4, h5, h6) {
+.at-tbl-cel h1, .at-tbl-cel h2, .at-tbl-cel h3, .at-tbl-cel h4, .at-tbl-cel h5, .at-tbl-cel h6 {
   --at-m: 0;
 }
 .at-tbl-cel.at-cl {
@@ -474,11 +445,11 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
 .at-m.mb-15 {
   --at-m: 0 0 15px 0;
 }
-.at-gap-5 {
-  --at-gap: 5px;
+.at-spc-sm {
+  --at-gap: var(--at-spc-sm);
 }
-.at-gap-20 {
-  --at-gap: 20px;
+.at-spc-lg {
+  --at-gap: var(--at-spc-lg);
 }
 .at-post.at-p {
   --at-p: 20px;
@@ -587,28 +558,28 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
   --at-bg-cl: #000;
   --at-bdr-cl: #000;
 }
-[data-at-theme=dark] :where(h1) {
+[data-at-theme=dark] h1 {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(h2) {
+[data-at-theme=dark] h2 {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(h3) {
+[data-at-theme=dark] h3 {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(h4) {
+[data-at-theme=dark] h4 {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(h5) {
+[data-at-theme=dark] h5 {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(h6) {
+[data-at-theme=dark] h6 {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(p) {
+[data-at-theme=dark] p {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(a) {
+[data-at-theme=dark] a {
   --at-cl: #fff;
 }
 [data-at-theme=dark] .at-btn {
@@ -638,10 +609,10 @@ caret-color: Specifies the color of the text input caret. Example: caret-color: 
   --at-bg-cl: transparent;
   --at-cl: #2d2d2d;
 }
-[data-at-theme=dark] :where(article) {
+[data-at-theme=dark] article {
   --at-cl: #fff;
 }
-[data-at-theme=dark] :where(details) :where(summary) {
+[data-at-theme=dark] details summary {
   --at-bdr-cl: #444;
   --at-cl: #fff;
 }

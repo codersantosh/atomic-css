@@ -2,7 +2,7 @@
 /**
  * generate-docs.js - agent-facing class/variable reference.
  *
- * Output: docs/CLASS-REFERENCE.md + docs/CLASS-REFERENCE.json
+ * Output: skills/atomic-css/generated/CLASS-REFERENCE.{md,json}
  * Truth: css/atomic.css, css-max/atomic-max.css, css-template/atomic-template.css
  *        and short-names.json. Nothing in the output is hand-maintained.
  *
@@ -31,12 +31,33 @@ const SOURCES = {
 };
 
 const OUT = {
-    md: 'docs/CLASS-REFERENCE.md',
-    json: 'docs/CLASS-REFERENCE.json',
+    md: 'skills/atomic-css/generated/CLASS-REFERENCE.md',
+    json: 'skills/atomic-css/generated/CLASS-REFERENCE.json',
 };
 
-// Hand-written prose the generated reference must agree with.
-const PROSE = ['USAGE.md', 'llms.txt', 'README.md'];
+// Hand-written prose the generated reference must agree with. The agent-facing
+// contract is the skill (skills/atomic-css/), which is scanned separately below
+// — it names classes and variables too, so it gets the same existence check.
+const PROSE = ['README.md'];
+
+// Hand-written agent-facing files, read from disk. They are shipped, so their
+// references have to resolve in the tarball too, and every `.at-*` / `--at-*`
+// name they mention must exist in a bundle.
+const AGENT_DOCS = ['skills/atomic-css/SKILL.md',
+    'skills/atomic-css/references/classes.md',
+    'skills/atomic-css/references/setup.md',
+    'skills/atomic-css/references/patterns.md',
+    'skills/atomic-css/references/production.md',
+    // The folder that holds the generated reference states the boundary in prose,
+    // so it is held to the same rules as the guidance it sits beside.
+    'skills/atomic-css/generated/README.md'];
+
+// Compiled consumer stylesheets the skill teaches from. Not markdown, so only the
+// CSS-shape rules apply — but the scale-step rule does, because the reference
+// consumer is where a hard-coded measurement would actually land. The *compiled*
+// files are scanned rather than the SCSS, because the SCSS builds these names by
+// nesting (`&-spc { &-lg { … } }`), so a source scan cannot see the class at all.
+const CONSUMER_STYLESHEETS = ['demo/colormode-globalstyle/dynamic.css'];
 
 // Names that legitimately appear in prose but are in no bundle. Each is a
 // reviewed exception, not a gap: add a line here when the framework docs a
@@ -49,13 +70,39 @@ const CONSUMER_OWNED = new Set([
     'at-btn-outln', 'at-btn-outln-primary', 'at-btn-icon',
     // Consumer-side marker class: defined by whoever uses it, never shipped.
     'at-txt',
+    // Placeholder identity classes in the agent skill's Do/Don't table: shown
+    // as a name the consumer *owns*, not as framework names.
+    'at-card',
+    // Consumer spacing scale (patterns.md § Five decisions: "a number in a class
+    // name is a step on a scale you own"). Steps, not measurements: the value
+    // lives in a digit-free token, --at-spc-sm / --at-spc-lg.
+    'at-spc-sm', 'at-spc-lg',
+]);
+
+// Names the agent skill deliberately shows as WRONG — fabricated examples that
+// teach the reader what not to write, plus one real typo it points out. None is
+// a claim that the class exists, so the existence check must not fire on them.
+const DEMONSTRABLY_FAKE = new Set([
+    // "Don't invent these" — a name no bundle ships, by design.
+    'at-mt-4', 'at-flex-md-row', 'at-xs-col-6',
+    // The typo the skill uses to illustrate a silent WARN: the real name is
+    // --at-z-idx.
+    'at-z-id',
+    // The zero aliases the skill explicitly tells consumers NOT to write
+    // (`.at-p-0` is a second name for a value `.at-p` already computes).
+    'at-p-0', 'at-m-0',
 ]);
 
 // Names that appear only in the removal note (README § Breaking changes) and in
 // the marker-class explanation. They must NOT reappear in a bundle.
 const REMOVED_NAMES = new Set(['at-img', 'at-vid', 'at-aud', 'at-map']);
 
-const ALLOWED_IN_PROSE = new Set([...CONSUMER_OWNED, ...REMOVED_NAMES]);
+// Consumer-owned channels the skill documents but no bundle reads: the spacing
+// scale behind `.at-spc-*`. Same rationale as CONSUMER_OWNED — a name the
+// consumer defines, not one the framework ships.
+const CONSUMER_VARS = new Set(['--at-spc-sm', '--at-spc-lg']);
+
+const ALLOWED_IN_PROSE = new Set([...CONSUMER_OWNED, ...REMOVED_NAMES, ...DEMONSTRABLY_FAKE]);
 
 const INFIXES = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
@@ -295,8 +342,7 @@ const breakpoints = INFIXES.map((infix) => {
             minWidth: null,
             // Pointer text is added per renderer: the MD reader is sent to the
             // ladder section, the JSON consumer to the `fifths` key.
-            applies: 'no min-width — base rules are unprefixed. The one name carrying an `xs` '
-                + 'segment is `.at-col-xs-2m3`, which is also unprefixed',
+            applies: 'no min-width — base rules are unprefixed',
         };
     }
     return {
@@ -473,6 +519,10 @@ const classes = [...new Set([...bundles.minimal.keys(), ...bundles.max.keys()])]
     })
     .sort((a, b) => byName(a.name, b.name));
 
+const kindCount = (kind) => classes.filter((c) => c.kind === kind).length;
+const isMinimal = (c) => c.bundle !== 'max only';
+const readsChannel = (c) => c.reads.length > 0;
+
 const counts = {
     minimalClasses: bundles.minimal.size,
     maxClasses: bundles.max.size,
@@ -480,9 +530,18 @@ const counts = {
     maxOnlyClasses: classes.filter((c) => c.bundle === 'max only').length,
     variables: variables.length,
     legendEntries: Object.keys(legend).length,
-    structuralClasses: classes.filter((c) => c.kind === 'structural').length,
+    structuralClasses: kindCount('structural'),
     seedClasses: classes.filter((c) => c.seeds.length > 0).length,
     importantClasses: classes.filter((c) => c.importance !== 'none').length,
+    gridClasses: kindCount('grid'),
+    flexClasses: kindCount('flex'),
+    displayClasses: kindCount('display'),
+    propertyClasses: kindCount('property'),
+    distinctProperties: new Set(classes.flatMap((c) => c.properties)).size,
+    channelReaders: classes.filter(readsChannel).length,
+    channelSilent: classes.filter((c) => !readsChannel(c)).length,
+    minimalChannelReaders: classes.filter((c) => isMinimal(c) && readsChannel(c)).length,
+    minimalChannelSilent: classes.filter((c) => isMinimal(c) && !readsChannel(c)).length,
 };
 
 const byKind = new Map(KIND_ORDER.map((k) => [k, []]));
@@ -497,7 +556,7 @@ const failures = [];
 // total failure and *partial* shrinkage — a renamed or dropped term would
 // otherwise shrink the table quietly while the prose still describes it.
 const FIFTHS_EXPECTED = [
-    'at-col-2m3', 'at-col-xs-2m3', 'at-col-sm-2m3', 'at-col-md-2m3',
+    'at-col-2m3', 'at-col-sm-2m3', 'at-col-md-2m3',
     'at-col-lg-2m3', 'at-col-xl-2m3', 'at-col-xxl-2m3',
 ];
 
@@ -523,7 +582,7 @@ fifths.filter((r) => !FIFTHS_EXPECTED.includes(r.name)).forEach((r) => {
 
 const geometryLess = fifths.filter((r) => !r.geometry).map((r) => r.name).sort(byName);
 KNOWN_FIFTHS_DEFECTS.filter((n) => !geometryLess.includes(n)).forEach((n) => {
-    failures.push(`\`.${n}\` no longer ships without base column geometry — the SCSS box list was fixed, so remove it from KNOWN_FIFTHS_DEFECTS and drop the known-defect notes from llms.txt, README.md and USAGE.md`);
+    failures.push(`\`.\${n}\` no longer ships without base column geometry — the SCSS box list was fixed, so remove it from KNOWN_FIFTHS_DEFECTS and drop the known-defect notes from README.md`);
 });
 geometryLess.filter((n) => !KNOWN_FIFTHS_DEFECTS.includes(n)).forEach((n) => {
     failures.push(KNOWN_FIFTHS_DEFECTS.length
@@ -622,7 +681,10 @@ function proseNames(text, re) {
 const CLASS_RE = /(?<![\w-])\.?(at-[\w-]+)/g;
 const VAR_RE = /(?<![\w-])(--at-[\w-]+)/g;
 
-for (const file of PROSE) {
+// The skill teaches names, so it is held to the same rule as the prose: every
+// `.at-*` and `--at-*` it mentions must exist. This is what keeps a shipped
+// agent contract from drifting away from the bundles.
+for (const file of [...PROSE, ...AGENT_DOCS]) {
     const abs = path.join(root, file);
     if (!fs.existsSync(abs)) continue;
     const text = fs.readFileSync(abs, 'utf8');
@@ -631,7 +693,8 @@ for (const file of PROSE) {
         failures.push(`${file} names \`.${name}\`, which is in no bundle`);
     }
     for (const name of proseNames(text, VAR_RE)) {
-        if (!knownVars.has(name) && !legendCovers(name)) {
+        if (!knownVars.has(name) && !legendCovers(name) && !CONSUMER_VARS.has(name)
+            && !DEMONSTRABLY_FAKE.has(name.replace(/^--/, ''))) {
             failures.push(`${file} names \`${name}\`, which no bundle reads and short-names.json does not cover`);
         }
     }
@@ -650,9 +713,12 @@ function renderMd() {
     L.push('> `npm run docs:check`. Derived from:');
     Object.values(SOURCES).forEach((s) => L.push(`> \`${s}\``));
     L.push('');
-    L.push('For how to *use* these classes read [`../USAGE.md`](../USAGE.md) first; this file is');
-    L.push('the lookup table. For the rules the framework itself follows, read');
-    L.push('[`../ARCHITECTURE.md`](../ARCHITECTURE.md).');
+    L.push('This file is the generated lookup: every class, variable, breakpoint and');
+    L.push('token, derived from the compiled CSS. It is not a guide. For how to *use*');
+    L.push('the classes, read the skill that ships beside this file —');
+    L.push('[`../SKILL.md`](../SKILL.md) and its [`../references/`](../references/) —');
+    L.push('plus [`../../../README.md`](../../../README.md). For the rules the framework');
+    L.push('itself follows, read [`../../../ARCHITECTURE.md`](../../../ARCHITECTURE.md).');
     L.push('');
     L.push('## At a glance');
     L.push('');
@@ -892,18 +958,19 @@ const outputs = [[OUT.md, renderMd()], [OUT.json, renderJson()]];
 // that is consumed in two different places to the stricter of the two would
 // mean hardcoding repository URLs into it.
 const SHIPPED = new Set(['README.md', 'LICENSE', 'package.json']);
-for (const entry of require(path.join(root, 'package.json')).files || []) {
+// Recurse, not just one level: skills/atomic-css/ ships with nested
+// references/ and scripts/ directories, and a link into them must not
+// false-fail.
+const collectShipped = (entry) => {
     const abs = path.join(root, entry);
-    if (fs.existsSync(abs) && fs.statSync(abs).isDirectory()) {
-        // Every file in a shipped directory, not just .md: docs/ also ships a
-        // .json, and a link to it must not false-fail.
-        fs.readdirSync(abs)
-            .filter((f) => fs.statSync(path.join(abs, f)).isFile())
-            .forEach((f) => SHIPPED.add(path.join(entry, f)));
+    if (!fs.existsSync(abs)) return;
+    if (fs.statSync(abs).isDirectory()) {
+        fs.readdirSync(abs).forEach((f) => collectShipped(path.join(entry, f)));
     } else {
         SHIPPED.add(entry);
     }
-}
+};
+for (const entry of require(path.join(root, 'package.json')).files || []) collectShipped(entry);
 
 /** GitHub-style heading slug, for validating `#fragment` links. */
 const slug = (heading) => heading
@@ -949,6 +1016,220 @@ function checkPointers(owner, content) {
 }
 
 /**
+ * Prose numbers that restate a fact the reference already owns. Each claim site
+ * gets its own pattern: a blanket /\d+/ scan would also catch CSS values
+ * (`100%`, `1140px`, `font-weight: 700`), HTTP status codes and version
+ * numbers, and would be turned off within a week.
+ */
+const SKILL = 'skills/atomic-css/SKILL.md';
+const CLASSES = 'skills/atomic-css/references/classes.md';
+const SETUP = 'skills/atomic-css/references/setup.md';
+const PATTERNS = 'skills/atomic-css/references/patterns.md';
+
+const COUNT_CLAIMS = [
+    [SKILL, /and (\d+) classes that between them/, [() => counts.maxClasses], 'max classes'],
+    [SKILL, /\*\*(\d+) distinct CSS properties\*\*/, [() => counts.distinctProperties], 'distinct properties'],
+    [SKILL, /\*\*A property\?\*\* (\d+) are already applied/, [() => counts.distinctProperties], 'distinct properties'],
+    [SKILL, /(\d+) grid classes cover/, [() => counts.gridClasses], 'grid classes'],
+    [SKILL, /the same (\d+) legend entries/, [() => counts.legendEntries], 'legend entries'],
+    [SKILL, /`sm (\d+)`, `md (\d+)`, `lg (\d+)`, `xl (\d+)`, `xxl (\d+)`/,
+        () => breakpoints.filter((b) => b.minWidth).map((b) => Number(b.minWidth.replace('px', ''))),
+        'breakpoint min-widths'],
+    [CLASSES, /`legend` object \((\d+)\n/, [() => counts.legendEntries], 'legend entries'],
+    [CLASSES, /^## Grid \((\d+) classes\)/m, [() => counts.gridClasses], 'grid classes'],
+    [CLASSES, /^## Flex \((\d+)\) and display \((\d+)\)/m,
+        [() => counts.flexClasses, () => counts.displayClasses], 'flex / display classes'],
+    [CLASSES, /^(\d+) classes, absent from the minimal bundle/m, [() => counts.maxOnlyClasses], 'max-only classes'],
+    [CLASSES, /^## Property utilities \((\d+)\)/m, [() => counts.propertyClasses], 'property utilities'],
+    [CLASSES, /^## Structural classes \((\d+)\)/m, [() => counts.structuralClasses], 'structural classes'],
+    [CLASSES, /^## Variables \((\d+) read by the bundles\)/m, [() => counts.variables], 'variables'],
+    [SETUP, /^\| `css\/atomic\.css`[^|]*\| (\d+) \|/m, [() => counts.minimalClasses], 'minimal bundle classes'],
+    [SETUP, /^\| `css-max\/atomic-max\.css`[^|]*\| (\d+) \|/m, [() => counts.maxClasses], 'max bundle classes'],
+    [SETUP, /^\| `css-template\/atomic-template\.css`[^|]*\| (\d+) \|/m, [() => counts.templateClasses], 'template classes'],
+    [PATTERNS, /full (\d+)-class inventory, (\d+) classes read/,
+        [() => counts.maxClasses, () => counts.channelSilent], 'max classes / channel-silent'],
+    [PATTERNS, /(\d+) read at least one/, [() => counts.channelReaders], 'channel readers'],
+    [PATTERNS, /minimal bundle is (\d+) of those classes: (\d+) with no/,
+        [() => counts.minimalClasses, () => counts.minimalChannelSilent], 'minimal classes / channel-silent'],
+    [PATTERNS, /the same (\d+) readers/, [() => counts.minimalChannelReaders], 'minimal channel readers'],
+    // The breakpoint table in classes.md is one row per infix.
+    ...breakpoints.filter((b) => b.minWidth).map((b) => [
+        CLASSES,
+        new RegExp(`^\\| \`${b.infix}\` \\| (\\d+)px`, 'm'),
+        [() => Number(b.minWidth.replace('px', ''))],
+        `${b.infix} min-width`,
+    ]),
+];
+
+/**
+ * A raw `gap` / `column-gap` declaration on a rule that also carries `.at-row`.
+ *
+ * Scoped to rows deliberately. The framework sizes every column as
+ * `calc(<fraction> - var(--at-col-gap, var(--at-gap, 0px)) * <k>)`, so a gutter
+ * written as a property is added on top of widths that already sum to 100% — the
+ * row overflows its container by the total gap, silently. A raw `gap` on an
+ * ordinary flex container is fine: nothing there is a calc() reading the same
+ * variable, so there is nothing to double-count.
+ *
+ * The fix is never to drop the property but to move the value into the variable
+ * the columns read, and drop the padding with `at-no-gtr` (classes.md § The
+ * gutter is counted once).
+ */
+const ROW_GAP = /\.(at-row)\b[^,{]*\{[^}]*?(?:^|[;{}\s])(?:gap|column-gap|-webkit-column-gap)\s*:/g;
+
+function checkRowGap(owner, content) {
+    const mask = codeMask(content);
+    for (const m of mask.matchAll(ROW_GAP)) {
+        // Same exemption as the seed check: a documented counter-example may show
+        // the anti-pattern if it says so. Look back to the previous rule only.
+        // Read the marker from the ORIGINAL text: codeMask blanks the comment it
+        // lives in, so looking for it in the mask never finds it.
+        const before = content.slice(Math.max(0, m.index - 400), m.index);
+        if (/WRONG/.test(before.slice(before.lastIndexOf('}') + 1))) continue;
+        const prop = /(-webkit-column-gap|column-gap|gap)\s*:/.exec(m[0])[1];
+        failures.push(
+            `${owner} sets \`${prop}\` on a rule carrying .at-row. Column widths are `
+            + 'calc()s that read --at-col-gap, so a property adds gap no column subtracts and '
+            + 'the row overflows. Seed `--at-col-gap` instead (with `at-no-gtr`), or let '
+            + '.at-gap carry it.');
+    }
+}
+
+/**
+ * A consumer spacing-scale step (`.at-spc-lg`) is allowed to carry a number —
+ * it names a step on a scale the consumer owns, the same way `.at-col-6` names
+ * its span. What it may NOT do is hard-code the measurement: the value belongs
+ * in a variable, so the scale changes in one place. `at-gap-20 { --at-gap: 20px }`
+ * is the failure this catches.
+ */
+const SCALE_CLASS = /\.(at-spc-[\w-]+)/g;
+
+function checkScaleSteps(owner, content) {
+    for (const m of content.matchAll(SCALE_CLASS)) {
+        const name = m[1];
+        // The rule body runs to the first `}`; a nested block is not a declaration.
+        const end = content.indexOf('}', m.index);
+        if (end < 0) continue;
+        const body = content.slice(m.index, end);
+        for (const d of body.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
+            if (/\b\d+(px|rem|em|%|vh|vw)\b/.test(d[2])) {
+                failures.push(
+                    `${owner} gives .${name} the literal \`${d[2].trim()}\` — a scale step should read a `
+                    + 'token (var(--at-…)) so the scale changes in one place.');
+            }
+        }
+    }
+}
+
+/**
+ * `:where(:root) <selector>` is the same selector. `:root` matches <html>, every
+ * element in the document is a descendant of it, and `:where()` contributes zero
+ * specificity — so the prefix changes neither the match set nor the specificity.
+ * It reads as scoping that does not exist, and a comment justifying it would be
+ * false. `:where(:root) { … }` on its own is fine: that is the root itself.
+ */
+function checkRedundantRoot(owner, content) {
+    // Comments explain the rule, so they are allowed to quote the anti-pattern.
+    const code = content.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+    for (const m of code.matchAll(/:where\(:root\)(?=\s+[^\s{])/g)) {
+        failures.push(
+            `${owner} writes \`:where(:root) …\` with more selector after it — that is the same `
+            + 'selector as without the prefix, at the same specificity. Drop `:where(:root)`.');
+    }
+}
+
+/**
+ * A custom property seeded on a bare element selector escapes to its whole
+ * subtree, so `h1 { --at-cl: … }` sets the app's colour channel for everything
+ * under every h1 rather than styling the h1. Element defaults are raw
+ * properties; a token is seeded on a class, or on `*` for a global override.
+ *
+ * Matches `:where(el)` and `el` alike — the selector form is not the point, and
+ * a gate that only understood one of them would pass everything the moment the
+ * other was used. `*`, `:root` and the `:focus-visible` style pseudo-class are
+ * exempt: `*` is the deliberate global-override idiom (see the reduced-motion
+ * rule) and `:root` scopes to nothing below it.
+ */
+/**
+ * Comments and fence markers are blanked (length preserved, so every index still
+ * addresses the original text) before the selector scan. Without this the capture
+ * swallows them: `\`\`\`css` immediately above a rule makes the captured "selector"
+ * read `css\nh1`, which then fails the bare-element test and silently skips a real
+ * seed. Prose is left alone — the rules it documents live inside fences.
+ */
+function codeMask(content) {
+    const blank = (m) => ' '.repeat(m.length);
+    return content
+        .replace(/\/\*[\s\S]*?\*\//g, blank)
+        .replace(/^```[^\n]*$/gm, blank);
+}
+
+// Two alternatives: `:where(el)` and a bare selector, confined to one line. The
+// single-line bound is load-bearing: prose contains `{` only rarely, so an
+// unbounded capture runs from a sentence to the next brace in the document and
+// swallows every rule in between — which is how a real seed goes unreported.
+// The bare branch also requires a non-space first character, so a match cannot
+// start on the whitespace before `:where(` and take the wrapper with it.
+const SEED_SELECTOR = /(?::where\(([^)]*)\)|([^\s{@][^{}@\n]*))\s*\{/g;
+const BARE_ELEMENT = /^(?:[a-z][\w-]*|(?:body|html)(?![\w-]))(?:\s*[>+~]\s*(?:[a-z][\w-]*|\*)|\s+[a-z][\w-]*)*\s*(?:::?[\w-]+(?:\([^)]*\))?)*$/i;
+
+function checkElementSeeds(owner, content) {
+    // Deliberately scans fenced blocks too: the CSS examples are precisely what
+    // this rule governs, so stripping them would make the check inert. Only the
+    // comments and fence markers are blanked, and indices still line up.
+    const mask = codeMask(content);
+    for (const m of mask.matchAll(SEED_SELECTOR)) {
+        // A match that begins just after an `@` is an at-rule prelude
+        // (`@media print {`), not a selector — the engine skips the `@` because
+        // it cannot start the capture, so reject it here rather than reporting
+        // `media print` as a bare element.
+        if (content[m.index - 1] === '@') continue;
+
+        const selector = (m[1] !== undefined ? m[1] : m[2]).trim();
+        if (!selector || /[*]|:root|:focus|@/.test(selector)) continue;
+        if (!BARE_ELEMENT.test(selector)) continue;
+        // A documented counter-example is allowed to show the anti-pattern, as
+        // long as it says so — the same WRONG/RIGHT convention the guides use.
+        // The marker may sit in a comment above the rule, so look back only as
+        // far as the previous rule: since the last `}`.
+        const before = content.slice(Math.max(0, m.index - 400), m.index);
+        if (/WRONG/.test(before.slice(before.lastIndexOf('}') + 1)) || /WRONG/.test(m[0])) continue;
+        const body = content.slice(m.index, content.indexOf('}', m.index));
+        for (const seed of body.matchAll(/(--[\w-]+)\s*:/g)) {
+            if (!seed[1].startsWith('--at-')) continue;
+            failures.push(
+                `${owner} seeds ${seed[1]} on the bare element \`${selector}\` — `
+                + 'a seed there sets that token for its whole subtree. Use the raw property, '
+                + 'or move the seed to a class.');
+        }
+    }
+}
+
+/** Fenced code carries sample CSS and shell, not claims about the framework. */
+const stripFences = (content) => content.replace(/^```[\s\S]*?^```/gm, '');
+
+function checkCounts(owner, content) {
+    const text = stripFences(content);
+    for (const [file, re, valueFns, label] of COUNT_CLAIMS) {
+        if (file !== owner) continue;
+        // A claim supplies either a list of value functions or one function
+        // returning a list, for the multi-capture cases.
+        const resolved = Array.isArray(valueFns) ? valueFns.map((f) => f()) : valueFns();
+        const expected = Array.isArray(resolved) ? resolved : [resolved];
+        // matchAll insists on `g`; the claim patterns are written without it.
+        const global = re.flags.includes('g') ? re : new RegExp(re.source, `${re.flags}g`);
+        for (const m of text.matchAll(global)) {
+            expected.forEach((want, i) => {
+                const got = Number(m[i + 1]);
+                if (got !== want) {
+                    failures.push(`${owner} says ${label} is ${got}, but the reference says ${want}`);
+                }
+            });
+        }
+    }
+}
+
+/**
  * Relative markdown links, and the `#fragment` they point at. Anchors and
  * http(s)/mailto are exempt.
  */
@@ -958,7 +1239,7 @@ function checkLinks(owner, content) {
         if (/^(?:https?:|mailto:)/.test(target)) continue;
         const [rel, fragment] = target.split('#');
         const file = rel ? path.normalize(path.join(path.dirname(owner), rel)) : owner;
-        if (rel && !SHIPPED.has(file)) {
+        if (rel && !shipsOrContains(file)) {
             failures.push(`${owner} links to ${target}, which resolves to ${file} and is not in the npm tarball`);
             continue;
         }
@@ -979,32 +1260,41 @@ function checkFragment(owner, file, fragment) {
 }
 
 /** A resolved path is acceptable if it ships, or is a directory that does. */
-const shipsOrContains = (rel) => {
+const shipsOrContains = (raw) => {
+    // Callers hand over paths that may or may not keep a trailing separator
+    // (`path.normalize('../references/')` does). Normalise once, here, so the
+    // directory prefix cannot end up doubled.
+    const rel = raw.replace(/[\\/]+$/, '');
     if (SHIPPED.has(rel)) return true;
     const prefix = `${rel}${path.sep}`;
     return [...SHIPPED].some((f) => f.startsWith(prefix));
 };
 
 /**
- * Bare `path/` mentions in code spans. The J1 fix rewrote USAGE.md's
- * `](demo/)` link, but the same unshipped directory was also written as a bare
- * code span in a sibling file, and the link-syntax check could not see it. Any
- * top-level path a shipped doc names must resolve inside the tarball, so a
- * repo-only path has to be described in prose rather than written as one.
+ * Bare `path/` mentions in code spans. A shipped doc must not name a
+ * repo-only directory as a path — the same unshipped directory was once written
+ * as a bare code span in a sibling file, and the link-syntax check could not see
+ * it. Any top-level path a shipped doc names must resolve inside the tarball, so
+ * a repo-only path has to be described in prose rather than written as one.
  */
 function checkBarePaths(owner, content) {
+    // A bare path may be written relative to the document (`generated/`, the
+    // skill's own subfolders) or relative to the package root (`css/atomic.css`,
+    // which every document refers to that way). Accept either: a shipped
+    // document naming a shipped file is correct however it spells the path.
+    const base = path.dirname(owner);
     for (const m of content.matchAll(/`([A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*\/?)`/g)) {
         const token = m[1];
         if (!token.includes('/')) continue;
         // Doc-relative tokens belong to checkLinks, which resolves them properly.
         if (token.startsWith('..')) continue;
-        // Bare filename mentions are written repo-root-relative, which is how the
-        // tarball lays out: the reader types `css/atomic.css` from the package
-        // root, not `../css/...` from inside docs/.
-        const rel = path.normalize(token).replace(/[\\/]+$/, '');
-        if (!shipsOrContains(rel)) {
-            failures.push(`${owner} names the path \`${token}\`, which resolves to ${rel}; it is not in the npm tarball — describe it in prose instead`);
-        }
+        // `node_modules/…` is a post-install location by construction: it exists
+        // in the consumer's tree, not in the tarball. The agent skill teaches
+        // paths from that root constantly, so it is not a stale reference.
+        if (token.startsWith('node_modules/')) continue;
+        const clean = (p) => path.normalize(p).replace(/[\\/]+$/, '');
+        if (shipsOrContains(clean(token)) || shipsOrContains(clean(path.join(base, token)))) continue;
+        failures.push(`${owner} names the path \`${token}\`, which resolves to neither \`${clean(token)}\` nor \`${clean(path.join(base, token))}\`; it is not in the npm tarball — describe it in prose instead`);
     }
 }
 
@@ -1014,16 +1304,32 @@ for (const [rel, content] of outputs) {
     checkLinks(rel, content);
     checkBarePaths(rel, content);
 }
-// The two hand-written agent-facing files are scanned from disk; they are
-// shipped, so their references have to resolve in the tarball too.
-for (const file of ['USAGE.md', 'llms.txt']) {
+// The agent-facing skill is scanned from disk, alongside the generated files:
+// it ships, so its references must resolve in the tarball, and the class and
+// variable names it teaches must exist.
+for (const file of AGENT_DOCS) {
     const abs = path.join(root, file);
     if (fs.existsSync(abs)) {
         const content = fs.readFileSync(abs, 'utf8');
         checkPointers(file, content);
         checkLinks(file, content);
         checkBarePaths(file, content);
+        checkCounts(file, content);
+        checkElementSeeds(file, content);
+        checkScaleSteps(file, content);
+        checkRedundantRoot(file, content);
+        checkRowGap(file, content);
     }
+}
+
+// Stylesheets: the CSS-shape rules only.
+for (const file of CONSUMER_STYLESHEETS) {
+    const abs = path.join(root, file);
+    if (!fs.existsSync(abs)) continue;
+    const content = fs.readFileSync(abs, 'utf8');
+    checkElementSeeds(file, content);
+    checkScaleSteps(file, content);
+    checkRowGap(file, content);
 }
 
 

@@ -2,7 +2,11 @@
 
 An atomic/utility CSS framework built on **CSS custom properties** and a **Flexbox grid system**. Every utility class (`.at-*`) reads its value from a matching CSS variable (`--at-*`), so theming is done entirely in variables — no class overrides, no JavaScript runtime.
 
-> **Applying these classes with an AI agent?** Start with [`llms.txt`](llms.txt) (condensed rules), then [`USAGE.md`](USAGE.md) (task-oriented guide), then [`docs/CLASS-REFERENCE.md`](docs/CLASS-REFERENCE.md) (every class and variable). The reference's tables are generated from the compiled CSS and drift-checked in CI, so they always match the bundles; the guidance around them is written by hand.
+> **Applying these classes with an AI agent?** Use the skill in
+> [`skills/atomic-css/`](skills/atomic-css/SKILL.md) — the agent-facing contract,
+> shipped inside the package. Its
+> [`skills/atomic-css/generated/CLASS-REFERENCE.md`](skills/atomic-css/generated/CLASS-REFERENCE.md) tables are generated from
+> the compiled CSS and drift-checked in CI, so they always match the bundles.
 
 ## Breaking changes in 2.0.0
 
@@ -11,14 +15,16 @@ The framework no longer ships element/media sizing classes. `.at-img`, `.at-vid`
 global CSS instead:
 
 ```css
-:where(img)   { --at-w: 100%; max-width: var(--at-w, 100%); height: auto; }
-:where(video) { max-width: 100%; width: 100%; height: 100%; }
-:where(audio) { width: 100%; min-width: 217px; }
+img   { max-width: 100%; height: auto; }
+video { max-width: 100%; width: 100%; height: 100%; }
+audio { width: 100%; min-width: 217px; }
 /* map (iframe) sizing is consumer-owned too, e.g. width: 100%; height: 100%; */
 ```
 
-The `img` rule seeds `--at-w` and reads it back, so image width stays themeable from any
-ancestor — the same pattern the reference consumer in `demo/` uses.
+These are raw properties, not channel seeds: a seed here would set `--at-w` for
+the whole `img` subtree instead of sizing the image, and a bare `<img>` carries
+no class for a utility to apply one anyway. If you need themeable image width, seed
+`--at-w` on a container class and put `.at-w` on the image.
 
 Structural helpers (`.at-ovl`, `.at-blk-shp`, `.at-shp`, `.at-vrt`, …) now use
 plain-CSS geometry — they no longer publish `--at-*` values for their own
@@ -106,7 +112,7 @@ Wrap columns in `.at-row` (flex row with negative gutters). Columns are 12 per r
 - `.at-col-1` … `.at-col-12` — fixed fractions; responsive via breakpoint infixes: `sm`, `md`, `lg`, `xl`, `xxl` (e.g. `.at-col-md-6`)
 - `.at-col-auto` — width from content
 - `.at-col-cust` — width from `--at-cust-w`
-- `.at-col-*-2m3` — fifths (1 of 5): `.at-col-2m3`, `.at-col-md-2m3`, … Pair `.at-col-xs-2m3` with `.at-col-sm-2m3` for a fifth that stacks first (see [`USAGE.md`](USAGE.md#3-grid))
+- `.at-col-*-2m3` — fifths (1 of 5): `.at-col-2m3`, `.at-col-md-2m3`, …
 - `.at-no-gtr` — removes gutters from row and child columns
 - `atomic-max.css` only: `.at-ord-*` (reorder), `.at-ofst-*` (offset), `.at-prt-*` (print display)
 
@@ -139,7 +145,7 @@ Each typography property has its own utility class reading its matching `--at-*`
 | `.at-ltr-sp` | `letter-spacing` | `--at-ltr-sp` |
 | `.at-cl` | `color` | `--at-cl` |
 
-> **Breaking Change**: The compound `.at-txt, .at-txt *` rule has been removed. The framework defines **no** `.at-txt` rule — it is a consumer-side hook: you may apply it in your markup and style it in your own CSS, but it never appears in a bundle or in `docs/CLASS-REFERENCE.md`. For framework-provided typography, apply the individual utility classes in the table above. Additionally, `.at-dropcap::first-letter` only supplies structural `float: left`; all styling values arrive as raw `::first-letter` declarations from the block CSS.
+> **Breaking Change**: The compound `.at-txt, .at-txt *` rule has been removed. The framework defines **no** `.at-txt` rule — it is a consumer-side hook: you may apply it in your markup and style it in your own CSS, but it never appears in a bundle or in `skills/atomic-css/generated/CLASS-REFERENCE.md`. For framework-provided typography, apply the individual utility classes in the table above. Additionally, `.at-dropcap::first-letter` only supplies structural `float: left`; all styling values arrive as raw `::first-letter` declarations from the block CSS.
 
 ## Theming
 
@@ -212,49 +218,52 @@ Never fork or re-list it.
 
 ### Buttons
 
-`.at-btn` classes are **consumer-owned**: the framework ships no button CSS.
-Consumers implement the var-driven base shell (cursor, color, background,
-typography, border, padding, line-height, `[disabled]` state), the default
-look (font-size 14px, padding 6px 12px, no border) and the variant palette
-classes. The [atrc](https://www.npmjs.com/package/atrc) button atom
-(`packages/atoms/button/style.scss`) is the reference implementation; the
-demo `scss/css-properties.scss` shows the consumer pattern:
+`.at-btn` classes are **consumer-owned**: the framework ships no button CSS. A
+button repeats with variants, so it takes the repeating-component shape: **one
+self-sufficient identity class that owns the box, plus one variant class that
+sets values only.**
 
 ```css
+/* The shell owns its properties. Its own measurements live in a private
+   --at-btn-* namespace, because --at-gap and --at-p belong to the app. */
 .at-btn {
-  --at-cur: pointer;
-  --at-fnt-sz: 14px;
-  --at-ln-h: normal;
-  --at-bdr-w: initial;
-  --at-bdr-sty: initial;
-  --at-p: 6px 12px;
-
-  cursor: var(--at-cur, pointer);
-  color: var(--at-cl, inherit);
-  background-color: var(--at-bg-cl, transparent);
-  font-size: var(--at-fnt-sz, 14px);
-  border-color: var(--at-bdr-cl, transparent);
-  border-width: var(--at-bdr-w, 0);
-  border-style: var(--at-bdr-sty, solid);
-  padding: var(--at-p, 6px 12px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--at-btn-gap, 6px);
+  cursor: pointer;
+  color: var(--at-btn-cl, inherit);
+  background-color: var(--at-btn-bg-cl, transparent);
+  font-size: var(--at-btn-fnt-sz, 14px);
+  border-radius: var(--at-btn-bdr-rad, 3px);
+  padding: var(--at-btn-p, 6px 12px);
 }
 
+/* Variants set values only — no properties. */
 .at-btn-primary {
-  --at-cl: var(--at-white);
-  --at-bg-cl: var(--at-primary);
-  --at-bdr-cl: var(--at-primary);
+  --at-btn-cl: var(--at-white);
+  --at-btn-bg-cl: var(--at-primary);
 }
-```
+.at-btn-primary:hover { --at-btn-bg-cl: var(--at-primary--hover); }
 
-Usage (identical in the framework and in consumer implementations):
+.at-btn[disabled] { --at-btn-cur: not-allowed; opacity: 0.5; }
+```
 
 ```html
 <button type="button" class="at-btn at-btn-primary">Primary</button>
 <button type="button" class="at-btn at-btn-outln-primary">Outline</button>
-<button type="button" class="at-btn at-btn-outln">Plain outline</button>
 <button type="button" class="at-btn at-btn-lnk">Link</button>
-<button type="button" class="at-btn at-btn-icon at-inl-flx at-gap">Icon btn</button>
+<button type="button" class="at-btn at-btn-icon">Icon</button>
+<button type="button" class="at-btn" disabled>Disabled</button>
 ```
+
+Two classes per button, not eight: the shell applies the properties, so the
+markup does not have to name them. A design that appears **once** takes the other
+shape — an identity class that seeds only `--at-*` channels, with the reader
+classes on the element. See
+[patterns.md § Components](skills/atomic-css/references/patterns.md#components-one-owner-per-class)
+for both encodings, and `verify-usage.mjs --allow at-btn,at-btn-primary` to teach
+the checker your names.
 
 Solid variants: `at-btn-primary`, `-secondary`, `-success`, `-danger`,
 `-warning`, `-info`, `-light`, `-dark`, `-lnk` (with `:hover` states).

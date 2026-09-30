@@ -141,26 +141,21 @@ li {
 	}
 
 	&-btn {
+		// Values only, never properties. The utility classes the markup carries
+		// apply the properties (rule 3/4 of the consumer contract in README.md
+		// § Buttons). scss/dynamic.scss is the single owner of the live button
+		// values; this block is the pattern reference README cites.
 		#{variable.$varPrefix}-cur: pointer;
 		#{variable.$varPrefix}-fnt-sz: 14px;
 		#{variable.$varPrefix}-ln-h: normal;
 		#{variable.$varPrefix}-bdr-w: initial;
-		#{variable.$varPrefix}-bdr-sty: initial;
+		#{variable.$varPrefix}-bdr-sty: solid;
+		#{variable.$varPrefix}-bdr-cl: transparent;
 		#{variable.$varPrefix}-p: 6px 12px;
-
-		cursor: var(#{variable.$varPrefix}-cur, pointer);
-		color: var(#{variable.$varPrefix}-cl, inherit);
-		background-color: var(#{variable.$varPrefix}-bg-cl, transparent);
-		font-size: var(#{variable.$varPrefix}-fnt-sz, 14px);
-		border-color: var(#{variable.$varPrefix}-bdr-cl, transparent);
-		border-width: var(#{variable.$varPrefix}-bdr-w, 0);
-		border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
-		padding: var(#{variable.$varPrefix}-p, 6px 12px);
 
 		&[disabled] {
 			#{variable.$varPrefix}-opa: 0.5;
-			opacity: var(#{variable.$varPrefix}-opa, 0.5);
-			cursor: not-allowed;
+			#{variable.$varPrefix}-cur: not-allowed;
 		}
 
 		//Solid variants (consumer-side implementation; atrc owns the same

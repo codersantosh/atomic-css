@@ -65,6 +65,71 @@ for (const file of [minimal, max, template]) {
     }
 }
 
+// Specificity invariant. The consumer base layer is written as plain element
+// selectors (`h1`, `nav li`) rather than `:where(...)`. That is only sound while
+// the framework itself stays out of the element layer: a shipped `h1 { … }` would
+// outrank a consumer's `:where(h1)` on a theme that predates the change, and the
+// base layer's guarantee stops holding.
+//
+// So the check is that the framework ships NO element rules, apart from the one
+// documented exception (setup.md: `html { scroll-behavior }` cannot be beaten by
+// a `:where()` base layer). ARCHITECTURE.md § Layers and ordering states the
+// invariant; this is the check.
+const SCROLL_BEHAVIOUR = 'html';
+function specificity(selector) {
+    const bare = selector.replace(/:where\([^)]*\)/g, '');
+    const ids = (bare.match(/#[\w-]+/g) || []).length;
+    const classes = (bare.match(/\.[\w-]+|\[[^\]]*\]|:{1,2}[a-z-]+(?:\([^)]*\))?/g) || []).length;
+    return [ids, classes];
+}
+
+// Selectors that are deliberately not a plain class, and are documented in
+// classes.md § Five selectors that are not a plain class. A sixth would reach
+// past a consumer's own stylesheet in a way nothing had warned them about, so it
+// has to fail the build rather than the docs.
+const DOCUMENTED_COMPOUNDS = new Set([
+    '.at-row *',
+    '.at-no-gtr > .at-col',
+    '.at-no-gtr > [class*=at-col-]',
+    '.at-blk-shp > :not(.at-shp):not(.at-z-idx)',
+    '.at-ls li::marker',
+    '.at-svg-wrp svg',
+]);
+
+const specificityProblems = [];
+for (const file of [minimal, max, template]) {
+    const rel = path.relative(root, file);
+    postcss.parse(fs.readFileSync(file, 'utf8')).walkRules((rule) => {
+        for (const selector of rule.selector.split(',')) {
+            const sel = selector.trim();
+            const [ids, classes] = specificity(sel);
+            if (classes >= 1) continue;                 // a class-bearing compound
+            if (ids === 0 && sel === SCROLL_BEHAVIOUR) continue;
+            // A descendant/child combinator after a class is still class-bearing
+            // in effect; only flag selectors with no class at all, or the
+            // documented ones with an unexpected shape.
+            if (DOCUMENTED_COMPOUNDS.has(sel)) continue;
+            const hasClassInChain = /\.[\w-]+/.test(sel);
+            if (hasClassInChain) continue;             // e.g. `.at-svg text`
+            specificityProblems.push(`${rel}: \`${sel}\` is an undocumented selector with no class`);
+        }
+    });
+}
+
+if (specificityProblems.length) {
+    specificityProblems.forEach((p) => console.error(`  ${p}`));
+    console.error(
+        `FAIL: the framework must ship no element rules beyond \`${SCROLL_BEHAVIOUR}\`, or a `
+        + 'consumer base layer written as bare element selectors loses its guarantee (ARCHITECTURE.md).'
+    );
+    process.exit(1);
+}
+
+console.log(
+    `ok  no element rules in any bundle except \`${SCROLL_BEHAVIOUR}\` — every selector carries a `
+    + 'class, so the consumer base layer needs no :where()'
+);
+
 if (orderProblems.length) {
     orderProblems.forEach((p) => console.error(`  ${p}`));
     console.error('FAIL: compiled layer order must be Grid -> Utilities -> Properties (ARCHITECTURE.md).');
