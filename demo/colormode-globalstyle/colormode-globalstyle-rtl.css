@@ -116,7 +116,9 @@
   --at-wrd-wrp: initial;
   --at-z-idx: initial;
   --at-spc-sm: 5px;
+  --at-spc-md: 15px;
   --at-spc-lg: 20px;
+  --at-spc-xl: 30px;
 }
 
 /*Properties*/

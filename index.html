@@ -79,12 +79,13 @@
             background-color: rgba(249, 249, 249, 1);
         }
 
-        .mb-3 {
-            margin-bottom: 30px;
+        /* Spacing steps on the demo's scale; the value is a digit-free token. */
+        .at-m-b-lg {
+            margin-bottom: var(--at-spc-lg);
         }
 
-        .mb-4 {
-            margin-bottom: 45px;
+        .at-m-b-xl {
+            margin-bottom: var(--at-spc-xl);
         }
 
         code {
@@ -532,7 +533,7 @@
         </div>
 
         <hr />
-        <h2 class="mb-4">Order</h2>
+        <h2 class="at-m-b-xl">Order</h2>
         <p>
             Change the <em>visual</em> order of specific flex items with a handful of
             <code>order</code> utilities. We only provide options for making an item first or last, as
@@ -542,21 +543,21 @@
 
         <section class="">
             <h4>First : <code>.at-ord-first </code></h4>
-            <div class="at-flx at-jfy-cont-st bg-light mb-3">
+            <div class="at-flx at-jfy-cont-st bg-light at-m-b-lg">
                 <div class="demo-col">First flex item</div>
                 <div class="demo-col">Second flex item</div>
                 <div class="demo-col at-ord-first">Third flex item</div>
             </div>
 
             <h4>Last : <code>at-ord-last</code></h4>
-            <div class="at-flx at-jfy-cont-st bg-light mb-3">
+            <div class="at-flx at-jfy-cont-st bg-light at-m-b-lg">
                 <div class="demo-col at-ord-last">First flex item</div>
                 <div class="demo-col">Second flex item</div>
                 <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Order 1 to 12: <code>.at-ord-* </code></h4>
-            <div class="at-flx at-flx-wrp-rev bg-light mb-3">
+            <div class="at-flx at-flx-wrp-rev bg-light at-m-b-lg">
                 <div class="demo-col at-ord-12">Flex item 1</div>
                 <div class="demo-col at-ord-10">Flex item 2</div>
                 <div class="demo-col at-ord-9">Flex item 3</div>
@@ -646,32 +647,32 @@
 
 
         <hr />
-        <h2 class="mb-4">Flex Row/Column</h2>
+        <h2 class="at-m-b-xl">Flex Row/Column</h2>
 
         <section class="">
             <h4>Flex Row : <code>.at-flx-row </code></h4>
-            <div class="at-flx at-flx-row bg-light mb-3">
+            <div class="at-flx at-flx-row bg-light at-m-b-lg">
                 <div class="demo-col">First flex item</div>
                 <div class="demo-col">Second flex item</div>
                 <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Flex Row Reverse : <code>.at-flx-row-rev </code></h4>
-            <div class="at-flx at-flx-row-rev bg-light mb-3">
+            <div class="at-flx at-flx-row-rev bg-light at-m-b-lg">
                 <div class="demo-col">First flex item</div>
                 <div class="demo-col">Second flex item</div>
                 <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Flex Column : <code>.at-flx-column </code></h4>
-            <div class="at-flx at-flx-col bg-light mb-3">
+            <div class="at-flx at-flx-col bg-light at-m-b-lg">
                 <div class="demo-col">First flex item</div>
                 <div class="demo-col">Second flex item</div>
                 <div class="demo-col">Third flex item</div>
             </div>
 
             <h4>Flex Column Reverse : <code>.at-flx-col-rev </code></h4>
-            <div class="at-flx at-flx-col-rev bg-light mb-3">
+            <div class="at-flx at-flx-col-rev bg-light at-m-b-lg">
                 <div class="demo-col">First flex item</div>
                 <div class="demo-col">Second flex item</div>
                 <div class="demo-col">Third flex item</div>
@@ -682,7 +683,7 @@
         </section>
 
         <hr />
-        <h2 class="mb-4">Wrap</h2>
+        <h2 class="at-m-b-xl">Wrap</h2>
         <p>
             Change how flex items wrap in a flex container. Choose from no wrapping at all (the browser
             default) with <code>.at-flx-nowrp </code>, wrapping with <code>.at-flx-wrp </code>, or reverse
@@ -691,7 +692,7 @@
 
         <section class="">
             <h4>Start : <code>.at-flx-nowrp </code></h4>
-            <div class="at-flx at-flx-nowrp bg-light mb-3"
+            <div class="at-flx at-flx-nowrp bg-light at-m-b-lg"
                 style="width: 30rem; padding: 20px; background-color: #d63384;">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -719,7 +720,7 @@
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-flx-wrp  </code></h4>
-            <div class="at-flx bg-light mb-3 at-flx-wrp">
+            <div class="at-flx bg-light at-m-b-lg at-flx-wrp">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -746,7 +747,7 @@
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-flx-wrp-rev </code></h4>
-            <div class="at-flx at-flx-wrp-rev bg-light mb-3">
+            <div class="at-flx at-flx-wrp-rev bg-light at-m-b-lg">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -775,11 +776,11 @@
         </section>
 
         <hr />
-        <h2 class="mb-4">Fill</h2>
+        <h2 class="at-m-b-xl">Fill</h2>
 
         <section class="">
             <h4>Fill : <code>.at-flx-fil </code></h4>
-            <div class="at-flx at-flx-row bg-light mb-3">
+            <div class="at-flx at-flx-row bg-light at-m-b-lg">
                 <div class="demo-col at-flx-fil">Flex item</div>
                 <div class="demo-col at-flx-fil">Flex item</div>
                 <div class="demo-col at-flx-fil">Flex item</div>
@@ -788,18 +789,18 @@
         </section>
 
         <hr />
-        <h2 class="mb-4">Grow and srnk</h2>
+        <h2 class="at-m-b-xl">Grow and srnk</h2>
 
         <section class="">
             <h4>Grow : <code>.at-flx-grw-1 </code></h4>
-            <div class="at-flx bg-light mb-3">
+            <div class="at-flx bg-light at-m-b-lg">
                 <div class="demo-col at-flx-grw-1">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
 
             <h4>Shrink : <code>.at-flx-srnk-1 </code></h4>
-            <div class="at-flx bg-light mb-3">
+            <div class="at-flx bg-light at-m-b-lg">
                 <div class="demo-col" style="width:100%;">Flex item</div>
                 <div class="demo-col at-flx-srnk-1">Flex item</div>
             </div>
@@ -807,7 +808,7 @@
         </section>
 
         <hr />
-        <h2 class="mb-4">Flexbox options</h2>
+        <h2 class="at-m-b-xl">Flexbox options</h2>
         <p>
             Use <code>.at-jfy-cont </code> utilities on flexbox containers to change the alignment of
             flex items on the main axis (the x-axis to start, y-axis if
@@ -818,32 +819,32 @@
 
         <section class="">
             <h4>Start : <code>.at-jfy-cont-st </code></h4>
-            <div class="at-flx at-jfy-cont-st bg-light mb-3">
+            <div class="at-flx at-jfy-cont-st bg-light at-m-b-lg">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-jfy-cont-end </code></h4>
-            <div class="at-flx at-jfy-cont-end bg-light mb-3">
+            <div class="at-flx at-jfy-cont-end bg-light at-m-b-lg">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-jfy-cont-ctr </code></h4>
-            <div class="at-flx at-jfy-cont-ctr bg-light mb-3">
+            <div class="at-flx at-jfy-cont-ctr bg-light at-m-b-lg">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Between : <code>.at-jfy-cont-btw </code></h4>
-            <div class="at-flx at-jfy-cont-btw bg-light mb-3">
+            <div class="at-flx at-jfy-cont-btw bg-light at-m-b-lg">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
 
             <h4>Around : <code>.at-jfy-cont-ard </code></h4>
-            <div class="at-flx at-jfy-cont-ard bg-light mb-3">
+            <div class="at-flx at-jfy-cont-ard bg-light at-m-b-lg">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -857,7 +858,7 @@
         </section>
 
         <hr />
-        <h2 class="mb-4">Align items</h2>
+        <h2 class="at-m-b-xl">Align items</h2>
         <p>
             Use <code>at-al-itm</code> utilities on flexbox containers to change the alignment of flex
             items on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>).
@@ -867,32 +868,32 @@
 
         <section class="">
             <h4>Start : <code>.at-al-itm-st </code></h4>
-            <div class="at-flx at-al-itm-st bg-light mb-3" style="height: 100px">
+            <div class="at-flx at-al-itm-st bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-al-itm-end </code></h4>
-            <div class="at-flx at-al-itm-end bg-light mb-3" style="height: 100px">
+            <div class="at-flx at-al-itm-end bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-al-itm-ctr </code></h4>
-            <div class="at-flx at-al-itm-ctr bg-light mb-3" style="height: 100px">
+            <div class="at-flx at-al-itm-ctr bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Baseline : <code>.at-al-itm-bsln </code></h4>
-            <div class="at-flx at-al-itm-bsln bg-light mb-3" style="height: 100px">
+            <div class="at-flx at-al-itm-bsln bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
 
             <h4>Stretch : <code>.at-al-itm-strh </code></h4>
-            <div class="at-flx at-al-itm-strh bg-light mb-3" style="height: 100px">
+            <div class="at-flx at-al-itm-strh bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -901,7 +902,7 @@
         </section>
 
         <hr />
-        <h2 class="mb-4">Align Content</h2>
+        <h2 class="at-m-b-xl">Align Content</h2>
         <p>
             Use <code>at-al-cont</code> utilities on flexbox containers to align flex items
             <em>together</em> on the cross axis. Choose from <code>start</code> (browser default),
@@ -912,7 +913,7 @@
 
         <section class="">
             <h4>Start : <code>.at-al-cont-st </code></h4>
-            <div class="at-flx at-al-cont-st bg-light mb-3 at-flx-wrp" style="height: 200px">
+            <div class="at-flx at-al-cont-st bg-light at-m-b-lg at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -939,7 +940,7 @@
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-al-cont-end </code></h4>
-            <div class="at-flx at-al-cont-end bg-light mb-3 at-flx-wrp" style="height: 200px">
+            <div class="at-flx at-al-cont-end bg-light at-m-b-lg at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -966,7 +967,7 @@
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-al-cont-ctr </code></h4>
-            <div class="at-flx at-al-cont-ctr bg-light mb-3 at-flx-wrp" style="height: 200px">
+            <div class="at-flx at-al-cont-ctr bg-light at-m-b-lg at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -993,7 +994,7 @@
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Between : <code>.at-al-cont-btw </code></h4>
-            <div class="at-flx at-al-cont-btw  bg-light mb-3 at-flx-wrp" style="height: 200px">
+            <div class="at-flx at-al-cont-btw bg-light at-m-b-lg at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -1021,7 +1022,7 @@
             </div>
 
             <h4>Around : <code>.at-al-cont-ard </code></h4>
-            <div class="at-flx at-al-cont-ard bg-light mb-3 at-flx-wrp" style="height: 200px">
+            <div class="at-flx at-al-cont-ard bg-light at-m-b-lg at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -1049,7 +1050,7 @@
             </div>
 
             <h4>Stretch : <code>.at-al-cont-strh </code></h4>
-            <div class="at-flx at-al-cont-strh bg-light mb-3 at-flx-wrp" style="height: 200px">
+            <div class="at-flx at-al-cont-strh bg-light at-m-b-lg at-flx-wrp" style="height: 200px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col">Flex item</div>
@@ -1079,7 +1080,7 @@
         </section>
 
         <hr />
-        <h2 class="mb-4">Align Self</h2>
+        <h2 class="at-m-b-xl">Align Self</h2>
         <p>
             Use <code>.at-al-slf </code> utilities on flexbox containers to change the alignment of flex
             items on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>).
@@ -1087,48 +1088,48 @@
             or <code>stretch</code> (browser default).
         </p>
 
-        <section class="mb-3">
+        <section class="at-m-b-lg">
             <h4>Start : <code>.at-al-slf-st </code></h4>
-            <div class="at-flx bg-light mb-3" style="height: 100px">
+            <div class="at-flx bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col at-al-slf-st">Aligned Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>End : <code>.at-al-slf-end </code></h4>
-            <div class="at-flx bg-light mb-3" style="height: 100px">
+            <div class="at-flx bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col at-al-slf-end">Aligned Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Center : <code>.at-al-slf-ctr </code></h4>
-            <div class="at-flx bg-light mb-3" style="height: 100px">
+            <div class="at-flx bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col at-al-slf-ctr">Aligned Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
             <h4>Baseline : <code>.at-al-slf-bsln </code></h4>
-            <div class="at-flx bg-light mb-3" style="height: 100px">
+            <div class="at-flx bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
                 <div class="demo-col at-al-slf-bsln">Aligned Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
 
             <h4>Stretch : <code>.at-al-slf-strh </code></h4>
-            <div class="at-flx bg-light mb-3" style="height: 100px">
+            <div class="at-flx bg-light at-m-b-lg" style="height: 100px">
                 <div class="demo-col">Flex item</div>
-                <div class="demo-col at-al-slf-strh ">Aligned Flex item</div>
+                <div class="demo-col at-al-slf-strh">Aligned Flex item</div>
                 <div class="demo-col">Flex item</div>
             </div>
 
         </section>
 
         <hr />
-        <h2 class="mb-4">Display</h2>
+        <h2 class="at-m-b-xl">Display</h2>
 
 
         <section class="">
             <h4>Display : <code>.at-blk, .at-d-non (i.e. dispaly:none;), .at-inl, .at-inl-blk</code></h4>
-            <div class="bg-light mb-3" style="padding: 60px ;">
+            <div class="bg-light at-m-b-lg" style="padding: 60px ;">
                 <div style="max-width: 300px; margin:auto; background-color: #fff; padding: 20px;">
                     Lorem Ipsum is simply dummy text
                     <span class="at-inl bg-info">display: inline</span>

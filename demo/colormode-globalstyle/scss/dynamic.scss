@@ -1,8 +1,5 @@
 @use 'variable';
 
-/*Color*/
-@use 'color.scss';
-
 //Global CSS : applied to all HTML, including or excluding Atomic CSS.
 // Seeding `--at-box-szg` on `*` is deliberate and is the one place a bare
 // selector may seed a channel: it is the only way to make `.at-box-szg` mean
@@ -213,39 +210,28 @@ details[open] summary svg {
             }
         }
 
-        &-cel {
-            padding: var(#{variable.$varPrefix}-p, 15px);
-            border-style: var(#{variable.$varPrefix}-bdr-sty, solid);
-            border-width: var(#{variable.$varPrefix}-bdr-w, 0 0 1px 0);
-            border-color: var(#{variable.$varPrefix}-bdr-cl, #ddd);
+    }
 
-            h1, h2, h3, h4, h5, h6 {
-                #{variable.$varPrefix}-m: 0;
-            }
+    // Spacing steps. The class names the step on a scale the demo owns; the
+    // value comes from a digit-free token, so no measurement is baked into a name
+    // and the scale changes in one place.
+    &-m-t {
+        &-md {
+            #{variable.$varPrefix}-m: var(#{variable.$varPrefix}-spc-md) 0 0 0;
+        }
 
-            &#{variable.$appPrefix} {
-                &-cl {
-                    color: var(#{variable.$varPrefix}-cl, #323537);
-                }
-            }
+        &-xl {
+            #{variable.$varPrefix}-m: var(#{variable.$varPrefix}-spc-xl) 0 0 0;
         }
     }
 
-    &-m {
-        &.mt-15 {
-            #{variable.$varPrefix}-m: 15px 0 0 0;
+    &-m-b {
+        &-md {
+            #{variable.$varPrefix}-m: 0 0 var(#{variable.$varPrefix}-spc-md) 0;
         }
 
-        &.mt-30 {
-            #{variable.$varPrefix}-m: 30px 0 0 0;
-        }
-
-        &.mb-30 {
-            #{variable.$varPrefix}-m: 0 0 30px 0;
-        }
-
-        &.mb-15 {
-            #{variable.$varPrefix}-m: 0 0 15px 0;
+        &-xl {
+            #{variable.$varPrefix}-m: 0 0 var(#{variable.$varPrefix}-spc-xl) 0;
         }
     }
 
