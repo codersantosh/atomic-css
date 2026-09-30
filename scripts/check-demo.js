@@ -153,6 +153,24 @@ for (const hook of JS_HOOKS) {
     if (!anywhere) failures.push(`JS_HOOKS: '${hook}' is listed but no demo page references it`);
 }
 
+// --- 5. index.html is the front door ----------------------------------------
+// README calls it the main showcase, but it used to contain zero links: the 20
+// demo pages were only reachable by guessing a path. An index nobody can reach
+// the demos from is not an index.
+const indexFile = path.join(root, 'index.html');
+if (fs.existsSync(indexFile)) {
+    const index = fs.readFileSync(indexFile, 'utf8');
+    const linked = new Set([...index.matchAll(/href="([^"#:]+)"/g)]
+        .map((m) => m[1]).filter((h) => h.endsWith('.html')));
+    for (const file of pages) {
+        if (file === indexFile) continue;
+        const rel = path.relative(root, file).split(path.sep).join('/');
+        if (!linked.has(rel)) {
+            failures.push(`index.html does not link ${rel} — the demo pages are unreachable from the front door`);
+        }
+    }
+}
+
 if (failures.length) {
     failures.forEach((f) => console.error(`  ${f}`));
     console.error(`FAIL: ${failures.length} demo problem(s). The demo is the consumer `

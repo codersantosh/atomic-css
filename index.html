@@ -79,13 +79,29 @@
             background-color: rgba(249, 249, 249, 1);
         }
 
-        /* Spacing steps on the demo's scale; the value is a digit-free token. */
+        /* Spacing steps on the demo's scale; the value is a digit-free token.
+           index.html links only the max bundle, so the demo stylesheet's steps
+           are not in scope here and the tokens are declared locally. */
+        :root {
+            --at-spc-sm: 5px;
+            --at-spc-lg: 20px;
+            --at-spc-xl: 30px;
+        }
+
+        .at-m-b-sm {
+            margin-bottom: var(--at-spc-sm);
+        }
+
         .at-m-b-lg {
             margin-bottom: var(--at-spc-lg);
         }
 
         .at-m-b-xl {
             margin-bottom: var(--at-spc-xl);
+        }
+
+        .at-m-t-xl {
+            margin-top: var(--at-spc-xl);
         }
 
         code {
@@ -115,6 +131,186 @@
         <div class="at-flx at-jfy-cont-ctr">
             <p>A complete grid system based on the flex display property.</p>
         </div>
+        <hr />
+    </div>
+
+    <div class="at-ctnr at-m-b-xl">
+        <h2 class="at-m-b-md">Demos</h2>
+        <p>Every page below is a working reference consumer: the class names come
+        from the compiled bundles, and <code>scripts/check-demo.js</code> fails the
+        build if an asset does not resolve or a class is used but undefined.</p>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/colormode-globalstyle/color-mode.html">Atomic CSS : With Color Mode & Dynamic CSS</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>Dark and light arms, a spacing scale, and the button variant registry.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/block-shape/block-shape.html">Block Shape</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>Seeded reads: .at-shp and .at-blk-shp make a two-part shape from one parent.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/featured-layout/featured-layouts.html">Featured Layouts</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>Column-count variants, each setting its own equalizer height.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/filter/filter.html">Filter (Isotope)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>The framework's classes as Isotope hooks.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/filter-without-isotope/filter-without-isotope.html">Filter (Masonry)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>Masonry and imagesLoaded, no jQuery.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/filter-without-isotope-using-flex/filter-without-isotope-using-flex.html">Filter (Masonry + flex)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>The same, with the sizer sized by flex instead of script.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/gallery/gallery.html">Gallery</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>An Isotope gallery laid out on the grid.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/mask-image/mask-image.html">Masking Image</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>An SVG mask driven by a --at-* channel set at runtime.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/popover/popover.html">Popover</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>A popover built from utilities plus one identity class.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/popup/popup.html">Popup (MicroModal)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>A MicroModal dialog with working aria-modal and focus semantics.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/progressbar/progressbar.html">Progressbar (canvas)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>Canvas-drawn progress, with values set from script.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/progressbar-css/progressbar-css.html">Progressbar CSS</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>SVG progress driven entirely by CSS custom properties.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/rating/rating-new.html">Rating (CSS trick)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>The same shape without images, using background-clip.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/rating/rating.html">Rating (SVG)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>Star rating where the fill colour is a seeded channel.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/slider/slider-glide.html">Glide Slider</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>A Glide.js carousel — no jQuery.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/slider/slider.html">Slider (Slick)</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>A Slick carousel over the grid.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/sticky-columns/sticky-columns.html">Sticky Columns</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>.at-stky inside a row: load order decides sticky against relative.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/toc/toc.html">Table of Content</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>A table of contents built with pure CSS.</p>
+            </div>
+        </div>
+
+        <div class="at-row at-m-b-sm">
+            <div class="at-col-12 at-col-sm-4 at-fnt-wt at-txt-al">
+                <a href="demo/organism/tooltip/tooltips.html">Tooltips</a>
+            </div>
+            <div class="at-col-12 at-col-sm-8">
+                <p>Tooltip positioning from data attributes and one identity class.</p>
+            </div>
+        </div>
+
         <hr />
     </div>
 
