@@ -132,6 +132,8 @@ Verify any name you have not seen before in
 | Set `--at-p` **and** write `padding:` in the same rule | The property is dead — the class already applies it; set the variable only |
 | Carry eight classes on every button instance | Let a repeating identity class own its box; markup carries identity + variant |
 | Set a component-local value in a shared channel (`--at-gap`) | It corrupts the token for every descendant; use a private `--<prefix>-*` value |
+| Seed a token only inside `:hover` / `:focus` / a media block | Declare the resting value too — custom properties inherit, so the arm alone leaves the normal state inherited |
+| Use `--at-x: unset` to clear an inherited token | It computes to `inherit`; use `initial`, which yields the guaranteed-invalid value |
 | Assume `at-p` means `1rem` | Read the fallback column; `initial` means inert |
 | Invent `at-mt-4`, `at-flex-md-row`, `at-xs-col-6` | Look the name up; a wrong name fails silently |
 | Put the infix first outside display (e.g. `at-md-` + flex) | Infix in the middle: `.at-flx-md-row` |

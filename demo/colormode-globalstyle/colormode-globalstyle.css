@@ -199,6 +199,9 @@ li {
 }
 
 .at-btn {
+  --at-btn-cl: initial;
+  --at-btn-bg-cl: initial;
+  --at-btn-bdr-cl: initial;
   --at-cl: var(--at-btn-cl, inherit);
   --at-cur: var(--at-btn-cur, pointer);
   display: -webkit-inline-box;

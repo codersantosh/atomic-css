@@ -102,6 +102,18 @@ li {
 		// `--at-btn-*` namespace, because `--at-p`, `--at-gap` and friends are
 		// the app's shared vocabulary and a button's padding is not part of it.
 		//
+		// Resting values are declared here so the hover arm below can override
+		// them without the normal state inheriting an ancestor's token. These are
+		// visually a no-op — each one already fell through to `inherit` /
+		// `transparent` when unset — but an explicit base is what makes the state
+		// arm legal, and it stops a stray `--at-btn-*` on an ancestor from
+		// reaching in (patterns.md § A state arm must declare the base it
+		// overrides). A same-element variant still wins: `.at-btn-primary` is a
+		// later declaration at equal specificity.
+		#{variable.$varPrefix}-btn-cl: initial;
+		#{variable.$varPrefix}-btn-bg-cl: initial;
+		#{variable.$varPrefix}-btn-bdr-cl: initial;
+
 		// Seeds for a nested .at-svg / .at-cl to inherit; the properties below
 		// read the private namespace so a variant sets one value.
 		#{variable.$varPrefix}-cl: var(#{variable.$varPrefix}-btn-cl, inherit);

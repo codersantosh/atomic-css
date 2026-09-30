@@ -347,13 +347,9 @@ details[open] summary svg {
 }
 .at-acc-ttl:hover {
   --at-bg-cl: #0d6efd;
-  --at-bdr-cl: #0c5ed7;
-  --at-cl: #fff;
 }
 .at-acc[open] .at-acc-ttl {
   --at-bg-cl: #0d6efd;
-  --at-bdr-cl: #0c5ed7;
-  --at-cl: #fff;
 }
 .at-nav {
   list-style: none;
@@ -494,13 +490,9 @@ details[open] summary svg {
 }
 [data-at-theme=dark] .at-acc-ttl:hover {
   --at-bg-cl: #2d2d2d;
-  --at-bdr-cl: #333;
-  --at-cl: #fff;
 }
 [data-at-theme=dark] .at-acc[open] .at-acc-ttl {
   --at-bg-cl: #2d2d2d;
-  --at-bdr-cl: #333;
-  --at-cl: #fff;
 }
 [data-at-theme=dark] .at-post.at-bdr {
   --at-bdr-cl: #131313;

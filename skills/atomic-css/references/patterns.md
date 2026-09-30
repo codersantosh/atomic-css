@@ -181,6 +181,83 @@ Two things follow, and both fail silently:
   ancestor supplies is the same defect as restating a property behind a class,
   one layer out.
 
+### A state arm must declare the base it overrides
+
+This is the rule most often broken, because the broken version looks correct:
+custom properties inherit, so **a token seeded only inside a state arm has no
+value on the element at all in the resting state** — it silently picks up
+whatever an ancestor set.
+
+```css
+/* The page shell owns the height. */
+main.at-h { --at-h: 100vh; }
+
+/* WRONG — `wp-card` inherits 100vh. Only `:hover` has a value. */
+.wp-card:hover { --at-h: 50px; }
+
+/* RIGHT — the resting state is declared, so it is 100vh→own value, then 50px. */
+.wp-card { --at-h: 200px; }
+.wp-card:hover { --at-h: 50px; }
+```
+
+Verified behaviour for `<main class="at-h" style="--at-h:100vh">` wrapping
+`<div class="at-h wp-card">` where only `:hover` seeds the token:
+
+| the card's own declaration | resting | `:hover` |
+|---|---|---|
+| *(none)* | **720px** — inherited `100vh` | 50px |
+| `--at-h: initial` | 18px (`height: auto`) | 50px |
+| `--at-h: 200px` | 200px | 50px |
+
+The same applies to a media or device block: a token written only inside
+`@media` has no value outside it.
+
+**Declare the resting value explicitly.** `initial` is the right keyword only
+when *unset* is what you want, because `height: var(--at-h, initial)` resolves
+to `auto` — not to a sensible default. If you mean 200px, write 200px.
+
+#### `unset` does not reset a custom property
+
+The obvious wrong fix silently fails. Custom properties inherit, so
+`--at-h: unset` computes to **`inherit`** — it restores the leaked value:
+
+| the card's own declaration | resting |
+|---|---|
+| `--at-h: initial` | 18px — reset |
+| `--at-h: unset` | **720px — still leaking** |
+
+`initial` works because it yields the guaranteed-invalid value, and a
+declaration beats an inherited value at any specificity. Use `initial`, never
+`unset`, to mean "this component opts out of its ancestors".
+
+Two consequences worth knowing:
+
+- The reset propagates. A reset on a container unsets the whole subtree below
+  it, because its descendants inherit the guaranteed-invalid value. Reset the
+  element you mean, not a wrapper.
+- A same-element variant still wins. `.btn { --at-btn-cl: initial }` does not
+  defeat `.btn-primary { --at-btn-cl: #006600 }` — the later, equally specific
+  declaration takes precedence. A reset and a variant coexist safely.
+
+#### Two shapes that are not violations
+
+Both are deliberate, and both are fenced so they cannot become a loophole:
+
+- **A reader ladder.** When the token belongs to the class that *reads* it, a
+  `min-width` sequence is the value being stepped, not a missing base. The
+  framework does this itself: `--at-ctnr` moves 540 → 720 → 960 → 1140 →
+  1320px through `.at-ctnr` in ascending `min-width` blocks.
+- **A private-namespace hover-only arm.** A component whose channels live in
+  its own namespace (`.at-btn` owns `--at-btn-*`) may ship a `:hover` arm with
+  no base when the resting value legitimately comes from the shell or a
+  same-element variant. This is only safe because no ancestor seeds a private
+  namespace. It stops being safe the moment the same shape uses a *shared*
+  channel, which is exactly the leak above.
+
+If a state arm seeds a **shared** channel (`--at-cl`, `--at-bg-cl`, `--at-p`)
+with no base declaration, that is a bug — unless the token has no reader on
+that element, in which case the seed is simply dead and should be deleted.
+
 ### `url()` in a seeded image token is resolved against the stylesheet
 
 A seed the framework's own class consumes carries one more trap. `--at-bg-img`
@@ -465,7 +542,9 @@ than a consistent one.
 - **Media and state arms.** In a `prefers-color-scheme` or `[data-theme]` arm you
   may restate the property, because redefining the variable there would state
   the same fact in a second rule. Dark arms written as raw properties are
-  intentional, not an oversight.
+  intentional, not an oversight. If the arm instead *seeds* a token, it is
+  subject to the state-arm rule above and needs a base — the permission covers
+  restating a property, not skipping a declaration.
 
 ## Components: one owner per class
 

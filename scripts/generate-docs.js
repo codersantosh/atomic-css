@@ -1121,6 +1121,64 @@ function checkScaleSteps(owner, content) {
     }
 }
 
+const STATE_PSEUDO = /:(hover|focus|focus-visible|focus-within|active)\b/;
+
+/** Selectors whose base supplies the token legitimately, by design. */
+const STATE_ARM_EXEMPT = new Set(['.at-ctnr']);
+
+/** Fenced ```css blocks, so prose is never parsed as a selector. */
+function cssFences(content) {
+    return [...content.matchAll(/```css\n([\s\S]*?)```/g)].map((m) => m[1]);
+}
+
+function checkStateArmSeeds(owner, content, isStylesheet) {
+    const run = (css) => {
+        const resting = new Map();
+        const stateful = [];
+        for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+            const [, rawSelector, body] = m;
+            if (!rawSelector || rawSelector.trim().startsWith('@')) continue;
+            // The capture runs from the previous `}`, so it carries any comment
+            // written above the rule. The selector is its last line; whatever is
+            // above it is where a WRONG marker lives.
+            const lines = rawSelector.split('\n');
+            const above = lines.slice(0, -1).join('\n');
+            const selectorText = lines[lines.length - 1].trim();
+            if (!selectorText) continue;
+            const tokens = [...body.matchAll(/(--at-[\w-]+)\s*:/g)].map((t) => t[1]);
+            if (!tokens.length) continue;
+            for (const raw of selectorText.split(',')) {
+                const selector = raw.trim();
+                if (!selector) continue;
+                const base = selector.replace(STATE_PSEUDO, '').trim();
+                const key = base || selector;
+                if (base === selector) {
+                    if (!resting.has(key)) resting.set(key, new Set());
+                    tokens.forEach((t) => resting.get(key).add(t));
+                } else {
+                    stateful.push({ selector, key, tokens, above, css });
+                }
+            }
+        }
+        for (const { selector, key, tokens, above, css: blk } of stateful) {
+            if (STATE_ARM_EXEMPT.has(key)) continue;
+            if (/WRONG/.test(above)) continue;
+            const declared = resting.get(key);
+            for (const token of tokens) {
+                if (declared && declared.has(token)) continue;
+                failures.push(
+                    `${owner}: ${selector} seeds ${token} only in a state arm — custom `
+                    + 'properties inherit, so the resting state takes an ancestor value. '
+                    + `Declare the resting value on ${key}, or delete the seed if nothing reads it.`,
+                );
+            }
+        }
+    };
+
+    if (isStylesheet) run(content);
+    else for (const fence of cssFences(content)) run(fence);
+}
+
 /**
  * `:where(:root) <selector>` is the same selector. `:root` matches <html>, every
  * element in the document is a descendant of it, and `:where()` contributes zero
@@ -1319,6 +1377,7 @@ for (const file of AGENT_DOCS) {
         checkScaleSteps(file, content);
         checkRedundantRoot(file, content);
         checkRowGap(file, content);
+        checkStateArmSeeds(file, content, false);
     }
 }
 
@@ -1330,6 +1389,7 @@ for (const file of CONSUMER_STYLESHEETS) {
     checkElementSeeds(file, content);
     checkScaleSteps(file, content);
     checkRowGap(file, content);
+    checkStateArmSeeds(file, content, true);
 }
 
 
