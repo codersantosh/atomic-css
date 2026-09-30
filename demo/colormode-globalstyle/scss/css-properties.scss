@@ -84,61 +84,17 @@ ol,
 li {
 	// list-style: list-style-type list-style-position list-style-image|initial|inherit;
 	list-style: var(#{variable.$varPrefix}-ls-sty, initial);
+
 }
 
 #{variable.$appPrefix} {
-	&-acl {
-		//The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. 
-		// accent-color: auto|color|initial|inherit;
-		accent-color: var(#{variable.$varPrefix}-acl, initial);
-	}
-
-	//animation: name duration timing-function delay iteration-count direction fill-mode play-state;
-	// Animation is handled by transform, transition, default animation
-	// aspect-ratio TODO?
-	// backdrop-filter TODO?
-	// backface-visibility TODO?
-
-	&-bg {
-		&-cl {
-			background-color: var(#{variable.$varPrefix}-bg-cl, initial);
-		}
-
-		&-img {
-			background-image: var(#{variable.$varPrefix}-bg-img, initial);
-			background-position: var(#{variable.$varPrefix}-bg-pos, initial);
-			background-size: var(#{variable.$varPrefix}-bg-sz, initial);
-			background-repeat: var(#{variable.$varPrefix}-bg-rpt, initial);
-			background-origin: var(#{variable.$varPrefix}-bg-org, initial);
-			background-attachment: var(#{variable.$varPrefix}-bg-atch, initial);
-			background-blend-mode: var(#{variable.$varPrefix}-bg-blend-mode, initial);
-		}
-	}
-
-	// block-size TODO?
-
-	//Border has four different properties to, right, bottom, and left
-//   wich again have three properties color, style and width.
-//   Since individual properties color, width and style again support 4 values,
-//   We are managing all properties from these there values
-	// TODO? border has many other properties but I think we dont need them all;
-
-	&-bdr {
-		// border-color: color|transparent|initial|inherit;
-		border-color: var(#{variable.$varPrefix}-bdr-cl, initial);
-
-		// border-width: medium|thin|thick|length|initial|inherit; (4sides)
-		border-width: var(#{variable.$varPrefix}-bdr-w, initial);
-
-		// border-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit; (4sides)
-		border-style: var(#{variable.$varPrefix}-bdr-sty, initial);
-
-		&-rad {
-			// border-radius: 1-4 length|% / 1-4 length|%|initial|inherit; (4sides)
-			border-radius: var(#{variable.$varPrefix}-bdr-rad, initial);
-		}
-	}
-
+		// Property appliers (.at-cl, .at-p, .at-bdr, …) are deliberately NOT
+		// repeated here. The framework ships every one of them in css/atomic.css
+		// and this stylesheet loads *before* that bundle, so a local copy was
+		// overridden on every page — it documented a second, unreachable set of
+		// rules. A consumer stylesheet adds identity classes and variants; it
+		// does not re-declare the utilities. Verified byte-identical for .at-cl,
+		// .at-p, .at-bdr, .at-w and .at-m.
 	&-btn {
 		// The shell OWNS its properties. A repeating component with variants does
 		// not ask the markup to name appliers: `class="at-btn at-btn-primary"` is
@@ -321,82 +277,15 @@ li {
 		}
 	}
 
-	&-pos {
-		// bottom: auto|length|initial|inherit; (Position group)
-		bottom: var(#{variable.$varPrefix}-b, initial);
-		// position: static|absolute|fixed|relative|sticky|initial|inherit;
-		position: var(#{variable.$varPrefix}-pos, initial);
-		// top: auto|length|initial|inherit;
-		top: var(#{variable.$varPrefix}-t, initial);
-		// right: auto|length|initial|inherit;
-		right: var(#{variable.$varPrefix}-r, initial);
-		// left: auto|length|initial|inherit;
-		left: var(#{variable.$varPrefix}-l, initial);
-	}
 
-	// box-decoration-break TODO?
+		// Property appliers (.at-pos, .at-p, .at-w, …) are not repeated here either:
+		// the framework ships every one of them, and this file loads before the
+		// bundle. Identity classes and variants above are what a consumer adds.
 
-	&-box {
-		&-refl {
-			// box-reflect
-			//Non-standard: This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user.
-			box-reflect: var(#{variable.$varPrefix}-box-refl, initial);
-		}
-
-		&-sdw {
-			// box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;
-			box-shadow: var(#{variable.$varPrefix}-box-sdw, initial);
-		}
-
-		&-szg {
-			// box-sizing: content-box|border-box|initial|inherit;
-			box-sizing: var(#{variable.$varPrefix}-box-szg, initial);
-		}
-	}
-
-	// break-after,break-before,break-inside TODO?
-
-	&-ct {
-		&-cl {
-			//Set the color of the cursor in input elements:
-			// caret-color: auto|color|initial|inherit;
-			caret-color: var(#{variable.$varPrefix}-ct-cl, initial);
-		}
-	}
-
-	//clear,clip,clip-path TODO?
-
-	&-cl {
-		// color: color|initial|inherit;
-		color: var(#{variable.$varPrefix}-cl, initial);
-	}
-
-	// column-count,column-fill,column-gap, column-rule, column-rule-color, column-rule-style, column-rule-width, column-span, column-width, columns TODO?
-	// content TODO?
-	// counter-increment, counter-reset TODO?
-	// content TODO?
-
-	&-cur {
-		// cursor: value;
-		cursor: var(#{variable.$varPrefix}-cur, initial);
-	}
-
-	&-dir {
-		// direction: ltr|rtl|initial|inherit;
-		direction: var(#{variable.$varPrefix}-dir, initial);
-	}
-
-	// display handle by at - flex css
-
-	// empty-cells TODO?
-
-	// flex related css handled by at - flex css. flex, flex-basis, flex-direction, flex-flow, flex-grow, flex-shrink, flex-wrap
-
-	// float TODO?
 
 	&-typ {
-		// Font/Typography group
-		// TODO? font has many other properties but I think we dont need them all;
+		// Font/Typography group: a consumer identity class, not a framework
+		// applier. It reads the same channels .at-fnt-sz and friends do.
 		font-size: var(#{variable.$varPrefix}-fnt-sz, initial);
 		font-weight: var(#{variable.$varPrefix}-fnt-wt, initial);
 		font-family: var(#{variable.$varPrefix}-fnt-fam, initial);
@@ -405,236 +294,5 @@ li {
 		text-decoration: var(#{variable.$varPrefix}-txt-dec, initial);
 		line-height: var(#{variable.$varPrefix}-ln-h, initial);
 		letter-spacing: var(#{variable.$varPrefix}-ltr-sp, initial);
-	}
-
-	// fap in flex
-
-	// Not using any other grid properties, we use flex from by at-flex css
-
-	// height: auto|length|initial|inherit; handle by min-height
-
-	// hyphens: none|manual|auto|initial|inherit; TODO?
-
-	// image-rendering: auto|smooth|high-quality|crisp-edges|pixelated|initial|inherit; TODO?
-
-	// inline-size: auto|value|initial|inherit; TODO?
-
-	// inset,inset-block,inset-block-end, inset-block-start othere inset properties TODO?
-
-	// isolation: auto|isolate|initial|inherit; TODO?
-
-	// justify-content,justify-items and justify-self used by at - flex css
-
-	// left already used on position group
-
-	// letter-spacing/line-height already used on font/typography group
-
-	// list-style used on ul, ol,li
-
-	&-msk {
-		mask-image: var(#{variable.$varPrefix}-msk-img, initial);
-		mask-mode: var(#{variable.$varPrefix}-msk-mode, initial);
-		mask-origin: var(#{variable.$varPrefix}-msk-org, initial);
-		mask-position: var(#{variable.$varPrefix}-msk-pos, initial);
-		mask-repeat: var(#{variable.$varPrefix}-msk-rpt, initial);
-		mask-size: var(#{variable.$varPrefix}-msk-sz, initial);
-	}
-
-	// max-block-size TODO?
-
-	&-m {
-		// margin: length|auto|initial|inherit;
-		margin: var(#{variable.$varPrefix}-m, initial);
-
-		//  margin-block, margin-block-end, margin-block-start, margin-top all should be handled by margin.
-
-		// mask related on at-mask class
-	}
-
-	&-max {
-		&-h {
-			// max-height: none|length|initial|inherit;
-			max-height: var(#{variable.$varPrefix}-max-h, initial);
-		}
-
-		&-w {
-			// max-width: none|length|initial|inherit;
-			max-width: var(#{variable.$varPrefix}-max-w, initial);
-		}
-	}
-
-	&-min {
-		&-h {
-			// min-height: length|initial|inherit;
-			min-height: var(#{variable.$varPrefix}-min-h, initial);
-		}
-
-		&-w {
-			// min-width: length|initial|inherit;
-			min-width: var(#{variable.$varPrefix}-min-w, initial);
-		}
-	}
-
-	&-h {
-		// height: length|initial|inherit;
-		height: var(#{variable.$varPrefix}-h, initial);
-	}
-
-	&-w {
-		// width: length|initial|inherit;
-		width: var(#{variable.$varPrefix}-w, initial);
-	}
-
-	//  max-inline-size: 60px; TODO?
-
-	// min-block-size, min-inline-size TODO?
-	// mix-blend-mode: normal|multiply|screen|overlay|darken|lighten|color-dodge|color-burn|difference|exclusion|hue|saturation|color|luminosity;
-	// mix-blend-mode: var(#{$varPrefix}-mix-blend-mode);
-
-	// object-fit,object-position  TODO?
-
-	// offser,offset-anchor and other offect  TODO?
-
-	&-opa {
-		// opacity: number|initial|inherit;
-		opacity: var(#{variable.$varPrefix}-opa, initial);
-	}
-
-	// order in at - flex css
-
-	// orphans  TODO?
-
-	// outline  TODO? or handled by border
-
-	&-ovf {
-		// overflow: visible|hidden|clip|scroll|auto|initial|inherit;
-		overflow: var(#{variable.$varPrefix}-ovf, initial);
-		// Othere overflow TODO?
-	}
-
-	&-p {
-		// padding: length|initial|inherit;
-		padding: var(#{variable.$varPrefix}-p, initial);
-		// padding-block,  padding-block-end etc should be handled by padding
-	}
-
-	// page-break TODO?
-
-	// paint-order TODO?
-
-	// perspective on at-transform
-
-	// place-content,place-items,place-self TODO? or should be handle on at - flex css
-
-	&-ptr-ev {
-		// pointer-events: auto|none;
-		pointer-events: var(#{variable.$varPrefix}-ptr-ev, initial);
-	}
-
-	// position on position group
-
-	// quotes TODO?
-
-	// resize TODO?
-
-	// right on position group
-
-	// rotate used in transform
-
-	// row-gap on flex
-
-	// scale used in transform
-
-	// scroll-behavior on html
-	// scroll other properties TODO?
-
-	// tab-size TODO?
-
-	&-txt {
-		&-al {
-			// text-align: left|right|center|justify|initial|inherit;
-			text-align: var(#{variable.$varPrefix}-txt-al, initial);
-		}
-
-		// text-align-last TODO?
-
-		// text-decoration on font/typography group
-		// text-decoration-color,text-decoration-line,text-decoration-style,text-decoration-thickness TODO?
-
-		// text-indent TODO?
-		// text-justify TODO?
-		//  text-orientation TODO?
-		//  text-overflow TODO?
-
-		&-sdw {
-			// text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit;
-			text-shadow: var(#{variable.$varPrefix}-txt-sdw, initial);
-		}
-
-		// text-transform in typography group
-	}
-
-	// top in position group
-
-	&-tf {
-		// perspective: length|none;
-		perspective: var(#{variable.$varPrefix}-ppv, initial);
-
-		// perspective-origin: x-axis y-axis|initial|inherit;
-		perspective-origin: var(#{variable.$varPrefix}-ppv-org, initial);
-
-		// transform: none|transform-functions|initial|inherit;
-		transform: var(#{variable.$varPrefix}-tf, initial);
-
-		// transform-origin: x-axis y-axis z-axis|initial|inherit;
-		transform-origin: var(#{variable.$varPrefix}-tf-org, initial);
-
-		// transform-style: flat|preserve-3d|initial|inherit;
-		transform-style: var(#{variable.$varPrefix}-tf-sty, initial);
-	}
-
-	// translate in transform
-
-	// user-select TODO?
-
-	// vertical-align TODO? or using flex
-
-	// table-layout on table
-	&-trs {
-		// transition: property duration timing-function delay|initial|inherit;
-		transition: var(#{variable.$varPrefix}-trs, initial);
-	}
-
-	&-vis {
-		// visibility: visible|hidden|collapse|initial|inherit;
-		visibility: var(#{variable.$varPrefix}-vis, initial);
-	}
-
-	// white-space TODO?
-
-	// width: auto|length|initial|inherit; handle by max-width
-
-	&-wrd {
-		&-brk {
-			// word-break: normal|break-all|keep-all|break-word|initial|inherit;
-			word-break: var(#{variable.$varPrefix}-wrd-brk, initial);
-		}
-
-		&-spc {
-			// word-spacing: normal|length|initial|inherit;
-			word-spacing: var(#{variable.$varPrefix}-wrd-spg, initial);
-		}
-
-		&-wrp {
-			// word-wrap: normal|break-word|initial|inherit;
-			word-wrap: var(#{variable.$varPrefix}-wrd-wrp, initial);
-		}
-	}
-
-	// writing-mode TODO?
-
-	&-z-idx {
-		// z-index: auto|number|initial|inherit;
-		z-index: var(#{variable.$varPrefix}-z-idx, initial);
 	}
 }

@@ -42,7 +42,7 @@ joined string, so `.at-bg-cl` reads `--at-bg-cl`. The pattern is consistent but
 ### Where the legend is
 
 **The legend is inside this skill.** It is the `legend` key of the generated
-reference, all 315 entries, byte-identical to the framework's `short-names.json`:
+reference, all 316 entries, byte-identical to the framework's `short-names.json`:
 
 ```bash
 node -p "require('./generated/CLASS-REFERENCE.json').legend['bg']"     # background
@@ -51,7 +51,7 @@ node -p "Object.keys(require('./generated/CLASS-REFERENCE.json').legend).length"
 ```
 
 There is deliberately **no second copy** in this folder. A hand-maintained copy of
-315 entries would drift from the generated one, nothing would catch it, and an
+316 entries would drift from the generated one, nothing would catch it, and an
 agent reading the stale copy would hit a token check that fails for no stated
 reason. `short-names.json` exists in the framework repo and ships in the npm
 tarball for tooling that needs the raw file — this skill does not, because it

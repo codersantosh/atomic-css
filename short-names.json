@@ -70,6 +70,7 @@
   "ctrl": "control",
   "ctrs": "contrast",
   "cur": "cursor",
+  "demo": "demo (a consumer scoping token for demo-owned classes)",
   "cust": "custom",
   "d": "display",
   "danger": "danger",

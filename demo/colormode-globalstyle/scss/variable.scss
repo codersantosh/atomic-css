@@ -82,9 +82,6 @@ $varPrefix: '--at';
     #{$varPrefix}-r: initial;
     #{$varPrefix}-l: initial;
 
-    // box-reflect (webkit-only; consumed by demo fork's .at-box-refl)
-    #{$varPrefix}-box-refl: initial;
-
     // Box shadow
     #{$varPrefix}-box-sdw: initial;
 

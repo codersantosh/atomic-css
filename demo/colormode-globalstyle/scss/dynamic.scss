@@ -202,7 +202,7 @@ details[open] summary svg {
         }
     }
 
-    &-tbl {
+    &-tbl-demo {
         #{variable.$varPrefix}-m: 0 0 30px 0;
         margin: var(#{variable.$varPrefix}-m, 0 0 30px 0);
 
@@ -541,7 +541,7 @@ details[open] summary svg {
             }
         }
 
-        &-tbl {
+        &-tbl-demo {
             &-cel {
                 #{variable.$varPrefix}-cl: #fff;
 
