@@ -261,6 +261,35 @@ repaint on every caret blink). Neither is a default to reach for casually.
 There is no `will-change` class — an empty lookup there means raw CSS is the
 correct answer.
 
+### DOM depth
+
+Every element in the tree is work: style resolution, layout, then paint. Depth
+multiplies that, and a wrapper that exists only to carry a class costs exactly
+as much as any other node. The framework cannot help here — it styles what you
+ship and never sees the markup around it.
+
+Before adding an element to hang a utility on, check whether an element you
+already have can take it:
+
+```html
+<!-- one node deeper, no visual difference -->
+<div class="at-p">Save</div>
+<button class="at-p">Save</button>
+```
+
+When a new element is genuinely needed, make it **semantic** — `<header>`,
+`<main>`, `<aside>`, `<nav>`, `<section>`. Those earn their depth: they carry
+meaning a stylesheet cannot, and a screen reader uses them. A `div` with a class
+is a layout decision written as markup, and it is the one a reviewer has no way
+to check.
+
+Depth also compounds. `AtrcWrap` and friends are single nodes, so a utility
+applied to an existing parent is almost always cheaper than wrapping.
+
+*Two shapes that are not violations* in the **patterns** reference lists the
+wrappers that are deliberate. Those are the exceptions; anything else is a
+candidate for removal, not a starting point.
+
 ## Testing
 
 `verify-usage.mjs` checks names and channels. Rendering is a separate axis, and

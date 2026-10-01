@@ -150,6 +150,7 @@ Verify any name you have not seen before in
 | Expect `.at-txt` / `.at-btn-*` to exist | They are **yours**; no bundle defines them |
 | Expect `.at-img`, `.at-vid`, `.at-aud`, `.at-map` | Removed in 2.0 — declare `img` defaults yourself |
 | Put `left`/`right` inside a variable value | rtlcss mirrors declarations, not `var()` contents |
+| Add a wrapper element only to carry a utility | Apply it to the element you already have; if you need a new node, make it semantic |
 
 ## Before / after
 
