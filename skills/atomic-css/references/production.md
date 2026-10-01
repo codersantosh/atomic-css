@@ -123,7 +123,7 @@ HTML and let CSS do the work. The framework needs no JavaScript for this — the
 theme is an attribute and a variable block.
 
 Also note what the dark arm costs: element defaults are **raw properties**
-(see [patterns.md](patterns.md#the-base-layer-stays-at-zero-specificity)), and no
+(see [patterns.md](patterns.md#element-defaults-are-bare-elements-never-where-wrapped)), and no
 token reaches a raw property. A dark arm therefore has to restate those
 properties per element type. Budget for that, or move the affected defaults onto
 classes.

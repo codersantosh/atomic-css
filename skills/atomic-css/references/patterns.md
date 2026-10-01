@@ -3,7 +3,11 @@
 Real patterns, taken from the framework's reference consumer and its documented
 `.at-btn` contract in `README.md`. All verified against commit `c51609b`.
 
-## The base layer stays at zero specificity
+## Element defaults are bare elements — never `:where()`-wrapped
+
+The heading this section used to carry said *zero specificity*, and that
+phrasing was itself a defect: a consumer reading only the heading concludes a
+`:where()` wrapper is the goal. It is not. The rule is the one below.
 
 Put global element defaults on the element itself. Every utility in this
 framework carries a class, so a utility scores `(0,1,0)` and an element rule
@@ -366,7 +370,7 @@ them without `!important`. The framework ships no `:root` variables precisely so
 this stays true: you own the token block, and it sits underneath everything.
 
 The layer order is fixed, and reordering it silently changes which rule wins —
-see [above](#the-base-layer-stays-at-zero-specificity) for the six steps.
+see [above](#element-defaults-are-bare-elements-never-where-wrapped) for the six steps.
 
 ### Mobile first
 

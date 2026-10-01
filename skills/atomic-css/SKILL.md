@@ -43,6 +43,12 @@ truth that will drift. Settle each question in this order:
    two recorded exceptions, not a loophole; the other is a media or state arm.
    Both are stated in [references/patterns.md](references/patterns.md).
 
+**When you need a case this skill does not list.** Take it, then record it in
+your project's own architecture doc with the reason and the trade-off you gave
+up — do not leave it as an undocumented local exception, and do not quietly
+widen a stated rule. A rule that every consumer reinterprets locally is not
+enforced anywhere; a rule with one written, argued exception is.
+
 One lookup answers step 2, and both outcomes are useful:
 
 Paths are relative to this skill's folder — the one holding `SKILL.md`.

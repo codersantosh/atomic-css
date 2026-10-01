@@ -1053,7 +1053,19 @@ const COUNT_CLAIMS = [
     [SKILL, /`sm (\d+)`, `md (\d+)`, `lg (\d+)`, `xl (\d+)`, `xxl (\d+)`/,
         () => breakpoints.filter((b) => b.minWidth).map((b) => Number(b.minWidth.replace('px', ''))),
         'breakpoint min-widths'],
+    // Phrasing-independent: a prose restatement ("all 316 entries") used to slip
+    // past a gate that only matched one exact sentence, which is how the two
+    // copies of this number drifted apart. Any "N legend entries" / "N entries"
+    // claim in the skill docs is now held to the real count.
     [CLASSES, /`legend` object \((\d+)\n/, [() => counts.legendEntries], 'legend entries'],
+    // Prose restatements of the same number, so a second phrasing cannot drift.
+    // Only one capture group per alternative, so every branch yields a value.
+    // A single capture, because checkCounts reads capture 1 per expected value.
+    // Lookbehind/lookahead let one pattern cover all three phrasings.
+    [CLASSES, /(?<![\d])(?:all |would drift, |)(\d+) (?:entries|legend entries)\b/,
+        [() => counts.legendEntries], 'legend entries'],
+    [SKILL, /\b(?:(\d+) legend entries|all (\d+) entries)\b/,
+        [() => counts.legendEntries], 'legend entries'],
     [CLASSES, /^## Grid \((\d+) classes\)/m, [() => counts.gridClasses], 'grid classes'],
     [CLASSES, /^## Flex \((\d+)\) and display \((\d+)\)/m,
         [() => counts.flexClasses, () => counts.displayClasses], 'flex / display classes'],
