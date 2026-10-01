@@ -130,7 +130,7 @@ Verify any name you have not seen before in
 
 | Don't | Do |
 | --- | --- |
-| `npm install atomic-css` | `github:codersantosh/atomic-css#c51609b` |
+| `npm install atomic-css` | `github:codersantosh/atomic-css#7ad0950c` |
 | Link minimal **and** max | Link one: max only if you need `at-ord-*` / `at-ofst-*` / `at-prt-*` |
 | Link `atomic-template.css` | Transform it into your own build (breakpoints + `%%IMPORTANT%%`) |
 | Write `padding: 24px` where `at-p` exists | Set `--at-p`; the class applies the property |
