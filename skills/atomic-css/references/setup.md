@@ -15,8 +15,8 @@ just as well.
 # reproducible — the only immutable ref, because the repo has no git tag
 npm install github:codersantosh/atomic-css#c51609b
 
-# convenience only: `1.0.1` is a moving branch, not a version
-npm install github:codersantosh/atomic-css#1.0.1
+# convenience only: `2.0.0` is a moving branch, not a version
+npm install github:codersantosh/atomic-css#2.0.0
 ```
 
 Do **not** use `npm install atomic-css`: that registry name is an unrelated
@@ -30,8 +30,8 @@ artifact.
 Alternatives when you cannot add a dependency:
 
 ```bash
-# vendor the three directories (1.0.1 is a moving branch — prefer the SHA)
-git clone --depth 1 --branch 1.0.1 https://github.com/codersantosh/atomic-css
+# vendor the three directories (2.0.0 is a moving branch — prefer the SHA)
+git clone --depth 1 --branch 2.0.0 https://github.com/codersantosh/atomic-css
 cp -r atomic-css/css atomic-css/css-max atomic-css/css-template .
 
 # or a single raw file
