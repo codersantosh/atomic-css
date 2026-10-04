@@ -31,7 +31,23 @@ node -p "require('./$REF').legend['bg']"                           # "background
 `structural`, `order-offset-print` — it is a field on each class, not a
 separate key.
 
-`variables[]` fields: `name`, `fallback`, `chain`, `legacy`, `readBy`.
+Reading one row the way the tables below are built:
+
+| Field | Meaning |
+| --- | --- |
+| `properties` | The CSS properties the class applies. Autoprefixer clones are collapsed and legacy `box-*` / `flex-*` artifacts suppressed. |
+| `reads` | `--at-*` variables the class reads. An empty array means plain CSS that takes no value from you. |
+| `seeds` | Variables the class *declares* for a co-applied utility to read. |
+| `breakpoint` | The infix, or `null` for all widths. |
+| `bundle` | `both` or `max only`. |
+| `tokens` | The legend tokens the name is assembled from. |
+
+`variables[]` fields: `name`, `fallback`, `chain`, `legacy`, `readBy`, plus
+`fallbacks[]` — one entry per use site, each `{fallback, usedBy, chain,
+legacy}` — and `legacyName` / `legacyHost`. Read `fallbacks[]` when a variable
+is used more than once: `--at-box-szg` is `border-box` in `.at-row *` and
+`initial` in `.at-box-szg`, and the single `fallback` field only reports the
+first of them.
 
 ## Naming grammar
 
@@ -42,24 +58,23 @@ joined string, so `.at-bg-cl` reads `--at-bg-cl`. The pattern is consistent but
 ### Where the legend is
 
 **The legend is inside this skill.** It is the `legend` key of the generated
-reference, all 317 entries, byte-identical to the framework's `short-names.json`:
+reference, all 318 entries, byte-identical to the framework's `short-names.json`
+— look one up with the recipe at the top of this file, or count them:
 
 ```bash
-node -p "require('./generated/CLASS-REFERENCE.json').legend['bg']"     # background
-node -p "require('./generated/CLASS-REFERENCE.json').legend['h1']"     # heading level 1
 node -p "Object.keys(require('./generated/CLASS-REFERENCE.json').legend).length"
 ```
 
 There is deliberately **no second copy** in this folder. A hand-maintained copy of
-317 entries would drift from the generated one, nothing would catch it, and an
+318 entries would drift from the generated one, nothing would catch it, and an
 agent reading the stale copy would hit a token check that fails for no stated
 reason. `short-names.json` exists in the framework repo and ships in the npm
 tarball for tooling that needs the raw file — this skill does not, because it
 carries the same data in a form it can regenerate and gate.
 
-To add a token, change `short-names.json` and re-run `npm run docs`. The count
-below is asserted against the generated reference by CI, so a stale legend fails
-the build rather than shipping.
+To add a token, change `short-names.json` and re-run `npm run docs`. CI asserts
+the count against the generated reference, so a stale legend fails the build
+rather than shipping.
 
 ## Breakpoints
 

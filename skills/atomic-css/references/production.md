@@ -124,9 +124,25 @@ theme is an attribute and a variable block.
 
 Also note what the dark arm costs: element defaults are **raw properties**
 (see [patterns.md](patterns.md#element-defaults-are-bare-elements-never-where-wrapped)), and no
-token reaches a raw property. A dark arm therefore has to restate those
-properties per element type. Budget for that, or move the affected defaults onto
-classes.
+token reaches a raw property — so an element default that has to change per
+theme cannot be reached by re-pointing a token at all. Move it behind an
+element-scoped variable instead, and leave the shared channels alone:
+
+```css
+/* WRONG — sets the app's colour channel for every h1 subtree. */
+h1 { --at-cl: #060606; }
+
+/* RIGHT — the token is named after the element, so it themes one thing. */
+h1 { color: var(--at-h1-cl, #060606); }
+@media (prefers-color-scheme: dark) {
+  :root { --at-h1-cl: #f2f2f2; }
+}
+```
+
+That is the same rule as
+[patterns.md](patterns.md#properties-change-rule) with an element selector in
+place of a class: the property is written once, and every arm re-points the
+token. Budget for the token, or move the default onto a class.
 
 ## Forms need normalizing yourself
 
@@ -191,15 +207,8 @@ and `.at-ovl`'s `:after` layer both read `--at-trs`.
 ## Framework selectors that are not plain classes
 
 Five selectors in the bundles are not a single class, and each one can reach past
-a base layer you wrote. There are no more.
-
-| Selector | What it does | Consequence for you |
-| --- | --- | --- |
-| `html` | `scroll-behavior` | The only element rule. Tie with your own `html` rule; source order decides. |
-| `.at-row *` | `box-sizing` on **every** descendant, not just columns | A `*` box-sizing reset of your own is redundant inside a row. |
-| `.at-no-gtr > .at-col` | strips column padding | Expected. |
-| `.at-no-gtr > [class*=at-col-]` | strips padding from **any** class containing the substring `at-col-` | So a consumer class whose name merely *contains* `at-col-` silently loses its padding inside a `.at-no-gtr` row. Avoid that substring in your own names. |
-| `.at-blk-shp > :not(.at-shp):not(.at-z-idx)` | `position: relative; z-index: 2` | A direct child carrying `at-z-idx` is **excluded** and paints wrong. Do not put `at-z-idx` on a block-shape child. |
+a base layer you wrote. They are listed once, with what each one costs you, in
+[classes.md](classes.md#five-selectors-that-are-not-a-plain-class).
 
 ## Logical properties
 
@@ -214,15 +223,11 @@ keep direction out of the values:
 h1 { margin-block: 0 2rem; padding-inline: 0; }   /* not margin: 0 0 30px 0 */
 ```
 
-`rtlcss` mirrors *declarations*, never the contents of a `var()` — so
-`--at-m: 0 auto 0 0` is not flipped in the RTL build. A single asymmetric
-shorthand is the commonest mistake here; see
-[the RTL section](setup.md#rtl).
-
 One asymmetry worth knowing: `--at-l` and `--at-r` are *slots*, not directions. In
 the RTL build rtlcss swaps which physical side reads which token, so seeding
 `--at-l: 16px` puts 16px on the right in RTL. That is the mechanism working, and
-it is why the token names stay neutral.
+it is why the token names stay neutral — the rule that a value is never mirrored
+is in [setup.md](setup.md#rtl).
 
 ## Container queries
 
@@ -307,11 +312,12 @@ col.scrollWidth <= col.clientWidth;
 getComputedStyle(document.querySelector('.at-svg')).fill;
 ```
 
-One trap belongs here rather than only in the class reference, because it
-overflows a container instead of one column: **inside an `at-row`, the gutter has
-to be a variable.** Column widths are `calc()`s that read `--at-col-gap`, so a raw
-`gap` in your own CSS adds space no column subtracts and the row overflows by the
-total gap. A raw `gap` on an ordinary `at-flx` container is fine. See
+One trap overflows a container rather than one column, and it is worth an
+assertion of its own: **inside an `at-row`, the gutter has to be a variable** —
+column widths are `calc()`s that read `--at-col-gap`, so a raw `gap` in your own
+CSS adds space no column subtracts and the row overflows by the total gap. A raw
+`gap` on an ordinary `at-flx` container is fine. The mechanism and both correct
+arrangements are in
 [classes.md](classes.md#the-gutter-is-counted-once-two-coherent-arrangements).
 
 Worth snapshotting, because each fails silently in CSS:

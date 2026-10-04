@@ -1,8 +1,8 @@
 # Setup and integration
 
-Everything here was verified against commit `c51609b`. Re-verify names against
-`../generated/CLASS-REFERENCE.json` — the folder that travels with this skill —
-before trusting a class.
+Look a name up in
+[generated/CLASS-REFERENCE.json](../generated/CLASS-REFERENCE.json) — the folder
+that travels with this skill — before trusting a class.
 
 This reference is about getting the **stylesheet** onto the page, which is
 separate from installing the skill itself (see `SKILL.md`). The commands below
@@ -111,12 +111,10 @@ In DevTools, select an element with a utility class and check the *custom
 property* in the Computed panel: if `--at-p` is `initial` or empty, the class is
 working and the **variable** is the missing half.
 
-One caveat found while writing this skill: the bundles contain exactly one
-non-`.at-*` rule — `html { scroll-behavior: var(--at-scr-beh, initial); }`. It is
-an element rule at `(0,0,1)`, so your own `html` rule ties with it and **source
-order decides** — link your sheet after the bundle (as above) and yours wins. The
-token is the cleaner fix, and it also themes: `--at-scr-beh: smooth` in your own
-`html` rule beats the bundle's `initial` fallback.
+One caveat: `html { scroll-behavior }` is the only element rule in the bundles, so
+your own `html` rule ties with it and source order decides — link your sheet after
+the bundle, or seed `--at-scr-beh`, which also themes. It is the first row of
+[the five selectors that are not a plain class](classes.md#five-selectors-that-are-not-a-plain-class).
 
 ## WordPress / PHP and any runtime-generated build
 

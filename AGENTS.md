@@ -17,12 +17,12 @@ bundle).
 - `npm run build` — full build + cleanup + `verify` (parity + naming + variables + docs). ALWAYS green before committing.
 - `npm run lint` — stylelint. ALWAYS green.
 - `npm run verify` — `check:parity` (atomic.css ⊂ atomic-max.css, and Grid → Utilities → Properties layer order holds) + `check:names` (every used token documented in `short-names.json`) + `check:vars` (exact framework root globals, direct grid fallbacks, contextual gap chains, reference-set reconciliation, no alias tokens) + `check:important` (no `!important` in any shipped bundle or the template) + `check:docs` (generated reference is not stale; `README.md` and `skills/atomic-css/**` name no class that does not ship, except the reviewed allowlists in `scripts/generate-docs.js`; no prose example links two bundles).
-- `npm run docs` — regenerate `skills/atomic-css/generated/CLASS-REFERENCE.{md,json}` from the compiled CSS. Never hand-edit those two files.
+- `npm run docs` — regenerate `skills/atomic-css/generated/CLASS-REFERENCE.json` from the compiled CSS. Never hand-edit that file.
 - `npm run dev` — development build (source maps). Never commit `dev` output over `build` output.
 
 ## 3. Documentation map
 - `skills/atomic-css/` — the agent-facing contract: `SKILL.md` plus `references/` and a runnable class/variable checker. Ships in the package. Every `.at-*` and `--at-*` it names is held to the same existence check as `README.md`, so it cannot drift from the bundles.
-- `skills/atomic-css/generated/CLASS-REFERENCE.md` / `.json` — generated class, variable and token inventory (see its folder README: do not hand-edit).
+- `skills/atomic-css/generated/CLASS-REFERENCE.json` — generated class, variable and token inventory, the data behind `references/classes.md` (see the folder README: do not hand-edit).
 - `README.md` — human-facing install, bundles, button contract, WordPress.
 - ARCHITECTURE.md Part I is for changing the framework; Part II is the `demo/` consumer spec.
 

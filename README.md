@@ -5,8 +5,9 @@ An atomic/utility CSS framework built on **CSS custom properties** and a **Flexb
 > **Applying these classes with an AI agent?** Use the skill in
 > [`skills/atomic-css/`](skills/atomic-css/SKILL.md) — the agent-facing contract,
 > shipped inside the package. Its
-> [`skills/atomic-css/generated/CLASS-REFERENCE.md`](skills/atomic-css/generated/CLASS-REFERENCE.md) tables are generated from
-> the compiled CSS and drift-checked in CI, so they always match the bundles.
+> [`references/classes.md`](skills/atomic-css/references/classes.md) is the
+> readable layer over a class and variable inventory generated from the compiled
+> CSS and drift-checked in CI, so it always matches the bundles.
 
 ## Breaking changes in 2.0.0
 
@@ -145,7 +146,7 @@ Each typography property has its own utility class reading its matching `--at-*`
 | `.at-ltr-sp` | `letter-spacing` | `--at-ltr-sp` |
 | `.at-cl` | `color` | `--at-cl` |
 
-> **Breaking Change**: The compound `.at-txt, .at-txt *` rule has been removed. The framework defines **no** `.at-txt` rule — it is a consumer-side hook: you may apply it in your markup and style it in your own CSS, but it never appears in a bundle or in `skills/atomic-css/generated/CLASS-REFERENCE.md`. For framework-provided typography, apply the individual utility classes in the table above. Additionally, `.at-dropcap::first-letter` only supplies structural `float: left`; all styling values arrive as raw `::first-letter` declarations from the block CSS.
+> **Breaking Change**: The compound `.at-txt, .at-txt *` rule has been removed. The framework defines **no** `.at-txt` rule — it is a consumer-side hook: you may apply it in your markup and style it in your own CSS, but it never appears in a bundle or in the skill's generated reference. For framework-provided typography, apply the individual utility classes in the table above. Additionally, `.at-dropcap::first-letter` only supplies structural `float: left`; all styling values arrive as raw `::first-letter` declarations from the block CSS.
 
 ## Theming
 
@@ -292,8 +293,20 @@ reference set (the grid itself relies on the built-in fallbacks otherwise).
 ## npm
 
 ```bash
-npm install atomic-css
+# from GitHub, pinned to an immutable commit — the repo has no git tag
+npm install github:codersantosh/atomic-css#c51609b
+
+# or the moving branch: fine for a trial, not for a deploy
+npm install github:codersantosh/atomic-css#2.0.0
 ```
+
+**Not `npm install atomic-css`** — that registry name belongs to an unrelated
+2017 project, and the same applies to `github:codersantosh/atomic-css` with no
+ref, which resolves to the pre-2.0 `master` tree. Git installs ship the
+committed CSS: there is no build step, so the CSS in the repo is the artifact.
+The full install matrix — a vendored copy, a single raw file, and how to confirm
+the stylesheet resolved — is in the skill's
+[setup.md](skills/atomic-css/references/setup.md#install).
 
 ```html
 <link rel="stylesheet" href="node_modules/atomic-css/css/atomic.min.css">

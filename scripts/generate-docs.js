@@ -2,7 +2,7 @@
 /**
  * generate-docs.js - agent-facing class/variable reference.
  *
- * Output: skills/atomic-css/generated/CLASS-REFERENCE.{md,json}
+ * Output: skills/atomic-css/generated/CLASS-REFERENCE.json
  * Truth: css/atomic.css, css-max/atomic-max.css, css-template/atomic-template.css
  *        and short-names.json. Nothing in the output is hand-maintained.
  *
@@ -30,10 +30,11 @@ const SOURCES = {
     legend: 'short-names.json',
 };
 
-const OUT = {
-    md: 'skills/atomic-css/generated/CLASS-REFERENCE.md',
-    json: 'skills/atomic-css/generated/CLASS-REFERENCE.json',
-};
+// One output, the JSON. It shipped beside a generated Markdown dump, which was a
+// second rendering of the same data in the same folder: every class row, variable
+// row and legend entry appeared in both, and a reader could not tell which was
+// current. `references/classes.md` is the readable layer over this file.
+const OUT = 'skills/atomic-css/generated/CLASS-REFERENCE.json';
 
 // Hand-written prose the generated reference must agree with. The agent-facing
 // contract is the skill (skills/atomic-css/), which is scanned separately below
@@ -720,213 +721,6 @@ for (const file of [...PROSE, ...AGENT_DOCS]) {
 
 // ---------------------------------------------------------------- render
 
-const code = (arr) => (arr.length ? arr.map((v) => `\`${v}\``).join(', ') : '—');
-const em = (arr) => (arr.length ? arr.map((v) => `\`${v}\``).join(', ') : '—');
-
-function renderMd() {
-    const L = [];
-    L.push('# Atomic CSS — class & variable reference');
-    L.push('');
-    L.push('> GENERATED FILE — do not edit. Regenerate with `npm run docs`, verify with');
-    L.push('> `npm run docs:check`. Derived from:');
-    Object.values(SOURCES).forEach((s) => L.push(`> \`${s}\``));
-    L.push('');
-    L.push('This file is the generated lookup: every class, variable, breakpoint and');
-    L.push('token, derived from the compiled CSS. It is not a guide. For how to *use*');
-    L.push('the classes, read the skill that ships beside this file —');
-    L.push('[`../SKILL.md`](../SKILL.md) and its [`../references/`](../references/) —');
-    L.push('plus [`../../../README.md`](../../../README.md). For the rules the framework');
-    L.push('itself follows, read [`../../../ARCHITECTURE.md`](../../../ARCHITECTURE.md).');
-    L.push('');
-    L.push('## At a glance');
-    L.push('');
-    L.push('| | Count |');
-    L.push('| --- | --- |');
-    L.push(`| Classes in \`${SOURCES.minimal}\` | ${counts.minimalClasses} |`);
-    L.push(`| Classes in \`${SOURCES.max}\` | ${counts.maxClasses} |`);
-    L.push(`| Classes only in the max bundle | ${counts.maxOnlyClasses} |`);
-    L.push(`| Classes in \`${SOURCES.template}\` | ${counts.templateClasses} |`);
-    L.push(`| Distinct \`--at-*\` variables read | ${counts.variables} |`);
-    L.push(`| Naming-legend tokens (\`short-names.json\`) | ${counts.legendEntries} |`);
-    L.push(`| Structural classes | ${counts.structuralClasses} |`);
-    L.push(`| Classes that seed a \`--at-*\` value | ${counts.seedClasses} |`);
-    L.push(`| Classes carrying \`!important\` | ${counts.importantClasses} |`);
-    L.push('');
-    L.push('No shipped bundle carries `!important` — utilities are ordinary declarations that a');
-    L.push('consumer can override by specificity or order. Importance is available only by building');
-    L.push('from `css-template/atomic-template.css`, where the `%%IMPORTANT%%` marker is the sole');
-    L.push('mechanism. A dedicated verifier enforces this on the compiled output; see `AGENTS.md`.');
-    L.push('');
-    L.push('### Files');
-    L.push('');
-    L.push('| File | Bytes | Role |');
-    L.push('| --- | --- | --- |');
-    [
-        [SOURCES.minimal, 'minimal bundle — link this by default'],
-        ['css/atomic.min.css', 'minimal, minified'],
-        ['css/atomic-rtl.css', 'minimal, RTL'],
-        ['css/atomic.min-rtl.css', 'minimal, minified + RTL'],
-        [SOURCES.max, 'superset — adds order, offset and print'],
-        ['css-max/atomic-max.min.css', 'superset, minified'],
-        ['css-max/atomic-max-rtl.css', 'superset, RTL'],
-        ['css-max/atomic-max.min-rtl.css', 'superset, minified + RTL'],
-        [SOURCES.template, 'transform source for WordPress/PHP — never a link target'],
-    ].forEach(([rel, role]) => {
-        const abs = path.join(root, rel);
-        const bytes = fs.existsSync(abs) ? fs.statSync(abs).size : 0;
-        L.push(`| \`${rel}\` | ${bytes.toLocaleString('en')} | ${role} |`);
-    });
-    L.push('');
-    L.push('## Breakpoints');
-    L.push('');
-    L.push('Mobile-first: larger viewports are reached only through `min-width`, never `max-width`.');
-    L.push('');
-    L.push('| Infix | Min width | Applied as |');
-    L.push('| --- | --- | --- |');
-    breakpoints.forEach((b) => {
-        const applies = b.infix === 'xs' ? `${b.applies} (see the fifths ladder below)` : b.applies;
-        L.push(`| \`${b.infix}\` | ${b.minWidth || '—'} | ${applies} |`);
-    });
-    L.push('');
-    L.push('A base class has no infix. `.at-col-6` applies at every width, `.at-col-md-6` from the');
-    L.push('`md` breakpoint up.');
-    L.push('');
-    L.push('## How to read the tables');
-    L.push('');
-    L.push('| Column | Meaning |');
-    L.push('| --- | --- |');
-    L.push('| Class | The class as written in HTML. |');
-    L.push('| Property | CSS properties the class applies. Autoprefixer clones are collapsed and legacy `box-*` / `flex-*` artifacts suppressed. |');
-    L.push('| Variable | `--at-*` variables the class reads. `—` means plain CSS that takes no value from you. |');
-    L.push('| Seeds | Variables the class *declares* for a co-applied utility to read — see the seed table. |');
-    L.push('| BP | Breakpoint infix, or `—` for all widths. |');
-    L.push('| Bundle | `both`, `minimal only`, or `max only`. |');
-    L.push('');
-
-    KIND_ORDER.forEach((kind) => {
-        const group = byKind.get(kind);
-        L.push(`## ${KIND_LABELS[kind]} (${group.length})`);
-        L.push('');
-        L.push(KIND_NOTES[kind]);
-        L.push('');
-        L.push('| Class | Property | Variable | Seeds | BP | Bundle |');
-        L.push('| --- | --- | --- | --- | --- | --- |');
-        group.forEach((c) => {
-            const props = c.properties.length ? c.properties.map((p) => `\`${p}\``).join(', ') : '—';
-            L.push(`| \`.${c.name}\` | ${props} | ${code(c.reads)} | ${em(c.seeds)} | ${c.breakpoint ? `\`${c.breakpoint}\`` : '—'} | ${c.bundle} |`);
-        });
-        L.push('');
-    });
-
-    const seeders = classes.filter((c) => c.seeds.length > 0);
-    L.push(`## The 2m3 fifths ladder (${fifths.length})`);
-    L.push('');
-    L.push('The `2m3` family is the fifths column. Each class is a separate term of one');
-    L.push('ladder. The two facts below are derived separately from the compiled CSS, because a');
-    L.push('term can have the column box and a `max-width` at once, and conflating them');
-    L.push('misreports terms that do.');
-    L.push('');
-    L.push('| Class | Base column geometry | `max-width` applied in |');
-    L.push('| --- | --- | --- |');
-    fifths.forEach((r) => {
-        const where = r.widths.size
-            ? [...r.widths.entries()].map(([ctx]) => ctx).join(', ')
-            : '_none_';
-        L.push(`| \`${r.name}\` | ${r.geometry ? 'yes' : '**no**'} | ${where} |`);
-    });
-    L.push('');
-    // Interpretive sentences, generated from the same rows as the table. Written
-    // by hand they drift the moment a term changes shape; emitted only when the
-    // shape they describe is actually present, they cannot.
-    const baseAlways = fifths.find((r) => r.widths.size === 1 && r.widths.has('base (all widths)'));
-    const widener = fifths.find((r) => r.widths.size === 0);
-    const firstLadder = fifths.find((r) => r.widths.size && !r.widths.has('base (all widths)'));
-    if (baseAlways && widener && firstLadder) {
-        const px = firstLadder.widths.keys().next().value;
-        // Name the infix, not the pixel value: readers write `at-flx-sm-row`.
-        const infix = breakpoints.find((b) => b.minWidth === px);
-        const from = infix ? `\`${infix.infix}\`` : `\`${px}\``;
-        L.push(`So \`.${baseAlways.name}\` on its own is capped at every width, while \`.${widener.name}\` only widens to \`100%\` — to get the cap from ${from} up you apply both, and that term supplies the \`max-width\` once its media query matches.`);
-        L.push('');
-    }
-    if (geometryLess.length) {
-        L.push('"Base column geometry" is the shared `position: relative`, `width: 100%`,');
-        L.push('`min-height: 1px` and gutter padding that every column term receives. A term');
-        L.push('marked **no** gets only the sizing pair — `flex: 0 0 calc(…)` and');
-        L.push('`max-width: calc(…)` — with no box, no padding and no `min-height`, so it');
-        L.push('renders flush against its siblings and the row\'s negative margins are not');
-        L.push('cancelled. It is not a usable column on its own.');
-        L.push('');
-        L.push(`Known defect: ${geometryLess.map((n) => `\`${n}\``).join(', ')}. `
-            + 'The column box is owned by the framework — see `README.md` § Grid.');
-        L.push('');
-    }
-    L.push('`2m3` is a misleading token name: it reads as "2 and a half of 3" but ships 20%,');
-    L.push('which is 1 of 5. The name was not changed because a rename is breaking under');
-    L.push('ARCHITECTURE.md § The token contract.');
-    L.push('');
-
-    L.push(`## Seeded reads (${seeders.length})`);
-    L.push('');
-    L.push('These classes declare a `--at-*` value instead of setting a property with it, so that');
-    L.push('a utility elsewhere picks the value up. A seed has no effect on its own: you must also');
-    L.push('apply one of the reading utilities below, either on the same element or on a child.');
-    L.push('The framework ships no component CSS, so nothing else consumes a seed.');
-    L.push('');
-    L.push('| Class | Seeds | Read by |');
-    L.push('| --- | --- | --- |');
-    seeders.forEach((c) => {
-        const consumers = [...new Set(c.seeds
-            .flatMap((s) => (varMeta.get(s) ? [...varMeta.get(s).readBy] : []))
-            .filter((n) => n !== c.name))].sort(byName);
-        L.push(`| \`.${c.name}\` | ${code(c.seeds)} | ${em(consumers.map((n) => `.${n}`))} |`);
-    });
-    L.push('');
-
-    L.push(`## Variables (${variables.length})`);
-    L.push('');
-    L.push('A utility is inert until you set the variable it reads. `initial` is the deliberate');
-    L.push('fallback: the framework imposes nothing until you supply a value.');
-    L.push('');
-    L.push('| Variable | Fallback | Read by |');
-    L.push('| --- | --- | --- |');
-    variables.forEach((v) => {
-        const cells = v.fallbacks.map((f) => {
-            if (f.fallback === null) return '_(none — unset means invalid)_';
-            let cell = `\`${f.fallback}\``;
-            if (f.legacy && isLegacyAlias(f.legacy)) {
-                // The row's variable is the ACTIVE name; the nested one is the
-                // superseded spelling kept as a fallback.
-                cell += ` — nested chain, legacy name \`${f.legacy}\``;
-            } else if (f.chain) {
-                cell += ' — contextual chain';
-            }
-            if (v.fallbacks.length > 1) cell += ` _(in ${f.usedBy.length})_`;
-            return cell;
-        });
-        const fb = v.fallbacks.length === 1 ? cells[0] : cells.join('<br>');
-        const tag = v.legacyName && v.legacyHost
-            ? `legacy name — still honoured as the nested fallback of \`${v.legacyHost}\`, which is the one to set`
-            : '';
-        L.push(`| \`${v.name}\` | ${fb}${tag ? `<br>_${tag}_` : ''} | ${v.readBy.length} |`);
-    });
-    L.push('');
-    variables.forEach((v) => {
-        L.push(`- \`${v.name}\` — ${v.readBy.map((n) => `.${n}`).join(', ')}`);
-    });
-    L.push('');
-    L.push(`## Token legend (${counts.legendEntries})`);
-    L.push('');
-    L.push('Names are assembled from these tokens, and the same joined string is used for the');
-    L.push('class and for the variable: `bg` + `cl` gives `.at-bg-cl` and `--at-bg-cl`.');
-    L.push('');
-    L.push('| Token | Meaning |');
-    L.push('| --- | --- |');
-    Object.keys(legend).sort(byName).forEach((t) => L.push(`| \`${t}\` | ${legend[t]} |`));
-    L.push('');
-    return `${L.join('\n')}\n`;
-}
-
 // Built once, in one place. An earlier revision inlined this mapping twice in
 // the same object literal, where `JSON.stringify` silently kept the last copy —
 // correct output, dead code, and invisible to any gate.
@@ -960,7 +754,7 @@ function renderJson() {
 
 // ---------------------------------------------------------------- emit
 
-const outputs = [[OUT.md, renderMd()], [OUT.json, renderJson()]];
+const outputs = [[OUT, renderJson()]];
 
 // Cross-document references in the shipped docs must resolve *inside the
 // tarball*: a `file § Section` pointer needs a shipped file with that heading,
@@ -969,12 +763,11 @@ const outputs = [[OUT.md, renderMd()], [OUT.json, renderJson()]];
 // and J1 (a link to the repo-only `demo/`) were all invisible to every other
 // check, and all are observable here, at the output layer.
 //
-// Scope is deliberate. This covers the generated reference plus the two
-// agent-facing files an AI consumer is told to read. README.md is EXCLUDED: it
-// is human-facing and is read on npm and GitHub, where repo-relative paths
-// like `demo/organism/` resolve against the repository. Holding a document
-// that is consumed in two different places to the stricter of the two would
-// mean hardcoding repository URLs into it.
+// Scope is deliberate. This covers the agent-facing files an AI consumer is told
+// to read. README.md is EXCLUDED: it is human-facing and is read on npm and
+// GitHub, where repo-relative paths like `demo/organism/` resolve against the
+// repository. Holding a document that is consumed in two different places to
+// the stricter of the two would mean hardcoding repository URLs into it.
 const SHIPPED = new Set(['README.md', 'LICENSE', 'package.json']);
 // Recurse, not just one level: skills/atomic-css/ ships with nested
 // references/ and scripts/ directories, and a link into them must not
@@ -1057,7 +850,11 @@ const COUNT_CLAIMS = [
     // past a gate that only matched one exact sentence, which is how the two
     // copies of this number drifted apart. Any "N legend entries" / "N entries"
     // claim in the skill docs is now held to the real count.
-    [CLASSES, /`legend` object \((\d+)\n/, [() => counts.legendEntries], 'legend entries'],
+    //
+    // An earlier `"legend" object (N` pattern sat here as well. No sentence in
+    // classes.md matched it, so it asserted nothing while reading as coverage —
+    // a dead gate is worse than no gate, because it looks like one.
+    //
     // Prose restatements of the same number, so a second phrasing cannot drift.
     // Only one capture group per alternative, so every branch yields a value.
     // A single capture, because checkCounts reads capture 1 per expected value.
@@ -1192,6 +989,10 @@ function checkPrefixLiterals(owner, content) {
 function checkStateArmSeeds(owner, content, isStylesheet) {
     const run = (css) => {
         const resting = new Map();
+        // Tokens a resting rule *reads* through var(). Kept apart from the
+        // declarations above because a read is a different claim: it says the
+        // property takes its value from that token, not that the rule supplies it.
+        const restingReads = new Map();
         const stateful = [];
         for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
             const [, rawSelector, body] = m;
@@ -1204,7 +1005,11 @@ function checkStateArmSeeds(owner, content, isStylesheet) {
             const selectorText = lines[lines.length - 1].trim();
             if (!selectorText) continue;
             const tokens = [...body.matchAll(/(--at-[\w-]+)\s*:/g)].map((t) => t[1]);
-            if (!tokens.length) continue;
+            const reads = [...body.matchAll(/var\(\s*(--at-[\w-]+)/g)].map((t) => t[1]);
+            // A rule that only reads is still evidence: `.at-card { color:
+            // var(--at-card-cl, …) }` declares nothing, and skipping it is what
+            // made a private-namespace state arm look unbacked.
+            if (!tokens.length && !reads.length) continue;
             for (const raw of selectorText.split(',')) {
                 const selector = raw.trim();
                 if (!selector) continue;
@@ -1212,8 +1017,10 @@ function checkStateArmSeeds(owner, content, isStylesheet) {
                 const key = base || selector;
                 if (base === selector) {
                     if (!resting.has(key)) resting.set(key, new Set());
+                    if (!restingReads.has(key)) restingReads.set(key, new Set());
                     tokens.forEach((t) => resting.get(key).add(t));
-                } else {
+                    reads.forEach((t) => restingReads.get(key).add(t));
+                } else if (tokens.length) {
                     stateful.push({ selector, key, tokens, above, css });
                 }
             }
@@ -1222,8 +1029,15 @@ function checkStateArmSeeds(owner, content, isStylesheet) {
             if (STATE_ARM_EXEMPT.has(key)) continue;
             if (/WRONG/.test(above)) continue;
             const declared = resting.get(key);
+            const read = restingReads.get(key);
             for (const token of tokens) {
                 if (declared && declared.has(token)) continue;
+                // A private-namespace token whose own resting rule reads it has
+                // exactly one possible supplier, so there is nothing for it to
+                // inherit and the read's fallback IS the resting value. Shared
+                // channels keep the strict rule: an ancestor or the framework can
+                // supply them, which is the leak this check exists to catch.
+                if (!knownVars.has(token) && read && read.has(token)) continue;
                 failures.push(
                     `${owner}: ${selector} seeds ${token} only in a state arm — custom `
                     + 'properties inherit, so the resting state takes an ancestor value. '
@@ -1414,15 +1228,10 @@ function checkBarePaths(owner, content) {
     }
 }
 
-for (const [rel, content] of outputs) {
-    if (!rel.endsWith('.md')) continue;
-    checkPointers(rel, content);
-    checkLinks(rel, content);
-    checkBarePaths(rel, content);
-}
-// The agent-facing skill is scanned from disk, alongside the generated files:
-// it ships, so its references must resolve in the tarball, and the class and
-// variable names it teaches must exist.
+// The agent-facing skill is read from disk: it ships, so its references must
+// resolve in the tarball, and the class and variable names it teaches must
+// exist. The generated reference is JSON, so it is checked as data above, not
+// as prose here.
 for (const file of AGENT_DOCS) {
     const abs = path.join(root, file);
     if (fs.existsSync(abs)) {
@@ -1479,7 +1288,7 @@ if (CHECK) {
         process.exit(1);
     }
     console.log(
-        `PASS: ${OUT.md} and ${OUT.json} are up to date `
+        `PASS: ${OUT} is up to date `
         + `(${counts.minimalClasses} minimal / ${counts.maxClasses} max classes, `
         + `${counts.variables} variables, ${counts.legendEntries} legend tokens).`
     );

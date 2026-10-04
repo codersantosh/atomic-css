@@ -1,13 +1,10 @@
 # Patterns
 
-Real patterns, taken from the framework's reference consumer and its documented
-`.at-btn` contract in `README.md`. All verified against commit `c51609b`.
+The shapes here are the framework's own — the reference consumer in demo/, and
+the `.at-btn` contract in `README.md`. Every name is verified against
+[generated/CLASS-REFERENCE.json](../generated/CLASS-REFERENCE.json).
 
 ## Element defaults are bare elements — never `:where()`-wrapped
-
-The heading this section used to carry said *zero specificity*, and that
-phrasing was itself a defect: a consumer reading only the heading concludes a
-`:where()` wrapper is the goal. It is not. The rule is the one below.
 
 Put global element defaults on the element itself. Every utility in this
 framework carries a class, so a utility scores `(0,1,0)` and an element rule
@@ -120,6 +117,78 @@ Layer order matters and is fixed: element resets → semantic tag defaults →
 identity defaults → base variant shape → colour variants → state variants, with
 active/pressed last so it wins ties.
 
+## Properties change rule
+
+**A property that can change is reached through a variable. The arm that changes
+it re-points the variable; it never restates the property.**
+
+There are exactly three reasons a property changes: a **colour mode**, a **media
+query**, and a **state** (`:hover`, `:focus`, `:active`, `[aria-current]`). All
+three are handled the same way, and none of them is a reason to write the
+property twice.
+
+```css
+/* Global tokens the consumer owns. Reference set:
+   demo/colormode-globalstyle/scss/variable.scss — the one source, never forked. */
+:root {
+  --at-white: #fff;
+  --at-black: #000;
+  --at-base-color: #2e312f;
+  --at-body-color: #9da29f;
+  --at-primary: #48b44f;
+  --at-primary--hover: #3ea245;
+  --at-spc-sm: 5px;        /* the spacing scale; steps, not measurements */
+}
+
+/* The component reads its own private tokens. The fallback IS the resting
+   value, so there is nothing to redeclare. */
+.at-card {
+  margin: var(--at-card-m, var(--at-spc-sm));
+  color: var(--at-card-cl, var(--at-primary));
+}
+
+/* A state arm re-points the token. It never writes `color` or `margin`. */
+.at-card:hover {
+  --at-card-cl: var(--at-white);
+  --at-card-m: 10px;
+}
+
+/* A colour-mode arm re-points the same token, so the hover value still wins
+   where the two overlap. The guard means an explicit light choice on the shell
+   beats the OS preference. */
+@media (prefers-color-scheme: dark) {
+  .app-shell:not([data-app-theme='light']) .at-card {
+    --at-card-cl: var(--at-black);
+  }
+}
+```
+
+Each arm is one declaration on one token, and the property is written once, so
+the three arms cannot drift apart and a fourth needs no new rule.
+
+**Private namespace or shared channel decides where the resting value lives.**
+
+- **A private token** — `--at-card-cl`, in a namespace no ancestor seeds — takes
+  its resting value from the read's fallback, exactly as above. It has one
+  possible supplier, so there is nothing to inherit and nothing to redeclare.
+- **A shared channel** — `--at-cl`, `--at-bg-cl`, `--at-p`, anything a bundle
+  class reads — **must** be declared on the resting selector. Custom properties
+  inherit, so an arm-only seed leaves the resting state on whatever an ancestor
+  set. `verify-usage.mjs` and the doc checks fail that case; see
+  [A state arm must declare the base it overrides](#a-state-arm-must-declare-the-base-it-overrides).
+
+What never changes stays a raw property: an element default, a reset, a media
+default, and a component shell's own geometry — `.at-btn`'s `display` and `gap`
+are written once and no arm moves them. The rule above is the complement of that,
+not a replacement for it: a value written once and never varied has nothing to
+re-point, and `transparent` or a keyword is the honest expression of it. Converting
+such a value into a token is a separate mistake — see rule 5 of the consumer
+contract.
+
+The framework's own contract for this is in `ARCHITECTURE.md` under *Device and
+state rules*: the override layer never touches raw properties, it redefines
+variables.
+
 ## Theming: variables only
 
 ```css
@@ -141,7 +210,8 @@ active/pressed last so it wins ties.
 
 Because the switch redefines variables only, every utility on the page follows
 with no class changes and no extra stylesheet. Never set properties in a theme
-block — that is what makes theming composable.
+block — that is what makes theming composable, and it is the colour-mode arm of
+[the properties change rule](#properties-change-rule) above.
 
 Two things to know:
 
@@ -191,6 +261,11 @@ This is the rule most often broken, because the broken version looks correct:
 custom properties inherit, so **a token seeded only inside a state arm has no
 value on the element at all in the resting state** — it silently picks up
 whatever an ancestor set.
+
+It applies to a **shared channel** — anything a bundle class reads, or any token
+an ancestor might already hold. A private-namespace token whose own resting rule
+reads it is the one exception, and it is stated in full under
+[the properties change rule](#properties-change-rule).
 
 ```css
 /* The page shell owns the height. */
@@ -253,10 +328,12 @@ Both are deliberate, and both are fenced so they cannot become a loophole:
   1320px through `.at-ctnr` in ascending `min-width` blocks.
 - **A private-namespace hover-only arm.** A component whose channels live in
   its own namespace (`.at-btn` owns `--at-btn-*`) may ship a `:hover` arm with
-  no base when the resting value legitimately comes from the shell or a
-  same-element variant. This is only safe because no ancestor seeds a private
-  namespace. It stops being safe the moment the same shape uses a *shared*
-  channel, which is exactly the leak above.
+  no base when the resting value legitimately comes from the shell, a
+  same-element variant, or the read's own fallback. This is only safe because no
+  ancestor seeds a private namespace. It stops being safe the moment the same
+  shape uses a *shared* channel, which is exactly the leak above — and the
+  worked form is under
+  [the properties change rule](#properties-change-rule).
 
 If a state arm seeds a **shared** channel (`--at-cl`, `--at-bg-cl`, `--at-p`)
 with no base declaration, that is a bug — unless the token has no reader on
@@ -376,20 +453,20 @@ it cannot supply them.
 
 ### Global first, local second
 
-Values live in the base layer, at zero specificity, so any utility overrides
+Values live in the base layer, at low specificity, so any utility overrides
 them without `!important`. The framework ships no `:root` variables precisely so
-this stays true: you own the token block, and it sits underneath everything.
-
-The layer order is fixed, and reordering it silently changes which rule wins —
-see [above](#element-defaults-are-bare-elements-never-where-wrapped) for the six steps.
+this stays true: you own the token block, and it sits underneath everything. The
+fixed layer order is the six steps at the top of this file; what breaks if you
+ignore it is in [production.md](production.md#cascade-layers-the-one-that-breaks-silently).
 
 ### Mobile first
 
-Base rules *are* the small screen. Wider viewports are reached only by adding
-an infix, never by writing a max-width variant — so "below the breakpoint" means
+Base rules *are* the small screen. Wider viewports are reached only by adding an
+infix, never by writing a max-width variant — so "below the breakpoint" means
 the base rule, with nothing to override. There are no `xs` or `md-down` classes
 because a max-width rule would have to be beaten by the base rule that follows
-it in the bundle.
+it in the bundle; the infix set is in
+[classes.md](classes.md#breakpoints).
 
 ### Five decisions the framework leaves to you
 
@@ -485,14 +562,9 @@ Across the full 616-class inventory, 451 classes read **no** variable — every
 flex, align and display utility. 165 read at least one, and those are inert
 until you seed them. (The minimal bundle is 440 of those classes: 275 with no
 channel, the same 165 readers.) This is the distinction that decides whether a
-class in your markup needs a value beside it, and it is mechanically checkable:
-
-```bash
-# run from this skill's folder — the one holding SKILL.md
-REF=generated/CLASS-REFERENCE.json
-node -p "require('./$REF').classes.find(c=>c.name==='at-ovf').reads"   // ['--at-ovf']
-node -p "require('./$REF').classes.find(c=>c.name==='at-flx').reads"   // []
-```
+class in your markup needs a value beside it, and it is mechanically checkable —
+read `reads[]` off the class in the generated reference, using the recipe at the
+top of [classes.md](classes.md#look-a-name-up-before-you-use-it).
 
 A worked shell:
 
@@ -536,30 +608,29 @@ The heaviest readers are `at-bg-img` (7 channels) and `at-msk` (6). Check
 
 ### Flex is fully expressible as classes
 
-There is no reason to hand-write flex. Use `at-flx-col` for
-`flex-direction: column`, and `at-flx-fil` / `at-flx-grw-0` / `at-flx-grw-1` /
-`at-flx-srnk-0` / `at-flx-srnk-1` to compose a `flex: 0 0 auto`. A project may
-still freeze a partially-migrated flex model during a migration, but that is its
-own recorded decision, not framework guidance — a half-migrated model is worse
-than a consistent one.
+There is no reason to hand-write flex: `at-flx-col` is `flex-direction: column`,
+and `at-flx-fil` / `at-flx-grw-0` / `at-flx-grw-1` / `at-flx-srnk-0` /
+`at-flx-srnk-1` compose a `flex: 0 0 auto` — the whole family is in
+[classes.md](classes.md#flex-210-and-display-54). Note that **`at-fl` is
+`filter`, not `flex`**, so seeding `--at-fl` to feed a hand-written `flex:` names
+the wrong channel.
 
-### One trap worth memorising
+A project may still freeze a partially-migrated flex model during a migration,
+but that is its own recorded decision, not framework guidance — a half-migrated
+model is worse than a consistent one.
 
-**`at-fl` is `filter`, not `flex`.** Seeding `--at-fl` to feed a hand-written
-`flex:` names the wrong channel; use `at-flx-*` instead.
+## One exception: host CSS you cannot put a class on
 
-## Two exceptions, and why they are not rule-breaking
+Raw `color` is acceptable even where a utility exists, when a host stylesheet (a
+CMS admin theme, a UI kit) sets colour on the same elements and a restatement is
+the only way to out-specify it. The palette still lives in your tokens; the
+exception governs the *property*, not the colour.
 
-- **`color`.** Raw `color` is acceptable even where a utility exists, when a
-  host stylesheet (a CMS admin theme, a UI kit) sets colour on the same elements
-  and a restatement is the only way to out-specify it. The palette still lives
-  in your tokens; the exception governs the *property*, not the colour.
-- **Media and state arms.** In a `prefers-color-scheme` or `[data-at-theme]` arm you
-  may restate the property, because redefining the variable there would state
-  the same fact in a second rule. Dark arms written as raw properties are
-  intentional, not an oversight. If the arm instead *seeds* a token, it is
-  subject to the state-arm rule above and needs a base — the permission covers
-  restating a property, not skipping a declaration.
+There is no exception for a colour-mode, media or state arm. Restating a
+property in one of those is the defect [the properties change
+rule](#properties-change-rule) exists to prevent: it states the same fact twice,
+so the two copies drift, and the arm wins or loses on source order rather than
+on intent. Re-point the token instead.
 
 ## Write the prefix literally
 
@@ -580,16 +651,11 @@ The cost is not verbosity, it is a silent failure mode. The prefix is part of
 the shipped CSS's public surface: if you set your own, `.card-btn` compiles
 clean, passes every build, and matches **nothing** — no error, no warning, just
 a rule that does nothing. A literal cannot drift; a variable invites someone to
-change it, and that change is invisible until the CSS stops working.
-
-Three consequences worth knowing:
-
-- **The demo and the framework both write it literally.** If you are copying a
-  pattern from either, you will not inherit a prefix variable.
-- **Grep works.** `rg -- '--at-cl'` finds every reader. Through an
-  interpolation it finds only the template.
-- **A prefix that *did* need to differ is a different framework.** Renaming is
-  breaking for every downstream consumer, so it is a fork, not a setting.
+change it, and that change is invisible until the CSS stops working. Grep works
+against a literal (`rg -- '--at-cl'` finds every reader; through an
+interpolation it finds only the template), and a prefix that *did* need to
+differ is a different framework — renaming is breaking for every downstream
+consumer, so it is a fork, not a setting.
 
 ## Components: one owner per class
 
@@ -710,6 +776,12 @@ Mirror the channel each value serves, so the mapping is legible at a glance:
 legend — `r` is **right**, not radius, so `-bdr-r` decodes wrongly even though
 it passes a token check. Use `rad`.
 
+The token a property-change arm re-points is named the same way: a card that
+changes colour and margin by theme and by state owns `--at-card-cl` and
+`--at-card-m`, and nothing else — the namespace is what makes the arm safe
+without a resting declaration (see
+[the properties change rule](#properties-change-rule)).
+
 Variants read the palette tokens `--at-<color>` and `--at-<color>--hover`, plus
 `--at-white`, `--at-black`, `--at-base-color`, `--at-body-color`,
 `--at-quaternary`. Declare them at `:root` or on a theme container.
@@ -735,53 +807,26 @@ only has to be on the element that uses the property.
 <div class="at-p card">value comes from .card or an ancestor</div>
 ```
 
-```jsx
-<div className="at-p at-cl" style={{ "--at-p": "24px", "--at-cl": "#c00" }} />
-```
-
-```ts
-const tokens = { "--at-p": "24px", "--at-cl": "#c00" } as React.CSSProperties;
-```
+In JSX the same pair is `style={{ "--at-p": "24px" }}`, and in TypeScript the
+tokens object needs `as React.CSSProperties` — custom properties are not in
+`CSSProperties` by default.
 
 Keep direction out of variable values (see RTL in `setup.md`), and keep values
 direction-neutral even in LTR builds, so the same token works in both.
 
 ## Composition recipes
 
-Grid and responsive:
+Grid, fifths and gutterless rows are in
+[classes.md](classes.md#grid-104-classes) with the arithmetic behind them.
+The combinations that span families:
 
 ```html
-<div class="at-ctnr">
-  <div class="at-row">
-    <div class="at-col-12 at-col-md-6 at-col-lg-4">…</div>
-    <div class="at-col-12 at-col-md-6 at-col-lg-4">…</div>
-  </div>
-</div>
-```
-
-Fifths:
-
-```html
-<div class="at-col-2m3">…</div>
-```
-
-Gutterless edge-to-edge:
-
-```html
-<div class="at-row at-no-gtr"><div class="at-col-6">…</div></div>
-```
-
-Flex with alignment and gap:
-
-```html
+<!-- flex with alignment and gap -->
 <div class="at-flx-col at-flx-md-row at-jfy-cont-btw at-al-itm-ctr at-gap">
   <div class="at-col-12 at-col-md-4">…</div>
 </div>
-```
 
-Overlay and shapes:
-
-```html
+<!-- overlay and shapes -->
 <div class="at-ovl at-ovl-cl" style="--at-ovl: linear-gradient(#0000, #000)">…</div>
 <div class="at-blk-shp">
   <div class="at-shp at-shp-t">Top half</div>
@@ -811,8 +856,8 @@ declaration that your CSS beats with specificity or order. Preference order:
 3. Load your sheet after the bundle.
 4. `!important` only at an external boundary you do not control — third-party or
    CMS markup. For framework-wide importance, build from the template's
-   `%%IMPORTANT%%` instead, all-or-nothing.
+   `%%IMPORTANT%%` instead, all-or-nothing — [setup.md](setup.md#wordpress-php-and-any-runtime-generated-build).
 
 If a utility you set earlier stops winning, look for a later rule of equal
-specificity setting the same property — that is expected in this framework, not a
-bug.
+specificity setting the same property — the bundle's Grid → Utilities →
+Properties order is why that happens, and it is expected, not a bug.
