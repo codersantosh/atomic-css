@@ -202,8 +202,6 @@ li {
   --at-btn-cl: initial;
   --at-btn-bg-cl: initial;
   --at-btn-bdr-cl: initial;
-  --at-cl: var(--at-btn-cl, inherit);
-  --at-cur: var(--at-btn-cur, pointer);
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -216,7 +214,7 @@ li {
   gap: var(--at-btn-gap, 6px);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  cursor: pointer;
+  cursor: var(--at-btn-cur, pointer);
   color: var(--at-btn-cl, inherit);
   text-decoration: none;
   background-color: var(--at-btn-bg-cl, transparent);

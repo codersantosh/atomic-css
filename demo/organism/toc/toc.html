@@ -70,29 +70,29 @@
         }
 
         .at-toc-heading {
-            --at-fnt-sz: 20px;
-            --at-m: 0 0 10px 0;
+            font-size: 20px;
+            margin: 0 0 10px 0;
         }
 
         .at-toc-list {
-            --at-m: 0;
+            margin: 0;
 
         }
 
         .at-toc-list .at-toc-list {
-            --at-m: 20px 0 0 20px;
+            margin: 20px 0 0 20px;
 
         }
 
         .at-toc-list li {
-            --at-ls-sty: none;
-            list-style: var(--at-ls-sty);
-
+            /* Was `--at-ls-sty: none` read back through var(). No bundle class
+               reads that token, so it fed nothing: a var() around a constant. */
+            list-style: none;
         }
 
         .at-toc-list li:not(:last-of-type) {
-            --at-m: 0 0 10px 0;
-            --at-p: 0 0 10px 0;
+            margin: 0 0 10px 0;
+            padding: 0 0 10px 0;
         }
 
         .at-lnk {
@@ -107,10 +107,10 @@
         }
 
         .at-toc-content {
-            --at-h: 100vh;
-            --at-bg-cl: #f5f5f5;
-            --at-p: 40px;
-            --at-m: 40px 0;
+            height: 100vh;
+            background-color: #f5f5f5;
+            padding: 40px;
+            margin: 40px 0;
         }
     </style>
 </head>

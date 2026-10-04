@@ -28,12 +28,12 @@
 
         .at-gallery-sizer,
         .at-gallery-itm {
-            --at-w: calc((100% / 3) - 15px);
+            width: calc((100% / 3) - 15px);
         }
 
         .at-gallery-itm {
 
-            --at-m: 0 0 15px 0;
+            margin: 0 0 15px 0;
         }
 
 
@@ -44,9 +44,11 @@
         }
 
         .at-fl-nav {
-            --at-ls-sty: none;
-            --at-gap: 20px;
-            list-style: var(--at-ls-sty);
+            /* One source, one declaration: no bundle class reads --at-ls-sty or
+               needs a seed for these three, so the frame is plain CSS. */
+            list-style: none;
+            gap: 20px;
+            margin: 0 0 20px 0;
         }
     </style>
 </head>
@@ -55,7 +57,7 @@
     <div class="at-ctnr">
         <h4 class="at-m">Gallery</h4>
 
-        <ul id="buttonGroup" class="at-fl-nav at-flx at-m at-gap">
+        <ul id="buttonGroup" class="at-fl-nav at-flx">
             <li class="is-active"><a class="at-btn" id="all">All Images</a></li>
             <li class=""><a class="at-btn" id="nature">nature</a></li>
             <li class=""><a class="at-btn" id="flowers">Flowers</a></li>

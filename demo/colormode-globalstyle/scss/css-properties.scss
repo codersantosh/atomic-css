@@ -107,17 +107,21 @@ li {
 		--at-btn-bg-cl: initial;
 		--at-btn-bdr-cl: initial;
 
-		// Seeds for a nested .at-svg / .at-cl to inherit; the properties below
-		// read the private namespace so a variant sets one value.
-		--at-cl: var(--at-btn-cl, inherit);
-		--at-cur: var(--at-btn-cur, pointer);
+		// No `--at-cl` seed here on purpose. Republishing a private value into a
+		// shared channel is the generated-markup device (see
+		// demo/organism/generated-block/), for when the generator cannot class the
+		// child. This is hand-written markup: an icon inside a button is styled on
+		// its own class, e.g. `.at-btn .at-svg { fill: var(--at-btn-cl, currentColor) }`.
+		// The seed was also dead here — no button on any demo page contains an
+		// .at-svg. And `cursor` reads its own token rather than a shared `--at-cur`,
+		// so no ancestor can re-point it.
 
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		gap: var(--at-btn-gap, 6px);
 		box-sizing: border-box;
-		cursor: pointer;
+		cursor: var(--at-btn-cur, pointer);
 		color: var(--at-btn-cl, inherit);
 		text-decoration: none;
 		background-color: var(--at-btn-bg-cl, transparent);

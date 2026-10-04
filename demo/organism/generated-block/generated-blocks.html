@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AT Grid - Generated blocks</title>
+    <link rel="stylesheet" href="../../colormode-globalstyle/dynamic.css">
+    <link rel="stylesheet" href="../../../css/atomic.css">
+    <style>
+        /* Third shape: generated markup.
+
+           Every card on this page is built by the script at the bottom, from a
+           data array. The markup does not exist in the HTML file, so it cannot
+           carry an inline `padding:` — and it must not, because a generated
+           `style` attribute is an inline style: under `style-src` without
+           'unsafe-inline' it is dropped silently, and every value on the page
+           disappears with nothing in the console to say why.
+
+           So the generator writes the CHANNEL and one applier class applies the
+           property. One class list serves every instance; only the token differs.
+           This is the only shape where the pair is mandatory — see patterns.md
+           § One source, one declaration.
+
+           The second half of the case: an icon inside a generated card. The
+           script cannot give that icon a class, so `.at-svg` is the only thing
+           that can read the value — and `.at-svg` applies `fill: var(--at-cl)`
+           with no fallback. So the parent republishes its private token into the
+           shared channel, which is legal HERE and only here. In hand-written
+           markup you can reach the child, so you write `fill` on the icon's own
+           class instead. patterns.md § Why the namespace is private has both. */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        .at-gen-hd {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+
+        .at-gen-note {
+            color: #555;
+            margin: 0 0 24px;
+        }
+
+        /* One source, one declaration: the frame around the generated cards is
+           static, so it is plain CSS. Nothing re-points it. */
+        .at-gen-frame {
+            border: 1px solid #ddd;
+            padding: 16px;
+        }
+
+        /* Generated card. Private namespace, because a shared channel has every
+           ancestor as a supplier — see patterns.md § Why the namespace is
+           private. The generator writes --at-card-m / --at-card-cl /
+           --at-card-bdr-cl; the appliers below read them. */
+        .at-card {
+            padding: var(--at-card-m, 16px);
+            color: var(--at-card-cl, inherit);
+            background-color: var(--at-card-bg-cl, #fff);
+            border: 1px solid var(--at-card-bdr-cl, #ddd);
+        }
+
+        /* Generated markup only. The script cannot put a class on the icon, and
+           `.at-svg { fill: var(--at-cl) }` is the reader, so the card publishes
+           its private value into the shared channel for that one descendant.
+           Anywhere the markup is yours, write the fill on the icon instead. */
+        .at-card {
+            --at-cl: var(--at-card-cl, inherit);
+        }
+
+        .at-card .at-svg {
+            fill: var(--at-cl);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="at-ctnr">
+        <div class="at-row">
+            <div class="at-col-12">
+                <h1 class="at-gen-hd">Generated blocks</h1>
+                <p class="at-gen-note">
+                    The three cards below are created by script from a data array.
+                    Their padding and colour differ per instance, so the generator
+                    writes <code>--at-p</code> and <code>--at-cl</code> and the
+                    appliers apply them. No per-instance
+                    <code>style="padding: …"</code> anywhere.
+                </p>
+
+                <div class="at-gen-frame at-row at-gap">
+                    <!-- The generator appends to this. -->
+                    <div id="at-gen-slot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // The generator's whole vocabulary is the data. Each entry is an instance
+        // value; the class list below is identical for all of them.
+        var BLOCKS = [
+            { label: 'Alpha', pad: '8px 12px', tone: '#0d6efd', border: '#0d6efd' },
+            { label: 'Beta', pad: '16px 20px', tone: '#198754', border: '#198754' },
+            { label: 'Gamma', pad: '24px 28px', tone: '#6f42c1', border: '#6f42c1' }
+        ];
+
+        var ICON = '<path d="M2 2 L12 7 L2 12 Z"/>';
+
+        var slot = document.getElementById('at-gen-slot');
+
+        BLOCKS.forEach(function (block) {
+            var card = document.createElement('div');
+            // One class list for every instance. `.at-card` is the identity and
+            // owns the box; it reads the private tokens the generator writes.
+            card.className = 'at-card at-col-4 at-flx at-al-itm-ctr at-gap';
+            card.style.setProperty('--at-card-m', block.pad);
+            card.style.setProperty('--at-card-cl', block.tone);
+            card.style.setProperty('--at-card-bdr-cl', block.border);
+
+            // The icon. It is the case the parent has to publish for: the script
+            // emits it without a class of its own beyond `.at-svg`, and `.at-svg`
+            // reads `--at-cl`, so `.at-card` republishes `--at-card-cl` into it.
+            var icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            icon.setAttribute('viewBox', '0 0 14 14');
+            icon.setAttribute('width', '14');
+            icon.setAttribute('height', '14');
+            icon.setAttribute('class', 'at-svg');
+            icon.innerHTML = ICON;
+            card.appendChild(icon);
+
+            var label = document.createElement('strong');
+            label.textContent = block.label;
+            card.appendChild(label);
+
+            var value = document.createElement('code');
+            value.textContent = block.pad;
+            card.appendChild(value);
+
+            slot.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

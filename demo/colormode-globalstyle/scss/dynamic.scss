@@ -136,7 +136,10 @@ details summary {
     list-style: none;
     margin: 0 0 15px 0;
     color: #000;
-    border-color: #ddd;
+    // The one element default the dark arm changes to a *different* value, so it
+    // gets an element-scoped token. Seeding `--at-bdr-cl` here would set the
+    // app's border channel for every summary subtree.
+    border-color: var(--at-summary-bdr-cl, #ddd);
     border-width: 1px;
     border-style: solid;
     padding: 10px;
@@ -158,46 +161,31 @@ details[open] summary svg {
 
 //Global CSS : Applied to only HTML of Atomic CSS excluding other global HTML
 //demo styles
-    .at-btn {
-        &.at {
-            &-p {
-                --at-p: 10px 30px;
-            }
-        }
-    }
+    // Was `.at-btn.at-p { --at-p: 10px 30px }`. No markup in the demo ever put
+    // `at-p` on a button, so the rule matched nothing: dead CSS, not a shape to
+    // convert. The shell's own padding in css-properties.scss is the live one.
     .at-sec {
+        // `--at-bg-cl` stays a seed: the dark arm re-points it, so it has a
+        // second writer. Padding does not, so it is a property.
         &-1 {
             --at-bg-cl: #ececec;
-
-            &.at {
-                &-p {
-                    --at-p: 40px 0;
-                }
-            }
+            padding: 40px 0;
         }
 
         &-2 {
             --at-bg-cl: #fff;
-
-            &.at {
-                &-p {
-                    --at-p: 80px 0;
-                }
-            }
+            padding: 80px 0;
         }
 
         &-3 {
             --at-bg-cl: #fbfbfb;
-
-            &.at {
-                &-p {
-                    --at-p: 80px 0;
-                }
-            }
+            padding: 80px 0;
         }
     }
     .at-tbl-demo {
-        margin: var(--at-m, 0 0 30px 0);
+        // Was `var(--at-m, 0 0 30px 0)`: a read whose value nothing re-points.
+        margin: 0 0 30px 0;
+
             .at-bdr {
                 --at-bdr-w: 0 0 1px 0;
                 --at-bdr-sty: solid;
@@ -244,11 +232,12 @@ details[open] summary svg {
 
     //post
     .at-post {
-        &.at {
-            &-p {
-                --at-p: 20px;
-            }
+        padding: 20px;
+        box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.03);
 
+        // Border and background stay seeds — the dark arm re-points both, so
+        // they have a second writer and cannot be a literal.
+        &.at {
             &-bdr {
                 --at-bdr-w: 1px;
                 --at-bdr-cl: #ddd;
@@ -258,28 +247,21 @@ details[open] summary svg {
             &-bg-cl {
                 --at-bg-cl: #fff;
             }
+        }
 
-            &-box-sdw {
-                --at-box-sdw: 0 0 10px 1px rgba(0, 0, 0, 0.03);
+        .at-m {
+            &.m-minus {
+                margin: 20px -20px;
             }
         }
-            .at-m {
-                &.m-minus {
-                    --at-m: 20px -20px;
-                }
-            }
 
         &-ttl {
-            &.at {
-                &-typ {
-                    --at-fnt-sz: 28px;
-                    --at-fnt-wt: 700;
-                }
-            }
+            font-size: 28px;
+            font-weight: 700;
         }
 
         &-mtdt {
-            --at-gap: 20px;
+            gap: 20px;
         }
     }
 
@@ -371,7 +353,8 @@ details[open] summary svg {
     .at-tab {
         &-pane {
             display: none;
-            padding: var(--at-p, 15px);
+            // Was `var(--at-p, 15px)`: a read whose value nothing re-points.
+            padding: 15px;
 
             // No Bootstrap JS ships with this demo, so `data-bs-toggle="tab"`
             // is inert and every panel would render stacked. The page's own
@@ -383,19 +366,9 @@ details[open] summary svg {
         }
     }
     .at-footer {
-        &.at {
-            &-p {
-                --at-p: 20px;
-            }
-
-            &-txt-al {
-                --at-txt-al: center;
-            }
-
-            &-m {
-                --at-m: 0;
-            }
-        }
+        padding: 20px;
+        text-align: center;
+        margin: 0;
     }
 
 // Dark color mode (element defaults zero-specificity; the theme container keeps
@@ -409,38 +382,12 @@ details[open] summary svg {
     // inheriting the light `#9da29f` on a black page is unreadable.
     --at-body-color: #9da29f;
 
-    //elements : h1-h6,p,button,a
-    h1 {
-        --at-cl: #fff;
-    }
-
-    h2 {
-        --at-cl: #fff;
-    }
-
-    h3 {
-        --at-cl: #fff;
-    }
-
-    h4 {
-        --at-cl: #fff;
-    }
-
-    h5 {
-        --at-cl: #fff;
-    }
-
-    h6 {
-        --at-cl: #fff;
-    }
-
-    p {
-        --at-cl: #fff;
-    }
-
-    a {
-        --at-cl: #fff;
-    }
+    // No per-element colour seeds. Every element default below reads `--at-cl`
+    // or `--at-bg-cl`, and this container already redefines both — so `h1 {
+    // --at-cl: #fff }` and its siblings were redundant, and each one forced the
+    // app's colour channel onto that element's whole subtree. Only the summary
+    // border differs, and it has its own element-scoped token.
+    --at-summary-bdr-cl: #444;
         .at-btn {
 
             --at-cl: #fff;
@@ -475,16 +422,6 @@ details[open] summary svg {
             }
         }
 
-    article {
-        --at-cl: #fff;
-    }
-
-    details {
-        summary {
-            --at-bdr-cl: #444;
-            --at-cl: #fff;
-        }
-    }
 
     //demo styles
         .at-sec {
