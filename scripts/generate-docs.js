@@ -119,7 +119,14 @@ const REMOVED_NAMES = new Set(['at-img', 'at-vid', 'at-aud', 'at-map']);
 // Consumer-owned channels the skill documents but no bundle reads: the spacing
 // scale behind `.at-spc-*`. Same rationale as CONSUMER_OWNED — a name the
 // consumer defines, not one the framework ships.
-const CONSUMER_VARS = new Set(['--at-spc-sm', '--at-spc-lg']);
+const CONSUMER_VARS = new Set([
+    '--at-spc-sm', '--at-spc-lg',
+    // patterns.md § Semantic HTML first: the skip link's private token. It is a
+    // second-writer channel (the :focus arm re-points it), so the example needs
+    // a token name that no bundle reads — the same rationale as the spacing
+    // scale above, and no legend entry, because no bundle ships it.
+    '--at-skip-inset',
+]);
 
 const ALLOWED_IN_PROSE = new Set([...CONSUMER_OWNED, ...REMOVED_NAMES, ...DEMONSTRABLY_FAKE]);
 
@@ -932,12 +939,16 @@ function checkRowGap(owner, content) {
 const SCALE_CLASS = /\.(at-spc-[\w-]+)/g;
 
 function checkScaleSteps(owner, content) {
-    for (const m of content.matchAll(SCALE_CLASS)) {
+    // Only a class *declared* in CSS can carry a literal. The same name in prose
+    // or in an inline-code span is a mention, and scanning forward from a mention
+    // to the next `}` reads an unrelated rule.
+    for (const block of cssFences(content)) {
+      for (const m of block.matchAll(SCALE_CLASS)) {
         const name = m[1];
         // The rule body runs to the first `}`; a nested block is not a declaration.
-        const end = content.indexOf('}', m.index);
+        const end = block.indexOf('}', m.index);
         if (end < 0) continue;
-        const body = content.slice(m.index, end);
+        const body = block.slice(m.index, end);
         for (const d of body.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
             if (/\b\d+(px|rem|em|%|vh|vw)\b/.test(d[2])) {
                 failures.push(
@@ -945,6 +956,7 @@ function checkScaleSteps(owner, content) {
                     + 'token (var(--at-…)) so the scale changes in one place.');
             }
         }
+      }
     }
 }
 
@@ -1301,18 +1313,42 @@ function checkSectionPointers(owner, content) {
         }
         return resolvers.get(file);
     };
+    // A § on a line that itself bolds the same words must not resolve against
+    // that line. ARCHITECTURE.md § Shared Rules is a table whose first column is
+    // the doctrine name and whose second column points at it — self-satisfaction
+    // made that table immune to this check for as long as the column existed.
+    const ownerInlineBold = (line) => new Set(
+        [...line.matchAll(/\*\*(.+?)\*\*/g)].map((m) => slug(m[1])));
     const slug = (h) => h.toLowerCase().replace(/[`*]/g, '')
         .replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
     content.split('\n').forEach((line, i) => {
         const scope = new Set([abs, ...[...line.matchAll(DOC_NAME)].map((m) => docFrom(m[0]))]
             .filter((f) => f && fs.statSync(f).isFile()));
-        const names = [...scope].flatMap((f) => [...sectionsIn(f)]).map(slug);
+        const onThisLine = ownerInlineBold(line);
+        const names = [...scope].flatMap((f) => [...sectionsIn(f)]
+            .map((h) => [slug(h), f]))
+            .filter(([n, f]) => !(f === abs && onThisLine.has(n)))
+            .map(([n]) => n);
         if (!names.length) return;
         for (const m of line.matchAll(/§+\s*([A-Za-z][\w -]*[A-Za-z])/g)) {
             const words = m[1].trim().split(/\s+/);
             const keys = Array.from({ length: words.length }, (_, n) => slug(words.slice(0, n + 1).join(' ')));
+            // Exact match at any depth. The prefix fallback covers two real
+            // shapes: a heading carrying a suffix the pointer omits (`§ The
+            // template bundle` -> `### The template bundle (css-template)`), and
+            // a § trailed by prose (`§ Build discipline for the gitignore
+            // list`), which resolves on its leading words.
+            //
+            // Both need at least two words. On one word the fallback lets
+            // `§ Global first` match `## Global tokens` — which is how a deleted
+            // section stayed linked for a whole session — and `§ Markup purity`
+            // match a heading that merely ends in the word. A pointer that *is*
+            // one word (`§ Bundles`) is exempt: the word is the whole intent and
+            // there is no trailing prose to over-read.
+            const single = words.length === 1;
             const found = keys.some((k) => names.includes(k))
-                || keys.some((k) => names.some((h) => h.startsWith(k) || k.startsWith(h)));
+                || keys.some((k, i) => (single || i >= 1)
+                    && names.some((h) => h.startsWith(k) || k.startsWith(h)));
             if (!found) {
                 failures.push(
                     `${owner}:${i + 1} points at § ${m[1].trim()}, which is not a heading or a `
