@@ -51,9 +51,10 @@ if your bundler resolves `node_modules` in CSS).
 | `css-max/atomic-max.css` (+ 3 variants) | 616 | You need `at-ord-*`, `at-ofst-*` or `at-prt-*` |
 | `css-template/atomic-template.css` | 440 | WordPress/PHP/dynamic build input — **never link** |
 
-Max is a strict superset of minimal; the framework enforces that in CI. Also
-shipped: `README.md`, `short-names.json`, `ARCHITECTURE.md`, and the rest of
-this skill folder — including the generated `generated/CLASS-REFERENCE.{md,json}`.
+Max is a strict superset of minimal; the framework enforces that in CI. The
+stylesheet is the only thing outside this skill folder — everything else you need
+to read and check names ships beside this file, including the generated class and
+variable inventory the checker reads.
 
 ```html
 <link rel="stylesheet" href="/node_modules/atomic-css/css/atomic.min.css">

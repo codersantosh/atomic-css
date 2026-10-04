@@ -1228,6 +1228,110 @@ function checkBarePaths(owner, content) {
     }
 }
 
+/**
+ * The skill is copied out of the package whole, so it may not send a reader
+ * somewhere that does not travel with it. The framework's own docs stay in the
+ * repo — a consumer holding `skills/atomic-css/` has no ARCHITECTURE.md, no
+ * `demo/`, and no legend file, so a pointer to any of them is a dead end.
+ *
+ * The exemption is the stylesheet: telling a consumer which file to link is the
+ * skill's job and that file lives outside it by design (`css/…`,
+ * `node_modules/…`, an `npm install` of the package).
+ */
+const SKILL_FOREIGN = /\b(?:ARCHITECTURE|AGENTS)\.md\b|\bshort-names\.json\b|\bdemo\//;
+
+function checkSkillSelfContained(owner, content) {
+    for (const m of content.matchAll(
+        /`([^`]+)`|\[([^\]]*)\]\(([^)\s]+)\)/g)) {
+        const token = (m[1] || m[3] || '').trim();
+        if (!token || /^(?:https?:|mailto:)/.test(token)) continue;
+        // Intra-skill targets are exactly what self-contained means.
+        if (token.startsWith('..') || token.startsWith('#') || token.startsWith('generated/')
+            || token.startsWith('scripts/') || token.startsWith('references/')) continue;
+        // The stylesheet package, which the skill must name.
+        if (/^(?:css|css-max|css-template|node_modules)\//.test(token)) continue;
+        const hit = token.match(SKILL_FOREIGN);
+        if (hit) {
+            const line = content.slice(0, m.index).split('\n').length;
+            failures.push(
+                `${owner}:${line} points at \`${token}\`, which is outside the skill. `
+                + 'The skill is copied to consumers on its own, so that pointer is a dead end '
+                + '— state the rule here, or let ARCHITECTURE.md link to this file instead.',
+            );
+        }
+    }
+}
+
+/**
+ * Every `§ Section` must resolve, in a document its line names or in the line's
+ * own document. This walks the repo docs too, not just the shipped skill:
+ * AGENTS.md and ARCHITECTURE.md are read by agents working on the framework and
+ * are covered by no other check, so a § naming a section that has since been
+ * renamed or deleted is invisible to CI without this.
+ *
+ * A section is a heading or a bolded rule label — this file's own doctrine lives
+ * in bold paragraphs, not headings, and `§ The token contract` is how the rest of
+ * the repo refers to it.
+ *
+ * Two tolerances, both deliberate. Resolution walks down the pointer's words, so
+ * a § followed by a clause of prose (`§ Build discipline for the gitignore list`)
+ * resolves on its leading words. And a heading may carry a suffix the pointer
+ * omits (`§ The template bundle` -> `### The template bundle (\`css-template\`)`),
+ * but only as a prefix — matching anywhere in the string would let `§ Markup
+ * purity` pass against a heading that merely ends in the word "markup".
+ */
+const SKILL_DIR = 'skills/atomic-css';
+const DOC_NAME = /[\w./-]*[\w-]+\.md\b/g;
+
+function checkSectionPointers(owner, content) {
+    const abs = path.join(root, owner);
+    // A pointer may spell its target relative to itself, to the repo root, or
+    // relative to the skill folder (the repo docs reach into it constantly).
+    const docFrom = (token) => [path.dirname(owner), '.', SKILL_DIR]
+        .map((base) => path.resolve(root, base, token))
+        .find((p) => fs.existsSync(p) && fs.statSync(p).isFile());
+    const resolvers = new Map();
+    const sectionsIn = (file) => {
+        if (!resolvers.has(file)) {
+            const text = fs.readFileSync(file, 'utf8');
+            resolvers.set(file, new Set(
+                [...text.matchAll(/^#{1,6} (.+)$/gm), ...text.matchAll(/\*\*(.+?)\*\*/g)]
+                    .map((m) => m[1]),
+            ));
+        }
+        return resolvers.get(file);
+    };
+    const slug = (h) => h.toLowerCase().replace(/[`*]/g, '')
+        .replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+    content.split('\n').forEach((line, i) => {
+        const scope = new Set([abs, ...[...line.matchAll(DOC_NAME)].map((m) => docFrom(m[0]))]
+            .filter((f) => f && fs.statSync(f).isFile()));
+        const names = [...scope].flatMap((f) => [...sectionsIn(f)]).map(slug);
+        if (!names.length) return;
+        for (const m of line.matchAll(/§+\s*([A-Za-z][\w -]*[A-Za-z])/g)) {
+            const words = m[1].trim().split(/\s+/);
+            const keys = Array.from({ length: words.length }, (_, n) => slug(words.slice(0, n + 1).join(' ')));
+            const found = keys.some((k) => names.includes(k))
+                || keys.some((k) => names.some((h) => h.startsWith(k) || k.startsWith(h)));
+            if (!found) {
+                failures.push(
+                    `${owner}:${i + 1} points at § ${m[1].trim()}, which is not a heading or a `
+                    + `bolded rule in ${[...scope].map((f) => path.basename(f)).join(' or ')}`,
+                );
+            }
+        }
+    });
+}
+
+// Section pointers are checked in every doc, not just the shipped skill:
+// AGENTS.md and ARCHITECTURE.md are read by agents working on the framework and
+// are covered by no other check, so a § that names a section which has since
+// been renamed or deleted is invisible to CI without this.
+for (const file of [...AGENT_DOCS, ...PROSE, 'AGENTS.md', 'ARCHITECTURE.md']) {
+    const abs = path.join(root, file);
+    if (fs.existsSync(abs)) checkSectionPointers(file, fs.readFileSync(abs, 'utf8'));
+}
+
 // The agent-facing skill is read from disk: it ships, so its references must
 // resolve in the tarball, and the class and variable names it teaches must
 // exist. The generated reference is JSON, so it is checked as data above, not
@@ -1239,6 +1343,7 @@ for (const file of AGENT_DOCS) {
         checkPointers(file, content);
         checkLinks(file, content);
         checkBarePaths(file, content);
+        checkSkillSelfContained(file, content);
         checkCounts(file, content);
         checkElementSeeds(file, content);
         checkScaleSteps(file, content);

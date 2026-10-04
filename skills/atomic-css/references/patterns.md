@@ -1,8 +1,7 @@
 # Patterns
 
-The shapes here are the framework's own — the reference consumer in demo/, and
-the `.at-btn` contract in `README.md`. Every name is verified against
-[generated/CLASS-REFERENCE.json](../generated/CLASS-REFERENCE.json).
+These are the framework's own shapes, worked end to end. Every name is verified
+against [generated/CLASS-REFERENCE.json](../generated/CLASS-REFERENCE.json).
 
 ## Element defaults are bare elements — never `:where()`-wrapped
 
@@ -65,14 +64,14 @@ audio { width: 100%; min-width: 217px; }
 body { font-family: 'Open Sans', sans-serif; }
 h1     { font-size: 50px; font-weight: bold; color: #060606; }
 
-/* One design in the system wants to be different. That gets an identity class,
-   which seeds the channels; the utilities in the markup apply the properties,
-   and they outrank the raw global above. */
-.hero-title { --at-fnt-sz: 72px; --at-cl: #fff; }
+/* One design in the system wants to be different. It gets an identity class —
+   and the class, not a utility, is what outranks the global element rule above.
+   Nothing about 72px ever varies, so there is no second writer and no token. */
+.hero-title { font-size: 72px; color: #fff; }
 ```
 
 ```html
-<h1 class="hero-title at-fnt-sz at-cl">Leader</h1>
+<h1 class="hero-title">Leader</h1>
 ```
 
 A global can stay themeable without leaking, by reading **its own** channel and
@@ -88,11 +87,6 @@ nothing else. And the token is **element-scoped** — `--at-h1-fnt-sz`, not the
 shared `--at-fnt-sz`. Seeding the shared channel at `:root` to resize one heading
 would resize every element that reads that channel too, which is the leak this
 whole section exists to avoid. A themed value belongs to the thing being themed.
-
-Name the token after the element, not the property — `--at-h1-fnt-sz`, not
-`--at-fnt-sz`. The framework spells the same idea `--at-body-fnt-sz` for the
-document root; both are legend tokens, so either resolves. The rule is spelled
-out under Device and state rules in `ARCHITECTURE.md`.
 
 If you want image width themeable from an ancestor, seed the channel **on the
 ancestor** and put the reading class on the image — do not seed and apply it in
@@ -117,29 +111,91 @@ Layer order matters and is fixed: element resets → semantic tag defaults →
 identity defaults → base variant shape → colour variants → state variants, with
 active/pressed last so it wins ties.
 
-## Properties change rule
+## Global tokens
 
-**A property that can change is reached through a variable. The arm that changes
-it re-points the variable; it never restates the property.**
+**Every global token is yours. No bundle ships a `:root` block.** Three values
+carry direct fallbacks at their use sites — `--at-ctnr 1140px`, `--at-ctnr-min
+1100px`, `--at-gtr 15px` — so the grid works before you theme anything. Everything
+else falls back to `initial` or a keyword. Your own CSS reading `var(--at-ctnr)`
+bare will not resolve: write `var(--at-ctnr, 1140px)` or declare the token.
 
-There are exactly three reasons a property changes: a **colour mode**, a **media
-query**, and a **state** (`:hover`, `:focus`, `:active`, `[aria-current]`). All
-three are handled the same way, and none of them is a reason to write the
-property twice.
+### The block
 
 ```css
-/* Global tokens the consumer owns. Reference set:
-   demo/colormode-globalstyle/scss/variable.scss — the one source, never forked. */
 :root {
+  /* Grid — these three have direct fallbacks in the bundle. */
+  --at-ctnr: 1140px;
+  --at-ctnr-min: 1100px;
+  --at-gtr: 15px;
+
+  /* Scale — named steps, never measurements. */
+  --at-spc-sm: 5px;
+  --at-spc-md: 10px;
+
+  /* Palette — a surface role and a text role are separate tokens. */
   --at-white: #fff;
   --at-black: #000;
   --at-base-color: #2e312f;
   --at-body-color: #9da29f;
   --at-primary: #48b44f;
-  --at-primary--hover: #3ea245;
-  --at-spc-sm: 5px;        /* the spacing scale; steps, not measurements */
-}
+  --at-primary-tint: #1f6f26;
 
+  /* State — double dash, the only form that uses one. */
+  --at-primary--hover: #3ea245;
+}
+```
+
+The block sits in the base layer at low specificity, so any utility overrides it
+without `!important` — that is why no bundle ships a `:root` at all. Fixed layer
+order is the six steps at the top of this file; breaking it is covered in
+[production.md](production.md#cascade-layers-the-one-that-breaks-silently).
+
+### Naming
+
+- **Name the token after the element, not the property** — `--at-h1-fnt-sz`, not
+  `--at-fnt-sz` — so a theme change cannot reach anything it was not aimed at.
+  `--at-body-fnt-sz` is the same idea for the document root.
+- **The class and its variable share the joined string**: `bg` + `cl` →
+  `.at-bg-cl` / `--at-bg-cl`.
+- **State variants use a double dash** and nothing else does:
+  `--at-primary--hover`, `--at-danger--active`.
+- **Every segment must exist in the legend.** Look it up before using it; extend
+  the legend in the same change if it is genuinely new.
+- **Private tokens are yours to invent.** `--at-btn-*`, `--at-card-*` need no
+  legend entry and ship in no bundle.
+- **A relative `url()` in a seeded image token resolves against the bundle that
+  reads it**, not the document: `--at-bg-img` and `--at-msk-img` are read by
+  `.at-bg-img` / `.at-msk` in the bundle. Use root-relative paths. The token applies and the image is simply missing when you
+  do not — unless the same rule also declares the consuming property, which makes
+  the path document-relative again.
+
+### Element-scoped tokens
+
+Declare them on the element that uses them, never on a bare element or `:root`.
+A token on an element is inherited by its whole subtree, so a seed on a bare
+element is a token block in disguise, at the wrong scope. Element defaults
+themselves are raw properties — see
+[Element defaults are bare elements](#element-defaults-are-bare-elements-never-where-wrapped).
+
+```css
+/* WRONG — every descendant inherits it. */
+body { --at-fnt-sz: 16px; }
+
+/* RIGHT — scoped to the elements that read it. */
+main, h1 { font-size: var(--at-fnt-sz, 16px); }
+```
+
+### Properties change rule
+
+**A property that can change is reached through a variable. The arm that changes
+it re-points the variable; it never restates the property.**
+
+A property changes for exactly three reasons — a **colour mode**, a **media
+query**, a **state** (`:hover`, `:focus`, `:active`, `[aria-current]`). All three
+are handled the same way, and none of them is a reason to write the property
+twice.
+
+```css
 /* The component reads its own private tokens. The fallback IS the resting
    value, so there is nothing to redeclare. */
 .at-card {
@@ -163,44 +219,14 @@ property twice.
 }
 ```
 
-Each arm is one declaration on one token, and the property is written once, so
-the three arms cannot drift apart and a fourth needs no new rule.
+Each arm is one declaration on one token. The property is written once, so the
+arms cannot drift and a fourth needs no new rule.
 
-**Private namespace or shared channel decides where the resting value lives.**
-
-- **A private token** — `--at-card-cl`, in a namespace no ancestor seeds — takes
-  its resting value from the read's fallback, exactly as above. It has one
-  possible supplier, so there is nothing to inherit and nothing to redeclare.
-- **A shared channel** — `--at-cl`, `--at-bg-cl`, `--at-p`, anything a bundle
-  class reads — **must** be declared on the resting selector. Custom properties
-  inherit, so an arm-only seed leaves the resting state on whatever an ancestor
-  set. `verify-usage.mjs` and the doc checks fail that case; see
-  [A state arm must declare the base it overrides](#a-state-arm-must-declare-the-base-it-overrides).
-
-What never changes stays a raw property: an element default, a reset, a media
-default, and a component shell's own geometry — `.at-btn`'s `display` and `gap`
-are written once and no arm moves them. The rule above is the complement of that,
-not a replacement for it: a value written once and never varied has nothing to
-re-point, and `transparent` or a keyword is the honest expression of it. Converting
-such a value into a token is a separate mistake — see rule 5 of the consumer
-contract.
-
-The framework's own contract for this is in `ARCHITECTURE.md` under *Device and
-state rules*: the override layer never touches raw properties, it redefines
-variables.
-
-## Theming: variables only
+**Theming is this rule.** A theme block re-points tokens and nothing else, so
+every utility on the page follows with no class changes and no extra stylesheet:
 
 ```css
-:root {
-  --at-ctnr: 1280px;      /* themeable, but a single value — see below */
-  --at-gtr: 20px;
-  --at-gap: 24px;         /* .at-row-gap / .at-col-gap follow automatically */
-  --at-cl: #1c1c1c;
-  --at-bg-cl: #fff;
-  --at-fnt-sz: 16px;
-}
-
+:root                { --at-cl: #1c1c1c; --at-bg-cl: #fff; }
 [data-at-theme='dark'] { --at-cl: #f2f2f2; --at-bg-cl: #161616; }
 ```
 
@@ -208,79 +234,63 @@ variables.
 <html data-at-theme="dark">
 ```
 
-Because the switch redefines variables only, every utility on the page follows
-with no class changes and no extra stylesheet. Never set properties in a theme
-block — that is what makes theming composable, and it is the colour-mode arm of
-[the properties change rule](#properties-change-rule) above.
+Setting a property inside a theme block is the defect. Never write `color:` or
+`background-color:` there.
 
-Two things to know:
-
-- **The framework ships no `:root` variables.** `--at-ctnr`, `--at-ctnr-min`
-  and `--at-gtr` carry direct `var()` fallbacks at their use sites, so the grid
-  works before you theme anything. Your own CSS reading `var(--at-ctnr)` bare
-  will not resolve — write `var(--at-ctnr, 1140px)` or declare it.
-- **Those defaults are not responsive.** `--at-ctnr` is one value; re-declare it
-  per breakpoint, and element-scoped declarations win over `:root`:
+**Never set a property in an arm, at any scope** — a `@media`, `[data-at-theme]`
+or `:hover` block re-points a token or it does nothing:
 
 ```css
-:root { --at-ctnr: 700px; --at-gtr: 20px; }
-@media (min-width: 576px) { .at-ctnr { --at-ctnr: 540px; } }
+/* WRONG — `padding` is already written by .at-p. */
+@media (min-width: 768px) { .at-p { padding: 32px; } }
+
+/* RIGHT */
+@media (min-width: 768px) { .at-p { --at-p: 32px; } }
 ```
 
-Every state or device block that uses a variable re-declares it in that block —
-never carry a value forward.
+**What never changes stays a raw property** — an element default, a reset, a media
+default, a component shell's own geometry. `.at-btn`'s `display` and `gap` are
+written once and no arm moves them. A value written once and never varied has
+nothing to re-point; converting it into a token is rule 5 of
+[the consumer contract](#the-consumer-contract).
 
-## Seeding a reader's own default
+### Resting values
 
-A reader shipped with no default and an `initial` fallback collapses to zero
-unseeded. When you seed it, **put the seed on the reader's own class, not on an
-ancestor** — a declaration on an element beats an inherited value at any
-specificity, so every `--at-gap` placed on an ancestor is overruled before it
-arrives.
+**Private token or shared channel decides where the resting value lives.**
 
-```css
-/* WRONG — the row wears at-gap through its content span, so this never arrives. */
-.wp-tcra-rail-item { --at-gap: 12px; }
+- **A private token** — `--at-card-cl`, in a namespace no ancestor seeds — takes
+  its resting value from the read's fallback. One possible supplier, so nothing
+  to inherit and nothing to redeclare.
+- **A shared channel** — `--at-cl`, `--at-bg-cl`, `--at-p`, anything a bundle
+  class reads — **must** be declared on the resting selector. Custom properties
+  inherit, so an arm-only seed leaves the resting state on whatever an ancestor
+  set.
 
-/* RIGHT — name the reader, not the container. */
-.wp-tcra-rail .wp-tcra-nav-link { --at-gap: 12px; }
-```
+#### A state arm must declare the base it overrides
 
-Two things follow, and both fail silently:
-
-- A seed on the reader's class can only be overridden from a more specific
-  selector, never by an ancestor. When an override appears not to work, check
-  where it is placed before changing the value.
-- A rule that restates what the base already says is dead. Restating a value an
-  ancestor supplies is the same defect as restating a property behind a class,
-  one layer out.
-
-### A state arm must declare the base it overrides
-
-This is the rule most often broken, because the broken version looks correct:
-custom properties inherit, so **a token seeded only inside a state arm has no
+Custom properties inherit, so **a token seeded only inside a state arm has no
 value on the element at all in the resting state** — it silently picks up
 whatever an ancestor set.
-
-It applies to a **shared channel** — anything a bundle class reads, or any token
-an ancestor might already hold. A private-namespace token whose own resting rule
-reads it is the one exception, and it is stated in full under
-[the properties change rule](#properties-change-rule).
 
 ```css
 /* The page shell owns the height. */
 main.at-h { --at-h: 100vh; }
 
-/* WRONG — `wp-card` inherits 100vh. Only `:hover` has a value. */
-.wp-card:hover { --at-h: 50px; }
+/* WRONG — `.card` inherits 100vh. Only `:hover` has a value. */
+.card:hover { --at-h: 50px; }
 
 /* RIGHT — the resting state is declared, so it is 100vh→own value, then 50px. */
-.wp-card { --at-h: 200px; }
-.wp-card:hover { --at-h: 50px; }
+.card { --at-h: 200px; }
+.card:hover { --at-h: 50px; }
+
+/* Also RIGHT — `initial` is the same fix meaning "opt out of the ancestor".
+   Resting is `height: auto`, not the inherited 100vh. */
+.card { --at-h: initial; }
+.card:hover { --at-h: 50px; }
 ```
 
-Verified behaviour for `<main class="at-h" style="--at-h:100vh">` wrapping
-`<div class="at-h wp-card">` where only `:hover` seeds the token:
+Measured for `<main class="at-h" style="--at-h:100vh">` wrapping
+`<div class="at-h card">` where only `:hover` seeds the token:
 
 | the card's own declaration | resting | `:hover` |
 |---|---|---|
@@ -288,16 +298,16 @@ Verified behaviour for `<main class="at-h" style="--at-h:100vh">` wrapping
 | `--at-h: initial` | 18px (`height: auto`) | 50px |
 | `--at-h: 200px` | 200px | 50px |
 
-The same applies to a media or device block: a token written only inside
-`@media` has no value outside it.
+A token written only inside `@media` has no value outside it. **Every state or
+device block that uses a variable re-declares it in that block** — never carry a
+value forward.
 
-**Declare the resting value explicitly.** `initial` is the right keyword only
-when *unset* is what you want, because `height: var(--at-h, initial)` resolves
-to `auto` — not to a sensible default. If you mean 200px, write 200px.
+**Declare the resting value explicitly.** `initial` is correct only when *unset*
+is what you want, because `height: var(--at-h, initial)` resolves to `auto`. If
+you mean 200px, write 200px.
 
 #### `unset` does not reset a custom property
 
-The obvious wrong fix silently fails. Custom properties inherit, so
 `--at-h: unset` computes to **`inherit`** — it restores the leaked value:
 
 | the card's own declaration | resting |
@@ -305,18 +315,14 @@ The obvious wrong fix silently fails. Custom properties inherit, so
 | `--at-h: initial` | 18px — reset |
 | `--at-h: unset` | **720px — still leaking** |
 
-`initial` works because it yields the guaranteed-invalid value, and a
-declaration beats an inherited value at any specificity. Use `initial`, never
-`unset`, to mean "this component opts out of its ancestors".
+`initial` works because it yields the guaranteed-invalid value, and a declaration
+beats an inherited value at any specificity. Use `initial`, never `unset`, to mean
+"this component opts out of its ancestors".
 
-Two consequences worth knowing:
-
-- The reset propagates. A reset on a container unsets the whole subtree below
-  it, because its descendants inherit the guaranteed-invalid value. Reset the
-  element you mean, not a wrapper.
-- A same-element variant still wins. `.btn { --at-btn-cl: initial }` does not
-  defeat `.btn-primary { --at-btn-cl: #006600 }` — the later, equally specific
-  declaration takes precedence. A reset and a variant coexist safely.
+- The reset propagates: a reset on a container unsets the whole subtree below it.
+  Reset the element you mean, not a wrapper.
+- A same-element variant still wins: `.btn { --at-btn-cl: initial }` does not
+  defeat `.btn-primary { --at-btn-cl: #006600 }`.
 
 #### Two shapes that are not violations
 
@@ -326,68 +332,103 @@ Both are deliberate, and both are fenced so they cannot become a loophole:
   `min-width` sequence is the value being stepped, not a missing base. The
   framework does this itself: `--at-ctnr` moves 540 → 720 → 960 → 1140 →
   1320px through `.at-ctnr` in ascending `min-width` blocks.
-- **A private-namespace hover-only arm.** A component whose channels live in
-  its own namespace (`.at-btn` owns `--at-btn-*`) may ship a `:hover` arm with
-  no base when the resting value legitimately comes from the shell, a
-  same-element variant, or the read's own fallback. This is only safe because no
-  ancestor seeds a private namespace. It stops being safe the moment the same
-  shape uses a *shared* channel, which is exactly the leak above — and the
-  worked form is under
-  [the properties change rule](#properties-change-rule).
+- **A private-namespace hover-only arm.** A component whose channels live in its
+  own namespace (`.at-btn` owns `--at-btn-*`) may ship a `:hover` arm with no base
+  when the resting value legitimately comes from the shell, a same-element
+  variant, or the read's own fallback. This is only safe because no ancestor
+  seeds a private namespace. It stops being safe the moment the same shape uses a
+  **shared** channel — which is exactly the leak above — and the worked form is
+  under [the properties change rule](#properties-change-rule).
 
-If a state arm seeds a **shared** channel (`--at-cl`, `--at-bg-cl`, `--at-p`)
-with no base declaration, that is a bug — unless the token has no reader on
-that element, in which case the seed is simply dead and should be deleted.
+A state arm seeding a **shared** channel with no base declaration is a bug,
+unless the token has no reader on that element — then the seed is dead code and
+should be deleted.
 
-### `url()` in a seeded image token is resolved against the stylesheet
+### Responsive
 
-A seed the framework's own class consumes carries one more trap. `--at-bg-img`
-and `--at-msk-img` are read by `.at-bg-img` / `.at-msk` in the bundle, so the
-browser resolves the `url()` **against that stylesheet's URL, not the document's**:
+`:root` is one value, not a ladder. Re-declare per breakpoint; an element-scoped
+declaration beats `:root` at the same specificity.
 
 ```css
-/* WRONG on a page at /products/index.html — resolves to /css/img/hero.jpg */
-.hero { --at-bg-img: url("img/hero.jpg"); }
-
-/* RIGHT — root-relative, so it does not depend on where the rule is declared */
-.hero { --at-bg-img: url("/img/hero.jpg"); }
+:root { --at-ctnr: 700px; --at-gtr: 20px; }
+@media (min-width: 576px) { .at-ctnr { --at-ctnr: 540px; } }
 ```
 
-It fails silently: the token is set, the class applies, the declaration is
-valid, and only the image is missing. Either use a root-relative path, or
-declare the consuming property on the same rule that seeds it.
+The shipped defaults are fixed at those three values and do not move with the
+viewport unless you re-declare them.
 
-```css
-/* Also correct — the page declares the read, so the url() is document-relative. */
-.hero { --at-bg-img: url("img/hero.jpg"); background-image: var(--at-bg-img); }
-```
+### Component values stay private
+
+A component's own measurement is not a shared token. `--at-gap` is the app's
+spacing unit; a button's internal 6px is a different quantity, and 15px inside a
+14px button reads as two separate controls. Use a private `--<prefix>-*` value —
+the reason, and the failure mode of routing it through a shared channel, are in
+[Why the namespace is private](#why-the-namespace-is-private).
+
+### One source, one declaration — when a token is not warranted
+
+**Does this value have a second writer?** A second writer is anything that
+supplies a value other than the rule that styles the element — a theme or media
+arm, a state, a second variant, a component that computes the value per instance,
+or a generator writing the markup. If nothing else can supply it, a token is a
+wrapper around a constant.
+
+| Is there a second writer? | Encoding | Example |
+| --- | --- | --- |
+| An arm re-points it | seed + utility | `.at-btn-primary:hover { --at-btn-bg-cl: … }` |
+| A control or per-instance value writes it | seed + utility | a block's saved `style="--at-p: …"` |
+| It repeats, so it is a named scale step | step class + digit-free token | `.at-spc-lg { --at-gap: var(--at-spc-lg) }` |
+| A breakpoint ladder on the reading class | reader ladder | `.at-ctnr { --at-ctnr: 540px }` in `min-width` blocks |
+| **No — one source, written once** | **raw property in the rule** | **`.hero-title { font-size: 72px }`** |
+
+Rows 3 and 4 are not variants; both are documented under
+[Two shapes that are not violations](#two-shapes-that-are-not-violations). The
+last row is the common one, and the class still does the work: `.hero-title`
+scores `(0,1,0)` and outranks an `h1` element rule `(0,0,1)`, so the override
+survives without a utility in the markup.
+
+**Generated markup is the mandatory case.** When a block builder, a Gutenberg
+control, or any other system writes the markup, the class + variable pair is not
+a preference. A generated `style` attribute is an inline style, so it needs
+`unsafe-inline` under a `style-src` policy, and it repeats the property on every
+instance; the token is one seam the generator writes through, and one class serves
+all of them. See [CSP](production.md#content-security-policy-inline-variables-are-inline-styles).
+
+Put the other way: the override layer never touches a raw property, it redefines
+the variable. That is the whole rule.
 
 ## The consumer contract
 
-Raw properties are cheap to write and easy to leave behind, so a strict
-consumer adopts six rules. They are a convention, not framework requirements —
-but rules 3 and 4 fail *silently*: nothing errors, the page renders, and the
-defect only shows as a value that does not move.
+Seven rules. The first decides whether you are leaving a raw property behind or a
+token around a constant. They are a convention, not framework requirements — but
+rules 3 and 4 fail silently: nothing errors, the page renders, the value just
+never moves.
 
-1. **Raw properties only where genuinely necessary** — chiefly to override host
-   CSS (WordPress, a UI kit) and for the global layer.
+1. **A raw property unless the value has a second writer.** One source written
+   once — an element default, a reset, a component's own one-off box — is a plain
+   declaration; a theme, state, second variant, per-instance value or generator is
+   a second writer and needs the channel. Test and table:
+   [when a token is not warranted](#one-source-one-declaration-when-a-token-is-not-warranted).
 2. **Raw properties are the tool for global CSS**: resets, media defaults, the
-   token block, the host adapter. Element defaults especially — seeding a channel
-   on a bare element sets that token for its whole subtree, so it is a token
-   block in disguise, and the wrong scope.
+   token block, the host adapter. Seeding a channel on a bare element sets it for
+   that element's whole subtree — a token block in disguise:
+   [Element-scoped tokens](#element-scoped-tokens).
 3. **Match the encoding to the shape of the design.** The discriminator is
    repetition and variants, not which is "better":
 
    | Shape | Encoding | Markup |
    | --- | --- | --- |
    | Repeats, has variants — button, card, nav link | identity class owns its properties, reading its **own** `--<prefix>-*` namespace; variants set only those private variables | `at-btn at-btn-primary` |
-   | Unique, no variants — brand name, logo, pagination | identity class seeds only the framework's `--at-*` channels; zero raw properties | `brand-name at-cl at-fnt-sz …` |
+   | Unique, no variants — brand name, logo, pagination | identity class writes the properties as raw declarations; no token, no appliers | `brand-name` |
+   | Generated markup — block, Gutenberg control | identity class seeds a channel the generator writes; the markup carries the applier | `at-card at-p` |
    | Global layer — media defaults, resets | raw properties on the element | — |
 
-   For a repeating component, the identity class is *meant* to be
-   self-sufficient. A shell that every instance wants is the class's job, not
-   every call site's: eleven classes on one button is eleven chances to forget
-   one.
+   A repeating component's identity class is *meant* to be self-sufficient: the
+   shell every instance wants belongs to the class, not to every call site
+   ([Components](#repeating-with-variants-the-identity-class-owns-the-box)). For the
+   unique shape the class is the whole mechanism, so write the properties in it —
+   nothing varies, so a token would be a wrapper around a constant
+   ([when a token is not warranted](#one-source-one-declaration-when-a-token-is-not-warranted)).
 
 4. **Never restate one variable in two places.** Seeding a channel *and* writing
    a property in the same rule is fine as long as the property reads a
@@ -402,40 +443,35 @@ defect only shows as a value that does not move.
 .at-btn { --at-p: 6px 12px; padding: 6px 12px; }
 ```
 
-5. **A component-local value is not a shared token.** `--at-gap` is the app's
-   spacing unit. A button's internal 6px is a different quantity — routing it
-   through `--at-gap` corrupts the token for every descendant that reads it, and
-   15px inside a 14px button reads as two separate controls. This is why the
-   repeating shape wants its own namespace: values the component owns do not
-   belong in the vocabulary it shares.
+5. **A component-local value is not a shared token, and a component does not read
+   one either.** `--at-gap` is the app's spacing unit; a button's internal 6px is a
+   different quantity, and a shared channel has every ancestor as a supplier. Use a
+   private `--<prefix>-*` value:
+   [Why the namespace is private](#why-the-namespace-is-private).
 
 6. **A consumer may define any private class or variable, `at-`-prefixed or
    not.** Two obligations. It stays in your stylesheet — the `at-` prefix
    belongs to the framework, so borrowing the name is fine but adding to the
-   framework is not: never add a consumer name to `short-names.json` or expect
-   it in a bundle. The legend governs the *framework's* vocabulary — it is not a
+   framework is not: never expect a consumer name in a bundle. The legend governs the *framework's* vocabulary — it is not a
    registry you have to apply to for permission to name your own components, so
    `--at-card-*` needs no entry anywhere to be valid. And hand the names to the
    checker with `--allow`, so their absence from the reference is a decision
    rather than a warning you learn to ignore.
 
 7. **A custom property is for a value that has variants.** The variants that
-   justify one are the button family (`--at-btn-*`), the colour and accent
-   schemes, the media-query and `data-at-theme` arms, and the user-action states
-   (`:hover`, `[aria-current="page"]`, `[disabled]`). A token seeded once and
-   read once or twice, with no arm that re-points it, is a value in a wrapper and
-   it inlines. A token read by many rules is a named step rather than a variant,
-   and it stays — restating one number in twenty rules is the same defect as
-   stating a property in two places, which is rule 4. See
-   [Five decisions the framework leaves to you](#five-decisions-the-framework-leaves-to-you)
-   for the scale convention this follows from.
+   justify one: the button family (`--at-btn-*`), colour and accent schemes, the
+   media-query and `data-at-theme` arms, user-action states (`:hover`,
+   `[aria-current="page"]`, `[disabled]`), and a generator writing a per-instance
+   value. Seeded once and never re-pointed, it is a value in a wrapper and it
+   inlines. Test: [when a token is not
+   warranted](#one-source-one-declaration-when-a-token-is-not-warranted). Scale
+   convention: [Five decisions](#five-decisions-the-framework-leaves-to-you).
 
-One consequence of rule 3 worth stating: a repeating identity class that owns
-its properties is *load-bearing*. A page that forgets your stylesheet loses the
-box while the variables still resolve. That is the cost of making the class
-self-sufficient, and it is why the unique shape exists — where the markup
-carries the classes, a missing sheet is visibly broken rather than quietly
-wrong.
+Rule 3 has a cost: a repeating identity class that owns its properties is
+*load-bearing*. A page that forgets your stylesheet loses the box while the
+variables still resolve. In the unique shape the class writes the properties
+itself, so a missing sheet is equally broken — which is what a sheet-wide failure
+looks like anyway.
 
 ## How to design with this framework
 
@@ -451,22 +487,13 @@ accessibility tree for free, and no class can add any of them — `at-p` does no
 make a `<div>` reachable by keyboard. A utility framework can restyle semantics;
 it cannot supply them.
 
-### Global first, local second
-
-Values live in the base layer, at low specificity, so any utility overrides
-them without `!important`. The framework ships no `:root` variables precisely so
-this stays true: you own the token block, and it sits underneath everything. The
-fixed layer order is the six steps at the top of this file; what breaks if you
-ignore it is in [production.md](production.md#cascade-layers-the-one-that-breaks-silently).
-
 ### Mobile first
 
-Base rules *are* the small screen. Wider viewports are reached only by adding an
-infix, never by writing a max-width variant — so "below the breakpoint" means
-the base rule, with nothing to override. There are no `xs` or `md-down` classes
-because a max-width rule would have to be beaten by the base rule that follows
-it in the bundle; the infix set is in
-[classes.md](classes.md#breakpoints).
+Base rules *are* the small screen: wider viewports are reached by adding an
+infix, never by writing a max-width variant, and the whole infix set is in
+[classes.md](classes.md#breakpoints). The one consequence worth
+restating here — a max-width rule would have to be beaten by the base rule that
+follows it in the bundle — is why that set is fixed rather than open.
 
 ### Five decisions the framework leaves to you
 
@@ -552,9 +579,9 @@ pattern; give it a raw property or a variable on the one element that needs it.
 **Do not add a class for zero.** `.at-p` and `.at-m` already read `--at-p` and
 `--at-m` with an `initial` fallback, and `initial` for padding and margin *is*
 `0`. So bare `.at-p` computes to `padding: 0` and needs no value beside it.
-`.at-p-0` would be a second name for a number the framework already gives you —
-and it would hide the checker's warning that the channel is unsupplied, which is
-real information when the value is genuinely missing.
+`.at-p-0` and `.at-m-0` would each be a second name for a number the framework
+already gives you — and either would hide the checker's warning that the channel
+is unsupplied, which is real information when the value is genuinely missing.
 
 ## Which classes read a channel, and which do not
 
@@ -680,15 +707,12 @@ app's shared vocabulary.
 /* The shell. Private namespace — --at-gap and friends are the app's shared
    vocabulary, and a button's own measurements are not part of it (rule 5). */
 .at-btn {
-  --at-cl: var(--at-btn-cl, inherit); /* seeds fill for a nested .at-svg */
-  --at-cur: var(--at-btn-cur, pointer);
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;                    /* deliberately not var(--at-gap) */
   box-sizing: border-box;
-  cursor: pointer;
+  cursor: var(--at-btn-cur, pointer);   /* reads the private token directly */
   color: var(--at-btn-cl, inherit);
   text-decoration: none;
   background-color: var(--at-btn-bg-cl, transparent);
@@ -703,6 +727,11 @@ app's shared vocabulary.
 
 .at-btn[disabled] { --at-btn-cur: not-allowed; opacity: 0.5; }
 ```
+
+Note what the shell does *not* do: it never publishes `--at-btn-cl` into the
+shared `--at-cl`. `cursor` reads its own token, and `color` reads its own token,
+because a private token has exactly one supplier and a shared one has every
+ancestor.
 
 Variants are values only — the same job a global token block does:
 
@@ -731,43 +760,118 @@ instance wants is the class's job: carrying eight classes on each button is
 eight chances to forget one, and the instance that forgets renders wrong with
 nothing to show for it.
 
-Note the two namespaces in one rule are deliberate and are not rule 4's
-violation: `--at-cl` is seeded for a *descendant* that carries `.at-svg`, while
-`color` reads the private `--at-btn-cl`. Different variables, two jobs.
+### Why the namespace is private
 
-### Unique, no variants — the class seeds, the markup applies
+A private token is not a tidier name. It is an **isolation boundary**, and rule 5
+gives the mechanism. Here is what that costs when it is ignored.
 
-A brand name, a logo, a one-off panel: one instance, no registry. Nothing
-repeats, so nothing justifies the identity class owning a box. It seeds only
-the framework's channels, and the markup carries the classes that apply them.
+```html
+<section class="unique-section">
+  <button class="at-btn at-btn-primary">Save</button>
+</section>
+```
 
 ```css
-/* No properties at all. */
+/* The section's own seed. Correct for the section. */
+.unique-section { --at-cl: red; }
+```
+
+Read that as "the section and its text are red" and it is fine. But `.at-svg`
+applies `fill: var(--at-cl)` with **no fallback**, so an icon inside that button
+now paints red too — and nothing errors. The section never mentioned the button.
+
+```css
+/* RIGHT — the button reads a token only its own variants set, and the icon is
+   styled on the icon's own class. */
+.at-btn-primary { --at-btn-cl: var(--at-white); --at-btn-bg-cl: var(--at-primary); }
+.at-btn .at-svg  { fill: var(--at-btn-cl, currentColor); }
+```
+
+`--at-btn-cl` has exactly one supplier, so no ancestor can reach it by accident.
+That is the whole argument for the namespace, and it is a different argument from
+rule 5's: that one is about *publishing* a value you should keep to yourself, this
+one is about *reading* a value that anyone may set.
+
+**Generated markup is the one case where the parent publishes.** A generator emits
+the child and you cannot put a class on it, so the value has to travel through the
+channel its child already reads:
+
+```css
+/* Generated markup only: the script cannot class the icon, so the parent
+   republishes. In hand-written HTML, write `fill` on the icon's own class. */
+/* the same card as above, in the generated case */
+.at-card { --at-cl: var(--at-card-cl, inherit); }
+.at-card > .at-svg { fill: var(--at-cl); }
+```
+
+Two namespaces in one rule is still not rule 4's violation — different variables,
+two jobs — but it is a tool for a case where you cannot reach the child, not a
+default. Anywhere you own the markup, reach the child.
+
+### Unique, no variants — the class writes the properties
+
+A brand name, a logo, a one-off panel: one instance, no registry, and nothing
+that will ever re-point a value. The class writes the properties, and the markup
+carries the class and nothing else.
+
+```css
 .brand-name {
-  --at-fnt-sz: 16px;
-  --at-fnt-wt: 700;
-  --at-ln-h: 1.2;
-  --at-cl: var(--text);
-  --at-white-sp: nowrap;
-  --at-ovf: hidden;
-  --at-txt-ovf: ellipsis;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 ```
 
 ```html
-<span class="brand-name at-cl at-fnt-sz at-fnt-wt at-ln-h at-white-sp at-ovf at-txt-ovf">Acme</span>
+<span class="brand-name">Acme</span>
 ```
 
-Here the missing stylesheet is loudly broken rather than quietly wrong, which
-is the trade rule 3 makes on purpose.
+Seven tokens and seven applier classes were what this used to cost, for values
+that had exactly one source. The class is still the mechanism — `.brand-name`
+outranks any element rule the host sheet brings — so the only thing the seed
+bought was a second place to look for each value.
 
-In a **block / site builder** this shape is mandatory rather than preferred,
-because the block's CSS is emitted per block and cannot lean on a global sheet
-being loaded. For normal HTML, hand-written markup or React, the same rule
-applies one level up: follow it in the **global** layer, and drive colour-mode
-changes, media-query changes and user-action states — opening a panel, a pressed
-toggle — through your own custom properties, exactly as the button family does.
-The architecture side of that split is in `ARCHITECTURE.md` § Per-block output.
+In **generated markup** — a block, a site builder, a Gutenberg control — the
+seed shape is mandatory rather than preferred, and for a reason that has nothing
+to do with the grid: the generator needs a seam to write a per-instance value
+through. A generated `style` attribute is an inline style, so a `style-src`
+policy without `unsafe-inline` drops it silently, and it repeats the property on
+every instance. The seed is one channel the generator writes and every instance
+shares. That is the same test as above with the generator as the second writer,
+and it is why a block's values are the exception to "one source, one declaration"
+rather than a contradiction of it.
+
+The whole shape is two classes and one channel — the block class owns the token,
+an applier class applies it:
+
+```css
+/* Your block class owns the channel. `--at-card-*` is a private namespace — no
+   bundle ships it, and it never reaches a component you did not write. */
+.wp-block-card {
+  --at-cl: var(--at-card-cl, inherit);
+  --at-p: var(--at-card-p, 1rem 1.5rem);
+}
+```
+
+```html
+<!-- generator output: the applier classes are fixed, the values are per-instance -->
+<figure class="wp-block-card at-cl at-p">
+  <img src="…" alt="…">
+</figure>
+```
+
+`.at-cl` and `.at-p` are ordinary shipped appliers (`color: var(--at-cl, initial)`,
+`padding: var(--at-p, initial)`) — the block adds no property CSS of its own. The
+generator writes `--at-card-cl` / `--at-card-p`; every instance shares the two
+classes. Name the applier class with no leading dash: `at-cl`, not `-at-cl`.
+
+A block with a **static** value takes the other branch — the block class writes
+the properties and takes no applier at all. The second writer is the test, not the
+fact that the markup is generated.
 
 ### Naming the private namespace
 
@@ -806,6 +910,12 @@ only has to be on the element that uses the property.
 <div class="at-p at-cl" style="--at-p: 24px; --at-cl: #c00">inline</div>
 <div class="at-p card">value comes from .card or an ancestor</div>
 ```
+
+In a component framework, **a value the component computes per instance is a
+second writer**, so it earns the pair: props, theme context, a breakpoint hook, a
+saved user preference. A JSX component that renders the same two hundred pixels
+everywhere should write `padding` in its own stylesheet and name no applier —
+see [when a token is not warranted](#one-source-one-declaration-when-a-token-is-not-warranted).
 
 In JSX the same pair is `style={{ "--at-p": "24px" }}`, and in TypeScript the
 tokens object needs `as React.CSSProperties` — custom properties are not in

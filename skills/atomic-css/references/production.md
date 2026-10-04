@@ -82,6 +82,13 @@ Three ways out, in order of preference:
 The WordPress/template path has the same exposure: your built stylesheet is a
 separate file and needs no nonce, but any inline variable in the markup does.
 
+**Generated markup is the case this bites hardest.** A block builder that emitted
+`style="--at-p: 24px"` per instance would lose every value on the page to a
+`style-src` policy, silently. That is one of the reasons the encoding for
+generated blocks is a channel rather than an attribute — the rule, and the
+alternative, are in
+[patterns.md](patterns.md#one-source-one-declaration-when-a-token-is-not-warranted).
+
 ## Dark mode needs `color-scheme`
 
 Setting `--at-cl` and `--at-bg-cl` repaints *your* palette. It does not change

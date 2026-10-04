@@ -9,6 +9,41 @@ An atomic/utility CSS framework built on **CSS custom properties** and a **Flexb
 > readable layer over a class and variable inventory generated from the compiled
 > CSS and drift-checked in CI, so it always matches the bundles.
 
+## What this framework is, and what it is for
+
+**A Flexbox grid plus an atomic vocabulary, compiled from SCSS.** The source is
+`scss/`, built with Webpack and dart-sass, passed through postcss/autoprefixer
+and rtlcss, and the **compiled CSS is committed and shipped as-is** — there is no
+build step at install time and no JavaScript runtime. Two bundles ship (minimal
+and max); a third file, the template, is a build input for dynamic consumers and
+is never linked. `ARCHITECTURE.md` holds the framework's own rules.
+
+Every `.at-*` class applies one CSS property; a matching `--at-*` variable
+supplies its value. That single fact drives when to reach for one:
+
+1. **Layout: the grid and flex vocabulary, always.** `.at-ctnr` → `.at-row` →
+   `.at-col-{1..12}`, plus equal-share, `auto`, `cust`, fifths, gutterless rows
+   and the flex, align and justify families — in hand-written HTML, in React, or
+   in any JS framework. This is what the framework is for, and 104 grid classes
+   cover it. Never hand-roll `flex: 0 0 50%`, `width: 33%`, or a breakpoint;
+   responsiveness is a class infix.
+2. **Everything else: a raw property or a utility class, per property.** The test
+   is whether the value has a **second writer** — a colour mode, a media query, a
+   state, a second variant, a per-instance computed value, or a generator. Second
+   writer → class plus variable, so one change re-points every instance. One
+   source, written once → write the property. A token with nothing to re-point it
+   is a wrapper around a constant, and a `var()` read costs a custom-property
+   resolution per element that a literal does not.
+3. **Generated markup: the pair is required.** When a block builder, a Gutenberg
+   control, or another system writes the markup, it needs one seam to write a
+   per-instance value through. A generated `style` attribute is an inline style,
+   so a `style-src` policy without `unsafe-inline` drops it silently — and it
+   repeats the property on every instance.
+
+The full contract, with the tables and the reasoning, is in the
+[skill](skills/atomic-css/SKILL.md) — it ships in the package and is what an
+agent should be given.
+
 ## Breaking changes in 2.0.0
 
 The framework no longer ships element/media sizing classes. `.at-img`, `.at-vid`,
@@ -130,6 +165,11 @@ Every class is a thin alias for a CSS property reading a matching variable, e.g.
 
 Abbreviations follow a documented legend (`bg-cl` = background-color, `bdr` = border, `tf` = transform, `msk` = mask, …) kept in [`short-names.json`](short-names.json).
 
+Using one of these is a choice, not a default: reach for the class when the value
+has a second writer (a colour mode, a state, a variant, a per-instance value, a
+generator). For a value you are about to write once and never vary, write the
+property — see [what this framework is for](#what-this-framework-is-and-what-it-is-for).
+
 ### Typography utilities
 
 Each typography property has its own utility class reading its matching `--at-*` variable:
@@ -232,7 +272,7 @@ sets values only.**
   align-items: center;
   justify-content: center;
   gap: var(--at-btn-gap, 6px);
-  cursor: pointer;
+  cursor: var(--at-btn-cur, pointer);   /* the private token, read directly */
   color: var(--at-btn-cl, inherit);
   background-color: var(--at-btn-bg-cl, transparent);
   font-size: var(--at-btn-fnt-sz, 14px);
@@ -260,8 +300,9 @@ sets values only.**
 
 Two classes per button, not eight: the shell applies the properties, so the
 markup does not have to name them. A design that appears **once** takes the other
-shape — an identity class that seeds only `--at-*` channels, with the reader
-classes on the element. See
+shape — an identity class that writes the properties itself, with no token and no
+reader classes, because nothing about it varies. Only **generated markup** needs
+the seed, since a generator has to write somewhere. See
 [patterns.md § Components](skills/atomic-css/references/patterns.md#components-one-owner-per-class)
 for both encodings, and `verify-usage.mjs --allow at-btn,at-btn-primary` to teach
 the checker your names.

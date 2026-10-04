@@ -270,6 +270,7 @@
   "strh": "stretch",
   "strk": "stroke",
   "sty": "style",
+  "summary": "summary (details/summary element-scoped token)",
   "success": "success",
   "svg": "svg",
   "sz": "size",

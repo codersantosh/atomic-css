@@ -55,26 +55,30 @@ first of them.
 joined string, so `.at-bg-cl` reads `--at-bg-cl`. The pattern is consistent but
 **not complete** — guessing is how you get a name that silently does nothing.
 
+Two conventions that are not guessable from the pattern:
+
+- **State variants use a double dash**, and nothing else does:
+  `--at-primary--hover`, `--at-danger--active`.
+- **Private component tokens are yours to invent.** `--at-btn-*`, `--at-card-*`
+  need no legend entry and ship in no bundle. The legend is the *framework's*
+  vocabulary, not a registry you apply to for permission to name your own
+  components.
+
 ### Where the legend is
 
 **The legend is inside this skill.** It is the `legend` key of the generated
-reference, all 318 entries, byte-identical to the framework's `short-names.json`
-— look one up with the recipe at the top of this file, or count them:
+reference, all 319 entries — look one up with the recipe at the top of this file,
+or count them:
 
 ```bash
 node -p "Object.keys(require('./generated/CLASS-REFERENCE.json').legend).length"
 ```
 
 There is deliberately **no second copy** in this folder. A hand-maintained copy of
-318 entries would drift from the generated one, nothing would catch it, and an
+319 entries would drift from the generated one, nothing would catch it, and an
 agent reading the stale copy would hit a token check that fails for no stated
-reason. `short-names.json` exists in the framework repo and ships in the npm
-tarball for tooling that needs the raw file — this skill does not, because it
-carries the same data in a form it can regenerate and gate.
-
-To add a token, change `short-names.json` and re-run `npm run docs`. CI asserts
-the count against the generated reference, so a stale legend fails the build
-rather than shipping.
+reason. The legend reaches you this way because it travels with the generated
+data rather than beside it.
 
 ## Breakpoints
 
@@ -138,7 +142,7 @@ Every column family takes a breakpoint infix: `.at-col-sm-6`, `.at-col-md-4`,
 spans (12 × 6 breakpoints) + 6 equal-share + 6 `2m3` + 6 `auto` + 6 `cust` +
 2 containers + the row, the gutter cancel and the three gap classes.
 
-`.at-col` (the equal-share family) is the one worth knowing: for a row where you
+`.at-col` (the equal-share family) is the default: for a row where you
 do not want to do the division yourself, `.at-col-sm-3 .at-col-md-2` gives three
 equal columns on small screens and two from `md` up, with no span arithmetic.
 
@@ -368,10 +372,8 @@ utility falls back to `initial`. The exceptions that matter:
 | `--at-vrt-w` | `20%` |
 | `--at-gap` | `0px` in grid columns, `15px` in `.at-vrt` |
 
-You also legitimately own tokens the reference does **not** list, because it
-only covers variables the bundles read — the button palette (`--at-primary`,
-`--at-primary--hover`, `--at-white`, `--at-black`, `--at-base-color`,
-`--at-body-color`, `--at-quaternary`) is yours to declare. `verify-usage.mjs`
-warns rather than fails on those.
-
-State variants use a double dash and nothing else does: `--at-primary--hover`.
+This table is the framework's channels only. The tokens *you* declare — the
+palette, the scale, anything a component owns — are yours, and this reference
+does not list them by design; `verify-usage.mjs` warns rather than fails on those.
+The full picture is one section:
+[Global tokens](patterns.md#global-tokens).

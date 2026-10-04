@@ -1,6 +1,6 @@
 ---
 name: atomic-css
-description: Apply the atomic-css utility framework — `.at-*` classes that read `--at-*` CSS variables, with a Flexbox grid, mobile-first breakpoint infixes, RTL variants and a WordPress template bundle. Use when writing or reviewing markup/CSS in a project that links an atomic-css bundle, when choosing between the minimal and max bundles, when theming with `--at-*` variables or a dark mode, or when a `.at-*` class "does nothing". Not for changing the framework itself — that is the framework repo's own AGENTS.md, which is not part of this skill.
+description: Apply the atomic-css utility framework — `.at-*` classes that read `--at-*` CSS variables, with a Flexbox grid, mobile-first breakpoint infixes, RTL variants and a WordPress template bundle. Use when writing or reviewing markup/CSS in a project that links an atomic-css bundle, when choosing between the minimal and max bundles, when theming with `--at-*` variables or a dark mode, or when a `.at-*` class "does nothing". Not for changing the framework itself — that is repo work, governed by the framework repo's own agent notes, which are not part of this skill.
 ---
 
 # atomic-css (consumer)
@@ -15,30 +15,50 @@ its value. **Neither works alone.**
 
 `initial` is the deliberate fallback for almost every utility, so the framework
 imposes nothing until you set a variable. **If a utility "does nothing", you have
-not set its variable.** That is the single most common consumer mistake.
+not set its variable.**
+
+## What this framework is for
+
+It ships a Flexbox grid and 616 classes that between them
+apply **102 distinct CSS properties**. Three tiers, and the middle one is a
+judgement call — getting tier 2 wrong in either direction is the common mistake.
+
+1. **Layout: the grid and flex vocabulary, always.** `.at-ctnr` → `.at-row` →
+   `.at-col-{1..12}`, plus `at-col-auto`, `at-col-cust`, `at-col-2m3`,
+   `at-no-gtr` and the flex, align and justify families. This holds in
+   hand-written HTML, in React and in any JS framework, because a dashboard's
+   layout is exactly where a second source of truth costs you — 104 grid classes
+   cover spans, equal-share, `2m3`, `auto`, `cust`, containers and gutters. Never
+   hand-roll `flex: 0 0 50%`, `width: 33%`, or a new breakpoint.
+2. **Everything else: raw property or utility class, per property.**
+   **A property?** 102 are already applied by some class, and whether you should
+   use one is tier 2's question, not a lookup's. Look the name up to see whether
+   a class exists at all; when none does, raw CSS is the *correct* answer — that
+   is a finding about the framework, not a mistake. The test is whether the value
+   has a **second writer** — a theme, a state, a second variant, a per-instance
+   computed value, or a generator. Second writer → class plus variable. One
+   source, written once → write the property. A token with nothing to re-point it
+   is a wrapper around a constant.
+3. **Generated markup: the pair is mandatory.** A block builder or a Gutenberg
+   control writes a per-instance value, and a generated `style` attribute is an
+   inline style that a `style-src` policy drops silently. The token is the one
+   seam it writes through.
+
+Both halves of tier 2 and the arm rule are stated once, with the full table, in
+[patterns.md](references/patterns.md#one-source-one-declaration-when-a-token-is-not-warranted).
 
 ## Look before you write CSS
 
-The framework already ships a Flexbox grid and 616 classes that between them
-apply **102 distinct CSS properties**. Reusing those is the whole point; a second
-declaration of the same property is not a style choice, it is a second source of
-truth that will drift. Settle each question in this order:
-
-1. **Layout?** `.at-ctnr` → `.at-row` → `.at-col-6`, and stop there: the 104 grid
-   classes cover spans, equal-share, `2m3`, `auto`, `cust`, the containers and the
-   gutters — [classes.md](references/classes.md#grid-104-classes). Do not
-   hand-roll `flex: 0 0 50%`, `width: 33%`, or a new breakpoint.
-2. **A property?** 102 are already applied by some class. Look it up rather
-   than writing the declaration. When the lookup comes back empty, raw CSS is
-   the *correct* answer — that is a finding about the framework, not a mistake.
-3. **A component?** None ship — it is yours. But the encoding depends on the
-   shape: a design that **repeats with variants** (a button, a card) gets one
-   self-sufficient identity class reading a private `--<prefix>-*` namespace,
-   and the markup carries only identity + variant. A design that is **unique**
-   (a brand name, a logo) seeds the channels and puts the reader classes on the
-   element. In a **block / site builder** the seed-only shape is mandatory,
-   because block CSS is emitted per block and cannot lean on a global sheet; for
-   normal HTML or React it applies one level up, in the global layer. See
+1. **Layout?** Tier 1 above — reach for the grid before writing any layout CSS.
+2. **A property?** Tier 2's test, above.
+3. **A component?** None ship — it is yours. The encoding follows the shape: a
+   design that **repeats with variants** (a button, a card) gets one
+   self-sufficient identity class reading a private `--<prefix>-*` namespace, and
+   the markup carries only identity + variant. A design that is **unique** (a
+   brand name, a logo) has one source, so the class writes the properties
+   directly and the markup names nothing else — the class is what outranks a host
+   stylesheet, not a utility. **Generated markup** is the third shape and takes
+   the seed, because the generator needs a channel to write through. See
    [references/patterns.md](references/patterns.md).
 4. **Can you put a class on the element?** If the element is yours, use the
    utility. If it is host markup you do not control — a CMS admin screen, a
@@ -101,10 +121,10 @@ Only the rules a lookup cannot return. Everything else is one file away:
 [references/classes.md](references/classes.md) for the tables,
 [patterns.md](references/patterns.md) for how to design with them.
 
-- **Only three defaults exist**: `--at-ctnr 1140px`, `--at-ctnr-min 1100px`,
-  `--at-gtr 15px`. Everything else falls back to `initial` (inert) or a keyword,
-  and **no bundle ships `:root` variables** —
-  [classes.md#variables-93-read-by-the-bundles](references/classes.md#variables-93-read-by-the-bundles).
+- **You declare every global token; no bundle ships `:root`.** Only three carry
+  direct fallbacks — `--at-ctnr 1140px`, `--at-ctnr-min 1100px`, `--at-gtr 15px`;
+  everything else falls back to `initial` (inert) or a keyword —
+  [patterns.md#global-tokens](references/patterns.md#global-tokens).
 - **Breakpoints**: `sm 576`, `md 768`, `lg 992`, `xl 1200`, `xxl 1400`,
   `min-width` only. There is **no `xs`** —
   [classes.md#breakpoints](references/classes.md#breakpoints).
@@ -121,9 +141,10 @@ Only the rules a lookup cannot return. Everything else is one file away:
   [classes.md#the-2m3-fifths-ladder](references/classes.md#the-2m3-fifths-ladder).
 - **Seeded reads** only declare a variable — they do nothing alone —
   [classes.md#seeded-reads-7](references/classes.md#seeded-reads-7).
-- **A property that changes goes through a variable.** Colour mode, media query
-  and state arms re-point the token; they never restate the property —
-  [patterns.md#properties-change-rule](references/patterns.md#properties-change-rule).
+- **A token needs a second writer.** A theme, a state, a second variant, a
+  per-instance value or a generator → class + variable. One source, written once
+  → write the property. Arms re-point the token and never restate it —
+  [patterns.md](references/patterns.md#one-source-one-declaration-when-a-token-is-not-warranted).
 - **One bundle**: max is a strict superset of minimal. Never link both; never
   link the template — [setup.md#what-you-get](references/setup.md#what-you-get).
 
@@ -137,18 +158,20 @@ Verify any name you have not seen before in
 | `npm install atomic-css` | `github:codersantosh/atomic-css#2.0.0` |
 | Link minimal **and** max | Link one: max only if you need `at-ord-*` / `at-ofst-*` / `at-prt-*` |
 | Link `atomic-template.css` | Transform it into your own build (breakpoints + `%%IMPORTANT%%`) |
-| Write `padding: 24px` where `at-p` exists, or set `--at-p` **and** write `padding:` | Set `--at-p`; the class applies the property |
+| Seed `--at-p` **and** write `padding:` in the same rule | Set `--at-p` alone; the class applies the property |
+| Reach for `at-p` to write one fixed `padding` that nothing varies | Write `padding` in your own rule — one source, one declaration |
 | Hand-roll a layout (`flex: 0 0 50%`, `width: 33%`, a new breakpoint) | `.at-row` + `.at-col-md-6` — 104 grid classes cover it |
 | Assume `at-p` means `1rem` | Read the fallback column; `initial` means inert |
 | Invent `at-mt-4`, `at-flex-md-row`, `at-xs-col-6` | Look the name up; a wrong name fails silently |
-| Seed a token only inside `:hover` / `:focus` / a media block | Declare the resting value too — custom properties inherit, so the arm alone leaves the normal state inherited |
+| Seed a token only inside `:hover` / `:focus` / a media block | Declare the resting value too — the arm alone leaves the normal state inherited |
 | Restate a property inside a `@media`, `[data-at-theme]` or `:hover` arm | Re-point the token; the property is written once, at the resting rule |
-| Route a component's own measurement through the shared `--at-gap` | Use a private `--<prefix>-*` value; a shared token leaks to every descendant |
-| Use `--at-x: unset` to clear an inherited token | It computes to `inherit`; use `initial`, which yields the guaranteed-invalid value |
+| Route a component's own measurement through the shared `--at-gap` | Use a private `--<prefix>-*` value |
+| Use `--at-x: unset` to clear an inherited token | It computes to `inherit`; use `initial` |
 | Override a utility with `!important` | Redefine the variable; bundles carry **zero** `!important` |
-| Read a bare `var(--at-ctnr)` in your CSS | The framework declares no `:root`; use `var(--at-ctnr, 1140px)` or declare it |
+| Read a bare `var(--at-ctnr)` in your CSS | Use `var(--at-ctnr, 1140px)` or declare the token |
 | Put `left`/`right` inside a variable value | rtlcss mirrors declarations, not `var()` contents |
 | Expect `.at-txt` / `.at-btn-*` to exist | They are **yours**; no bundle defines them |
+| Write a generated instance's value as a `style` attribute | Seed a token and let the applier apply it — inline styles need `unsafe-inline` |
 | Expect `.at-img`, `.at-vid`, `.at-aud`, `.at-map` | Removed in 2.0 — declare `img` defaults yourself |
 
 ## Before / after
@@ -169,8 +192,17 @@ Verify any name you have not seen before in
 [data-at-theme='dark'] { --at-cl: #fff; --at-bg-cl: #161616; }
 ```
 
-The same rule for a component: values in the rule, properties applied by the
-classes in the markup — a worked shell in
+```css
+/* ✗ a token around a constant — nothing re-points it, so it is a wrapper */
+/*    (this is what a static hero title should NOT look like) */
+.hero-title { --at-fnt-sz: 72px; --at-cl: #fff; }
+
+/* ✓ one source, one declaration; the class still outranks an h1 rule */
+.hero-title { font-size: 72px; color: #fff; }
+```
+
+For a component that *does* vary, the values sit in the rule and the classes in
+the markup apply them — a worked shell in
 [patterns.md](references/patterns.md#which-classes-read-a-channel-and-which-do-not),
 and the consumer contract, element defaults, the `.at-btn` contract and dark
 mode in [patterns.md](references/patterns.md).
@@ -185,6 +217,9 @@ Then confirm by hand:
 
 - [ ] Every `.at-*` class you used exists in `generated/CLASS-REFERENCE.json`; every non-framework name is a class **you** define.
 - [ ] Every utility you applied has its variable set — no unexplained inert rules.
+- [ ] Every `--at-*` token you seeded has a second writer — a theme, a state, a variant, a per-instance value or a generator. Any without one is a raw property.
+- [ ] No property is written twice: the rule that styles it and an arm never both declare it.
+- [ ] Layout is the grid and flex vocabulary; nothing hand-rolls a span, a gutter or a breakpoint.
 - [ ] Exactly one bundle is linked; no `%%` markers survive; the template was never linked directly.
 - [ ] Theming sets variables only; global element defaults are **raw properties** on the element — never a `--at-*` seed on a bare element, which would set that token for its whole subtree.
 - [ ] Infix position matches the family (middle, or first for display).
@@ -217,13 +252,10 @@ several fail silently. See [production.md](references/production.md):
 - **CSP** — the inline-variable idiom is an inline style, blocked by
   `style-src` without `unsafe-inline`.
 
-In the framework package (not in this folder), for the framework's own docs:
-
-- `README.md` — install, bundle detail, the full button contract, WordPress.
-- `short-names.json` — the same 318 legend entries, the source the generated
-  `legend` key is built from.
-- `ARCHITECTURE.md` — the rules the framework follows, for when you need to know
-  why rather than what.
+This folder is self-contained: every rule you need is in `SKILL.md` or
+`references/`, and every name resolves against `generated/`. The one thing it
+cannot carry is the stylesheet itself — that is a separate install, owned by
+[setup.md](references/setup.md).
 
 Everything from `SKILL.md` down to `references/` is hand-written; everything in
 `generated/` is generated. Know which one you are editing.

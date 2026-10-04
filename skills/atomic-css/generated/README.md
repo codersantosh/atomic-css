@@ -18,15 +18,16 @@ If a name is missing or wrong, the fix belongs in one of these, never here:
 
 | Symptom | Fix in |
 | --- | --- |
-| A class does not exist but should | the framework's SCSS source, then rebuild |
-| An abbreviation is undocumented | the `short-names.json` legend |
-| A variable's fallback is wrong | the SCSS `var()` at the use site |
 | The description is unclear | [`../references/classes.md`](../references/classes.md) or [`../SKILL.md`](../SKILL.md) |
+| A class does not exist but should | the framework's SCSS source, then rebuild |
+| An abbreviation is undocumented | the framework's legend, in its repo |
+| A variable's fallback is wrong | the SCSS `var()` at the use site |
 | A `2m3` ladder term is wrong | the reference generator's expected-term list |
 
-Two of those are framework-internal and have no path here on purpose: this file
-ships inside the package, so a consumer holding it cannot act on them. They are
-listed for whoever generated the file in a checkout of the repository.
+The top row is the only one a consumer can act on alone — and the fix is in this
+skill, not here. The rest are framework-repo side, listed for whoever regenerates
+the file: this one travels inside the package, so a consumer has no way to reach
+them, and nothing here should send them looking.
 
 The rest of this skill folder is the opposite: hand-written, reviewed prose, and
 [`../references/classes.md`](../references/classes.md) is the readable layer over

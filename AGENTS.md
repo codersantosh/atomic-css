@@ -23,7 +23,7 @@ bundle).
 ## 3. Documentation map
 - `skills/atomic-css/` — the agent-facing contract: `SKILL.md` plus `references/` and a runnable class/variable checker. Ships in the package. Every `.at-*` and `--at-*` it names is held to the same existence check as `README.md`, so it cannot drift from the bundles.
 - `skills/atomic-css/generated/CLASS-REFERENCE.json` — generated class, variable and token inventory, the data behind `references/classes.md` (see the folder README: do not hand-edit).
-- `README.md` — human-facing install, bundles, button contract, WordPress.
+- `README.md` — human-facing: what the framework is and how the CSS is generated, when to use what, install, bundles, button contract, WordPress.
 - ARCHITECTURE.md Part I is for changing the framework; Part II is the `demo/` consumer spec.
 
 
