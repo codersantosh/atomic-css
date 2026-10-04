@@ -342,6 +342,17 @@ defect only shows as a value that does not move.
    checker with `--allow`, so their absence from the reference is a decision
    rather than a warning you learn to ignore.
 
+7. **A custom property is for a value that has variants.** The variants that
+   justify one are the button family (`--at-btn-*`), the colour and accent
+   schemes, the media-query and `data-at-theme` arms, and the user-action states
+   (`:hover`, `[aria-current="page"]`, `[disabled]`). A token seeded once and
+   read once or twice, with no arm that re-points it, is a value in a wrapper and
+   it inlines. A token read by many rules is a named step rather than a variant,
+   and it stays — restating one number in twenty rules is the same defect as
+   stating a property in two places, which is rule 4. See
+   [Five decisions the framework leaves to you](#five-decisions-the-framework-leaves-to-you)
+   for the scale convention this follows from.
+
 One consequence of rule 3 worth stating: a repeating identity class that owns
 its properties is *load-bearing*. A page that forgets your stylesheet loses the
 box while the variables still resolve. That is the cost of making the class
@@ -543,7 +554,7 @@ than a consistent one.
   host stylesheet (a CMS admin theme, a UI kit) sets colour on the same elements
   and a restatement is the only way to out-specify it. The palette still lives
   in your tokens; the exception governs the *property*, not the colour.
-- **Media and state arms.** In a `prefers-color-scheme` or `[data-theme]` arm you
+- **Media and state arms.** In a `prefers-color-scheme` or `[data-at-theme]` arm you
   may restate the property, because redefining the variable there would state
   the same fact in a second rule. Dark arms written as raw properties are
   intentional, not an oversight. If the arm instead *seeds* a token, it is
@@ -683,6 +694,14 @@ the framework's channels, and the markup carries the classes that apply them.
 
 Here the missing stylesheet is loudly broken rather than quietly wrong, which
 is the trade rule 3 makes on purpose.
+
+In a **block / site builder** this shape is mandatory rather than preferred,
+because the block's CSS is emitted per block and cannot lean on a global sheet
+being loaded. For normal HTML, hand-written markup or React, the same rule
+applies one level up: follow it in the **global** layer, and drive colour-mode
+changes, media-query changes and user-action states — opening a panel, a pressed
+toggle — through your own custom properties, exactly as the button family does.
+The architecture side of that split is in `ARCHITECTURE.md` § Per-block output.
 
 ### Naming the private namespace
 

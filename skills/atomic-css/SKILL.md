@@ -36,7 +36,10 @@ truth that will drift. Settle each question in this order:
    self-sufficient identity class reading a private `--<prefix>-*` namespace,
    and the markup carries only identity + variant. A design that is **unique**
    (a brand name, a logo) seeds the channels and puts the reader classes on the
-   element. See [references/patterns.md](references/patterns.md).
+   element. In a **block / site builder** the seed-only shape is mandatory,
+   because block CSS is emitted per block and cannot lean on a global sheet; for
+   normal HTML or React it applies one level up, in the global layer. See
+   [references/patterns.md](references/patterns.md).
 4. **Can you put a class on the element?** If the element is yours, use the
    utility. If it is host markup you do not control — a CMS admin screen, a
    third-party widget — a raw property is the right tool there. That is one of
@@ -134,6 +137,7 @@ Verify any name you have not seen before in
 | Link minimal **and** max | Link one: max only if you need `at-ord-*` / `at-ofst-*` / `at-prt-*` |
 | Link `atomic-template.css` | Transform it into your own build (breakpoints + `%%IMPORTANT%%`) |
 | Write `padding: 24px` where `at-p` exists | Set `--at-p`; the class applies the property |
+| Seed a `--at-*` token for a value with no variants | Justify it first — button family, colour scheme, a media or `data-at-theme` arm, or a user-action state |
 | Hand-roll a layout (`flex: 0 0 50%`, `width: 33%`, a new breakpoint) | `.at-row` + `.at-col-md-6` — 104 grid classes already cover it |
 | Set `--at-p` **and** write `padding:` in the same rule | The property is dead — the class already applies it; set the variable only |
 | Carry eight classes on every button instance | Let a repeating identity class own its box; markup carries identity + variant |
@@ -185,10 +189,10 @@ Verify any name you have not seen before in
 
 ```css
 /* ✗ theming by property — not composable, breaks every utility */
-[data-theme='dark'] .card { color: #fff; background: #161616; }
+[data-at-theme='dark'] .card { color: #fff; background: #161616; }
 
 /* ✓ theming by variable — every utility follows, no class changes */
-[data-theme='dark'] { --at-cl: #fff; --at-bg-cl: #161616; }
+[data-at-theme='dark'] { --at-cl: #fff; --at-bg-cl: #161616; }
 ```
 
 Longer, real patterns — the consumer contract, the zero-specificity base

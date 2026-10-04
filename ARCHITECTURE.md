@@ -315,6 +315,7 @@ Example — color variant and its state:
 - Per-block CSS emits **scoped custom-property values only**, consumed by `at-*` utilities.
 - A generated block class must **redeclare every custom property it uses in every state/device block** — do not carry values forward.
 - **One class, one owner:** a class is either a Core identity class, an `atomic-css` utility, a Core variant class, or a Consumer block class — never two owners.
+- A block / site-builder identity class **seeds `--at-*` channels and declares no raw properties**; the block's markup carries the utilities that apply them. Block CSS is emitted per block, so it cannot lean on a global sheet being loaded. The reasoning is a consumer-facing one, so it is stated once for consumers in `skills/atomic-css/references/patterns.md`.
 - **Demo HTML only uses classes present in the bundle it links** (`index.html` links `css-max/atomic-max.css`).
 
 ### Reference-consumer checklist (mirrors ATRC's generator checklist)

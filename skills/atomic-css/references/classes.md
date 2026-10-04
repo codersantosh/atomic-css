@@ -97,6 +97,14 @@ Reach for these before writing any layout CSS. Hand-rolled percentage widths,
 declaration of a property a class already applies is a second source of truth
 that will drift.
 
+The layout vocabulary is the framework's and is not re-invented: a column's
+basis, max-width and gutter padding are computed by the bundle as a scale (the
+`calc()` and gutter maths further down this section), so writing them by hand
+puts a measurement where a scale step belongs and a second opinion in the
+cascade. Colour utilities beyond the framework pair are yours, in your own
+namespace, the same way `at-btn-*` is — see
+[the consumer contract](patterns.md#the-consumer-contract).
+
 | Class | Does |
 | --- | --- |
 | `.at-ctnr` | Centred, `max-width: var(--at-ctnr, 1140px)` |
