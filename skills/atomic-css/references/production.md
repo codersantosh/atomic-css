@@ -365,6 +365,25 @@ repaint on every caret blink). Neither is a default to reach for casually.
 There is no `will-change` class — an empty lookup there means raw CSS is the
 correct answer.
 
+**Reserve the box before the image arrives.** Layout shift is the performance
+failure users feel, and an unsized `<img>` or `<iframe>` is the usual cause: the
+browser reflows when the asset lands. Give the element a size up front.
+
+```html
+<!-- intrinsic size in the attributes, so the box is reserved during load -->
+<img src="/img/hero.jpg" width="1200" height="675" class="at-ovf" alt="…">
+```
+
+The attributes are the mechanism: they are the only form that reserves space
+*before* the stylesheet resolves. `.at-w` and `.at-h` set a size once CSS is in,
+so they help the second paint, not the first — the bundle ships no "full" or
+"auto" variant of either, only the token read. For a container holding something
+other than media, `aspect-ratio` does the same job.
+
+For a background image there is no attribute to set, so reserve the box through a
+declaration that resolves on first paint — a `min-height` on the element itself,
+never an `aspect-ratio` derived from an image size the browser does not have yet.
+
 ### DOM depth
 
 Every element in the tree is work: style resolution, layout, then paint. Depth

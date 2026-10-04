@@ -257,10 +257,9 @@ bare will not resolve: write `var(--at-ctnr, 1140px)` or declare the token.
   `.at-bg-cl` / `--at-bg-cl`.
 - **State variants use a double dash** and nothing else does:
   `--at-primary--hover`, `--at-danger--active`.
-- **Every segment must exist in the legend.** Look it up before using it; extend
-  the legend in the same change if it is genuinely new.
-- **Private tokens are yours to invent.** `--at-btn-*`, `--at-card-*` need no
-  legend entry and ship in no bundle.
+- **Every segment must exist in the legend** — but the legend is the
+  *framework's* vocabulary. Tokens in your own namespace need no entry at all, and
+  you never extend the legend for them: [naming grammar](classes.md#naming-grammar).
 - **A relative `url()` in a seeded image token resolves against the bundle that
   reads it**, not the document: `--at-bg-img` and `--at-msk-img` are read by
   `.at-bg-img` / `.at-msk` in the bundle. Use root-relative paths. The token applies and the image is simply missing when you
@@ -950,6 +949,25 @@ property in one of those is the defect [arms and resting
 values](#arms-and-resting-values) exists to prevent: it states the same fact twice,
 so the two copies drift, and the arm wins or loses on source order rather than
 on intent. Re-point the token instead.
+
+**`@supports` and `:has()` are also raw CSS.** A class name cannot be
+feature-detected, so neither has a utility form: the bundle ships no `@supports`
+class and no `:has()` selector, and writing one yourself is the correct answer
+rather than a workaround.
+
+```css
+/* Guard a progressive enhancement. The feature query decides, not a class. */
+@supports (container-type: inline-size) {
+  .card { container-type: inline-size; }
+}
+
+/* Select on structure the markup already has. */
+.card:has(> img) { --at-m: 0; }
+```
+
+Both wrap or extend *your* rules. Neither replaces one: if the feature is missing,
+the base rule still applies — which is the point of guarding rather than branching
+on a class.
 
 ## Write the prefix literally
 
