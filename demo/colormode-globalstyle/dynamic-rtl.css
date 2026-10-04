@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --at-ctnr: 1140px;
   --at-ctnr-min: 1100px;
@@ -234,11 +235,6 @@ article header div span {
   gap: 5px;
 }
 
-details {
-  -webkit-transition: all 0.5s ease-in-out 0s;
-  transition: all 0.5s ease-in-out 0s;
-}
-
 details:not(:last-of-type) {
   margin: 0 0 15px 0;
 }
@@ -256,13 +252,13 @@ details summary {
 }
 
 details summary svg {
-  -webkit-transition: all 0.5s ease-in-out 0s;
-  transition: all 0.5s ease-in-out 0s;
-}
-
-details[open] {
-  -webkit-transition: all 0.5s ease-in-out 0s;
-  transition: all 0.5s ease-in-out 0s;
+  /* Named property, not the `all` shorthand: `transition: all` also animates
+     every layout-triggering property that happens to change. The token exists
+     because the duration has a second writer — the motion preference below. */
+  -webkit-transition: -webkit-transform var(--at-demo-trs, 0.5s ease-in-out 0s);
+  transition: -webkit-transform var(--at-demo-trs, 0.5s ease-in-out 0s);
+  transition: transform var(--at-demo-trs, 0.5s ease-in-out 0s);
+  transition: transform var(--at-demo-trs, 0.5s ease-in-out 0s), -webkit-transform var(--at-demo-trs, 0.5s ease-in-out 0s);
 }
 
 details[open] summary svg {
@@ -271,6 +267,13 @@ details[open] summary svg {
           transform: rotate(-180deg);
 }
 
+/* WCAG 2.2 §2.3.3 — the same gate the skill documents for `.at-trs`, applied to
+   this page's own transition token. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --at-demo-trs: 0s;
+  }
+}
 .at-sec-1 {
   --at-bg-cl: #ececec;
   padding: 40px 0;
@@ -372,8 +375,7 @@ details[open] summary svg {
   border-color: var(--at-bdr-cl, #ddd);
 }
 .at-nav-tabs .at-nav-lnk {
-  --at-m: calc(-1 * var(--at-bdr-w, 1px));
-  margin: var(--at-m, -1px);
+  margin: calc(-1 * var(--at-bdr-w, 1px));
 }
 .at-nav-tabs-fill {
   border-color: #0d6efd;

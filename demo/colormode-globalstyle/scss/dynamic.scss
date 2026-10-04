@@ -124,10 +124,6 @@ article header div span {
     gap: 5px;
 }
 
-details {
-    transition: all 0.5s ease-in-out 0s;
-}
-
 details:not(:last-of-type) {
     margin: 0 0 15px 0;
 }
@@ -148,15 +144,22 @@ details summary {
 }
 
 details summary svg {
-    transition: all 0.5s ease-in-out 0s;
-}
-
-details[open] {
-    transition: all 0.5s ease-in-out 0s;
+    /* Named property, not the `all` shorthand: `transition: all` also animates
+       every layout-triggering property that happens to change. The token exists
+       because the duration has a second writer — the motion preference below. */
+    transition: transform var(--at-demo-trs, 0.5s ease-in-out 0s);
 }
 
 details[open] summary svg {
     transform: rotate(180deg);
+}
+
+/* WCAG 2.2 §2.3.3 — the same gate the skill documents for `.at-trs`, applied to
+   this page's own transition token. */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --at-demo-trs: 0s;
+    }
 }
 
 //Global CSS : Applied to only HTML of Atomic CSS excluding other global HTML
@@ -327,8 +330,11 @@ details[open] summary svg {
             border-color: var(--at-bdr-cl, #ddd);
                 .at-nav {
                     &-lnk {
-                        --at-m: calc(-1 * var(--at-bdr-w, 1px));
-                        margin: var(--at-m, calc(-1 * 1px));
+                        // One source, written once: a raw property, not a token.
+                        // `--at-m` here was seeded and read in the same rule with
+                        // no arm to re-point it, so the token was a wrapper
+                        // around a constant.
+                        margin: calc(-1 * var(--at-bdr-w, 1px));
                     }
                 }
 

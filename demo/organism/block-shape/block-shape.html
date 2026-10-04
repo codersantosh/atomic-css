@@ -47,7 +47,12 @@
            re-added the z-index the bundle deliberately withholds from a direct
            child carrying `at-z-idx`, so it undid the shipped rule. */
         .at-z-top {
-            z-index: 99 !important;
+            /* No `!important`: nothing competes for this z-index. The bundle's
+               `.at-blk-shp > :not(.at-shp)` rule excludes an element carrying
+               `.at-shp`, and `--at-z-idx` is only seeded here, never read — this
+               element has no `.at-z-idx`. Equal specificity, and this <style>
+               follows the bundle link, so source order decides. */
+            z-index: 99;
         }
 
         .at-shp-flip-vrt {
