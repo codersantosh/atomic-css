@@ -44,6 +44,18 @@ const PROSE = ['README.md'];
 // Hand-written agent-facing files, read from disk. They are shipped, so their
 // references have to resolve in the tarball too, and every `.at-*` / `--at-*`
 // name they mention must exist in a bundle.
+
+/**
+ * A channel resolves to nothing when the class reads it with an `initial`
+ * fallback and nothing seeds it. A read with **no** fallback is the opposite
+ * case: the property is invalid at computed-value time and therefore inherits,
+ * which is exactly what `.at-svg { fill: var(--at-cl) }` relies on.
+ */
+function isInertFallback(token) {
+    const f = refVars.get(token)?.fallback;
+    return f === undefined || f === null || f === '' || f === 'initial';
+}
+
 const AGENT_DOCS = ['skills/atomic-css/SKILL.md',
     'skills/atomic-css/references/classes.md',
     'skills/atomic-css/references/setup.md',
@@ -263,6 +275,7 @@ function collapseProps(decls) {
 function emptyRecord() {
     return {
         reads: new Set(),
+        noFallback: new Set(),
         seeds: new Set(),
         props: new Set(),
         media: new Set(),
@@ -285,12 +298,19 @@ function scan(relFile) {
         rule.walkDecls((d) => decls.push(d));
         const props = collapseProps(decls);
         const reads = new Set();
+        const noFallback = new Set();
         const seeds = new Set();
         let impDecls = 0;
         let plainDecls = 0;
         for (const d of decls) {
             if (d.prop.startsWith('--at-')) seeds.add(d.prop);
-            readAtVars(d.value).forEach((v) => reads.add(v.name));
+            for (const v of readAtVars(d.value)) {
+                reads.add(v.name);
+                // No fallback means the property is invalid at computed-value
+                // time and therefore *inherits* — a real, meaningful state, not
+                // an inert one. `.at-svg { fill: var(--at-cl) }` is the case.
+                if (v.fallback === null || v.fallback === undefined) noFallback.add(v.name);
+            }
             if (d.important) impDecls += 1;
             else plainDecls += 1;
         }
@@ -300,6 +320,7 @@ function scan(relFile) {
             const rec = map.get(name);
             props.forEach((p) => rec.props.add(p));
             reads.forEach((v) => rec.reads.add(v));
+            noFallback.forEach((v) => rec.noFallback.add(v));
             seeds.forEach((v) => rec.seeds.add(v));
             if (width) rec.media.add(width);
             rec.impDecls += impDecls;
@@ -685,6 +706,17 @@ byKind.get('property').filter((c) => c.reads.length === 0).forEach((c) => {
 // is scanned, fenced code blocks included, because that is where a usage guide
 // actually names classes.
 const knownClasses = new Set(classes.map((c) => c.name));
+/** Classes that read a channel, and the channels they seed themselves. */
+const classReads = new Map(classes.map((c) => [c.name, c.reads || []]));
+// Derived from the scan records rather than the published JSON, so the shipped
+// reference schema stays exactly as documented.
+const classNoFallback = new Map();
+for (const [name, rec] of bundles.minimal) classNoFallback.set(name, rec.noFallback);
+for (const [name, rec] of bundles.max) {
+    if (!classNoFallback.has(name)) classNoFallback.set(name, rec.noFallback);
+}
+const classSeeds = new Map(classes.map((c) => [c.name, c.seeds || []]));
+const refVars = new Map(variables.map((v) => [v.name, v]));
 const knownVars = new Set(variables.map((v) => v.name));
 const legendCovers = (varName) => tokensOf(varName.replace(/^--at-?/, '')).every((t) => t in legend);
 
@@ -964,6 +996,60 @@ const STATE_PSEUDO = /:(hover|focus|focus-visible|focus-within|active)\b/;
 
 /** Selectors whose base supplies the token legitimately, by design. */
 const STATE_ARM_EXEMPT = new Set(['.at-ctnr']);
+
+/**
+ * An example that demonstrates nothing.
+ *
+ * 165 of the 616 shipped classes read a `--at-*` channel, and a read whose
+ * fallback is `initial` resolves to `initial` when nothing seeds it — the class
+ * applies, the declaration is valid, and the property never moves. A worked
+ * example built only from such classes teaches a technique that silently does
+ * nothing: seven real class names, all resolving, all inert.
+ *
+ * `checkLinks` cannot see this. It proves a name *exists*; nothing proved the
+ * example *does* anything, which is how an inert skip link shipped.
+ *
+ * Seeds are taken from the block itself and from the css block immediately
+ * before it, since the common shape is a stylesheet example followed by the
+ * markup that applies it.
+ */
+function checkInertExamples(owner, content) {
+    const blocks = [...content.matchAll(/```(css|html)\n([\s\S]*?)```/g)];
+    const seedsIn = (blk) => new Set([...blk.matchAll(/(--at-[\w-]+)\s*:/g)].map((m) => m[1]));
+    blocks.forEach((b, i) => {
+        const blk = b[2];
+        const used = new Set(
+            [...blk.matchAll(/(?<![\w-])\.?(at-[a-z0-9]+(?:[-_][a-z0-9]+)*)/g)]
+                .map((m) => m[1])
+                .filter((n) => classReads.get(n)));
+        if (!used.size) return;
+        // Tokens this block seeds, plus what the framework classes it uses seed
+        // themselves (`.at-shp` seeds `--at-w`), plus the preceding css block.
+        const seeded = seedsIn(blk);
+        for (const n of used) for (const t of classSeeds.get(n) || []) seeded.add(t);
+        const prev = blocks[i - 1];
+        if (prev && prev[1] === 'css') {
+            const gap = content.slice(prev.index + prev[0].length, b.index)
+                .split('\n').filter((l) => l.trim()).length;
+            if (gap <= 2) for (const t of seedsIn(prev[2])) seeded.add(t);
+        }
+        const readers = [...used].filter((n) => classReads.get(n).length);
+        if (!readers.length) return;
+        const live = readers.filter((n) => classReads.get(n)
+            .some((t) => seeded.has(t) || !isInertFallback(t)
+                || (classNoFallback.get(n) || new Set()).has(t)));
+        // Only the all-inert case is a defect: one working class is enough for
+        // the example to teach something.
+        if (live.length) return;
+        const line = content.slice(0, b.index).split('\n').length;
+        failures.push(
+            `${owner}:${line} is an example built only from inert classes — `
+            + `${[...used].sort().join(', ')} each read a channel this example never seeds, and every `
+            + 'one of those channels falls back to `initial`, so the example applies classes and moves '
+            + 'nothing. Seed the token, or write the properties the classes stand for.',
+        );
+    });
+}
 
 /** Fenced ```css blocks, so prose is never parsed as a selector. */
 function cssFences(content) {
@@ -1383,6 +1469,7 @@ for (const file of AGENT_DOCS) {
         checkCounts(file, content);
         checkElementSeeds(file, content);
         checkScaleSteps(file, content);
+        checkInertExamples(file, content);
         checkRedundantRoot(file, content);
         checkRowGap(file, content);
         checkStateArmSeeds(file, content, false);

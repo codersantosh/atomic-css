@@ -26,7 +26,8 @@
     "check:important": "node scripts/check-important.js",
     "check:docs": "npm run docs:check",
     "verify": "npm run check:parity && npm run check:names && npm run check:vars && npm run check:important && npm run check:demo && npm run check:docs",
-    "check:demo": "node scripts/check-demo.js"
+    "check:demo": "node scripts/check-demo.js",
+    "check:checks": "node scripts/check-doc-checks.js"
   },
   "repository": {
     "type": "git",

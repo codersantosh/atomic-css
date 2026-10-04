@@ -292,7 +292,8 @@ define.
 
 ```html
 <!-- the size route, when targets sit close together -->
-<button class="at-btn at-min-h at-min-w at-al-itm-ctr">×</button>
+<button class="at-btn at-min-h at-min-w at-al-itm-ctr"
+        style="--at-min-h: 2rem; --at-min-w: 2rem">×</button>
 ```
 
 `.at-btn`'s own default padding is `6px 12px`, which clears 24px tall by
@@ -371,7 +372,7 @@ browser reflows when the asset lands. Give the element a size up front.
 
 ```html
 <!-- intrinsic size in the attributes, so the box is reserved during load -->
-<img src="/img/hero.jpg" width="1200" height="675" class="at-ovf" alt="…">
+<img src="/img/hero.jpg" width="1200" height="675" alt="…">
 ```
 
 The attributes are the mechanism: they are the only form that reserves space
@@ -396,8 +397,8 @@ already have can take it:
 
 ```html
 <!-- one node deeper, no visual difference -->
-<div class="at-p">Save</div>
-<button class="at-p">Save</button>
+<div>Save</div>
+<button>Save</button>
 ```
 
 When a new element is genuinely needed, make it **semantic** — `<header>`,
