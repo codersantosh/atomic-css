@@ -162,8 +162,9 @@ A small fixed set of **Properties-layer** classes is **structural**: the framewo
 
 The demo is the reference consumer: a working instance of every pattern a consumer
 follows, and the regression surface for the framework's own gates. The rules it
-obeys are the consumer contract, stated once for consumers in
-`skills/atomic-css/references/patterns.md`, which ships in the package. What
+obeys are stated once for consumers in
+`skills/atomic-css/references/patterns.md`, which ships in the package — that
+whole file is the contract, and it has no index of its own. What
 belongs to this repository is only:
 
 - **One identity class per block** — a framework utility, a Core identity class, a

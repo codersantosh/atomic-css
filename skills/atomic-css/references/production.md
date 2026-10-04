@@ -19,9 +19,10 @@ So a consumer who adopts `@layer framework, base, components` gets their base
 layer and their components silently ignored by every utility class. Worse, it
 fails in the *safe* direction: the page still renders, it just looks wrong.
 
-The framework's "layers" — Grid → Utilities → Properties — are a **source order**
-inside one stylesheet, not cascade layers. They cannot be `@layer`-ed and mean the
-same thing.
+The framework's "layers" are a **source order** inside one stylesheet, not cascade
+layers, and they cannot be `@layer`-ed to mean the same thing. The order and what
+breaks if you disturb it are in
+[setup.md](setup.md#load-order-is-load-bearing).
 
 If you need layers for coexistence with another framework, you own the
 translation: put the atomic bundles in a later layer than the other framework's
@@ -147,7 +148,7 @@ h1 { color: var(--at-h1-cl, #060606); }
 ```
 
 That is the same rule as
-[patterns.md](patterns.md#properties-change-rule) with an element selector in
+[patterns.md](patterns.md#arms-and-resting-values) with an element selector in
 place of a class: the property is written once, and every arm re-points the
 token. Budget for the token, or move the default onto a class.
 
@@ -193,23 +194,114 @@ its gutters, and the print classes cannot express that.
 
 ## Accessibility gaps the framework leaves you
 
-The design section of [patterns.md](patterns.md#how-to-design-with-this-framework)
-covers focus, motion and contrast. Three more:
+The framework ships no focus utility, no motion gate and no contrast check, so
+these are yours. Criteria are WCAG 2.2.
+
+**Focus visible (2.4.7, AA; 2.4.13, AAA).** `.at-outl` applies `outline` without
+ringing anything by itself. One rule, in the global layer, applies everywhere:
+
+```css
+:focus-visible { outline: 2px solid var(--at-cl); outline-offset: 2px; }
+/* The raw property applies it; the theme seeds --at-cl at :root. A :root prefix
+   here would add nothing — every focusable element is a descendant of <html>. */
+```
+
+The indicator is non-text, so it is also held to 3:1 against adjacent colours.
+
+**Focus not obscured (2.4.11, AA).** A focused control scrolled under `.at-stky`
+or `.at-vrt-hdr`, or opened beneath `.at-ovl`, is focused and invisible. Give the
+target room in the scroll container:
+
+```css
+/* the height your sticky header actually occupies */
+main :is(a, button, input, [tabindex]) { scroll-margin-block: 4rem; }
+```
+
+**Motion (2.3.3, AAA).** `.at-trs` applies `transition` unconditionally. Respect
+the preference:
+
+```css
+@media (prefers-reduced-motion: reduce) { * { --at-trs: none; } }
+/* Two classes read --at-trs — .at-trs, and .at-ovl's :after layer — so seeding
+   it at :root would still every overlay too. Gating on `*` scopes it to those two
+   and leaves host CSS alone. */
+```
+
+Seeding the channel overrides it for every descendant, so nothing animates
+without each element opting back in.
+
+**Contrast (1.4.3 text 4.5:1; 1.4.11 non-text 3:1).** `--at-cl` and `--at-bg-cl`
+apply whatever they are given; nothing checks the pair. Palette tokens like
+`--at-white` and `--at-primary` are just values — verify the foreground against
+the background you actually pair it with, including hover and disabled states.
+The two figures are not interchangeable: text is 4.5:1 (3:1 only at 24px, or
+18.66px bold), while borders, icons, focus rings and control edges are 3:1. So
+`--at-bdr-cl` is held to 3:1, and a `--at-bdr-cl: transparent` default passes only
+because there is no visible edge to fail.
 
 **Screen-reader-only text.** No utility provides it, and `.at-vis` is not a
 substitute — `visibility: hidden` takes the element out of the accessibility
-tree, which is the opposite of what you want. Build it from classes:
+tree, which is the opposite of what you want.
 
 ```html
-<span class="at-pos at-w at-h at-ovf at-clp-pth at-white-sp">label text</span>
+<span class="visually-hidden">label text</span>
 ```
+
+```css
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+```
+
+Every declaration is raw, and none of them is a token: no second writer ever
+supplies this box, so there is nothing to re-point. `.at-w`, `.at-h`, `.at-ovf`,
+`.at-clp-pth` and `.at-white-sp` are all seeded reads, and with nothing seeded
+they each compute to `initial` — that class list would leave the text visible on
+screen and read twice. The framework ships no class for this shape, so it is raw
+CSS.
+
+A skip link is the contrasting case, and the contrast is the rule: it *does*
+have a second writer in `:focus`, so it takes exactly one private token — see
+[Semantic HTML first](patterns.md#semantic-html-first).
 
 **`forced-colors`.** In Windows High Contrast Mode the OS overrides your palette,
 so anything you signalled with `background` or `box-shadow` disappears. Test it,
 and keep meaning in text and borders as well as colour.
 
-**Reduced motion.** `The design section documents the `*` gate. Remember it reaches **two** classes, not one: `.at-trs`
-and `.at-ovl`'s `:after` layer both read `--at-trs`.
+**Target size (2.5.8, AA).** Pointer targets want **24×24 CSS px**. There is a
+second route: undersized targets pass if a 24px circle centred on each does not
+intersect a neighbour's. Links inside a sentence are exempt.
+
+```html
+<!-- the space route: a 24px step between every target -->
+<div class="at-flx at-al-itm-ctr at-gap at-spc-lg">
+  <button class="at-btn">Save</button>
+  <button class="at-btn">Cancel</button>
+</div>
+```
+
+`.at-spc-lg` is a step class you own (see
+[naming the private namespace](patterns.md#naming-the-private-namespace)); the framework
+ships no numeric spacing utility, which is exactly why the step is yours to
+define.
+
+```html
+<!-- the size route, when targets sit close together -->
+<button class="at-btn at-min-h at-min-w at-al-itm-ctr">×</button>
+```
+
+`.at-btn`'s own default padding is `6px 12px`, which clears 24px tall by
+accident, not by rule — change the padding and the compliance goes with it. If
+your identity class sets its own padding, own the target size explicitly in the
+same rule.
+
+Neither route is automatic: nothing in the bundle measures anything. An icon
+button is the usual failure, because the icon is small and nothing sets a floor.
 
 ## Framework selectors that are not plain classes
 

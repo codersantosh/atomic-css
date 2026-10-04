@@ -122,7 +122,7 @@ basis, max-width and gutter padding are computed by the bundle as a scale (the
 puts a measurement where a scale step belongs and a second opinion in the
 cascade. Colour utilities beyond the framework pair are yours, in your own
 namespace, the same way `at-btn-*` is — see
-[the consumer contract](patterns.md#the-consumer-contract).
+[Why the namespace is private](patterns.md#why-the-namespace-is-private).
 
 | Class | Does |
 | --- | --- |

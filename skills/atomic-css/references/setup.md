@@ -57,8 +57,27 @@ to read and check names ships beside this file, including the generated class an
 variable inventory the checker reads.
 
 ```html
-<link rel="stylesheet" href="/node_modules/atomic-css/css/atomic.min.css">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/node_modules/atomic-css/css/atomic.min.css">
+  </head>
+  <body>
+    <!-- your content -->
+  </body>
+</html>
 ```
+
+Four lines in that head are load-bearing, and none of them is the stylesheet:
+
+| Line | Why it is not optional |
+| --- | --- |
+| `<!doctype html>` | without it the browser uses quirks mode, and several modern CSS measurements change behaviour |
+| `<html lang="…">` | **WCAG 3.1.1 Language of Page, Level A.** It is what a screen reader uses to pick a voice, and what a translation tool reads |
+| `<meta charset="utf-8">` | must precede any content byte, or already-written bytes are mis-decoded |
+| `<meta name="viewport" …>` | **the tag the mobile-first model depends on.** Every breakpoint in this framework is `min-width`; without this viewport tag a phone lays the page out at desktop width and no infix ever engages |
 
 Link exactly one bundle. Linking minimal and max together ships every rule
 twice. Link your own stylesheet **after** it, so your rules win on equal
@@ -80,6 +99,16 @@ Each bundle has an `-rtl` sibling (rtlcss flips `margin-left`→`margin-right`,
 ```html
 <link rel="stylesheet" href="/node_modules/atomic-css/css/atomic.min-rtl.css">
 ```
+
+The mirrored stylesheet is only half of it — **the document has to be marked RTL
+too**, or you ship mirrored CSS in an LTR page:
+
+```html
+<html lang="ar" dir="rtl">
+```
+
+`dir` is an attribute, not a class, and no bundle sets it. Without it the
+`-rtl.css` rules load and the text still runs left to right.
 
 rtlcss mirrors **declarations, not the contents of `var()`**. A directional
 value inside a variable stays LTR-oriented, so author it direction-aware or keep

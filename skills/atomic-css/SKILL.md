@@ -148,6 +148,38 @@ Only the rules a lookup cannot return. Everything else is one file away:
 - **One bundle**: max is a strict superset of minimal. Never link both; never
   link the template — [setup.md#what-you-get](references/setup.md#what-you-get).
 
+**Pick the encoding from the shape of the design:**
+
+| Shape | Encoding | Markup |
+| --- | --- | --- |
+| Repeats, has variants — button, card, nav link | identity class owns its properties, reading its **own** `--<prefix>-*` namespace; variants set only those private variables | `at-btn at-btn-primary` |
+| Unique, no variants — brand name, logo, pagination | identity class writes the properties as raw declarations; no token, no appliers | `brand-name` |
+| Generated markup — block, Gutenberg control | identity class seeds a channel the generator writes; the markup carries the applier | `at-card at-p` |
+| Global layer — media defaults, resets | raw properties on the element | — |
+
+Worked form of each row:
+[repeating with variants](references/patterns.md#repeating-with-variants-the-identity-class-owns-the-box),
+[unique, no variants](references/patterns.md#unique-no-variants-the-class-writes-the-properties),
+[generated markup](references/patterns.md#unique-no-variants-the-class-writes-the-properties),
+[global layer](references/patterns.md#element-scoped-tokens).
+
+**Where the rest of patterns.md lives** — every section, one link each:
+
+| Topic | Section |
+| --- | --- |
+| Element defaults stay bare elements | [element defaults](references/patterns.md#element-defaults-are-bare-elements-never-where-wrapped) |
+| Tokens: block, naming, arms, resting values, scale | [global tokens](references/patterns.md#global-tokens) · [arms and resting values](references/patterns.md#arms-and-resting-values) |
+| Private namespaces — why, and how to name them | [why the namespace is private](references/patterns.md#why-the-namespace-is-private) · [naming it](references/patterns.md#naming-the-private-namespace) |
+| Semantic markup, mobile-first | [semantic html](references/patterns.md#semantic-html-first) · [mobile first](references/patterns.md#mobile-first) |
+| Which classes read a channel | [readers and non-readers](references/patterns.md#which-classes-read-a-channel-and-which-do-not) |
+| Markup you cannot put a class on | [host CSS](references/patterns.md#one-exception-host-css-you-cannot-put-a-class-on) |
+| Literal prefixes | [write the prefix literally](references/patterns.md#write-the-prefix-literally) |
+| Variables in markup and JS | [markup and js](references/patterns.md#variables-in-markup-and-js) |
+| HTML vs React vs Gutenberg — what differs | [markup targets](references/patterns.md#markup-targets) |
+| WCAG 2.2 and the CSS platform standards, mapped to classes | [standards](references/patterns.md#standards-and-where-atomic-css-fits) · [the criteria themselves](references/production.md#accessibility-gaps-the-framework-leaves-you) |
+| Combining families | [composition recipes](references/patterns.md#composition-recipes) |
+| Beating a utility | [overriding](references/patterns.md#overriding) |
+
 Verify any name you have not seen before in
 `generated/CLASS-REFERENCE.json`.
 
@@ -204,8 +236,9 @@ Verify any name you have not seen before in
 For a component that *does* vary, the values sit in the rule and the classes in
 the markup apply them — a worked shell in
 [patterns.md](references/patterns.md#which-classes-read-a-channel-and-which-do-not),
-and the consumer contract, element defaults, the `.at-btn` contract and dark
-mode in [patterns.md](references/patterns.md).
+and element defaults, the `.at-btn` contract and dark mode in
+[patterns.md](references/patterns.md) — the cheat-sheet index above lists every
+section.
 
 ## Before you finish
 
