@@ -39,6 +39,15 @@ These rules govern every document in this repository. Details live in the code.
 9. **Whitespace** — no trailing spaces; a single trailing newline; one blank line around headings, tables, and fences.
 10. **Minimal** — documents stay to the point. Don't describe everything in the code — just the minimal summary if needed.
 
+## Engineering standards
+
+- **DRY** — reuse the shared partials and the existing gates; a fact lives in one place.
+- **KISS** — the simplest correct change; no premature abstraction; delete dead code instead of fencing it behind a flag.
+- **SOLID** — applied through the structure `ARCHITECTURE.md` fixes; never a reason to add a layer, interface or abstraction with a single implementation (KISS wins).
+- **Consistency** — follow existing conventions; add a new pattern only when clearly required.
+- **Verifiability** — a new rule ships with the gate that can fail it; doc gates get a fault-injection case in `check-doc-checks.js`.
+- **No backward compatibility** — no dead code, shims, aliases or duplicate logic; changes are permanent. The one exception, a rename, is governed by [ARCHITECTURE.md § The token contract](./ARCHITECTURE.md#the-token-contract).
+
 ## Commands
 
 - `npm run build` — full build, cleanup, then `verify` (parity, naming, variables, importance, demo, docs). ALWAYS green before committing.
