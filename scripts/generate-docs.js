@@ -881,7 +881,6 @@ const COUNT_CLAIMS = [
     [SKILL, /\*\*(\d+) distinct CSS properties\*\*/, [() => counts.distinctProperties], 'distinct properties'],
     [SKILL, /\*\*A property\?\*\* (\d+) are already applied/, [() => counts.distinctProperties], 'distinct properties'],
     [SKILL, /(\d+) grid classes cover/, [() => counts.gridClasses], 'grid classes'],
-    [SKILL, /the same (\d+) legend entries/, [() => counts.legendEntries], 'legend entries'],
     [SKILL, /`sm (\d+)`, `md (\d+)`, `lg (\d+)`, `xl (\d+)`, `xxl (\d+)`/,
         () => breakpoints.filter((b) => b.minWidth).map((b) => Number(b.minWidth.replace('px', ''))),
         'breakpoint min-widths'],
@@ -900,7 +899,7 @@ const COUNT_CLAIMS = [
     // Lookbehind/lookahead let one pattern cover all three phrasings.
     [CLASSES, /(?<![\d])(?:all |would drift, |)(\d+) (?:entries|legend entries)\b/,
         [() => counts.legendEntries], 'legend entries'],
-    [SKILL, /\b(?:(\d+) legend entries|all (\d+) entries)\b/,
+    [SKILL, /\b(?:all )?(\d+) (?:legend )?entries\b/,
         [() => counts.legendEntries], 'legend entries'],
     [CLASSES, /^## Grid \((\d+) classes\)/m, [() => counts.gridClasses], 'grid classes'],
     [CLASSES, /^## Flex \((\d+)\) and display \((\d+)\)/m,
