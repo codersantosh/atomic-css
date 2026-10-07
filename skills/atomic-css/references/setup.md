@@ -1,13 +1,20 @@
 # Setup and integration
 
-Look a name up in
-[generated/CLASS-REFERENCE.json](../generated/CLASS-REFERENCE.json) — the folder
-that travels with this skill — before trusting a class.
+Getting the **stylesheet** onto the page — separate from installing the skill itself (see `SKILL.md`). Look a name up in [`CLASS-REFERENCE.json`](../generated/CLASS-REFERENCE.json), which travels with this skill, before trusting a class.
 
-This reference is about getting the **stylesheet** onto the page, which is
-separate from installing the skill itself (see `SKILL.md`). The commands below
-assume the framework package is installed; a vendored copy of `atomic.css` works
-just as well.
+**Owner:** AI reference owner · **Authority:** the consumer contract for the atomic-css 2.0 bundles.
+
+## Contents
+
+- [Install](#install)
+- [What you get](#what-you-get)
+- [Load order is load-bearing](#load-order-is-load-bearing)
+- [RTL](#rtl)
+- [Confirming it is wired up](#confirming-it-is-wired-up)
+- [WordPress / PHP and any runtime-generated build](#wordpress-php-and-any-runtime-generated-build)
+- [Enqueue (WordPress)](#enqueue-wordpress)
+
+The commands below assume the framework package is installed; a vendored copy of `atomic.css` works just as well.
 
 ## Install
 

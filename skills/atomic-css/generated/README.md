@@ -1,9 +1,8 @@
-# generated — build output, do not hand-edit
+# generated (build output, do not hand-edit)
 
-The `CLASS-REFERENCE.json` in this folder is **generated from the compiled
-CSS**. Everything in it is derived — classes, variables, fallbacks,
-breakpoints, the token legend — so none of it is authored by hand and none of
-it should be edited here.
+`CLASS-REFERENCE.json` in this folder is generated from the compiled CSS — classes, variables, fallbacks, breakpoints, the token legend. None of it is authored by hand and none of it should be edited here.
+
+**Owner:** AI reference owner · **Authority:** the generated-versus-handwritten boundary.
 
 ```bash
 npm run docs        # regenerate it

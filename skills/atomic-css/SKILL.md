@@ -5,6 +5,10 @@ description: Apply the atomic-css utility framework — `.at-*` classes that rea
 
 # atomic-css (consumer)
 
+How to consume the atomic-css 2.0 bundles: classes, tokens, components, and the traps that fail silently.
+
+**Owner:** AI reference owner · **Authority:** the consumer contract for the atomic-css 2.0 bundles.
+
 Every `.at-*` class applies a CSS property; a matching `--at-*` variable supplies
 its value. **Neither works alone.**
 
@@ -88,18 +92,20 @@ node -p "…includes('aspect-ratio')…"   # nothing — no class, so write the 
 ## Install this skill
 
 The skill is self-contained. `generated/` travels with it and carries every
-class, variable and legend token, so copying the folder is the whole install:
+class, variable and legend token, so copying the folder into your agent's skills
+directory is the whole install:
 
 ```bash
-mkdir -p .opencode/skills
-cp -r node_modules/atomic-css/skills/atomic-css .opencode/skills/   # installed package
-cp -r skills/atomic-css .opencode/skills/                          # clone of the repo
+# <skills-dir> is the directory your agent reads skills from — for example
+# .agents/skills (Command Code) or .opencode/skills (OpenCode).
+cp -r node_modules/atomic-css/skills/atomic-css <skills-dir>/   # installed package
+cp -r skills/atomic-css <skills-dir>/                           # clone of the repo
 ```
 
 Then quit and restart your agent — skill paths are read once at startup.
 
-If the package is installed, register the copy in place instead of duplicating
-it, via `opencode.json`:
+Agents that register skill paths in config can point at the folder in place
+instead of duplicating it — for example OpenCode's `opencode.json`:
 
 ```json
 { "skills": { "paths": ["node_modules/atomic-css/skills"] } }
@@ -115,9 +121,10 @@ the pinned-commit install, the vendored-file path, and why `npm install
 atomic-css` is the wrong package. There is also no JS entry point to import —
 link the CSS file path.
 
-## Cheat sheet (summary only — `generated/CLASS-REFERENCE.json` is the source of truth)
+## Cheat sheet
 
-Only the rules a lookup cannot return. Everything else is one file away:
+Summary only — `generated/CLASS-REFERENCE.json` is the source of truth. These
+are the rules a lookup cannot return. Everything else is one file away:
 [references/classes.md](references/classes.md) for the tables,
 [patterns.md](references/patterns.md) for how to design with them.
 
@@ -264,7 +271,7 @@ Then confirm by hand:
 Script behaviour and flags: `node <this-skill>/scripts/verify-usage.mjs --help`
 (usage on stderr with no paths).
 
-## What ships beside this skill, in an installed project
+## What ships beside this skill
 
 - `generated/CLASS-REFERENCE.json` — the generated lookup, every class,
   variable, breakpoint and token, derived from the compiled CSS. Never stale,

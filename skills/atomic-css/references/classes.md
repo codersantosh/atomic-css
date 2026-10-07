@@ -1,7 +1,20 @@
 # Classes and tokens
 
-`../generated/CLASS-REFERENCE.json` — inside this skill, generated from the
-compiled CSS — is the only truth for names. This file is the map around it.
+The map around [`CLASS-REFERENCE.json`](../generated/CLASS-REFERENCE.json) — inside this skill, generated from the compiled CSS, the only truth for names.
+
+**Owner:** AI reference owner · **Authority:** the consumer contract for the atomic-css 2.0 bundles.
+
+## Contents
+
+- [Look a name up before you use it](#look-a-name-up-before-you-use-it)
+- [Naming grammar](#naming-grammar)
+- [Breakpoints](#breakpoints)
+- [Grid (104 classes)](#grid-104-classes)
+- [Flex (210) and display (54)](#flex-210-and-display-54)
+- [Order, offset and print (max bundle only)](#order-offset-and-print-max-bundle-only)
+- [Property utilities (55)](#property-utilities-55)
+- [Structural classes (17)](#structural-classes-17)
+- [Variables (93 read by the bundles)](#variables-93-read-by-the-bundles)
 
 ## Look a name up before you use it
 
@@ -158,7 +171,7 @@ e.g. `.at-col-6` is `calc(50% - var(--at-col-gap, var(--at-gap, 0px)) * 0.5)`.
 - `--at-row-gap` falls back to `var(--at-gap)`; `--at-col-gap` likewise.
 - `.at-vrt` is the exception: `gap: var(--at-vrt-gap, var(--at-gap, 15px))`.
 
-### The gutter is counted once — two coherent arrangements
+### The gutter is counted once (two coherent arrangements)
 
 A column's basis already reads `--at-col-gap` (falling back to `--at-gap`), so
 the gutter is subtracted from each column's own share. The row must also spend
@@ -261,7 +274,7 @@ Hiding below a breakpoint and showing it above works only in this order:
 The reverse (a breakpoint `display: none` plus a base `display: block`) does not,
 because the base rule comes later and wins the tie.
 
-## Order / offset / print — **max bundle only**
+## Order, offset and print (max bundle only)
 
 176 classes, absent from the minimal bundle, where they are silently inert:
 `.at-ord-0`…`.at-ord-12` plus `.at-ord-first` / `.at-ord-last` (order), all also

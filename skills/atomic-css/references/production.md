@@ -1,11 +1,25 @@
 # Production notes
 
-Everything here is a concern of the **consumer**, not the framework. The bundles
-are built and shipped; these are the decisions you own before you ship a page
-that uses them. Each item names the mechanism it depends on, so you can verify it
-against `../generated/CLASS-REFERENCE.json` rather than trusting the prose.
+Everything here is a concern of the **consumer**, not the framework. The bundles are built and shipped; these are the decisions you own before you ship a page that uses them. Each item names the mechanism it depends on, so you can verify it against [`CLASS-REFERENCE.json`](../generated/CLASS-REFERENCE.json) rather than trusting the prose.
 
-## Cascade layers — the one that breaks silently
+**Owner:** AI reference owner · **Authority:** the consumer contract for the atomic-css 2.0 bundles.
+
+## Contents
+
+- [Cascade layers](#cascade-layers-the-one-that-breaks-silently)
+- [Browser support](#browser-support-the-floor-is-custom-properties)
+- [Content Security Policy](#content-security-policy-inline-variables-are-inline-styles)
+- [Dark mode needs `color-scheme`](#dark-mode-needs-color-scheme)
+- [Forms need normalizing yourself](#forms-need-normalizing-yourself)
+- [Print](#print)
+- [Accessibility gaps the framework leaves you](#accessibility-gaps-the-framework-leaves-you)
+- [Framework selectors that are not plain classes](#framework-selectors-that-are-not-plain-classes)
+- [Logical properties](#logical-properties)
+- [Container queries](#container-queries)
+- [Performance](#performance)
+- [Testing](#testing)
+
+## Cascade layers (the one that breaks silently)
 
 **Do not wrap either stylesheet in `@layer`.** The bundles ship unlayered, and an
 unlayered normal declaration beats *every* layered declaration regardless of
@@ -29,7 +43,7 @@ translation: put the atomic bundles in a later layer than the other framework's
 rules and keep your own stylesheet unlayered, or scope the other framework
 instead. Test the result — do not assume the utilities still win.
 
-## Browser support — the floor is custom properties
+## Browser support (the floor is custom properties)
 
 Every utility is `property: var(--at-x, fallback)`. A browser without custom
 property support does not degrade the utilities one at a time; it drops **all**
@@ -56,7 +70,7 @@ The bundles also carry autoprefixer clones (`-ms-flex-direction`,
 `-webkit-box-orient`), which are dead weight against that floor. They are not a
 signal that IE11 is supported.
 
-## Content Security Policy — inline variables are inline styles
+## Content Security Policy (inline variables are inline styles)
 
 The framework's most natural idiom is an inline variable:
 

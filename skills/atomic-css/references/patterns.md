@@ -1,7 +1,25 @@
 # Patterns
 
-These are the framework's own shapes, worked end to end. Every name is verified
-against [generated/CLASS-REFERENCE.json](../generated/CLASS-REFERENCE.json).
+The framework's own shapes, worked end to end; every name is verified against [`CLASS-REFERENCE.json`](../generated/CLASS-REFERENCE.json).
+
+**Owner:** AI reference owner · **Authority:** the consumer contract for the atomic-css 2.0 bundles.
+
+## Contents
+
+- [Standards, and where atomic-css fits](#standards-and-where-atomic-css-fits)
+- [Semantic HTML first](#semantic-html-first)
+- [Mobile first](#mobile-first)
+- [Element defaults are bare elements](#element-defaults-are-bare-elements-never-where-wrapped)
+- [Global tokens](#global-tokens)
+- [One source, one declaration](#one-source-one-declaration-when-a-token-is-not-warranted)
+- [Which classes read a channel](#which-classes-read-a-channel-and-which-do-not)
+- [Components: one owner per class](#components-one-owner-per-class)
+- [Markup targets](#markup-targets)
+- [Variables in markup and JS](#variables-in-markup-and-js)
+- [One exception: host CSS](#one-exception-host-css-you-cannot-put-a-class-on)
+- [Write the prefix literally](#write-the-prefix-literally)
+- [Composition recipes](#composition-recipes)
+- [Overriding](#overriding)
 
 ## Standards, and where atomic-css fits
 
@@ -102,7 +120,7 @@ infix, never by writing a max-width variant, and the whole infix set is in
 restating here — a max-width rule would have to be beaten by the base rule that
 follows it in the bundle — is why that set is fixed rather than open.
 
-## Element defaults are bare elements — never `:where()`-wrapped
+## Element defaults are bare elements (never `:where()`-wrapped)
 
 **Global First, Local Second.** Values live in the base layer, at low
 specificity, so any utility overrides them without `!important` — which is why no
@@ -501,7 +519,7 @@ spacing unit; a button's internal 6px is a different quantity, and 15px inside a
 14px button reads as two separate controls. Use a private `--<prefix>-*` value —
 the reason, and the failure mode of routing it through a shared channel, are in
 [Why the namespace is private](#why-the-namespace-is-private).
-## One source, one declaration — when a token is not warranted
+## One source, one declaration (when a token is not warranted)
 **Does this value have a second writer?** A second writer is anything that
 supplies a value other than the rule that styles the element — a theme or media
 arm, a state, a second variant, a component that computes the value per instance,
@@ -605,7 +623,7 @@ No component CSS ships. A class is either a framework utility, or an identity
 class you own — never both. Which of the two component shapes you use follows
 from the design: does it repeat, and does it have variants?
 
-### Repeating with variants — the identity class owns the box
+### Repeating with variants (the identity class owns the box)
 
 A button, a card, a nav link: many instances, a registry of variants. The
 identity class is self-sufficient, reading its **own** private namespace, and
@@ -750,7 +768,7 @@ Two namespaces in one rule is still not the violation in
 tool for a case where you cannot reach the child, not a default. Anywhere you own
 the markup, reach the child.
 
-### Unique, no variants — the class writes the properties
+### Unique, no variants (the class writes the properties)
 
 A brand name, a logo, a one-off panel: one instance, no registry, and nothing
 that will ever re-point a value. The class writes the properties, and the markup
