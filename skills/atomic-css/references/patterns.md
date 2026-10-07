@@ -373,7 +373,7 @@ function Card({ tone, pad }) {
 
 - **No inline `style`** — dropped by any `style-src` without `unsafe-inline`, and it fails block validation when saved and rendered markup differ.
 - **The block class owns the token, the applier is a fixed class** (the `wp-block-card` shape above).
-- Attribute-driven variation goes through `theme.json` or block `supports`, not attribute selectors in your block stylesheet.
+- Attribute-driven variation goes through block `supports` and global CSS — not attribute selectors in your block stylesheet.
 
 ## Variables in markup and JS
 
