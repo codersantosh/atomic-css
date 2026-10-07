@@ -258,7 +258,7 @@ A component's own measurement is not a shared token: a button's internal 6px is 
 .hero-title { font-size: 72px; color: #fff; }
 ```
 
-**Generated markup is the mandatory case.** A generator needs one seam to write a per-instance value through; a generated `style` attribute is an inline style, so it needs `unsafe-inline` and repeats the property on every instance.
+**Generated markup is the mandatory case.** A generator needs one seam to write a per-instance value through — a class and its token; a generated `style` attribute is an inline style, so it needs `unsafe-inline` and repeats the property on every instance.
 
 ## Which classes read a channel, and which do not
 

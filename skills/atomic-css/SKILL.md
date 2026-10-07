@@ -37,8 +37,8 @@ apply **102 distinct CSS properties**. Three tiers:
    write the property. **A property?** 102 are already applied by some class —
    when the lookup comes back empty, raw CSS is the *correct* answer.
 3. **Generated markup: the pair is mandatory.** A generator needs one seam for a
-   per-instance value; a generated `style` attribute is an inline style, blocked
-   by `style-src` without `unsafe-inline`.
+   per-instance value — a class and its token; a generated `style` attribute is an
+   inline style, blocked by `style-src` without `unsafe-inline`.
 
 The tier-2 rule, with the decision table, is in
 [patterns.md](references/patterns.md#one-source-one-declaration-when-a-token-is-not-warranted).
@@ -135,7 +135,7 @@ a lookup cannot return:
 | --- | --- | --- |
 | Repeats, has variants | identity class reading its own `--<prefix>-*` namespace; variants set only those | `at-btn at-btn-primary` |
 | Unique, no variants | the class writes the properties; no token, no appliers | `brand-name` |
-| Generated markup | the class seeds a channel the generator writes; the markup carries the applier | `at-card at-p` |
+| Generated markup | the class owns the token, the applier is a fixed class | `unique-class at-cl at-p` |
 
 Deeper: [semantic HTML](references/patterns.md#semantic-html-first) ·
 [element defaults](references/patterns.md#element-defaults-are-bare-elements-never-where-wrapped) ·
