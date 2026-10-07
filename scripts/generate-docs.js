@@ -1454,6 +1454,124 @@ for (const file of [...AGENT_DOCS, ...PROSE, 'AGENTS.md', 'ARCHITECTURE.md']) {
     if (fs.existsSync(abs)) checkSectionPointers(file, fs.readFileSync(abs, 'utf8'));
 }
 
+// ---------------------------------------------------------------------------
+// The documentation standard (AGENTS.md § Documentation standard), mechanically
+// applied to every hand-written document. Sentence case stays a review question:
+// a case heuristic false-fires on proper nouns (WordPress, dart-sass, WCAG).
+// ---------------------------------------------------------------------------
+
+const DOC_STANDARD = [...AGENT_DOCS, ...PROSE, 'AGENTS.md', 'ARCHITECTURE.md'];
+const DOC_TOO_LONG = 100;
+
+/** Fence bodies are not markdown; blank them out so line numbers survive. */
+const blankFences = (content) => {
+    let fenced = false;
+    return content.split('\n').map((line) => {
+        if (/^```/.test(line)) {
+            fenced = !fenced;
+            return line;
+        }
+        return fenced ? '' : line;
+    }).join('\n');
+};
+
+function checkHeaderBlock(owner, content) {
+    const lines = blankFences(content).split('\n');
+    const h1 = lines.findIndex((l) => l.startsWith('# '));
+    if (h1 === -1) {
+        failures.push(`${owner}:1 has no H1 title`);
+        return;
+    }
+    const ownerLine = lines.findIndex((l) => /^\*\*Owner:\*\* .+ · \*\*Authority:\*\* .+$/.test(l));
+    if (ownerLine === -1) {
+        failures.push(`${owner}:${h1 + 1} has no '**Owner:** … · **Authority:** …' header line`);
+        return;
+    }
+    if (!lines.slice(h1 + 1, ownerLine).some((l) => l.trim())) {
+        failures.push(`${owner}:${h1 + 1} header block has no purpose line between the H1 and the owner line`);
+    }
+}
+
+function checkContentsBlock(owner, content) {
+    if (owner.endsWith('SKILL.md')) return; // frontmatter and the cheat sheet are its navigation
+    const lines = content.split('\n');
+    if (lines.length <= DOC_TOO_LONG) return;
+    const at = lines.findIndex((l) => l === '## Contents');
+    if (at === -1) {
+        failures.push(`${owner}:1 is over ${DOC_TOO_LONG} lines and needs a '## Contents' section`);
+    } else if (at > 12) {
+        failures.push(`${owner}:${at + 1} places '## Contents' away from the header block (expected within the first 12 lines)`);
+    }
+}
+
+function checkHeadingShape(owner, content) {
+    let previous = 0;
+    let fenced = false;
+    content.split('\n').forEach((line, i) => {
+        if (/^```/.test(line)) {
+            fenced = !fenced;
+            return;
+        }
+        if (fenced) return;
+        const m = line.match(/^(#{1,6}) (.+)$/);
+        if (!m) return;
+        const title = m[2];
+        if (previous && m[1].length > previous + 1) {
+            failures.push(`${owner}:${i + 1} heading jumps from H${previous} to H${m[1].length}: '${title}'`);
+        }
+        previous = m[1].length;
+        if (/[.:]$/.test(title)) {
+            failures.push(`${owner}:${i + 1} heading ends with punctuation: '${title}'`);
+        }
+        if (/^(?:Part [IVX]+\b|\d+[.)]\s)/.test(title)) {
+            failures.push(`${owner}:${i + 1} heading carries a manual section number: '${title}'`);
+        }
+    });
+}
+
+function checkTrailingWhitespace(owner, content) {
+    content.split('\n').forEach((line, i) => {
+        if (/[ \t]+$/.test(line)) failures.push(`${owner}:${i + 1} has trailing whitespace`);
+    });
+    if (!content.endsWith('\n')) failures.push(`${owner} does not end with a newline`);
+    else if (content.endsWith('\n\n')) failures.push(`${owner} ends with more than one newline`);
+}
+
+function checkRepoLinks(owner, content) {
+    // Inline code is not markdown either — a documentation rule that shows a
+    // link's syntax in a code span is an example, not a target.
+    const prose = blankFences(content).replace(/`[^`\n]*`/g, '');
+    for (const m of prose.matchAll(/\]\(([^)\s]+)\)/g)) {
+        const target = m[1];
+        if (/^(?:https?:|mailto:)/.test(target)) continue;
+        const [rel, fragment] = target.split('#');
+        const file = rel ? path.normalize(path.join(path.dirname(owner), rel)) : owner;
+        if (!fs.existsSync(path.join(root, file))) {
+            failures.push(`${owner} links to ${target}, which does not exist in the repo`);
+            continue;
+        }
+        if (!fragment) continue;
+        const slugs = slugsOf(file);
+        if (slugs && slugs.length && !slugs.includes(fragment)) {
+            const line = prose.slice(0, m.index).split('\n').length;
+            failures.push(`${owner}:${line} links to ${file}#${fragment}, but that file has no heading with that anchor`);
+        }
+    }
+}
+
+for (const file of DOC_STANDARD) {
+    const abs = path.join(root, file);
+    if (!fs.existsSync(abs)) continue;
+    const content = fs.readFileSync(abs, 'utf8');
+    checkHeaderBlock(file, content);
+    checkContentsBlock(file, content);
+    checkHeadingShape(file, content);
+    checkTrailingWhitespace(file, content);
+    // checkLinks owns the shipped skill files; the prose docs get the repo-wide
+    // resolution instead (README and ARCHITECTURE link into demo/, css/ …).
+    if (!AGENT_DOCS.includes(file)) checkRepoLinks(file, content);
+}
+
 // The agent-facing skill is read from disk: it ships, so its references must
 // resolve in the tarball, and the class and variable names it teaches must
 // exist. The generated reference is JSON, so it is checked as data above, not

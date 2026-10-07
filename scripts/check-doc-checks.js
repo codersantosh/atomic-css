@@ -32,6 +32,10 @@ function probe() {
 
 const pointerFailures = (out) => (out.match(/^FAIL: \S+:\d+ points at § /gm) || []).length;
 const inertFailures = (out) => (out.match(/is an example built only from inert classes/g) || []).length;
+const headerFailures = (out) => (out.match(/has no '\*\*Owner:\*\*/g) || []).length;
+const wsFailures = (out) => (out.match(/has trailing whitespace/g) || []).length;
+const headingFailures = (out) => (out.match(/heading (?:ends with punctuation|carries a manual section number)/g) || []).length;
+const linkFailures = (out) => (out.match(/has no heading with that anchor/g) || []).length;
 
 /**
  * @param {string} name    what the case proves
@@ -63,6 +67,7 @@ function check(name, rel, find, replace, expect, count = pointerFailures) {
 const A = 'ARCHITECTURE.md';
 const P = 'skills/atomic-css/references/patterns.md';
 const AG = 'AGENTS.md';
+const D = 'README.md';
 
 const cases = [
     // --- checkSectionPointers: must fire
@@ -91,6 +96,19 @@ const cases = [
     () => check('one seeded class makes an example live again', P,
         '<figure class="wp-block-card at-cl at-p">',
         '<figure class="wp-block-card at-cl at-p" style="--at-p: 1rem">', 0, inertFailures),
+
+    // --- documentation standard: must fire
+    () => check('a missing owner line is rejected', D,
+        '**Owner:** developer/user documentation owner · **Authority:** human onboarding and usage.',
+        '**Owner:** none.', 1, headerFailures),
+    () => check('trailing whitespace is rejected', D,
+        '## Grid', '## Grid ', 1, wsFailures),
+    () => check('a heading ending in punctuation is rejected', D,
+        '## Quick start', '## Quick start:', 1, headingFailures),
+    () => check('a manual section number is rejected', D,
+        '## Bundles', '## 3. Bundles', 1, headingFailures),
+    () => check('a link to a missing section is rejected', D,
+        '[Grid](#grid)', '[Grid](#grids)', 1, linkFailures),
 ];
 
 let passed = 0;
