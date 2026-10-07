@@ -1,7 +1,7 @@
 /**
  * check-important.js - the shipped bundles must carry no `!important`.
  *
- * ARCHITECTURE.md § Shared Rules: shipped CSS is importance-free. Utilities are
+ * ARCHITECTURE.md § Shared rules: shipped CSS is importance-free. Utilities are
  * ordinary (0,1,0) declarations, so a consumer's own CSS can override them by
  * specificity or order, which is what "Global First, Local Second" requires. A
  * consumer who does need importance builds it from `css-template`, where the
@@ -14,7 +14,7 @@
  * script is the check on the artifact that actually ships.
  *
  * The demo is deliberately NOT scanned. It is the reference consumer, and
- * ARCHITECTURE.md Part II § Overrides sanctions a small number of `!important`
+ * `skills/atomic-css/references/patterns.md` § Overriding sanctions a small number of `!important`
  * uses for overriding external components such as WordPress.
  */
 'use strict';

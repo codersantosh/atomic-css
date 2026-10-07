@@ -73,16 +73,16 @@ const cases = [
         '## Semantic HTML first', '## Markup semantics', 1),
     () => check('a line\'s own bold cannot satisfy its own § pointer', P,
         '**Global First, Local Second.**', 'Global first, local second.', 1),
-    () => check('one-word § pointer breaks when its heading is renamed', A,
-        '### Bundles: exactly two shipped, one template',
-        '### Shipped bundles and the template', 1),
+    () => check('one-word § pointer breaks when its heading is renamed', P,
+        '## Components: one owner per class',
+        '## Component ownership', 1),
 
     // --- checkSectionPointers: must stay quiet (tolerances, not bugs)
     () => check('§ followed by prose resolves on its leading words', AG,
         '§ Build discipline for the gitignore list.', '§ Build discipline.', 0),
-    () => check('one-word § pointer resolves against a suffixed heading', A,
-        '### Bundles: exactly two shipped, one template',
-        '### Bundles: exactly two shipped bundles, and one template', 0),
+    () => check('one-word § pointer resolves against a suffixed heading', P,
+        '## Components: one owner per class',
+        '## Components: one owner per class, and the variant registry', 0),
 
     // --- checkInertExamples: must fire
     () => check('an example of only inert classes is rejected', P,

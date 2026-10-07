@@ -1,34 +1,69 @@
-# AGENTS.md — atomic-css
+# Agent Operating Contract
 
-Operational notes for working in this repo.
+SCSS to CSS atomic/utility framework: `.at-*` classes reading `--at-*` variables, built with Webpack, dart-sass, postcss/autoprefixer and rtlcss. No JavaScript runtime.
 
-**Architecture rules live in [ARCHITECTURE.md](ARCHITECTURE.md) — it is the
-only source of truth for architecture rules.** Nothing in this file may
-add, weaken, or duplicate a rule from ARCHITECTURE.md.
+**Owner:** governance owner · **Authority:** workflow, safety, routing, evidence, review
 
-## 1. Project in one paragraph
-SCSS → CSS atomic/utility framework (`.at-*` classes reading `--at-*` variables),
-built with Webpack + dart-sass + postcss/autoprefixer + rtlcss. No JS runtime.
-Compiled CSS is part of the repo and is the shipped artifact. Bundle layout and
-the template artifact are defined in ARCHITECTURE.md (§ Bundles, § The template
-bundle).
+## Authority and precedence
 
-## 2. Commands
-- `npm run build` — full build + cleanup + `verify` (parity + naming + variables + docs). ALWAYS green before committing.
+Highest first:
+
+1. `AGENTS.md` (this file) — governance: workflow, ownership, evidence, review.
+2. `ARCHITECTURE.md` — the framework's rules; where current code and these rules disagree, the rules win.
+3. `README.md` — human onboarding and usage.
+4. `skills/atomic-css/**` — the shipped consumer contract.
+
+Nothing in this file may add, weaken, or duplicate a rule from `ARCHITECTURE.md`.
+
+Conflict between files: stop and report. Do not create a competing plan or resolve by preference.
+
+## Read first
+
+1. `ARCHITECTURE.md` — the rules and the enforcement map
+2. `skills/atomic-css/SKILL.md` — the consumer contract this package ships
+3. `README.md` — the human entry point
+4. Planning → the human prompt (plan owner)
+
+## Documentation standard
+
+These rules govern every document in this repository. Details live in the code.
+
+1. **Filenames** — extensions are lowercase (`.md`, `.json`). Contract documents use an uppercase base name: `AGENTS.md`, `ARCHITECTURE.md`, `README.md`, `SKILL.md`. Generated files keep the name their generator writes. Every reference uses the exact filename.
+2. **Header block** — one H1 (the title), a one-line purpose, then `**Owner:** … · **Authority:** …`.
+3. **Headings** — sentence case, no manual section numbers, no trailing punctuation, never skip a heading level.
+4. **Table of contents** — required when a document exceeds ~100 lines; placed directly after the header block; anchors must match headings. `SKILL.md` keeps skill-format navigation (frontmatter and cheat sheet) instead of a contents block.
+5. **Single source of truth** — a rule lives in exactly one document; other documents carry at most a two-line summary plus a relative link to the owning document and section.
+6. **Cross-references** — relative markdown links using the exact filename; citing a section that does not exist is a defect. Prose `§` pointers are allowed only where `checkSectionPointers` verifies them.
+7. **Tables** — header row always; paths and identifiers in backticks; in-repo files as `[name](./path)` links.
+8. **Code fences** — always language-tagged (`sh`, `bash`, `css`, `html`, `js`, `json`); folder trees stay in `sh` fences with one glyph style.
+9. **Whitespace** — no trailing spaces; a single trailing newline; one blank line around headings, tables, and fences.
+10. **Minimal** — documents stay to the point. Don't describe everything in the code — just the minimal summary if needed.
+
+## Commands
+
+- `npm run build` — full build, cleanup, then `verify` (parity, naming, variables, importance, demo, docs). ALWAYS green before committing.
 - `npm run lint` — stylelint. ALWAYS green.
-- `npm run verify` — `check:parity` (atomic.css ⊂ atomic-max.css, and Grid → Utilities → Properties layer order holds) + `check:names` (every used token documented in `short-names.json`) + `check:vars` (exact framework root globals, direct grid fallbacks, contextual gap chains, reference-set reconciliation, no alias tokens) + `check:important` (no `!important` in any shipped bundle or the template) + `check:docs` (generated reference is not stale; `README.md` and `skills/atomic-css/**` name no class that does not ship, except the reviewed allowlists in `scripts/generate-docs.js`; no prose example links two bundles).
+- `npm run verify` — `check:parity` (atomic.css ⊂ atomic-max.css; the Grid → Utilities → Properties layer order holds) + `check:names` (every used token is in `short-names.json`) + `check:vars` (exact root globals, direct grid fallbacks, contextual gap chains, reference-set reconciliation, no alias tokens) + `check:important` (no `!important` in any shipped bundle or the template) + `check:demo` (every demo page's assets and `.at-*` resolve) + `check:docs` (the generated reference is fresh; hand-written docs name only classes that ship, and the doc-format gates hold).
 - `npm run docs` — regenerate `skills/atomic-css/generated/CLASS-REFERENCE.json` from the compiled CSS. Never hand-edit that file.
+- `node scripts/check-doc-checks.js` — fault-inject the doc gates; not part of `verify`, run after changing a doc check.
 - `npm run dev` — development build (source maps). Never commit `dev` output over `build` output.
 
-## 3. Documentation map
-- `skills/atomic-css/` — the agent-facing contract: `SKILL.md` plus `references/` and a runnable class/variable checker. Ships in the package. Every `.at-*` and `--at-*` it names is held to the same existence check as `README.md`, so it cannot drift from the bundles.
-- `skills/atomic-css/generated/CLASS-REFERENCE.json` — generated class, variable and token inventory, the data behind `references/classes.md` (see the folder README: do not hand-edit).
-- `README.md` — human-facing: what the framework is and how the CSS is generated, when to use what, install, bundles, button contract, WordPress.
-- ARCHITECTURE.md Part I is for changing the framework; Part II is the `demo/` consumer spec.
+## Ownership
 
+| Path | Owner | Concern |
+|---|---|---|
+| `AGENTS.md` | governance owner | workflow, safety, routing, evidence, review |
+| `ARCHITECTURE.md` | architecture owner | framework rules, the enforcement map |
+| `README.md` | developer/user documentation owner | human onboarding, bundles, the variant registry |
+| `skills/atomic-css/**` | AI reference owner | the shipped consumer contract |
+| `skills/atomic-css/generated/**` | generated | class, variable and token inventory — never hand-edited |
+| `demo/**` | reference-consumer owner | the consumer simulation every pattern is demonstrated in |
+| `scss/**`, `css*/**` | build | source and compiled artifacts; regenerate, never hand-edit |
+| `scripts/**`, `.bin/**` | build | gates and build steps; doc gates are fault-injected by `check-doc-checks.js` |
 
-## 4. Process notes (non-architectural)
+## Process notes
+
 - Repo history is one-commit-per-change; commit messages mirror existing style (short, imperative).
 - Autoprefixer targets `last 5 versions`.
 - Never commit secrets. (See ARCHITECTURE.md § Build discipline for the gitignore list.)
-
+- Version bumps keep `package.json` and the WordPress example in `README.md` in step.

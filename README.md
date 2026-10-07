@@ -1,6 +1,23 @@
 # Atomic CSS
 
-An atomic/utility CSS framework built on **CSS custom properties** and a **Flexbox grid system**. Every utility class (`.at-*`) reads its value from a matching CSS variable (`--at-*`), so theming is done entirely in variables — no class overrides, no JavaScript runtime.
+An atomic/utility CSS framework built on CSS custom properties and a Flexbox grid: every `.at-*` class applies a property and a matching `--at-*` variable supplies its value, so theming is variables only — no class overrides, no JavaScript runtime.
+
+**Owner:** developer/user documentation owner · **Authority:** human onboarding and usage.
+
+## Contents
+
+- [What this framework is for](#what-this-framework-is-for)
+- [Breaking changes in 2.0.0](#breaking-changes-in-200)
+- [Quick start](#quick-start)
+- [Bundles](#bundles)
+- [Grid](#grid)
+- [Atomic utilities](#atomic-utilities)
+- [Theming](#theming)
+- [RTL](#rtl)
+- [npm](#npm)
+- [Demo](#demo)
+- [Building from source](#building-from-source)
+- [License](#license)
 
 > **Applying these classes with an AI agent?** Use the skill in
 > [`skills/atomic-css/`](skills/atomic-css/SKILL.md) — the agent-facing contract,
@@ -9,40 +26,22 @@ An atomic/utility CSS framework built on **CSS custom properties** and a **Flexb
 > readable layer over a class and variable inventory generated from the compiled
 > CSS and drift-checked in CI, so it always matches the bundles.
 
-## What this framework is, and what it is for
+## What this framework is for
 
-**A Flexbox grid plus an atomic vocabulary, compiled from SCSS.** The source is
-`scss/`, built with Webpack and dart-sass, passed through postcss/autoprefixer
-and rtlcss, and the **compiled CSS is committed and shipped as-is** — there is no
-build step at install time and no JavaScript runtime. Two bundles ship (minimal
-and max); a third file, the template, is a build input for dynamic consumers and
-is never linked. `ARCHITECTURE.md` holds the framework's own rules.
+The framework is compiled from SCSS with Webpack and dart-sass, passed through
+postcss/autoprefixer and rtlcss, and the **compiled CSS is committed and shipped
+as-is**: no build step at install time, no JavaScript runtime. Two bundles ship
+(minimal and max); a third file, the template, is a build input for dynamic
+consumers and is never linked.
 
-Every `.at-*` class applies one CSS property; a matching `--at-*` variable
-supplies its value. That single fact drives when to reach for one:
-
-1. **Layout: the grid and flex vocabulary, always.** `.at-ctnr` → `.at-row` →
-   `.at-col-{1..12}`, plus equal-share, `auto`, `cust`, fifths, gutterless rows
-   and the flex, align and justify families — in hand-written HTML, in React, or
-   in any JS framework. This is what the framework is for, and 104 grid classes
-   cover it. Never hand-roll `flex: 0 0 50%`, `width: 33%`, or a breakpoint;
-   responsiveness is a class infix.
-2. **Everything else: a raw property or a utility class, per property.** The test
-   is whether the value has a **second writer** — a colour mode, a media query, a
-   state, a second variant, a per-instance computed value, or a generator. Second
-   writer → class plus variable, so one change re-points every instance. One
-   source, written once → write the property. A token with nothing to re-point it
-   is a wrapper around a constant, and a `var()` read costs a custom-property
-   resolution per element that a literal does not.
-3. **Generated markup: the pair is required.** When a block builder, a Gutenberg
-   control, or another system writes the markup, it needs one seam to write a
-   per-instance value through. A generated `style` attribute is an inline style,
-   so a `style-src` policy without `unsafe-inline` drops it silently — and it
-   repeats the property on every instance.
-
-The full contract, with the tables and the reasoning, is in the
-[skill](skills/atomic-css/SKILL.md) — it ships in the package and is what an
-agent should be given.
+Layout is the grid, always: `.at-ctnr` → `.at-row` → `.at-col-{1..12}`, plus
+equal-share, `auto`, `cust` and the fifths ladder — never a hand-rolled
+`flex: 0 0 50%` or a new breakpoint. For everything else the test is whether the
+value has a **second writer** — a colour mode, a state, a variant, a
+per-instance value, or a generator: with one, reach for the class and set the
+variable; without one, write the property. The full contract — the three tiers,
+the component shapes, the arm rules — is
+[the skill's consumer contract](skills/atomic-css/SKILL.md#what-this-framework-is-for).
 
 ## Breaking changes in 2.0.0
 
@@ -133,7 +132,7 @@ autoprefixer clones (`-ms-flex-direction`, `-webkit-box-orient`) for each.
 | `.at-ctnr-min` | Centered container using `--at-ctnr-min` (fallback `1100px`) |
 | `.at-ctnr-fld` | Fluid (full-width) container |
 
-### Row & columns
+### Row and columns
 
 Wrap columns in `.at-row` (flex row with negative gutters). Columns are 12 per row:
 
@@ -165,10 +164,10 @@ Every class is a thin alias for a CSS property reading a matching variable, e.g.
 
 Abbreviations follow a documented legend (`bg-cl` = background-color, `bdr` = border, `tf` = transform, `msk` = mask, …) kept in [`short-names.json`](short-names.json).
 
-Using one of these is a choice, not a default: reach for the class when the value
-has a second writer (a colour mode, a state, a variant, a per-instance value, a
-generator). For a value you are about to write once and never vary, write the
-property — see [what this framework is for](#what-this-framework-is-and-what-it-is-for).
+When a class is warranted versus when to write the property is the
+[second-writer test](skills/atomic-css/SKILL.md#what-this-framework-is-for) — and
+the class tables, with the variables each one reads, are in
+[`classes.md`](skills/atomic-css/references/classes.md).
 
 ### Typography utilities
 
@@ -190,146 +189,44 @@ Each typography property has its own utility class reading its matching `--at-*`
 
 ## Theming
 
-Set variables on `:root`, on a theme container, or inline:
-
-```css
-:root {
-  --at-bg-cl: #0d6efd;
-  --at-p: 10px 25px;
-  --at-bdr-cl: #0c5ed7;
-}
-
-[data-at-theme="dark"] {
-  --at-bg-cl: #212529;
-  --at-cl: #fff;
-}
-```
-
-### Framework defaults vs consumer-declared
-
-The framework ships **no `:root` variables**. Its three structural grid values
-are direct `var()` fallbacks at the use sites; every other `--at-*` value is
-supplied by the consumer:
-
-| Variable | Fallback | Controls |
-| --- | --- | --- |
-| `--at-ctnr` | `1140px` | `.at-ctnr` max-width |
-| `--at-ctnr-min` | `1100px` | `.at-ctnr-min` max-width |
-| `--at-gtr` | `15px` | container/column padding and `.at-row` negative margins |
-
-The fallbacks apply to the grid rules only — they do not extend a token contract
-to unrelated consumer CSS that reads `var(--at-ctnr)` or `var(--at-gtr)` without
-its own fallback; declare the variable if your CSS reads it. Consumer
-declarations always win, including scoped ones:
-
-```css
-/* loaded after the bundle */
-:root { --at-ctnr: 700px; --at-gtr: 20px; }
-
-@media (min-width: 576px) {
-  .at-ctnr { --at-ctnr: 540px; } /* element-scoped, as the demo does */
-}
-```
-
-The fallback container default is not responsive: re-declare `--at-ctnr` per
-breakpoint as the demo does
-([`demo/colormode-globalstyle/scss/dynamic.scss`](demo/colormode-globalstyle/scss/dynamic.scss)).
-
-Everything else is consumer-declared:
-
-- **Utility and gap tokens** — each utility stays inert until its variable is
-  set. `--at-gap` has no universal default: `.at-gap` and the grid column
-  offset resolve to `0` when unset, while `.at-vrt` uses `15px`
-  (`--at-vrt-gap` → `--at-gap` → `15px`); `--at-row-gap` and `--at-col-gap` fall
-  back to `--at-gap`.
-- **Palette and state tokens** — `--at-primary`, `--at-primary--hover`, … are
-  consumed by your own identity/variant classes (see [Buttons](#buttons)); state
-  variants use a double dash.
-- **Legacy alias fallbacks** — `--at-wrd-spg` and `--at-mix-blend-mode` are
-  optional; the active names are `--at-wrd-spc` and `--at-mix-blnd-mode`.
-- **Class-scoped seeds** — `--at-pos`, `--at-z-idx`, … published by structural
-  helpers (`.at-ovl`, `.at-shp`, …) for co-applied utilities; consumers never
-  declare these.
-
-The single reference set (all tokens with defaults) lives in
+Theme by variable, never by property: re-point a `--at-*` token and every utility
+follows, with no class changes and no property restated under a theme, media or
+state arm. The framework ships no `:root` variables — the three grid values carry
+direct fallbacks (`--at-ctnr` 1140px, `--at-ctnr-min` 1100px, `--at-gtr` 15px),
+and every other token is inert until declared. The reference token set lives in
 [`demo/colormode-globalstyle/scss/variable.scss`](demo/colormode-globalstyle/scss/variable.scss);
-its plain-CSS equivalent is the `:root` block at the top of
-[`demo/colormode-globalstyle/colormode-globalstyle.css`](demo/colormode-globalstyle/colormode-globalstyle.css).
-Never fork or re-list it.
+the rules — naming, arms and resting values, the reference block — are in the
+skill's [global tokens](skills/atomic-css/references/patterns.md#global-tokens).
 
 ### Buttons
 
-`.at-btn` classes are **consumer-owned**: the framework ships no button CSS. A
-button repeats with variants, so it takes the repeating-component shape: **one
-self-sufficient identity class that owns the box, plus one variant class that
-sets values only.**
+The framework ships no button CSS: `.at-btn` is a consumer identity class. The
+variant registry (this list is the registry):
 
-```css
-/* The shell owns its properties. Its own measurements live in a private
-   --at-btn-* namespace, because --at-gap and --at-p belong to the app. */
-.at-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--at-btn-gap, 6px);
-  cursor: var(--at-btn-cur, pointer);   /* the private token, read directly */
-  color: var(--at-btn-cl, inherit);
-  background-color: var(--at-btn-bg-cl, transparent);
-  font-size: var(--at-btn-fnt-sz, 14px);
-  border-radius: var(--at-btn-bdr-rad, 3px);
-  padding: var(--at-btn-p, 6px 12px);
-}
+- Solid: `at-btn-primary`, `-secondary`, `-success`, `-danger`, `-warning`, `-info`, `-light`, `-dark`, `-lnk` (with `:hover` states).
+- Outline: `at-btn-outln` plus `at-btn-outln-<color>` for the same 8 colors.
+- Icon layout: `at-btn-icon`.
 
-/* Variants set values only — no properties. */
-.at-btn-primary {
-  --at-btn-cl: var(--at-white);
-  --at-btn-bg-cl: var(--at-primary);
-}
-.at-btn-primary:hover { --at-btn-bg-cl: var(--at-primary--hover); }
-
-.at-btn[disabled] { --at-btn-cur: not-allowed; opacity: 0.5; }
-```
-
-```html
-<button type="button" class="at-btn at-btn-primary">Primary</button>
-<button type="button" class="at-btn at-btn-outln-primary">Outline</button>
-<button type="button" class="at-btn at-btn-lnk">Link</button>
-<button type="button" class="at-btn at-btn-icon">Icon</button>
-<button type="button" class="at-btn" disabled>Disabled</button>
-```
-
-Two classes per button, not eight: the shell applies the properties, so the
-markup does not have to name them. A design that appears **once** takes the other
-shape — an identity class that writes the properties itself, with no token and no
-reader classes, because nothing about it varies. Only **generated markup** needs
-the seed, since a generator has to write somewhere. See
-[patterns.md § Components](skills/atomic-css/references/patterns.md#components-one-owner-per-class)
-for both encodings, and `verify-usage.mjs --allow at-btn,at-btn-primary` to teach
-the checker your names.
-
-Solid variants: `at-btn-primary`, `-secondary`, `-success`, `-danger`,
-`-warning`, `-info`, `-light`, `-dark`, `-lnk` (with `:hover` states).
-Outline variants: `at-btn-outln` plus `at-btn-outln-<color>` for the same
-8 colors. Icon layout: `at-btn-icon`, paired with the `at-inl-flx`/`at-gap`
-utilities.
-
-Variants consume the palette variables `--at-<color>` and `--at-<color>--hover`
-(`--at-primary`, `--at-primary--hover`, …), plus `--at-white`, `--at-black`,
-`--at-base-color`, `--at-body-color`, `--at-quaternary` — declare them at
-`:root` or on a theme container (reference set in the demo `variable.scss`).
+Variants consume the palette tokens `--at-<color>` and `--at-<color>--hover`
+(`--at-primary`, …), plus `--at-white`, `--at-black`, `--at-base-color`,
+`--at-body-color`, `--at-quaternary` — declare them at `:root` or on a theme
+container. The worked contract — the shell, the private `--at-btn-*` namespace,
+the generated-markup case — is
+[components: one owner per class](skills/atomic-css/references/patterns.md#components-one-owner-per-class).
 
 ### WordPress
 
-```php
-wp_enqueue_style( 'atomic', 'url-path-to/css/atomic.min.css', array(), '2.0.0' );
-```
-
-The enqueued bundle declares no `:root` variables; the theme supplies the
-reference set (the grid itself relies on the built-in fallbacks otherwise).
+Enqueue one bundle; the active theme supplies the token set. The install matrix,
+the template transform and the enqueue example are in the skill's
+[setup reference](skills/atomic-css/references/setup.md#enqueue-wordpress).
 
 ## RTL
 
-`*-rtl.css` files are auto-generated with [rtlcss](https://rtlcss.com/). rtlcss flips physical declarations (`left`/`right`, margins, padding), but **values inside `var()` are not mirrored** — e.g. a margin shorthand in `--at-m` stays LTR-oriented, so use logical/physical-aware values for RTL layouts.
+Every bundle has an `-rtl` sibling (rtlcss mirrors physical declarations —
+`left`/`right`, margins, padding, `.at-ofst-*` offsets included — but **not
+values inside `var()`**). The mirrored stylesheet is only half of it: the
+document must be marked RTL too (`<html dir="rtl">`), and no variable value
+carries direction. Details in the skill's [RTL setup](skills/atomic-css/references/setup.md#rtl).
 
 ## npm
 
@@ -347,7 +244,7 @@ ref, which resolves to the pre-2.0 `master` tree. Git installs ship the
 committed CSS: there is no build step, so the CSS in the repo is the artifact.
 The full install matrix — a vendored copy, a single raw file, and how to confirm
 the stylesheet resolved — is in the skill's
-[setup.md](skills/atomic-css/references/setup.md#install).
+[setup reference](skills/atomic-css/references/setup.md#install).
 
 ```html
 <link rel="stylesheet" href="node_modules/atomic-css/css/atomic.min.css">

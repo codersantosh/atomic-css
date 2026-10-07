@@ -17,7 +17,8 @@ const files = [
     path.join(root, 'css-max', 'atomic-max.css'),
     template,
     // The demo is the reference consumer: its compiled CSS is scanned too,
-    // per ARCHITECTURE.md Part II ("class tokens are drawn from short-names.json").
+    // per ARCHITECTURE.md § The token contract — every abbreviation lands in
+    // short-names.json in the same change.
     path.join(root, 'demo', 'colormode-globalstyle', 'colormode-globalstyle.css'),
     path.join(root, 'demo', 'colormode-globalstyle', 'dynamic.css'),
 ];

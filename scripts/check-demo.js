@@ -1,7 +1,7 @@
 /**
  * check-demo — the demo is a required surface, not a showroom.
  *
- * ARCHITECTURE.md § Consumer Simulation: every pattern a consumer is expected
+ * ARCHITECTURE.md § Consumer simulation: every pattern a consumer is expected
  * to follow must be demonstrated in demo/ first. That only holds if the demo
  * actually works, so this gate fails the build when it does not.
  *
@@ -250,7 +250,7 @@ if (fs.existsSync(themeFile)) {
 if (failures.length) {
     failures.forEach((f) => console.error(`  ${f}`));
     console.error(`FAIL: ${failures.length} demo problem(s). The demo is the consumer `
-        + 'reference (ARCHITECTURE.md § Consumer Simulation).');
+        + 'reference (ARCHITECTURE.md § Consumer simulation).');
     process.exit(1);
 }
 

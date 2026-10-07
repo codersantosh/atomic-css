@@ -1400,7 +1400,7 @@ function checkSectionPointers(owner, content) {
         return resolvers.get(file);
     };
     // A § on a line that itself bolds the same words must not resolve against
-    // that line. ARCHITECTURE.md § Shared Rules is a table whose first column is
+    // that line. ARCHITECTURE.md § Shared rules is a table whose first column is
     // the doctrine name and whose second column points at it — self-satisfaction
     // made that table immune to this check for as long as the column existed.
     const ownerInlineBold = (line) => new Set(
