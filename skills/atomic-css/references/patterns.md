@@ -364,7 +364,8 @@ function Card({ tone, pad }) {
 ### Site builders
 
 - **No inline `style`** — a generated `style` attribute is an inline style: dropped by any `style-src` without `unsafe-inline`, after which the class still applies and the property goes silently missing.
-- **The class owns the token, the applier is a fixed class** — every instance carries the same classes, so the generated markup stays stable; values arrive through the cascade, never through the markup:
+- **The class owns the token, the applier is a fixed class** — every instance carries the same classes, so the generated markup stays stable; values arrive through the cascade, never through the markup.
+- **Global CSS** — the values are taken from the global settings / global CSS: declare the tokens once, and every instance follows:
 
 ```css
 .unique-class { --at-cl: var(--at-card-cl, inherit); }
