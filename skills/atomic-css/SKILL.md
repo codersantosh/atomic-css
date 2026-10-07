@@ -1,6 +1,7 @@
 ---
 name: atomic-css
 description: Apply the atomic-css utility framework — `.at-*` classes that read `--at-*` CSS variables, with a Flexbox grid, mobile-first breakpoint infixes, RTL variants and a WordPress template bundle. Use when writing or reviewing markup/CSS in a project that links an atomic-css bundle, when choosing between the minimal and max bundles, when theming with `--at-*` variables or a dark mode, or when a `.at-*` class "does nothing". Not for changing the framework itself — that is repo work, governed by the framework repo's own agent notes, which are not part of this skill.
+license: GPL-2.0-or-later
 ---
 
 # atomic-css (consumer)
