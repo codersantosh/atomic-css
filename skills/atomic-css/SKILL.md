@@ -141,7 +141,7 @@ Deeper: [semantic HTML](references/patterns.md#semantic-html-first) ·
 [tokens and arms](references/patterns.md#arms-and-resting-values) ·
 [private namespaces](references/patterns.md#why-the-namespace-is-private) ·
 [readers](references/patterns.md#which-classes-read-a-channel-and-which-do-not) ·
-[React and Gutenberg](references/patterns.md#markup-targets) ·
+[React and site builders](references/patterns.md#markup-targets) ·
 [overriding](references/patterns.md#overriding) ·
 [WCAG and the platform standards](references/patterns.md#standards-and-where-atomic-css-fits) ·
 [production notes](references/production.md).

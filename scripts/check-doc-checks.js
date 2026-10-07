@@ -94,8 +94,8 @@ const cases = [
         '<a href="#main" class="skip-link">Skip to content</a>',
         '<a href="#main" class="at-pos at-w at-h at-ovf at-clp-pth at-white-sp at-z-idx">\n  Skip to content\n</a>', 1, inertFailures),
     () => check('one seeded class makes an example live again', P,
-        '<figure class="wp-block-card at-cl at-p">',
-        '<figure class="wp-block-card at-cl at-p" style="--at-p: 1rem">', 0, inertFailures),
+        '<figure class="unique-class at-cl at-p">',
+        '<figure class="unique-class at-cl at-p" style="--at-p: 1rem">', 0, inertFailures),
 
     // --- documentation standard: must fire
     () => check('a missing owner line is rejected', D,

@@ -52,7 +52,7 @@ The gaps these rows leave you are the [accessibility section](production.md#acce
 | CSS Containment L3 | a component queries its own box | `.at-ctnr` is a fixed width, not a query container |
 | CSP Level 3 `style-src` | inline `style` attributes are dropped | seed a token, let an applier class apply it |
 | Design Tokens CG | one source per token | one `:root` block, no forks |
-| WordPress Gutenberg handbook | `save()` output stays stable and serializable | the block class owns the token, appliers stay in markup |
+| Site builders | generated markup stays stable and serializable | the class owns the token, appliers stay in the markup |
 
 The two **do not** rows are the load-bearing ones: `@layer` and `:where()` both invert a guarantee this framework depends on ([cascade layers](production.md#cascade-layers-the-one-that-breaks-silently)).
 
@@ -340,15 +340,7 @@ One instance, no registry, nothing that will ever re-point a value: the class wr
 <span class="brand-name">Acme</span>
 ```
 
-In generated markup the seed shape is mandatory instead: the block class owns the channel, an applier class applies it.
-
-```css
-.wp-block-card { --at-cl: var(--at-card-cl, inherit); }
-```
-
-```html
-  <figure class="wp-block-card at-cl at-p">…</figure>
-```
+In generated markup the seed shape is mandatory instead: the class owns the channel and an applier class applies it — worked in [site builders](#site-builders).
 
 ### Naming the private namespace
 
@@ -369,11 +361,18 @@ function Card({ tone, pad }) {
 - `CSSProperties` has no custom properties — `style` needs `as React.CSSProperties`.
 - Conditional class names must not fork the stylesheet: one identity class per variant, changing a private token.
 
-### Gutenberg and other site builders
+### Site builders
 
-- **No inline `style`** — dropped by any `style-src` without `unsafe-inline`, and it fails block validation when saved and rendered markup differ.
-- **The block class owns the token, the applier is a fixed class** (the `wp-block-card` shape above).
-- Attribute-driven variation goes through block `supports` and global CSS — not attribute selectors in your block stylesheet.
+- **No inline `style`** — a generated `style` attribute is an inline style: dropped by any `style-src` without `unsafe-inline`, after which the class still applies and the property goes silently missing.
+- **The class owns the token, the applier is a fixed class** — every instance carries the same classes, so the generated markup stays stable; values arrive through the cascade, never through the markup:
+
+```css
+.unique-class { --at-cl: var(--at-card-cl, inherit); }
+```
+
+```html
+<figure class="unique-class at-cl at-p">…</figure>
+```
 
 ## Variables in markup and JS
 
